@@ -1,0 +1,29 @@
+.event-card {
+  background-color: #182637;
+  height: 20vh;
+  width: 20vw;
+  color: #98bdd3;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 20px;
+  border: 2px solid #182637;
+  transition: 0.2s;
+}
+
+.event-card:hover {
+  transform: scale(1.05);
+  border: 2px solid #3c89cb;
+  color: #3c89cb
+}
+
+.add {
+  font-size: 60px;
+}
+
+.add:hover {
+  border: 2px solid #56f000;
+  color: #56f000;
+}

@@ -1,0 +1,42 @@
+.header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-content: center;
+  height: 80px;
+  background-color: #101923;
+  color: #98bdd3;
+  width: 100vw;
+  margin: 0px;
+}
+
+.title {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-size: 50px;
+  transition: 0.4s;
+}
+
+.title:hover {
+  transform: scale(1.05);
+}
+
+.hamburger {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+  width: 60px;
+  font-size: 45px;
+  margin-left: 10px;
+  transition: 0.4s;
+}
+
+.hamburger:hover {
+  transform: scale(1.1);
+}
+
+.spacer {
+  width: 60px;
+}

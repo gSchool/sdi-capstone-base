@@ -1,0 +1,45 @@
+.event {
+  margin: 30px;
+  color: #98bdd3;
+}
+
+.info {
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  /* height: 300px; */
+  width: 100%;
+}
+
+.entry {
+  height: 50px;
+}
+
+.info-labels {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  font-size: 24px;
+  /* height: 100%; */
+  width: 150px;
+}
+
+.info-values {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: flex-start;
+  margin-left: 20px;
+  /* height: 100%; */
+  color: white;
+  width: 90%
+}
+
+.desc {
+  justify-content: flex-start;
+}
+
+.desc-val {
+  justify-content: flex-start;
+  padding-top: 5px;
+}
