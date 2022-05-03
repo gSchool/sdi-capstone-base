@@ -5,7 +5,7 @@ const config = {
     },
 
     production: {
-        apiUrl: "https://bsdi-poc-api.herokuapp.com"
+        apiUrl: "https://rebels-asats-api.herokuapp.com/"
     },
     test: {
         apiUrl: ''
