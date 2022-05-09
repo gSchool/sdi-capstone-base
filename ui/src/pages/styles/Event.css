@@ -1,6 +1,5 @@
 .event {
   margin: 30px;
-  color: #98bdd3;
 }
 
 .info {
@@ -31,8 +30,8 @@
   align-items: flex-start;
   margin-left: 20px;
   /* height: 100%; */
-  color: white;
-  width: 90%
+  color: #cbdee9;
+  width: 90%;
 }
 
 .desc {

@@ -28,14 +28,15 @@
   margin-inline: 10px;
   width: 15vw;
   padding: 10px;
-  background-color: #2f7aa7;
+  background-color: #4dacff;
   border-radius: 10px;
-  border: 2px solid #2f7aa7;
+  border: 2px solid #4dacff;
   transition: 0.2s;
 }
 
 .button:hover {
   transform: scale(1.05);
-  border: 2px solid #98bdd3;
-  color: #98bdd3;
+  border: 2px solid #001828;
+  /* background-color: #001828; */
+  /* color: #001828 */
 }

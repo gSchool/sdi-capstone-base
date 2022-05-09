@@ -1,15 +1,15 @@
 .event-card {
-  background-color: #182637;
+  background-color: #2d4763;
   height: 20vh;
   width: 20vw;
-  color: #98bdd3;
+  color: #cbdee9;
   border-radius: 10px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   margin: 20px;
-  border: 2px solid #182637;
+  border: 2px solid #001828;
   transition: 0.2s;
 }
 

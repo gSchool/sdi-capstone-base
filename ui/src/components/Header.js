@@ -9,12 +9,14 @@ import Sidebar from './Sidebar'
 function openNav() {
   document.getElementById("sidebar") && (document.getElementById("sidebar").style.width = "250px");
   document.getElementById("main-page") && (document.getElementById("main-page").style.marginLeft = "250px");
+  document.getElementById("main-page") && (document.getElementById("main-page").style.width = "calc(100vw - 250px)");
 }
 
 /* Set the width of the sidebar to 0 and the left margin of the page content to 0 */
 function closeNav() {
   document.getElementById("sidebar") && (document.getElementById("sidebar").style.width = "0");
   document.getElementById("main-page") && (document.getElementById("main-page").style.marginLeft = "0");
+  document.getElementById("main-page") && (document.getElementById("main-page").style.width = "100vw");
 }
 
 

@@ -10,6 +10,9 @@ const EventSettings = () => {
 
   const submitHandler = (event) => {
     event.preventDefault()
+    if (window.confirm("Are you sure you want to make these changes?")) {
+      console.log(`Submitted changes for event: ${state.currentEvent.name}`)
+    }
   }
 
   useEffect(() => {
@@ -18,6 +21,12 @@ const EventSettings = () => {
       setEndDate(new Date(state.currentEvent.end_date))
     }
   }, [state])
+
+  const deleteHandler = () => {
+    if (window.confirm("Are you sure you want to permanently delete this event?")) {
+      console.log(`Deleted event: ${state.currentEvent.name}`)
+    }
+  }
 
   return (
     <>
@@ -45,13 +54,13 @@ const EventSettings = () => {
                 <textarea name='description' id='description' defaultValue={state.currentEvent.description} />
               </div>
             </div>
-            <input className='button submit' type='submit' value='Update Event' />
+            <input className='button submit' type='submit' value='Save Changes' />
           </form>
 
           <hr className='rule'/>
           <div className='danger-zone' >
             <h1>Danger Zone</h1>
-            <button className='button delete' type='button'>
+            <button className='button delete' type='button' onClick={deleteHandler}>
               Delete Event
             </button>
           </div>

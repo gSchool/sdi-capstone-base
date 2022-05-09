@@ -7,6 +7,7 @@ import './styles/Sidebar.css'
 function closeNav() {
   document.getElementById("sidebar").style.width = "0";
   document.getElementById("main-page").style.marginLeft = "0";
+  document.getElementById("main-page").style.width = "100vw";
 }
 
 const Sidebar = ({ setShowSidebar }) => {
