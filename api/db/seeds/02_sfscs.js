@@ -4,6 +4,11 @@
  */
 exports.seed = async function(knex) {
   // Deletes ALL existing entries
+  await knex('award_packages').del()
+  await knex('users_mentors').del()
+  await knex('users').del()
+  await knex('awards').del()
+  await knex('requirements').del()
   await knex('sfscs').del()
   await knex('sfscs').insert([
     {code: '5C0X1-K', title: 'Cybersecurity Analyst'},

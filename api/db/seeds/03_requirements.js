@@ -4,6 +4,7 @@
  */
 exports.seed = async function(knex) {
   // Deletes ALL existing entries
+  await knex('awards').del()
   await knex('requirements').del()
   await knex('requirements').insert([
     {sfscs_code: '5C0X1-K', rank_category: 'Junior Enlisted', demographic: 'Age'},
