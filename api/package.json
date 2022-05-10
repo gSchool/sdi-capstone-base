@@ -9,7 +9,7 @@
     "test": "jest",
     "lint": "eslint ./src/**/*.js ./db/**/*.js ./*.js"
   },
-  "author": "Jeff Haddock and Eric Sung",
+  "author": "REBELS",
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",

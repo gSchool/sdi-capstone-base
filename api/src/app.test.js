@@ -1,4 +1,8 @@
-const knex = require('knex')(require('../knexfile.js')['development']);
+const env = process.env.NODE_ENV || 'development'
+const config = require('../knexfile.js')[env]
+const knex = require('knex')(config)
+
+//beforeAll(() => console.log(config));
 
 afterAll(() => knex.destroy());
 
@@ -75,7 +79,7 @@ describe('Database Seeding', () => {
     test('Awards should be seeded.', async () => {
         await knex.select('*').from('awards').where('title', '=', 'Junior Enlisted - Guardian of the Quarter')
         .then(result => {
-            expect(result[0].requirements_id).toBe(6);
+            expect(result[0].requirements_id).toBe(1);
         });
     });
     test('SFSCs should be seeded.', async () => {
@@ -91,9 +95,9 @@ describe('Database Seeding', () => {
         });
     });
     test('Award Packages should be seeded.', async () => {
-        await knex.select('*').from('award_packages').where('user_id', '=', '1')
+        await knex.select('*').from('award_packages').where('user_id', '=', '5')
         .then(result => {
-            expect(result[0].award_text).toBe('At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat.');
+            expect(result[0].award_id).toBe(1);
         });
     });
 })

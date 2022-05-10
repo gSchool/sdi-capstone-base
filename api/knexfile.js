@@ -31,16 +31,17 @@ module.exports = {
   test: {
     client: 'postgresql',
     connection: {
-      database: 'my_db',
-      user:     'username',
-      password: 'password'
-    },
-    pool: {
-      min: 2,
-      max: 10
+      host: HOST,
+      user: USER,
+      password: PASSWORD,
+      port: PORT,
+      database: DATABASE
     },
     migrations: {
-      tableName: 'knex_migrations'
+      directory: './db/migrations'
+    },
+    seeds: {
+      directory: './db/seeds'
     }
   },
 
