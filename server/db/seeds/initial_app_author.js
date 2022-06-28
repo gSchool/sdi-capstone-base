@@ -2,7 +2,7 @@
  * @param { import("knex").Knex } knex
  * @returns { Promise<void> } 
  */
-exports.seed = async function(knex) {
+export async function seed(knex) {
   await knex('app_authors').select('*')
     .then((rows) => {
       if (rows.length === 0) {
@@ -12,4 +12,4 @@ exports.seed = async function(knex) {
         ]);
       }
     })
-};
+}
