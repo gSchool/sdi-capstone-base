@@ -23,6 +23,6 @@ yarn-debug.log*
 yarn-error.log*
 
 #database
-/api/db/data/*
+/server/db/data/*
 */super-linter.log
 super-linter.log

@@ -4,7 +4,7 @@ volumes:
   pgdatasource:
 
 services:
-  capstone-db:
+  smartsheets-db:
     image: postgres
     restart: always
     environment: 
@@ -12,7 +12,7 @@ services:
      - POSTGRES_USER=postgres
      - POSTGRES_PASSWORD=docker
      - POSTGRES_PORT=5432
-     - POSTGRES_DB=capstone
+     - POSTGRES_DB=smartsheets
     ports:
      - '5432:5432'
     healthcheck:
@@ -23,33 +23,33 @@ services:
     volumes:
       - pgdatasource:/var/lib/postgresql/data
 
-  capstone-api:
-    build: api/
+  smartsheets-server:
+    build: server/
     depends_on:
-      capstone-db:
+      smartsheets-db:
         condition: service_healthy
     ports:
       - '8080:8082'
     environment: 
       - NODE_ENV=development
-      - DATABASE_HOST=capstone-db
+      - DATABASE_HOST=smartsheets-db
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=docker
       - POSTGRES_PORT=5432
-      - POSTGRES_DB=capstone
+      - POSTGRES_DB=smartsheets
     volumes:
       - type: bind
-        source: ./api
+        source: ./server
         target: /app
     command: npm run start:dev
 
-  capstone-ui:
-    build: ui/
+  smartsheets-client:
+    build: client/
     depends_on:
-      - 'capstone-api'
+      - 'smartsheets-server'
     ports:
       - '3001:3000'
     volumes:
       - type: bind
-        source: ./ui/src
+        source: ./client/src
         target: /app/src
