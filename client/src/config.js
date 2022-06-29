@@ -1,14 +1,13 @@
 
 const config = {
     development: {
-        apiUrl: "http://localhost:8080"
-    },
-
-    production: {
-        apiUrl: "https://smartsheets-server.herokuapp.com"
+        apiUrl: "http://localhost:8082"
     },
     test: {
         apiUrl: ''
+    },
+    production: {
+        apiUrl: "https://smartsheets-server.herokuapp.com"
     }
 }
 

@@ -3,6 +3,8 @@
  * @returns { Promise<void> } 
  */
 export async function seed(knex) {
+  await knex.schema.raw('TRUNCATE app_authors CASCADE')
+  await knex('app_authors').del()
   await knex('app_authors').select('*')
     .then((rows) => {
       if (rows.length === 0) {
