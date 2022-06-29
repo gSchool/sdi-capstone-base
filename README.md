@@ -1,6 +1,6 @@
 # SmartSheets v0.0
 
-### SmartSheets is a better way to store and share data.
+### SmartSheets is a better way to store and share data
 
 #
 
