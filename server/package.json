@@ -8,6 +8,7 @@
     "start": "knex migrate:latest && knex seed:run && node ./src/index.js",
     "start:dev": "export NODE_ENV=development && knex migrate:latest && knex seed:run && nodemon --watch ./ ./src/index.js",
     "test": "jest",
+    "build": "node build.js",
     "lint": "eslint ./src/**/*.js ./db/**/*.js ./*.js"
   },
   "author": "Dayan Sauerbronn, Daniel Salazar, Kyle Dilick, Kevin Wolfe, Levi Fry",
