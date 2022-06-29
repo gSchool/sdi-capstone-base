@@ -3,12 +3,11 @@
  * @returns { Promise<void> } 
  */
 exports.seed = async function(knex) {
-  await knex('app_authors').select('*')
+  await knex('users').select('*')
     .then((rows) => {
       if (rows.length === 0) {
-        return knex('app_authors').insert([
-          {first_name: 'Eric', last_name: 'Sung'},
-          {first_name: 'Jeff', last_name: 'Haddock'}
+        return knex('users').insert([
+          {first_name: 'Cybyl', last_name: 'Hancock', username: 'cjhanc15', password: '12345'}
         ]);
       }
     })
