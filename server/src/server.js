@@ -11,13 +11,6 @@ var opts = {
   credentials: true,
 }
 
-// var opts = {
-//   origin: ["http://localhost:3000","http://76.174.184.10:3000","http://localhost:1337/","http://76.174.184.10:1337","http://live.levifry.com","http://smartsheets-client.herokuapp.com","https://smartsheets-client.herokuapp.com"],
-//   optionsSuccessStatus: 200,
-//   methods: ["GET","POST","DELETE","UPDATE", "PUT", "PATCH"],
-//   credentials: true,
-// }
-
 server.use(cors(opts));
 server.use(json());
 

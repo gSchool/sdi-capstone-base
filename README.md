@@ -7,5 +7,5 @@
 ### **Version Notes:**
 ```
 v0.0 - Initialized Application
-    [x] Set up the framework to start building SmartSheets
+    - Set up the framework to start building SmartSheets
 ```
