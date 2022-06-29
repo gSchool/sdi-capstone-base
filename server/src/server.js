@@ -2,7 +2,6 @@ import express, { json } from 'express';
 import cors from 'cors';
 import knex from "../db/db.js";
 
-
 const server = express();
 
 var opts = {
@@ -15,7 +14,7 @@ server.use(json());
 
 server.get('/api/', (request, response) => {
   response.set("Access-Control-Allow-Origin", "*");
-  response.status(200).send('App root route running');
+  response.status(200).send('Api root route running');
 })
 
 server.get('/api/authors', (request, response) => {
