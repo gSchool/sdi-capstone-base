@@ -18,7 +18,7 @@ function App() {
   return (
     <div>
       App is running - good work: 
-      { names.map(author => author.firstName + " ")}
+      { names.map(author => " " + author.firstName)}
     </div>
   );
 }

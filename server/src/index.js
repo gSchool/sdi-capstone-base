@@ -1,6 +1,6 @@
-import { listen } from './app';
+import server from './server';
 const PORT = process.env.PORT || 8082;
 
-listen(PORT, () => {
+server.listen(PORT, () => {
     console.log(`Server running and listening on ${PORT}`);
 })

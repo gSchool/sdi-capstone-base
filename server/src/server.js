@@ -3,7 +3,7 @@ import cors from 'cors';
 import knex from 'knex';
 import knexfile from '../knexfile';
 
-const app = express();
+const server = express();
 
 var corsOptions = {
     origin: ["http://localhost:3000", "https://smartsheets-client.herokuapp.com/"],
@@ -12,20 +12,20 @@ var corsOptions = {
     credentials: true,
 }
 
-app.use(cors(corsOptions));
-app.use(json());
+server.use(cors(corsOptions));
+server.use(json());
 
 const env = process.env.NODE_ENV || 'development'
 const config = knexfile[env]
 const db = knex(config);
 
 
-app.get('/', (request, response) => {
+server.get('/', (request, response) => {
     response.set("Access-Control-Allow-Origin", "*");
     response.status(200).send('App root route running');
 })
 
-app.get('/authors', (request, response) => {
+server.get('/authors', (request, response) => {
     db('app_authors')
         .select('*')
         .then(authorRecords => {
@@ -36,5 +36,5 @@ app.get('/authors', (request, response) => {
 })
 
 
-export default app;
+export default server;
 
