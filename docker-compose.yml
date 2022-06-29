@@ -4,7 +4,7 @@ volumes:
   pgdatasource:
 
 services:
-  smartsheets-db:
+  db:
     image: postgres
     restart: always
     environment: 
@@ -23,16 +23,16 @@ services:
     volumes:
       - pgdatasource:/var/lib/postgresql/data
 
-  smartsheets-server:
+  server:
     build: server/
     depends_on:
-      smartsheets-db:
+      db:
         condition: service_healthy
     ports:
       - '8080:8080'
     environment: 
       - NODE_ENV=development
-      - DATABASE_HOST=smartsheets-db
+      - DATABASE_HOST=db
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=docker
       - POSTGRES_PORT=5432
@@ -43,10 +43,10 @@ services:
         target: /app
     command: npm run start:dev
 
-  smartsheets-client:
+  client:
     build: client/
     depends_on:
-      - 'smartsheets-server'
+      - 'server'
     ports:
       - '3000:3000'
     volumes:
