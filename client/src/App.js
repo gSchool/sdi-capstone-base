@@ -1,14 +1,14 @@
 import React, { useEffect, useState} from 'react';
 import config from './config'
 
-const ApiUrl = config[process.env.REACT_APP_NODE_ENV || "development"].apiUrl;
+const apiUrl = config[process.env.REACT_APP_NODE_ENV || "development"].apiUrl;
 
 function App() {
 
   let [names, setNames] = useState([]);
 
   useEffect(() => {
-    fetch(ApiUrl + "/api/authors")
+    fetch(apiUrl + "/api/authors")
       .then(response => response.json())
       .then(data => setNames(data))
       .catch(err => console.log(err))
@@ -17,7 +17,7 @@ function App() {
 
   return (
     <div>
-      App is running - good work: 
+      App is running 😎 - good work: 
       { names.map(author => " " + author.firstName)}
     </div>
   );
