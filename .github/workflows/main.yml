@@ -48,7 +48,7 @@ jobs:
           docker run -e CI=true smartsheets-server npm run test
   
   # This workflow kicks off the deployment to Heroku for the UI
-  deploy-ui:
+  deploy-client:
     name: Deploy Client to Heroku
     # Needs specifies the steps that must previously complete in order to deploy your application.
     needs: [ build-and-test-client, build-and-test-server ]
@@ -60,12 +60,12 @@ jobs:
         with: 
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: "smartsheets-client"
-          heroku_email: "lfry94@gmail.com
+          heroku_email: "lfry94@gmail.com"
           appdir: "client/"
           usedocker: true
   
   # This workflow kicks off the deployment to Heroku for the UI
-  deploy-api:
+  deploy-server:
     name: Deploy Server to Heroku
     needs: [ build-and-test-client, build-and-test-server ]
     # The type of runner that the job will run on
