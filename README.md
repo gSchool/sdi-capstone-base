@@ -1,13 +1,13 @@
 TODO: 
 1. Create Volumes for API and UI - set up in docker compose
 1. Set up deployment pipeline
-1. Map node_modules as volume in docker-compose
-1. Set up Env variables for email and API names.
+2. Map node_modules as volume in docker-compose
+3. Set up Env variables for email and API names.
 
 TODO: NICE TO HAVE
 1. Web pack deploy on the pipeline
-1. break apart UI and API repositories with Manifest file repository
-1. install and run cypress tests
+2. break apart UI and API repositories with Manifest file repository
+3. install and run cypress tests
 
 # sdi-capstone-proof-of-concept
 
