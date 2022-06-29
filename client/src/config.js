@@ -5,7 +5,7 @@ const config = {
     },
 
     production: {
-        apiUrl: "https://smartsheets-client.herokuapp.com"
+        apiUrl: "https://smartsheets-server.herokuapp.com"
     },
     test: {
         apiUrl: ''
