@@ -1,25 +1,37 @@
-import React, { useEffect, useState} from 'react';
-import config from './config'
+import React from 'react';
+import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
+import Landing from './Components/Landing.js';
+import SignUp from './Components/SignUp.js';
+import Profile from './Components/Profile.js';
 
-const ApiUrl = config[process.env.REACT_APP_NODE_ENV || "development"].apiUrl;
+// import config from './config'
+// const ApiUrl = config[process.env.REACT_APP_NODE_ENV || "development"].apiUrl;
 
 function App() {
 
-  let [names, setNames] = useState([ ]);
+  // let [list, setList] = useState([ ]);
 
-  useEffect(() => {
-    fetch(ApiUrl + "/authors")
-      .then(response => response.json())
-      .then(data => setNames(data))
-      .catch(err => console.log(err))
-  }, []);
-
+  // useEffect(() => {
+  //   fetch('http://localhost:8082/users')
+  //     .then(response => response.json())
+  //     .then(data => setUsers(data))
+  //     .catch(err => console.log(err))
+  // }, []);
 
   return (
-    <div>
-      App is running - good work: 
-      { names.map(author => author.firstName + " ")}
-    </div>
+    <>
+    <Router>
+      <Routes>
+        <Route path='/' element={<Landing/>}/>
+        <Route path='/signup' element={<SignUp/>}/>
+        <Route path='/profile/:id' element={<Profile/>}/>
+      </Routes>
+    </Router>
+    {/* <div>
+      <h4>{list.map(post => post.title)}</h4>
+      <p>{list.map(post => post.content)}</p>
+    </div> */}
+    </>
   );
 }
 

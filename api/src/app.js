@@ -43,7 +43,7 @@ app.get('/users', (request, response) => {
 
 app.get('/users/:id', (req, res) => {
     knex('users')
-        .where('id', req.params.id)
+        .where({id: req.params.id})
         .then(data => res.status(200).json(data))
         .catch(() => res.status(404).send(`Could not retrieve user ${req.params.id} or user does not exist`))
 })
@@ -59,14 +59,46 @@ app.get('/posts', (req, res) => {
 
 app.get('/posts/:id', (req, res) => {
     knex('posts')
-        .where('id', req.params.id)
+        .where({id: req.params.id})
         .then(data => res.status(200).json(data))
         .catch(() => res.status(404).send(`Could not retrieve post ${req.params.id} or post does not exist`))
 })
 
 //Update
 
+app.patch('/users/:id', (req, res) => {
+    knex('users')
+    .where({id: req.params.id})
+    .update(req.body)  
+    .then(()=> knex('users'))
+    .then(data => res.status(200).json(data))
+})
+
+app.patch('/posts/:id', (req, res) => {
+    knex('posts')
+    .where({id: req.params.id})
+    .update(req.body)  
+    .then(()=> knex('posts'))
+    .then(data => res.status(200).json(data))
+})
+
 //Delete
+
+app.delete('/users/:id', (req, res) => {
+    knex('users')
+    .delete()
+    .where({id: req.params.id})
+    .then(()=> knex('posts'))
+    .then(data => res.status(200).json(data))
+})
+
+app.delete('/posts/:id', (req, res) => {
+    knex('posts')
+    .delete()
+    .where({id: req.params.id})
+    .then(()=> knex('posts'))
+    .then(data => res.status(200).json(data))
+  })
 
 module.exports = app;
 
