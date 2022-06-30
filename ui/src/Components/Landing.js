@@ -20,14 +20,14 @@ const nav = useNavigate();
 
 
   const signIn = (username, password) => {
-    let found = values.users.some(user => user.username === username)
+    let usernameFound = values.users.some(user => user.username === username)
     let user = values.users.filter(user => user.username === username)
     console.log(user)
     setters.setUser(user)
-    if(found && user[0].password === password) {
+    if(usernameFound && user[0].password === password) {
       console.log('correct!');
       nav(`/profile/${username}`);
-    } else if(!found) {
+    } else if(!usernameFound) {
       alert('You do not have an account!');
       nav('/signup');
     } else {
