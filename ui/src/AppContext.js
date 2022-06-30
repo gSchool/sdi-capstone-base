@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 const AppContext = React.createContext();
 import propTypes from 'prop-types';
+
 const AppProvider = ({ children }) => {
 
   const [users, setUsers] = useState({
@@ -10,7 +11,7 @@ const AppProvider = ({ children }) => {
     password: ''
   });
 
-  const [user, setUser] = useState({})
+  const [user, setUser] = useState([])
   const [posts, setPosts] = useState([])
 
   const values = {

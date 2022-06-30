@@ -10,15 +10,6 @@ import { AppProvider } from './AppContext.js';
 
 function App() {
 
-  // let [list, setList] = useState([ ]);
-
-  // useEffect(() => {
-  //   fetch('http://localhost:8082/users')
-  //     .then(response => response.json())
-  //     .then(data => setUsers(data))
-  //     .catch(err => console.log(err))
-  // }, []);
-
   return (
     <AppProvider>
     <Router>
@@ -28,10 +19,6 @@ function App() {
         <Route path='/profile/:username' element={<Profile/>}/>
       </Routes>
     </Router>
-    {/* <div>
-      <h4>{list.map(post => post.title)}</h4>
-      <p>{list.map(post => post.content)}</p>
-    </div> */}
     </AppProvider>
   );
 }

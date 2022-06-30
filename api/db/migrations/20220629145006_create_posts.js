@@ -6,7 +6,7 @@
   return knex.schema.createTable('posts', table => {
       table.increments();
       table.string('title', 250);
-      table.string('content', 250);
+      table.string('content', 5000);
       table.integer('user_id');
       table.foreign('user_id').references('users.id');
 
