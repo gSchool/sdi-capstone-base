@@ -3,6 +3,7 @@ import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import Landing from './Components/Landing.js';
 import SignUp from './Components/SignUp.js';
 import Profile from './Components/Profile.js';
+import { AppProvider } from './AppContext.js';
 
 // import config from './config'
 // const ApiUrl = config[process.env.REACT_APP_NODE_ENV || "development"].apiUrl;
@@ -19,7 +20,7 @@ function App() {
   // }, []);
 
   return (
-    <>
+    <AppProvider>
     <Router>
       <Routes>
         <Route path='/' element={<Landing/>}/>
@@ -31,7 +32,7 @@ function App() {
       <h4>{list.map(post => post.title)}</h4>
       <p>{list.map(post => post.content)}</p>
     </div> */}
-    </>
+    </AppProvider>
   );
 }
 

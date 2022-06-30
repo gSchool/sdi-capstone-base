@@ -1,0 +1,69 @@
+.background {
+  background-color: aliceblue;
+  background-size: cover;
+}
+
+.landingHeader {
+  font-size: xxx-large;
+  text-align: center;
+}
+
+.logIn {
+  text-align: center;
+}
+
+.input1 {
+  display: flex;
+  justify-content: center;
+  padding: 2%;
+  height: 30px;
+}
+
+.input2 {
+  display: flex;
+  justify-content: center;
+  height: 30px;
+}
+
+.signIn {
+  display: flex;
+  justify-content: center;
+  padding: 2%;
+}
+
+.signInButton {
+  border-radius: 50rem;
+  height: 30px;
+  width: 75px;
+  background-color: rgb(215, 205, 255);
+}
+
+.signInButton:hover {
+  cursor: pointer;
+  background-color:rgb(182, 164, 255);
+  transform: scale(1.05);
+}
+
+.noAcct {
+  text-align: center;
+}
+
+.signUp {
+  display: flex;
+  justify-content: center;
+}
+
+.signUpButton {
+  border-radius: 50rem;
+  height: 50px;
+  width: 200px;
+  background-color: rgb(215, 205, 255);
+  font-weight: bold;
+  font-size: large;
+}
+
+.signUpButton:hover {
+  cursor: pointer;
+  background-color:rgb(182, 164, 255);
+  transform: scale(1.05);
+}

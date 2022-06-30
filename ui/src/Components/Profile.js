@@ -1,9 +1,10 @@
 import React from "react";
+import './Profile.css'
 
 const Profile = () => {
   return(
     <>
-      <h1>Welcome, user!</h1>
+      <h1 className="profileHeader">Welcome, user!</h1>
     </>
   )
 }

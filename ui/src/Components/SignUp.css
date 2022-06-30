@@ -1,0 +1,82 @@
+.background {
+  background-color: aliceblue;
+}
+
+.blogHeader {
+  font-size: xxx-large;
+  text-align: center;
+}
+
+.signUpHeader {
+  text-align: center;
+  padding: 2%;
+}
+
+.form1 {
+  display: flex;
+  justify-content: center;
+}
+
+#first {
+  text-align: center;
+  border-radius: 1rem;
+  height: 40px;
+  width: 200px;
+}
+
+#last {
+  text-align: center;
+  border-radius: 1rem;
+  height: 40px;
+  width: 200px;
+}
+
+#username {
+  text-align: center;
+  border-radius: 1rem;
+  height: 40px;
+  width: 200px;
+}
+
+#password {
+  text-align: center;
+  border-radius: 1rem;
+  height: 40px;
+  width: 200px;
+}
+
+.form2 {
+  display: flex;
+  justify-content: center;
+  padding: 2%;
+}
+
+.form3 {
+  display: flex;
+  justify-content: center;
+}
+
+.form4 {
+  display: flex;
+  justify-content: center;
+  padding: 2%;
+}
+
+.addUser {
+  display: flex;
+  justify-content: center;
+  padding: 2%;
+}
+
+.addUserButton {
+  border-radius: 50rem;
+  height: 70px;
+  width: 200px;
+  background-color: rgb(215, 205, 255);
+}
+
+.addUserButton:hover {
+  cursor: pointer;
+  background-color:rgb(182, 164, 255);
+  transform: scale(1.05);
+}
