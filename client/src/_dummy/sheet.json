@@ -1,0 +1,182 @@
+{
+  "name": "Example Sheet",
+  "sheet_id": 1,
+  "fields": [
+    {
+      "name": "Tail No.",
+      "type": "text",
+      "field_id": 1,
+      "favorited": true,
+      "archived": false
+    },
+    {
+      "name": "JCN",
+      "type": "text",
+      "field_id": 2,
+      "favorited": true,
+      "archived": false
+    },
+    {
+      "name": "Supply Doc No.",
+      "type": "text",
+      "field_id": 3,
+      "favorited": true,
+      "archived": false
+    },
+    {
+      "name": "Nomenclature",
+      "type": "text",
+      "field_id": 4,
+      "favorited": true,
+      "archived": false
+    },
+    {
+      "name": "WUC/REFDES",
+      "type": "text",
+      "field_id": 5,
+      "favorited": false,
+      "archived": false
+    },
+    {
+      "name": "Part Number",
+      "type": "number",
+      "field_id": 6,
+      "favorited": false,
+      "archived": false
+    },
+    {
+      "name": "NSN",
+      "type": "text",
+      "field_id": 7,
+      "favorited": false,
+      "archived": false
+    },
+    {
+      "name": "Tech Order",
+      "type": "text",
+      "field_id": 8,
+      "favorited": false,
+      "archived": false
+    },
+    {
+      "name": "Figure",
+      "type": "text",
+      "field_id": 9,
+      "favorited": false,
+      "archived": false
+    },
+    {
+      "name": "Index",
+      "type": "text",
+      "field_id": 10,
+      "favorited": false,
+      "archived": false
+    },
+    {
+      "name": "Quantity",
+      "type": "number",
+      "field_id": 11,
+      "favorited": false,
+      "archived": false
+    },
+    {
+      "name": "Sign-In Name",
+      "type": "text",
+      "field_id": 12,
+      "favorited": false,
+      "archived": false
+    },
+    {
+      "name": "Sign-In Man No.",
+      "type": "text",
+      "field_id": 13,
+      "favorited": false,
+      "archived": false
+    },
+    {
+      "name": "Sign-In Date",
+      "type": "text",
+      "field_id": 14,
+      "favorited": false,
+      "archived": false
+    }
+  ],
+  "entries" : [
+    {
+      "entry_id": 1,
+      "archived": false,
+      "values": [
+        {
+          "value": "7089",
+          "field_id": 1,
+          "value_id": 1
+        },
+        {
+          "value": "21265111",
+          "field_id": 2,
+          "value_id": 2
+        },
+        {
+          "value": "1",
+          "field_id": 3,
+          "value_id": 3
+        },
+        {
+          "value": "",
+          "field_id": 4,
+          "value_id": 4
+        },
+        {
+          "value": "",
+          "field_id": 5,
+          "value_id": 5
+        },
+        {
+          "value": "",
+          "field_id": 6,
+          "value_id": 6
+        },
+        {
+          "value": "",
+          "field_id": 7,
+          "value_id": 7
+        },
+        {
+          "value": "",
+          "field_id": 8,
+          "value_id": 8
+        },
+        {
+          "value": "",
+          "field_id": 9,
+          "value_id": 9
+        },
+        {
+          "value": "",
+          "field_id": 10,
+          "value_id": 10
+        },
+        {
+          "value": "",
+          "field_id": 11,
+          "value_id": 11
+        },
+        {
+          "value": "",
+          "field_id": 12,
+          "value_id": 12
+        },
+        {
+          "value": "",
+          "field_id": 13,
+          "value_id": 13
+        },
+        {
+          "value": "",
+          "field_id": 14,
+          "value_id": 14
+        }
+      ]
+    }
+  ]
+}

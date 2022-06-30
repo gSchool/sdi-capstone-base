@@ -1,0 +1,102 @@
+:root {
+  --global-font: 'Bungee Hairline', sans-serif;
+  --global-font-weight: 300; /* thin 200, body 300, thick 400, bold 600, black 800 */
+  --global-margin: 1rem;
+  --global-margin-half: 0.5rem;
+  --global-padding: 1rem;
+  --global-padding-half: 0.5rem;
+  --global-border-radius: 1rem;
+  --global-box-shadow-color: #91a3b1;
+
+  --input-padding: 0.5rem 1rem 0.5rem 1rem;
+
+  --font-size-massive: 4rem;
+  --font-size-huge: 3.5rem;
+  --font-size-big: 3rem;
+  --font-size-title: 2.5rem;
+  --font-size-heading: 2rem;
+  --font-size-subheading: 1.5rem;
+  --font-size-body-large: 1.25rem;
+  --font-size-body: 1rem;
+  --font-size-body-small: 0.75rem;
+  --font-size-tiny: 0.5rem;
+
+  --color-text-lite: #434750;
+  --color-text-dark: #ffffff;
+  --color-background-lite: #ffffff;
+  --color-background-dark: #0e0d1b;
+  --color-light: #ffffff;
+  --color-border: #565555;
+  --color-table: #1f2122;
+  --color-dark: #0e0e0e;
+  --color-green: #1cc171;
+  --color-red: #e43152;
+}
+
+html {
+  font-family: var(--global-font);
+  font-weight: var(--global-font-weight);
+
+  height: 100%;
+  min-width: 320px;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+
+  background: var(--color-background-light);
+  color: var(--color-text-lite);
+
+}
+
+body {
+  height: 100%;
+  min-width: 320px;
+  margin: 0;
+}
+
+#root  {
+  height: 100%;
+  width: 100%;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+.lite {
+  background: var(--color-background-lite);
+  color: var(--color-text-lite);
+}
+
+.dark {
+  background: var(--color-background-dark);
+  color: var(--color-text-dark);
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.fill {
+  height: 100vh;
+  width: 100vw;
+}
+
+img {
+  -webkit-user-drag: none;
+  -khtml-user-drag: none;
+  -moz-user-drag: none;
+  -o-user-drag: none;
+  user-drag: none;
+}
+
+.board {
+  font-family: 'Poppins', sans-serif;
+  font-size: var(--font-size-body-large) !important;
+  padding: 1rem;
+}
