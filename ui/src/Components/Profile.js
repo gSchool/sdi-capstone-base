@@ -1,11 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
+import { AppContext } from "../AppContext";
 import './Profile.css'
 
 const Profile = () => {
+  const {values} = useContext(AppContext);
   return(
-    <>
-      <h1 className="profileHeader">Welcome, user!</h1>
-    </>
+    <div className="background">
+      <h1 className="profileHeader">Welcome, {values.user[0].username}!</h1>
+    </div>
   )
 }
 

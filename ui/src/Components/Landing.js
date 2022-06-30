@@ -6,8 +6,9 @@ import './Landing.css'
 const Landing = () => {
 
 const {values, setters} = useContext(AppContext);
-
 const nav = useNavigate();
+
+
 
   useEffect(() => {
     fetch('http://localhost:8082/users')
@@ -17,14 +18,20 @@ const nav = useNavigate();
       .catch(err => console.log(err))
   }, []);
 
-  const signIn = (username, password) => {
 
-    if(username === values.users[0].username && password === values.users[0].password) {
+  const signIn = (username, password) => {
+    let found = values.users.some(user => user.username === username)
+    let user = values.users.filter(user => user.username === username)
+    console.log(user)
+    setters.setUser(user)
+    if(found && user[0].password === password) {
       console.log('correct!');
-      nav(`/profile/${values.users[0].id}`);
-    } else {
-      console.log('wrong');
+      nav(`/profile/${username}`);
+    } else if(!found) {
+      alert('You do not have an account!');
       nav('/signup');
+    } else {
+      alert('Your password is incorrect!');
     }
   }
 

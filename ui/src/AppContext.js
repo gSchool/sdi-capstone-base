@@ -10,12 +10,16 @@ const AppProvider = ({ children }) => {
     password: ''
   });
 
+  const [user, setUser] = useState({})
+
   const values = {
-    users
+    users,
+    user
   }
 
   const setters = {
-    setUsers
+    setUsers,
+    setUser
   }
 
   return (

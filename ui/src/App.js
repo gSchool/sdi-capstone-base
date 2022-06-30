@@ -25,7 +25,7 @@ function App() {
       <Routes>
         <Route path='/' element={<Landing/>}/>
         <Route path='/signup' element={<SignUp/>}/>
-        <Route path='/profile/:id' element={<Profile/>}/>
+        <Route path='/profile/:username' element={<Profile/>}/>
       </Routes>
     </Router>
     {/* <div>
