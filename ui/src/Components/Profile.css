@@ -50,9 +50,23 @@
   transform: scale(1.05);
 }
 
-.myFeedContainer {
+.newPostContainer {
   display: flex;
   justify-content: center;
+}
+
+.titleInput {
+  text-align: center;
+  width: 700px;
+  min-height: 50px;
+  height: auto;
+}
+
+.contentInput {
+  text-align: center;
+  width: 700px;
+  min-height: 50px;
+  height: auto;
 }
 
 .myFeed {

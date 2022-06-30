@@ -9,7 +9,7 @@ const Profile = () => {
 
   useEffect(() => {
     fetch('http://localhost:8082/posts')
-      .then(response => response.json())
+      .then(res => res.json())
       .then(data => setters.setPosts(data))
       .then(console.log(values.posts))
       .catch(err => console.log(err))
@@ -23,13 +23,45 @@ const Profile = () => {
     })
     setters.setPosts((data) => data.filter(info => info.id !== id))
   }
+//user.username === username
+  const postIt = (title, content) => {
+    fetch('http://localhost:8082/users')
+    .then(res => res.json())
+    .then(data => setters.setUsers(data))
+    .then(console.log(values.users))
+    .catch(err => console.log(err))
+
+    let getUserId = values.users.filter(item => item.username === user.username)
+
+    console.log(`title: ${title} \n content: ${content}`)
+    const newPost = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        title: title,
+        content: content,
+        user_id: getUserId[0].id
+      })
+    }
+    fetch('http://localhost:8082/posts', newPost)
+    .then(res => res.json())
+    .then(data => {setters.setPosts(data);})
+  }
 
   return(
     <div className="background">
       <h1 className="profileHeader">Welcome, {user.username}!</h1>
-      <div className="myFeedContainer">
-        <button className="myFeed">Write new post!</button>
-      </div>
+        <div className="newPostContainer">
+          <input id="title" className="titleInput" placeholder="Title"></input>
+        </div>
+        <div className="newPostContainer">
+          <input id="post" className="contentInput" placeholder="What's on your mind?"></input>
+        </div>
+        <div className="newPostContainer">
+          <button className="myFeed" onClick={() => {postIt(document.getElementById('title').value, document.getElementById('post').value)}}>Post!</button>
+        </div>
     <div>
       {values.posts.map(post => (
       <div key={post.id}className="viewAllPosts">
