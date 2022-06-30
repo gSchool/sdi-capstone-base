@@ -24,10 +24,7 @@ module.exports = {
         "jest/no-disabled-tests": "warn",
         "jest/no-identical-title": "error",
         "jest/valid-expect": "error",
-        "react/prop-types": "off",
-        "react/jsx-uses-react": "off",   
-        "react/jsx-uses-vars": "off",
-        "no-unused-vars": "off"
+        "react/prop-types": "off"
     },
     "settings": {
         "react": {
