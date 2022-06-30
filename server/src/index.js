@@ -1,6 +1,8 @@
 import server from "./server.js";
 import { buildTables, seedDb } from "../db/dbRefresh.js";
 import chalk from "chalk";
+// import { initializeApp } from 'firebase-admin/app';
+
 
 const PORT = process.env.PORT || 8080;
 

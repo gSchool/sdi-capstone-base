@@ -6,6 +6,7 @@ import {
   sheetRoutes,
   userRoutes,
 } from "../routes/index.js";
+import decodedToken from "../middleware/decodeToken.js"
 
 const server = express();
 
@@ -16,8 +17,10 @@ var opts = {
   credentials: true,
 };
 
+
 server.use(cors(opts));
 server.use(json());
+server.use(decodedToken)
 server.use("/api/", entryRoutes);
 server.use("/api/", fieldRoutes);
 server.use("/api/", sheetRoutes);
