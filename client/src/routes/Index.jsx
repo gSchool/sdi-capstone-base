@@ -1,9 +1,10 @@
-import React, { useEffect, useState, useContext, lazy, Suspense } from 'react';
+import React, { useState, useEffect, useContext, lazy, Suspense } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { GlobalContext } from '../_context/AppProvider'
 import { Div } from '../_styles/_global'
 import Loader from '../_components/Loader'
-import baseApiUrl from '../_helpers/api'
+import api from '../_helpers/api'
+import dummyData from '../_dummy/sheet.json';
 
 const Index = () => {
 
@@ -20,25 +21,25 @@ const Index = () => {
 
 const Page = () => {
 
-  let [names, setNames] = useState([]);
+  let [currentSheet, setCurrentSheet] = useState(dummyData);
 
-  useEffect(() => {
-    fetch(baseApiUrl + "/api/authors")
-      .then(response => response.json())
-      .then(data => setNames(data))
-      .catch(err => console.log(err))
-  }, []);
-
+  console.log(dummyData);
+  
+  // useEffect(() => {
+  //   api('get','sheets')
+  //     .then(res => setCurrentSheet(res))
+  //     .catch(err => console.log(err))
+  // }, [])
+  
   const { store } = useContext(GlobalContext)
   const { theme } = store
 
   return (
     <Div id='page' className={theme} flex column fills center centertext>
       <Div flex column centerchildren centertext>
-        <h1>Ventsweeper</h1>
+        <h1>Kevinslist</h1>
         <div>
-          App is running 😎 - good work: 
-          { names.map(author => " " + author.firstName)}
+          Sheet: { currentSheet?.name }
         </div>
       </Div>
     </Div>

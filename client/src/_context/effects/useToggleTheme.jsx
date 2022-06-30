@@ -2,7 +2,7 @@ import { useState } from 'react'
 
 const useToggleTheme = () => {
 
-  const [theme, setThemeState] = useState('dark')
+  const [theme, setThemeState] = useState('lite')
 
   const toggleTheme = () => {
     setThemeState((prevState)=>{

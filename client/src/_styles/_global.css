@@ -21,7 +21,7 @@
   --font-size-body-small: 0.75rem;
   --font-size-tiny: 0.5rem;
 
-  --color-text-lite: #434750;
+  --color-text-lite: #1c1c1c;
   --color-text-dark: #ffffff;
   --color-background-lite: #ffffff;
   --color-background-dark: #0e0d1b;
@@ -93,10 +93,4 @@ img {
   -moz-user-drag: none;
   -o-user-drag: none;
   user-drag: none;
-}
-
-.board {
-  font-family: 'Poppins', sans-serif;
-  font-size: var(--font-size-body-large) !important;
-  padding: 1rem;
 }
