@@ -52,6 +52,7 @@ const nav = useNavigate();
       <div className="signUp">      
         <button className="signUpButton" onClick={() => {nav('/signup')}}>Sign up now!</button>
       </div>
+      <button onClick={() => {nav('/publicfeed')}}>View Public Feed</button>
     </div>
   )
 }

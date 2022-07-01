@@ -1,19 +1,32 @@
 import React, { useContext, useEffect} from "react";
 import { useParams } from "react-router-dom";
 import { AppContext } from "../AppContext";
+import { useNavigate } from "react-router-dom";
 import './Profile.css'
 
 const Profile = () => {
   const {values, setters} = useContext(AppContext)
   const user = useParams();
+  const nav = useNavigate();
 
   useEffect(() => {
+
+    fetch('http://localhost:8082/users')
+      .then(res => res.json())
+      .then(data => setters.setUsers(data))
+      .then(console.log(values.users))
+      .catch(err => console.log(err))
     fetch('http://localhost:8082/posts')
       .then(res => res.json())
       .then(data => setters.setPosts(data))
       .then(console.log(values.posts))
       .catch(err => console.log(err))
   }, []);
+
+  let getUserId = values.users.filter(item => item.username === user.username)
+  let filteredBlogs = values.posts.filter(post => post.user_id === getUserId[0].id)
+  console.log(getUserId[0])
+  console.log(filteredBlogs)
 
   const deletePost = (post) => {
     const id = post.id
@@ -23,15 +36,8 @@ const Profile = () => {
     })
     setters.setPosts((data) => data.filter(info => info.id !== id))
   }
-//user.username === username
+  0
   const postIt = (title, content) => {
-    fetch('http://localhost:8082/users')
-    .then(res => res.json())
-    .then(data => setters.setUsers(data))
-    .then(console.log(values.users))
-    .catch(err => console.log(err))
-
-    let getUserId = values.users.filter(item => item.username === user.username)
 
     console.log(`title: ${title} \n content: ${content}`)
     const newPost = {
@@ -52,6 +58,8 @@ const Profile = () => {
 
   return(
     <div className="background">
+      <h1 className="blogTitle">BLOG</h1>
+      <button onClick={() => {nav(`/publicfeed`)}}>Public Feed</button>
       <h1 className="profileHeader">Welcome, {user.username}!</h1>
         <div className="newPostContainer">
           <input id="title" className="titleInput" placeholder="Title"></input>
@@ -63,7 +71,7 @@ const Profile = () => {
           <button className="myFeed" onClick={() => {postIt(document.getElementById('title').value, document.getElementById('post').value)}}>Post!</button>
         </div>
     <div>
-      {values.posts.map(post => (
+      {filteredBlogs.map(post => (
       <div key={post.id}className="viewAllPosts">
         <div className="viewPostsHeader">
           <h2 className="postHeader"><button className="delete" onClick={() => {deletePost(post)}}>Hide Post</button><br/>{post.title}</h2>
