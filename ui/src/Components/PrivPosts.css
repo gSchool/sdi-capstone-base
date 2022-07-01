@@ -2,3 +2,11 @@
   display: flex;
   justify-content: space-between;
 }
+
+.postHeader {
+  height: auto;
+}
+
+.indPostBody {
+  height: auto;
+}

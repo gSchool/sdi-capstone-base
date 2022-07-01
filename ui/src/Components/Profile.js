@@ -28,15 +28,6 @@ const Profile = () => {
   let filteredBlogs = values.posts.filter(post => post.user_id === getUserId[0].id)
   console.log(getUserId[0])
   console.log(filteredBlogs)
-
-  const deletePost = (post) => {
-    const id = post.id
-    fetch(`http://localhost:8082/posts/${id}`, {
-      method: 'DELETE',
-      headers: {'Content-Type': 'application/json'},
-    })
-    setters.setPosts((data) => data.filter(info => info.id !== id))
-  }
   
   const postIt = (title, content) => {
 
@@ -74,9 +65,9 @@ const Profile = () => {
         </div>
     <div>
       {filteredBlogs.map(post => (
-      <div key={post.id}className="viewAllPosts" onClick={() => {nav(`/profile/${user.username}/${post.id}`)}}>
+      <div key={post.id}className="viewAllPosts" onClick={() => {nav(`/profile/${username}/${post.id}`)}}>
         <div className="viewPostsHeader">
-          <h2 className="postHeader"><button className="delete" onClick={() => {deletePost(post)}}>Delete Post</button><br/>{post.title}</h2>
+          <h2 className="postHeader"><button className="delete" onClick={() => {nav(`/profile/${username}/${post.id}`)}}>Edit</button><br/>{post.title}</h2>
         </div>
         <div className="postBodyContainer">
           <p className="postBody">{post.content}</p>
