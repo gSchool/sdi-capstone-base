@@ -1,6 +1,8 @@
 import React, { useContext, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { AppContext } from "../AppContext";
+import config from '../config'
+const ApiUrl = config[process.env.REACT_APP_NODE_ENV || "development"].apiUrl;
 
 const CreatePost = () => {
 
@@ -10,7 +12,7 @@ const CreatePost = () => {
   const {values, setters} = useContext(AppContext);
   
   useEffect(() => {
-    fetch(`http://localhost:8082/users/`)
+    fetch(`${ApiUrl}/users/`)
       .then(res => res.json())
       .then(data => setters.setUsers(data))
       .then(console.log(values.users))
@@ -29,7 +31,7 @@ const CreatePost = () => {
         user_id: userId[0].id
       })
     }
-    fetch('http://localhost:8082/posts', newPost)
+    fetch(`${ApiUrl}/posts`, newPost)
     .then(res => res.json())
     .then(data => {setters.setPosts(data)})
     let date = Date.now()

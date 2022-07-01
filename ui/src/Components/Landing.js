@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { AppContext } from "../AppContext";
 import './CSS/Landing.css'
 import bcrypt from 'bcryptjs';
+import config from '../config'
+const ApiUrl = config[process.env.REACT_APP_NODE_ENV || "development"].apiUrl;
 
 const Landing = () => {
 
@@ -10,7 +12,7 @@ const {values, setters} = useContext(AppContext);
 const nav = useNavigate();
 
   useEffect(() => {
-    fetch('http://localhost:8082/users')
+    fetch(`${ApiUrl}/users`)
       .then(res => res.json())
       .then(data => setters.setUsers(data))
       .then(console.log(values.users))

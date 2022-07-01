@@ -10,9 +10,6 @@ import PrivPost from './Components/PrivPost.js';
 import MyPost from './Components/MyPost.js';
 import CreatePost from './Components/CreatePost.js';
 
-// import config from './config'
-// const ApiUrl = config[process.env.REACT_APP_NODE_ENV || "development"].apiUrl;
-
 function App() {
 
   return (

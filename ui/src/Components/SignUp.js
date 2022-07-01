@@ -3,7 +3,8 @@ import { useNavigate } from "react-router-dom"
 import { AppContext } from "../AppContext";
 import './CSS/SignUp.css';
 import bcrypt from 'bcryptjs';
-
+import config from '../config'
+const ApiUrl = config[process.env.REACT_APP_NODE_ENV || "development"].apiUrl;
 
 const SignUp = () => {
   const nav = useNavigate();
@@ -24,7 +25,7 @@ const SignUp = () => {
         password: hash
       })
     }
-    fetch('http://localhost:8082/users', newUser)
+    fetch(`${ApiUrl}/users`, newUser)
     .then(res => res.json())
     .then(data => setters.setUsers(data))
     console.log(values.users)

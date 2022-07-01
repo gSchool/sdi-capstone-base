@@ -44,6 +44,22 @@
   border: 2px solid black;
 }
 
+.profileButtons{
+  display: flex;
+  justify-content: center;
+}
+
+.profile {
+  border-radius: 50rem;
+  background-color: rgb(215, 205, 255);
+}
+
+.profile:hover {
+  cursor: pointer;
+  background-color:rgb(182, 164, 255);
+  transform: scale(1.05);
+}
+
 .delete {
   border-radius: 50rem;
   background-color: rgb(215, 205, 255);

@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import './CSS/IndvPubPosts.css'
+import config from '../config'
+const ApiUrl = config[process.env.REACT_APP_NODE_ENV || "development"].apiUrl;
 
 const IndvPubPosts = () => {
 
@@ -10,7 +12,7 @@ const IndvPubPosts = () => {
 
   const [post, setPost] = useState([])
   useEffect(() => {
-    fetch(`http://localhost:8082/posts/${id}`)
+    fetch(`${ApiUrl}/posts/${id}`)
       .then(res => res.json())
       .then(data => setPost(data[0]))
       .then(console.log(post))

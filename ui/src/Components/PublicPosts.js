@@ -1,13 +1,15 @@
 import React, { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { AppContext } from "../AppContext";
+import config from '../config'
+const ApiUrl = config[process.env.REACT_APP_NODE_ENV || "development"].apiUrl;
 
 const PublicPosts = () => {
   const nav = useNavigate();
   const {values, setters} = useContext(AppContext);
 
   useEffect(() => {
-    fetch('http://localhost:8082/posts')
+    fetch(`${ApiUrl}/posts`)
     .then(res => res.json())
     .then(data => setters.setPosts(data))
     .then(console.log(values.posts))

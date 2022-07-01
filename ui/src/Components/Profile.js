@@ -3,6 +3,8 @@ import { useParams } from "react-router-dom";
 import { AppContext } from "../AppContext";
 import { useNavigate } from "react-router-dom";
 import './CSS/Profile.css'
+import config from '../config'
+const ApiUrl = config[process.env.REACT_APP_NODE_ENV || "development"].apiUrl;
 
 const Profile = () => {
   const {values, setters} = useContext(AppContext)
@@ -13,12 +15,12 @@ const Profile = () => {
 
   useEffect(() => {
 
-    fetch('http://localhost:8082/users')
+    fetch(`${ApiUrl}/users`)
       .then(res => res.json())
       .then(data => setters.setUsers(data))
       .then(console.log(values.users))
       .catch(err => console.log(err))
-    fetch('http://localhost:8082/posts')
+    fetch(`${ApiUrl}/posts`)
       .then(res => res.json())
       .then(data => setters.setPosts(data))
       .then(console.log(values.posts))
@@ -31,8 +33,11 @@ const Profile = () => {
   return(
     <div className="background">
       <h1 className="blogTitle">BLOG</h1>
-      <button onClick={() => {nav('/')}}>Sign Out</button>
-      <button onClick={() => {nav(`/publicfeed`)}}>Public Feed</button>
+      <div className="profileButtons">
+        <button className="profile" onClick={() => {nav('/')}}>Sign Out</button>
+        <button className="profile" onClick={() => {nav(`/publicfeed`)}}>Public Feed</button>
+      </div>
+
       <h1 className="profileHeader">Welcome, {user.username}!</h1>
         <div className="newPostContainer">
           <button className="myFeed" onClick={() => {nav(`/profile/${username}/create`)}}>Create New Post!</button>

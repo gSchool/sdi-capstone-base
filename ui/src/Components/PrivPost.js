@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import './CSS/PrivPosts.css'
+import config from '../config'
+const ApiUrl = config[process.env.REACT_APP_NODE_ENV || "development"].apiUrl;
 
 const PrivPost = () => {
   const params = useParams();
@@ -10,7 +12,7 @@ const PrivPost = () => {
   const [post, setPost] = useState([])
   
   useEffect(() => {
-    fetch(`http://localhost:8082/posts/${id}`)
+    fetch(`${ApiUrl}/posts/${id}`)
       .then(res => res.json())
       .then(data => setPost(data[0]))
       .then(console.log(post))
@@ -27,7 +29,7 @@ const PrivPost = () => {
           content: content,
         })
       }
-      fetch(`http://localhost:8082/posts/${id}`, updated)
+      fetch(`${ApiUrl}/posts/${id}`, updated)
       .then(res => res.json)
       .then(data => setPost(data))
       nav(`/profile/${username}`)
@@ -39,7 +41,7 @@ const PrivPost = () => {
       const deleted = {
         method: 'DELETE'
       }
-      fetch(`http://localhost:8082/posts/${id}`, deleted)
+      fetch(`${ApiUrl}/posts/${id}`, deleted)
       .then(res => res.json)
       .then(data => console.log(data))
       nav(`/profile/${username}`)
