@@ -37,7 +37,6 @@ const PrivPost = () => {
   }
 
   const deletePost = () => {
-    if(confirm('WARNING: This action can not be undone!')) {
       const deleted = {
         method: 'DELETE'
       }
@@ -45,7 +44,6 @@ const PrivPost = () => {
       .then(res => res.json)
       .then(data => console.log(data))
       nav(`/profile/${username}`)
-    }
   }
 
   return(
