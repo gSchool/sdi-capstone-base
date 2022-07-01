@@ -1,3 +1,13 @@
+import React from 'react';
+import { render, screen } from '@testing-library/react';
+import App from './App';
+
 test('renders learn react link', () => {
-  expect(1).toBe(1);
+  render(<App />);
+  const title = screen.getByText('BLOG');
+  expect(title).toBeInTheDocument();
 });
+
+// test('renders learn react link', () => {
+//   expect(1).toBe(1);
+// });
