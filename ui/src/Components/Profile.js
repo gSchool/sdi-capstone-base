@@ -72,9 +72,9 @@ const Profile = () => {
         </div>
     <div>
       {filteredBlogs.map(post => (
-      <div key={post.id}className="viewAllPosts">
+      <div key={post.id}className="viewAllPosts" onClick={() => {nav(`/profile/${user.username}/${post.id}`)}}>
         <div className="viewPostsHeader">
-          <h2 className="postHeader"><button className="delete" onClick={() => {deletePost(post)}}>Hide Post</button><br/>{post.title}</h2>
+          <h2 className="postHeader"><button className="delete" onClick={() => {deletePost(post)}}>Delete Post</button><br/>{post.title}</h2>
         </div>
         <div className="postBodyContainer">
           <p className="postBody">{post.content}</p>

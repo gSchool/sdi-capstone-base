@@ -12,7 +12,7 @@ const nav = useNavigate();
 
   useEffect(() => {
     fetch('http://localhost:8082/users')
-      .then(response => response.json())
+      .then(res => res.json())
       .then(data => setters.setUsers(data))
       .then(console.log(values.users))
       .catch(err => console.log(err))
