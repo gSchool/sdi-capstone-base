@@ -1,12 +1,17 @@
 import React, { useContext } from "react"
 import { useNavigate } from "react-router-dom"
 import { AppContext } from "../AppContext";
-import './CSS/SignUp.css'
+import './CSS/SignUp.css';
+import bcrypt from 'bcryptjs';
+
 
 const SignUp = () => {
   const nav = useNavigate();
   const {values, setters} = useContext(AppContext);
   const addUser = (first, last, username, password) => {
+    const salt = bcrypt.genSaltSync(10)
+    const hash = bcrypt.hashSync(password, salt)
+    console.log(password, salt)
     const newUser = {
       method: 'POST',
       headers: {
@@ -16,7 +21,7 @@ const SignUp = () => {
         first_name: first,
         last_name: last,
         username: username,
-        password: password
+        password: hash
       })
     }
     fetch('http://localhost:8082/users', newUser)

@@ -27,8 +27,8 @@ app.post('/users', (req, res) => {
 //Read
 
 app.get('/', (req, res) => {
-    response.set("Access-Control-Allow-Origin", "*");
-    response.status(200).send('App root route running');
+    res.set("Access-Control-Allow-Origin", "*");
+    res.status(200).send('App root route running');
 })
 
 app.get('/users', (req, res) => {
