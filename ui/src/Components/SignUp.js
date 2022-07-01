@@ -1,7 +1,7 @@
 import React, { useContext } from "react"
 import { useNavigate } from "react-router-dom"
 import { AppContext } from "../AppContext";
-import './SignUp.css'
+import './CSS/SignUp.css'
 
 const SignUp = () => {
   const nav = useNavigate();

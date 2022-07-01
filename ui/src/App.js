@@ -8,6 +8,7 @@ import PublicPosts from './Components/PublicPosts.js';
 import IndvPubPosts from './Components/IndvPubPosts.js';
 import PrivPost from './Components/PrivPost.js';
 import MyPost from './Components/MyPost.js';
+import CreatePost from './Components/CreatePost.js';
 
 // import config from './config'
 // const ApiUrl = config[process.env.REACT_APP_NODE_ENV || "development"].apiUrl;
@@ -25,6 +26,7 @@ function App() {
         <Route path='/publicfeed/:id' element={<IndvPubPosts/>}/>
         <Route path='/profile/:username/edit/:post' element={<PrivPost/>}/>
         <Route path='/profile/:username/:post' element={<MyPost/>}/>
+        <Route path='/profile/:username/create' element={<CreatePost/>}/>
       </Routes>
     </Router>
     </AppProvider>

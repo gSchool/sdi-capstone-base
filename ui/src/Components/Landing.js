@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { AppContext } from "../AppContext";
-import './Landing.css'
+import './CSS/Landing.css'
 
 const Landing = () => {
 
