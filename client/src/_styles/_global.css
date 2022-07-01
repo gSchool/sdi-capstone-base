@@ -77,10 +77,10 @@ body {
 }
 
 #page  {
-  height: 100%;
+  height: calc(100% - 2rem);
   width: calc(100% - 10rem);
   padding-left: var(--global-padding);
-  margin-top: 1rem;
+  margin-top: 2rem;
   margin-left: 8rem;
   margin-right: 1rem;
   transition: all var(--global-transition-speed) ease;
@@ -244,6 +244,11 @@ img {
   }
 
   .sidebar-header-link {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .sidebar-footer-link {
     width: 100%;
     justify-content: center;
   }
