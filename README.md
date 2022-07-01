@@ -1,6 +1,8 @@
 # <strong>SMARTSHEETS
-### Group 1:  Daniel Salazer, Dayan Sauerbronn, Levi Fry, Kyle Dilick, & Kevin Wolfe
+### *Group 1:  Daniel Salazer, Dayan Sauerbronn, Levi Fry, Kyle Dilick, & Kevin Wolfe*
+
 <br>
+
 ### **Version Notes:**
 
     v0.1:
@@ -10,6 +12,11 @@
     - Began README "living document" logging
     - Began implementing ROUTES
     - Created .css, .jsx styling files for GLOBAL
+    - Began styling basic sheet format
+    - Building scaffolds
+    - Begin creating API
+    - Collapsible menu created
+    - Authentication tokens in Firebase implemented
     
 <br>
 
@@ -17,7 +24,7 @@
 
 <br>
 
-#### <strong>PROBLEM STATEMENT:</strong>
+#### <strong>PROBLEM STATEMENT:
 >I need a user friendly way to manage inventory, which promotes accountability and increases efficiency across the Air Force.
 
 <br>
@@ -106,6 +113,9 @@
 > User Account Screen
 >> ![User_Account](https://i.imgur.com/pjInHAC.png)
 
+> Where we kept Daniel Salazar
+>>![Circle_Daniel](https://i.imgur.com/xdKdgRN.png)
+
 <br>
 
 * * * * *
@@ -116,3 +126,25 @@
 
 <br>
 
+Install Router package
+> npm install react-router-dom
+
+<br>
+
+Install styled components
+> npm install --save styled-components
+
+<br>
+
+Install Cypress for unit testing
+> npm install --save-dev cypress @testing-library/cypress
+
+<br>
+
+Install React testing library
+> npm install --save-dev @testing-library/react
+
+<br>
+
+Install Mock Service Worker (MSW) for mock testing
+> npm install msw

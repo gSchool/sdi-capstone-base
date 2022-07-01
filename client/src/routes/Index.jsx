@@ -1,10 +1,12 @@
 import React, { useState, useEffect, useContext, lazy, Suspense } from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, useNavigate, Link } from 'react-router-dom';
 import { GlobalContext } from '../_context/AppProvider'
 import { Div } from '../_styles/_global'
+import Sheets from './sheets/Sheets';
 import Loader from '../_components/Loader'
-import api from '../_helpers/api'
-import dummyData from '../_dummy/sheet.json';
+import { eHandler } from '../_helpers/eHandler';
+import Sidebar from '../_components/Sidebar';
+import { SignInBtn, SignOutBtn } from '../_components/LogInOutButton';
 
 const Index = () => {
 
@@ -13,37 +15,33 @@ const Index = () => {
   return (
     <Routes>
       <Route path='/' element={ <Page/> } />
-        <Route path='/sheets/' element={ <Suspense fallback={<Loader/>}>{/* <Sheets/> */}</Suspense> } />
-      <Route path="/*" element={ <NotFound /> } />
+        <Route path='/sheets/*' element={ <Suspense fallback={<Loader/>}><Sheets/></Suspense> } />
+      <Route path="/*" element={ <Suspense fallback={<Loader/>}><NotFound/></Suspense> } />
     </Routes>
   );
 }
 
 const Page = () => {
-
-  let [currentSheet, setCurrentSheet] = useState(dummyData);
-
-  console.log(dummyData);
-  
-  // useEffect(() => {
-  //   api('get','sheets')
-  //     .then(res => setCurrentSheet(res))
-  //     .catch(err => console.log(err))
-  // }, [])
   
   const { store } = useContext(GlobalContext)
-  const { theme } = store
+  const { theme, isAuth } = store
 
   return (
-    <Div id='page' className={theme} flex column fills center centertext>
-      <Div flex column centerchildren centertext>
-        <h1>Kevinslist</h1>
+    <>
+      <Div className={`${theme}`}>
+        <SignInBtn />
+        <SignOutBtn />
         <div>
-          Sheet: { currentSheet?.name }
+          isAuth: {isAuth ? 'true' : 'false'}
+        </div>
+        <div>
+          Your token: {store.token}
         </div>
       </Div>
-    </Div>
+    </>
   )
 }
+
+{/* <button name="get" onClick={() => setIsAuth(!isAuth)}>{ isAuth ? <>Authenticated ✅</> : <>Not Authenticated ❌</> }</button> */}
 
 export default Index;

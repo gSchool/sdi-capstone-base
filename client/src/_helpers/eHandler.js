@@ -1,4 +1,4 @@
-// import helper from "./_helper/helper"
+import api from "./api";
 
 // Example usage: eHandler(null, 'api', {method: 'get', path: 'movies'}, (res)=>setGlobalState({movies: res}))
 export const eHandler = async (e, target, options, callback) => {
@@ -7,14 +7,11 @@ export const eHandler = async (e, target, options, callback) => {
     e.preventDefault()
   }
 
-  if (!callback) return console.log(`No callback supplied to eHandler!\nimport { eHandler, noCallback }\nand pass 'noCallback' if you want to do nothing.`);
+  if (!callback) return console.log(`No callback supplied to eHandler!\nimport { eHandler, noCallback }\nand pass 'noCallback' if you want to do nothing.\nOr, pass an empty function () => {}`);
 
   switch(target) {
-    case 'checkMine':
-      // call helper(options, callback)
-      break;
-    case 'rClick':
-      // call helper(options, callback)
+    case 'api':
+      api(options, callback)
       break;
     default:
       console.log('unhandled click event')

@@ -1,3 +1,5 @@
+import { useContext } from "react";
+import { GlobalContext } from '../_context/AppProvider'
 
 const config = {
   development: {
@@ -13,25 +15,25 @@ const config = {
 
 export const baseApiUrl = config[process.env.REACT_APP_NODE_ENV || "development"].apiUrl;
 
-/*
-
-    api({method, path, payload}, callback)
-      adding a lot of movies at once: apiReq('add', 'movies', ['twister','spiderman'])
-      modifying a lot of movies at once: apiReq('update', 'movies', [['twister', 'a swirling cloud'],['spiderman', 'flying man-child']])
-      deleting a lot of movies at once: apiReq('delete', 'movies', ['twister','spiderman'])
-      get all movies: apiReq('get', 'movies')
-      get a single movie: apiReq('get', 'movies', 'twister')
-
-  */
-
+// Usage: api([method, path, payload], callback)
 const api = async (options, callback) => {
 
-  const { method, path, payload } = options
+  const { store } = useContext(GlobalContext)
+  const { token } = store
+
+  const method = options[0].toLowerCase() // 'GET', 'POST', 'PATCH', 'DELETE'
+  const path = options[1] // Always defined
+  const payload = options?.[2] // Only used for POST, PATCH, and DELETE requests -- expects a JSON object
 
   const runFetch = async () => {
 
     if (method === 'get') {
-      const response = await fetch(`${baseApiUrl}/${path}`)
+      const response = await fetch(`${baseApiUrl}/${path}`, { 
+        headers: {
+          'Content-type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+        }, 
+    })
       if (!response.ok) {
         const message = `An error has occured: ${response.status}`;
         throw new Error(message);
@@ -46,7 +48,8 @@ const api = async (options, callback) => {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
         },
         body: JSON.stringify(payload)
       });
@@ -66,7 +69,8 @@ const api = async (options, callback) => {
         method: 'DELETE',
         headers: {
           'Accept': 'application/json',
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
         },
         body: JSON.stringify({ title: payload })
       });
@@ -91,6 +95,8 @@ const api = async (options, callback) => {
 
   
 }
+
+export const noCallback = () => {}
 
 export default api
 

@@ -1,0 +1,108 @@
+.sheet-header{
+  padding: 20px;
+}
+
+.field, .value{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  min-height: 30px;
+  max-height: 30px;
+}
+
+.sheet-fields{
+  white-space: nowrap;
+  min-width: 100vw;
+}
+
+.sheet-column{
+  display: inline-block;
+}
+
+.field{
+  background-color: rgb(224, 224, 224);
+}
+
+
+
+.even{
+  /* background-color: lightgray; */
+}
+
+.odd{
+  /* background-color: rgb(170, 170, 170); */
+}
+
+.entry-details-container{
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  height: calc(100vh - 10px);
+  min-width: 200px;
+  max-width: 400px;
+  width: 30%;
+  border: 1px solid black;
+  background-color: var(--color-secondary);
+  color: white;
+  border-radius: 20px;
+}
+
+.entry-details-form{
+  display: flex;
+  flex-direction: column;
+  max-height: calc(100% - 160px);
+  overflow: scroll;
+  margin: 20px 5px;
+  background-color: var(--color-primary);
+  border-radius: 20px;
+}
+
+.entry-details-input{
+  background-color: var(--color-secondary);
+  border: none;
+  color: white;
+  margin: 5px;
+  border-radius: 10px;
+  font-size: var(--font-size-body-large);
+}
+
+.entry-details-cancel{
+  position: absolute;
+  right: 1%;
+  border: none;
+  font-size: var(--font-size-body-large);
+  width: 80px;
+  background-color: var(--color-primary);
+  color: white;
+  border-radius: 20px;
+}
+
+.entry-details-update{
+  position: absolute;
+  bottom: 0px;
+  border: none;
+  font-size: var(--font-size-body-heading);
+  width: calc(100% - 20px);
+  height: 80px;
+  background-color: var(--color-primary);
+  color: white;
+  margin: 10px;
+  border-radius: 20px;
+}
+
+.entry-row:hover{
+  background-color: rgb(224, 224, 224, 0.8);
+}
+
+.sheet-display-container{
+  /* border: 1px solid black; */
+}
+
+.sheet-display-table{
+  border-collapse: collapse;
+}
+
+.sheet-display-cell{
+  padding: 20px;
+}

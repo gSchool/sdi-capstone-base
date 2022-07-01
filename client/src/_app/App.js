@@ -1,10 +1,16 @@
 import React from 'react'
 import Index from '../routes/Index'
+import Sidebar from '../_components/Sidebar';
 
 function App() {
 
   return (
-    <Index/>
+    <>
+      <Sidebar /> 
+      <div id="page">
+        <Index />
+      </div>
+    </>
   );
 }
 
