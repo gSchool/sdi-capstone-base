@@ -12,10 +12,10 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
   <AppProvider>
-    <SheetProvider>
+
       <Router fallback={<NotFound />} exceptionElement={<NotFound />}>
         <App />
       </Router>
-    </SheetProvider>
+
   </AppProvider>
 );

@@ -6,6 +6,7 @@ import Loader from '../_components/Loader'
 import { SignInBtn } from '../_components/SignInOutBtns';
 import p1login from '../_assets/img/p1login.png';
 import p1loginmobile from '../_assets/img/p1loginmobile.png';
+import { SheetProvider } from '../_context/SheetProvider'
 
 const Index = () => {
 
@@ -15,11 +16,11 @@ const Index = () => {
   const Sheets = lazy(() => import('./sheets/Sheets'));
   const Account = lazy(() => import('./account/Account'));
   const NotFound = lazy(() => import('./NotFound'));
-  
+
   return (
     <Routes>
       <Route path='/' element={ <Page/> } />
-        <Route path='/sheets/*' element={ isAuth ? <Suspense fallback={<Loader/>}><Sheets/></Suspense> : <Navigate to="/" replace={true} /> }/>
+        <Route path='/sheets/*' element={ isAuth ? <Suspense fallback={<Loader/>}><SheetProvider><Sheets/></SheetProvider></Suspense> : <Navigate to="/" replace={true} /> }/>
         <Route path='/account/*' element={ isAuth ? <Suspense fallback={<Loader/>}><Account/></Suspense> : <Navigate to="/" replace={true} /> }/>
       <Route path="/*" element={ isAuth ? <Suspense fallback={<Loader/>}><NotFound/></Suspense> : <Navigate to="/" replace={true} /> }/>
     </Routes>
@@ -27,7 +28,7 @@ const Index = () => {
 }
 
 const Page = () => {
-  
+
   const { store } = useContext(GlobalContext)
   const { theme, isAuth } = store
 
