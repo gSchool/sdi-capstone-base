@@ -9,27 +9,29 @@ const SheetDisplay = () => {
   const { sheet } = useContext(SheetContext);
 
   return (
-    <div className='sheet-display-container'>
-      {/* <SheetHeader> */}
-      <div>{sheet.currentSheet.name}</div>
-      <table className='sheet-display-table'>
-        {/* <SheetFields> */}
-        <thead>
-          <tr>
-            {sheet.currentSheet.fields.map((field, i) => 
-              <td className="sheet-display-cell" key={i}>{field.name}</td>
+    <>
+      <div className='sheet-display-container'>
+        {/* <SheetHeader> */}
+        <div>{sheet.currentSheet.name}</div>
+        <table className='sheet-display-table'>
+          {/* <SheetFields> */}
+          <thead>
+            <tr>
+              {sheet.currentSheet.fields.map((field, i) =>
+                <td className="sheet-display-cell" key={i}>{field.name}</td>
+              )}
+            </tr>
+          </thead>
+          {/* <SheetEntries> */}
+          <tbody>
+            {sheet.currentSheet.entries.map((entry, i) =>
+              <Entry data={entry} key={i}/>
             )}
-          </tr>
-        </thead>
-        {/* <SheetEntries> */}
-        <tbody>
-          {sheet.currentSheet.entries.map((entry, i) => 
-            <Entry data={entry} key={i}/>
-          )}
-        </tbody>
-      </table>
+          </tbody>
+        </table>
+      </div>
       <EntryDetails />
-    </div>
+    </>
   );
 }
 
@@ -72,14 +74,14 @@ export default SheetDisplay;
 <Div flex column className="sheet-display-container">
   <Div flex row className="sheet-header">{sheet.currentSheet.name}</Div>
   <Div flex row className="sheet-fields">
-    {sheet.currentSheet.fields.map(field => 
+    {sheet.currentSheet.fields.map(field =>
       <span className="field" key={field.id}>{field.name}</span>
     )}
   </Div>
   <Div flex column className="sheet-entries" >
-    {sheet.currentSheet.entries.map(entry => 
+    {sheet.currentSheet.entries.map(entry =>
       <Div flex row className="entry" key={entry.id}>
-        {entry.values.map(value => 
+        {entry.values.map(value =>
           <span className="value" key={value.id}>{value.value}</span>
         )}
       </Div>

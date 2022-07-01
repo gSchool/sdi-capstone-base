@@ -1,26 +1,34 @@
 import React, { useState, useEffect, useContext, useRef } from 'react';
 import { SheetContext } from '../../_context/SheetProvider';
 
+const capitalize = (string) => {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
 const EntryDetails = () => {
   const { sheet } = useContext(SheetContext);
 
-  useEffect(() => {}, [sheet.selectedEntry])
+  useEffect(() => {
+  }, [sheet.selectedEntry])
 
   return (
     Object.keys(sheet.selectedEntry).length === 0 ? <></> :
     <div className="entry-details-container">
-      <div>
-        <span>Entry Details</span>
-        <button className="entry-details-cancel" onClick={() => {sheet.setSelectedEntry({})}}>X</button>
+      <div className="entry-details-header">
+        <button className="entry-details-cancel" onClick={() => {sheet.setSelectedEntry({})}}>&gt;</button>
+        <span>Look at these guys</span>
       </div>
-      <hr />
       <form className='entry-details-form'>
         {sheet.currentSheet.fields.map((field, i) => {
           let index = sheet.selectedEntry.values.findIndex(value => value.field_id === field.field_id)
             return (
-              <div key={i}>
-                <span>{field.name}</span>
-                <input className='entry-details-input' defaultValue={index === -1 ? '': sheet.selectedEntry.values[index].value}/>
+              <div key={i} className='entry-details-field'>
+                <div>
+                  <span className="field-name">{field.name}</span>
+                  <span className="field-type">{capitalize(field.type)}</span>
+                </div>
+                <hr />
+                <input key={sheet.selectedEntry.entry_id} className='entry-details-input' defaultValue={index === -1 ? '': sheet.selectedEntry.values[index].value} />
               </div>
             )
           }
