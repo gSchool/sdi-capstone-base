@@ -9,6 +9,7 @@ const Profile = () => {
   const user = useParams();
   let username = user.username
   const nav = useNavigate();
+  console.log(values.date)
 
   useEffect(() => {
 
@@ -26,8 +27,6 @@ const Profile = () => {
 
   let getUserId = values.users.filter(item => item.username === username)
   let filteredBlogs = values.posts.filter(post => post.user_id === getUserId[0].id)
-  console.log(getUserId[0])
-  console.log(filteredBlogs)
   
   return(
     <div className="background">
@@ -45,7 +44,7 @@ const Profile = () => {
           <h2 className="postHeader">{post.title}</h2>
         </div>
         <div className="postBodyContainer">
-          <p className="postBody">{post.content}</p>
+          <p className="postBody">{post.content.substring(0,100)}...{values.date}</p>
         </div>
       </div>))}
     </div>

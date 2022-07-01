@@ -13,17 +13,20 @@ const AppProvider = ({ children }) => {
 
   const [user, setUser] = useState([])
   const [posts, setPosts] = useState([])
+  const [date, setDate] = useState('')
 
   const values = {
     users,
     user,
-    posts
+    posts,
+    date
   }
 
   const setters = {
     setUsers,
     setUser,
-    setPosts
+    setPosts,
+    setDate
   }
 
   return (

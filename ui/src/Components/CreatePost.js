@@ -17,11 +17,7 @@ const CreatePost = () => {
       .catch(err => console.log(err))
   }, []);
   let userId = values.users.filter(user => user.username === params.username)
-  console.log('user', userId)
-
   const postIt = (title, content) => {
-
-    console.log(`title: ${title} \n content: ${content}`)
     const newPost = {
       method: 'POST',
       headers: {
@@ -35,7 +31,10 @@ const CreatePost = () => {
     }
     fetch('http://localhost:8082/posts', newPost)
     .then(res => res.json())
-    .then(data => {setters.setPosts(data);})
+    .then(data => {setters.setPosts(data)})
+    let date = Date.now()
+    console.log(date)
+    setters.setDate(date)    
     nav(`/profile/${username}`)
   }
 

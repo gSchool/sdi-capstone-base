@@ -3,7 +3,6 @@ import { useNavigate, useParams } from "react-router-dom";
 import './CSS/PrivPosts.css'
 
 const PrivPost = () => {
-
   const params = useParams();
   const nav = useNavigate();
   const id = params.post
@@ -30,7 +29,7 @@ const PrivPost = () => {
       }
       fetch(`http://localhost:8082/posts/${id}`, updated)
       .then(res => res.json)
-      .then(data => (data))
+      .then(data => setPost(data))
       nav(`/profile/${username}`)
       }
   }

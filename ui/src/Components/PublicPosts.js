@@ -22,7 +22,7 @@ const PublicPosts = () => {
           <h2 className="postHeader">{post.title}</h2>
         </div>
         <div className="postBodyContainer">
-          <p className="postBody">{post.content}</p>
+          <p className="postBody">{post.content.substring(0,100)}...</p>
         </div>
       </div>))}
     </div>
