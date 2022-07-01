@@ -106,14 +106,12 @@
 }
 
 .sidebar-sheet {
-  min-height: 5rem;
+  min-height: 4.5rem;
   transition: all var(--global-transition-speed) ease;
 }
 
 .sidebar-sheet:first-of-type {
-  min-height: 5rem;
   margin-top: 0.5rem;
-  transition: all var(--global-transition-speed) ease;
 }
 
 .sidebar-sheet-item {
