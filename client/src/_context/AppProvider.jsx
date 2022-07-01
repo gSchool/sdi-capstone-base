@@ -1,20 +1,18 @@
 import React, { createContext } from 'react'
 
 import useGlobalState from './states/useGlobalState'
-import useIsAuth from './states/useIsAuth'
+import useUser from './states/useUser'
 import useToggleTheme from './effects/useToggleTheme'
 import useRefresh from './effects/useRefresh'
-import useToken from './states/useToken'
 
 const GlobalContext = createContext()
 
 const AppProvider = ({ children }) => {
 
   const { globalState, setGlobalState } = useGlobalState();
-  const { isAuth, setIsAuth } = useIsAuth();
+  const { isAuth, setIsAuth, token, setToken, name, setName, email, setEmail, profileImg, setProfileImg } = useUser();
   const { theme, toggleTheme } = useToggleTheme();
   const { refresh } = useRefresh();
-  const { token, setToken } = useToken()
 
   const store = {
 
@@ -23,11 +21,17 @@ const AppProvider = ({ children }) => {
     theme,
     isAuth,
     token,
+    name,
+    email,
+    profileImg,
 
     /* SETTERS */
     setGlobalState,
     setIsAuth,
     setToken,
+    setName,
+    setEmail,
+    setProfileImg,
     
     /* EFFECTS */
     refresh,

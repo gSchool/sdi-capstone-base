@@ -1,22 +1,27 @@
-import React, { useState, useEffect, useContext, lazy, Suspense } from 'react';
-import { Route, Routes, useNavigate, Link } from 'react-router-dom';
+import React, { useContext, lazy, Suspense } from 'react';
+import { Route, Routes, Navigate } from 'react-router-dom';
 import { GlobalContext } from '../_context/AppProvider'
-import { Div } from '../_styles/_global'
-import Sheets from './sheets/Sheets';
+import { Div, Img } from '../_styles/_global'
 import Loader from '../_components/Loader'
-import { eHandler } from '../_helpers/eHandler';
-import Sidebar from '../_components/Sidebar';
-import { SignInBtn, SignOutBtn } from '../_components/LogInOutButton';
+import { SignInBtn } from '../_components/SignInOutBtns';
+import p1login from '../_assets/img/p1login.png';
+import p1loginmobile from '../_assets/img/p1loginmobile.png';
 
 const Index = () => {
 
+  const { store } = useContext(GlobalContext)
+  const { isAuth } = store
+
+  const Sheets = lazy(() => import('./sheets/Sheets'));
+  const Account = lazy(() => import('./account/Account'));
   const NotFound = lazy(() => import('./NotFound'));
   
   return (
     <Routes>
       <Route path='/' element={ <Page/> } />
-        <Route path='/sheets/*' element={ <Suspense fallback={<Loader/>}><Sheets/></Suspense> } />
-      <Route path="/*" element={ <Suspense fallback={<Loader/>}><NotFound/></Suspense> } />
+        <Route path='/sheets/*' element={ isAuth ? <Suspense fallback={<Loader/>}><Sheets/></Suspense> : <Navigate to="/" replace={true} /> }/>
+        <Route path='/account/*' element={ isAuth ? <Suspense fallback={<Loader/>}><Account/></Suspense> : <Navigate to="/" replace={true} /> }/>
+      <Route path="/*" element={ isAuth ? <Suspense fallback={<Loader/>}><NotFound/></Suspense> : <Navigate to="/" replace={true} /> }/>
     </Routes>
   );
 }
@@ -28,20 +33,25 @@ const Page = () => {
 
   return (
     <>
-      <Div className={`${theme}`}>
-        <SignInBtn />
-        <SignOutBtn />
-        <div>
-          isAuth: {isAuth ? 'true' : 'false'}
-        </div>
-        <div>
-          Your token: {store.token}
-        </div>
-      </Div>
+      { isAuth ? (
+          <Div centerchildren flex fills className={`${theme}`}>
+            <Div flex column card centertext className={`${theme}`}>
+              <div>
+                Hello: {store.name.first} {store.name.last}
+              </div>
+            </Div>
+          </Div>
+        ) : (
+          // <Div flex column fills centerchildren className="p1login">
+          <Div className="p1login">
+            <Img className="mainimg" alt="login" src={p1login} />
+            <Img className="mainimg-mobile" alt="login" src={p1loginmobile} />
+            <SignInBtn />
+          </Div>
+        )
+      }
     </>
   )
 }
-
-{/* <button name="get" onClick={() => setIsAuth(!isAuth)}>{ isAuth ? <>Authenticated ✅</> : <>Not Authenticated ❌</> }</button> */}
 
 export default Index;

@@ -1,7 +1,7 @@
 import api from "./api";
 
 // Example usage: eHandler(null, 'api', {method: 'get', path: 'movies'}, (res)=>setGlobalState({movies: res}))
-export const eHandler = async (e, target, options, callback) => {
+const eHandler = async (e, target, options, callback) => {
 
   if (e) {
     e.preventDefault()
@@ -13,6 +13,10 @@ export const eHandler = async (e, target, options, callback) => {
     case 'api':
       api(options, callback)
       break;
+    case 'showCover':
+      document.getElementById('page').classList.toggle('extend');
+      document.getElementById('cover').classList.toggle('show');
+      break;
     default:
       console.log('unhandled click event')
   }
@@ -20,3 +24,5 @@ export const eHandler = async (e, target, options, callback) => {
 }
 
 export const noCallback = () => {}
+
+export default eHandler

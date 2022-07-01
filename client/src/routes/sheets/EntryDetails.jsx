@@ -15,13 +15,13 @@ const EntryDetails = () => {
       </div>
       <hr />
       <form className='entry-details-form'>
-        {sheet.currentSheet.fields.map(field => {
+        {sheet.currentSheet.fields.map((field, i) => {
           let index = sheet.selectedEntry.values.findIndex(value => value.field_id === field.field_id)
             return (
-              <>
-                <span key={field.field_id}>{field.name}</span>
+              <div key={i}>
+                <span>{field.name}</span>
                 <input className='entry-details-input' defaultValue={index === -1 ? '': sheet.selectedEntry.values[index].value}/>
-              </>
+              </div>
             )
           }
         )}

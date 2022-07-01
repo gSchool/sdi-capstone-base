@@ -8,7 +8,6 @@ import EntryDetails from './EntryDetails';
 const SheetDisplay = () => {
   const { sheet } = useContext(SheetContext);
 
-
   return (
     <div className='sheet-display-container'>
       {/* <SheetHeader> */}
@@ -17,15 +16,15 @@ const SheetDisplay = () => {
         {/* <SheetFields> */}
         <thead>
           <tr>
-            {sheet.currentSheet.fields.map(field => 
-              <td className="sheet-display-cell" key={field.name}>{field.name}</td>
+            {sheet.currentSheet.fields.map((field, i) => 
+              <td className="sheet-display-cell" key={i}>{field.name}</td>
             )}
           </tr>
         </thead>
         {/* <SheetEntries> */}
         <tbody>
-          {sheet.currentSheet.entries.map(entry => 
-            <Entry data={entry} key={entry.id}/>
+          {sheet.currentSheet.entries.map((entry, i) => 
+            <Entry data={entry} key={i}/>
           )}
         </tbody>
       </table>
