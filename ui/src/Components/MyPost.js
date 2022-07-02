@@ -22,10 +22,10 @@ const MyPost = () => {
   return(
     <div className="background">
       <h1 className="blogTitle">BLOG</h1>
-      <button onClick={()=> {nav(`/profile/${username}`)}}>Return</button>
+      <button className="signInButton" onClick={()=> {nav(`/profile/${username}`)}}>Return</button>
       <div className="IndvPosts" >
         <div className="viewPostsHeader">
-          <h2 className="postHeader"><button onClick={() => {nav(`/profile/${username}/edit/${id}`)}}>Edit</button><br/>{post.title}</h2>
+          <h2 className="postHeader"><button className="signInButton"onClick={() => {nav(`/profile/${username}/edit/${id}`)}}>Edit</button><br/>{post.title}</h2>
         </div>
         <div className="postBodyContainer">
           <p className="indPostBody">{post.content}</p>

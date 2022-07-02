@@ -43,7 +43,7 @@ const CreatePost = () => {
   return(
     <div className="background">
       <h1 className="blogTitle">BLOG</h1>
-      <button onClick={()=> {nav(`/profile/${username}`)}}>Return</button>
+      <button className="signInButton" onClick={()=> {nav(`/profile/${username}`)}}>Return</button>
       <div className="IndvPosts">
       <div className="encapped">
       </div>
@@ -53,7 +53,9 @@ const CreatePost = () => {
         <div className="postBodyContainer">
           <textarea className="indPostBody" placeholder="...What's on your mind?" id="contentInput"/>
         </div>
-        <button onClick={() => {postIt(document.getElementById('titleInput').value, document.getElementById('contentInput').value)}}>Publish</button>
+        <div className="postBodyContainer">
+          <button className="signInButton" onClick={() => {postIt(document.getElementById('titleInput').value, document.getElementById('contentInput').value)}}>Publish</button>
+        </div>
     </div>
     </div>
   )

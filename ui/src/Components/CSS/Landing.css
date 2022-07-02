@@ -1,5 +1,5 @@
 .background {
-  background-image: url('https://wallpaperaccess.com/full/837278.jpg');
+  background-image: url('https://media.istockphoto.com/photos/abstract-blur-purple-color-tone-background-with-glowing-light-effect-picture-id1060839462?k=20&m=1060839462&s=612x612&w=0&h=B9h06MTvm_dYpR4tLNYQfkwT5GLOOS9VZj1S5Bmuqzc=');
   background-size: cover;
 }
 
@@ -34,8 +34,8 @@
 
 .signInButton {
   border-radius: 50rem;
-  height: 30px;
-  width: 75px;
+  height: 40px;
+  width: 90px;
   background-color: rgb(215, 205, 255);
 }
 

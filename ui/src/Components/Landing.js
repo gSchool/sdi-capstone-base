@@ -44,7 +44,7 @@ const nav = useNavigate();
         <input id="username" placeholder="username"></input>
       </div>
       <div className="input2">
-        <input id="password" type="password" ßplaceholder="password"></input>
+        <input id="password" type="password" placeholder="password"></input>
       </div>
       <div className="signIn">
         <button className="signInButton" onClick={() => {signIn(document.getElementById('username').value, document.getElementById('password').value)}}>Sign in</button>

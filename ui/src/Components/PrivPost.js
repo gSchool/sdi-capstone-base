@@ -49,10 +49,10 @@ const PrivPost = () => {
   return(
     <div className="background">
       <h1 className="blogTitle">BLOG</h1>
-      <button onClick={()=> {nav(`/profile/${username}`)}}>Return</button>
+      <button className="signInButton" onClick={()=> {nav(`/profile/${username}`)}}>Return</button>
       <div className="IndvPosts">
       <div className="encapped">
-          <button onClick={() =>{deletePost()}}>Delete</button>
+          <button className="signInButton" onClick={() =>{deletePost()}}>Delete</button>
       </div>
         <div className="viewPostsHeader">
           <textarea className="postHeader" defaultValue={post.title} id="titleInput"/>
@@ -60,7 +60,9 @@ const PrivPost = () => {
         <div className="postBodyContainer">
           <textarea className="indPostBody" defaultValue={post.content} id="contentInput"/>
         </div>
-        <button onClick={() => {editPost(document.getElementById('titleInput').value, document.getElementById('contentInput').value)}}>Submit Edits</button>
+        <div className="postBodyContainer">
+          <button className="signInButton" onClick={() => {editPost(document.getElementById('titleInput').value, document.getElementById('contentInput').value)}}>Submit Edits</button>
+        </div>
     </div>
     </div>
   )
