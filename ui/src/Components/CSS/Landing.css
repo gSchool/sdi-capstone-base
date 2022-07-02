@@ -1,10 +1,11 @@
 .background {
-  background-color: aliceblue;
+  background-image: url('https://wallpaperaccess.com/full/837278.jpg');
   background-size: cover;
 }
 
 .landingHeader {
-  font-size: xxx-large;
+  margin-top: 0;
+  font-size: 50px;
   text-align: center;
 }
 

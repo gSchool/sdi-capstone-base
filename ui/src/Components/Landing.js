@@ -44,7 +44,7 @@ const nav = useNavigate();
         <input id="username" placeholder="username"></input>
       </div>
       <div className="input2">
-        <input id="password" placeholder="password"></input>
+        <input id="password" type="password" ßplaceholder="password"></input>
       </div>
       <div className="signIn">
         <button className="signInButton" onClick={() => {signIn(document.getElementById('username').value, document.getElementById('password').value)}}>Sign in</button>
@@ -53,7 +53,10 @@ const nav = useNavigate();
       <div className="signUp">      
         <button className="signUpButton" onClick={() => {nav('/signup')}}>Sign up now!</button>
       </div>
-      <button onClick={() => {nav('/publicfeed')}}>View Public Feed</button>
+        <p className="noAcct">OR</p>
+        <div className="signIn">
+          <button className="signInButton"onClick={() => {nav('/publicfeed')}}>View Public Feed</button>
+        </div>
     </div>
   )
 }
