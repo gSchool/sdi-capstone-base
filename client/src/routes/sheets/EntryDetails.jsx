@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext, useRef } from 'react';
 import { SheetContext } from '../../_context/SheetProvider';
+import edit from '../../_assets/icons/edit-purple.png'
 
 const capitalize = (string) => {
   return string.charAt(0).toUpperCase() + string.slice(1);
@@ -16,13 +17,14 @@ const EntryDetails = () => {
     <div className="entry-details-container">
       <div className="entry-details-header">
         <button className="entry-details-cancel" onClick={() => {sheet.setSelectedEntry({})}}>&gt;</button>
-        <span>Look at these guys</span>
+        <span>Edit Data</span>
+        <img src={edit} />
       </div>
       <form className='entry-details-form'>
         {sheet.currentSheet.fields.map((field, i) => {
           let index = sheet.selectedEntry.values.findIndex(value => value.field_id === field.field_id)
             return (
-              <div key={i} className='entry-details-field' onClick={(e)=>{
+              <div key={i} className='entry-details-field' onFocus={(e)=>{
                   for (let element of document.getElementsByClassName('entry-details-field')) {
                     element.classList.remove('field-selected')
                   }

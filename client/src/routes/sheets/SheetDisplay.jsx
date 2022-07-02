@@ -1,34 +1,50 @@
 import React, { useEffect, useContext } from 'react';
 import { SheetContext } from '../../_context/SheetProvider';
-import dummyData from '../../_dummy/sheet.json';
 import { Div } from '../../_styles/_global'
 import Entry from './Entry';
 import EntryDetails from './EntryDetails';
+import logo from '../../_assets/img/logo-dark.png';
+import dummyData from '../../_dummy/sheet.json';
 
 const SheetDisplay = () => {
   const { sheet } = useContext(SheetContext);
+
+  let count = -1;
 
   return (
     <>
       <div className='sheet-display-container'>
         {/* <SheetHeader> */}
-        <div>{sheet.currentSheet.name}</div>
-        <table className='sheet-display-table'>
-          {/* <SheetFields> */}
-          <thead>
-            <tr>
-              {sheet.currentSheet.fields.map((field, i) =>
-                <td className="sheet-display-cell" key={i}>{field.name}</td>
-              )}
-            </tr>
-          </thead>
-          {/* <SheetEntries> */}
-          <tbody>
-            {sheet.currentSheet.entries.map((entry, i) =>
-              <Entry data={entry} key={i}/>
-            )}
-          </tbody>
-        </table>
+        <div className='sheet-display-header'>
+          <div>
+            <img src={logo} />
+            <span>{sheet.currentSheet.name}</span>
+          </div>
+          <div>
+            <input placeholder='Search'/>
+            <button>Filter</button>
+          </div>
+        </div>
+        <div className='sheet-display-body'>
+          <table className='sheet-display-table'>
+            {/* <SheetFields> */}
+            <thead>
+              <tr>
+                {sheet.currentSheet.fields.map((field, i) =>
+                  <td className="sheet-display-cell" key={i}>{field.name}</td>
+                )}
+              </tr>
+            </thead>
+            {/* <SheetEntries> */}
+            <tbody>
+
+              {sheet.currentSheet.entries.map((entry, i) => {
+                count += 1;
+                return <Entry data={entry} key={i}/>
+              })}
+            </tbody>
+          </table>
+        </div>
       </div>
       <EntryDetails />
     </>
