@@ -11,7 +11,7 @@
 /coverage
 
 # client
-client/src/_config
+# client/src/_config
 
 # production
 /build
