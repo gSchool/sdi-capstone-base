@@ -19,6 +19,7 @@
 }
 
 .sheet-display-body{
+  border-radius: var(--global-border-radius);
   height: calc(100% - 82px);
   overflow: scroll;
 }
@@ -35,13 +36,13 @@
   margin: 20px;
 }
 
-.sheet-display-header span{
+.sheet-display-header span {
   font-size: var(--font-size-heading);
   font-weight: 700;
-  color: var(--color-secondary);
+  color: var(--color-text);
 }
 
-.sheet-display-header input{
+.sheet-display-header input {
   font-size: var(--font-size-body-large);
   font-weight: 500;
   color: var(--color-secondary);
@@ -53,9 +54,15 @@
   margin: 0px 10px;
 }
 
-tr:nth-child(even) {background: rgba(241, 241, 241, 0.8)}
+tbody tr:nth-child(odd):first-of-type {
+  /* background-color: var(--color-primary); */
+}
 
-.sheet-display-header button{
+tr:nth-child(even) {
+  background: var(--color-primary-transparent);
+}
+
+.sheet-display-header button {
   font-size: var(--font-size-body-large);
   font-weight: 500;
   color: rgb(95, 95, 95);
@@ -66,27 +73,33 @@ tr:nth-child(even) {background: rgba(241, 241, 241, 0.8)}
   border: none;
 }
 
-.sheet-display-table{
+.sheet-display-table {
   position: relative;
   border-collapse: collapse;
   white-space: nowrap;
   width: 100%;
 }
 
-.sheet-display-table thead{
+.sheet-display-cell {
+  padding: 20px;
+  font-size: var(--font-size-body);
+  color: var(--color-text);
+}
+
+thead .sheet-display-cell {
+  color: var(--color-text-menu);
+}
+
+.sheet-display-table thead {
   font-size: var(--font-size-body-large);
   font-weight: 700;
-  color: var(--color-secondary);
-  background-color: rgb(224, 224, 224, 0.8);
-  border-bottom: 3px solid var(--color-secondary);
+  background-color: var(--color-tertiary);
+  border-bottom: 2px solid var(--color-secondary);
 }
 
 
-.sheet-display-cell{
-  padding: 20px;
-  font-size: var(--font-size-body-large);
-  font-weight: 700;
-  color: var(--color-secondary);
+tbody .sheet-display-cell {
+  cursor: pointer;
 }
 
 .field, .value{

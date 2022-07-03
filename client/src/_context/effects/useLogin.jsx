@@ -20,6 +20,7 @@ const useLogin = () => {
 
       setUser({
         isAuth: true,
+        uid: user.uid,
         token: newToken,
         name: {
           full: user.displayName,

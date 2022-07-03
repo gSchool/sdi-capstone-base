@@ -6,15 +6,18 @@ import App from './_app/App';
 import NotFound from './routes/NotFound';
 import './_styles/_global.css'
 import AuthProvider from './_context/AuthProvider';
+import ThemeProvider from './_context/ThemeProvider';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
   <AppProvider>
-    <AuthProvider>
+    <ThemeProvider>
       <Router fallback={<NotFound />} exceptionElement={<NotFound />}>
-        <App />
+        <AuthProvider>
+          <App />
+        </AuthProvider>
       </Router>
-    </AuthProvider>
+    </ThemeProvider>
   </AppProvider>
 );

@@ -14,6 +14,7 @@ const Index = () => {
   const { user } = store
   const { isAuth } = user
 
+
   const Sheets = lazy(() => import('./sheets/Sheets'));
   const Account = lazy(() => import('./account/Account'));
   const NotFound = lazy(() => import('./NotFound'));
@@ -31,24 +32,28 @@ const Index = () => {
 const Page = () => {
 
   const { store } = useContext(GlobalContext)
-  const { theme, user } = store
+  const { globalState, user } = store
+  const { loading } = globalState
   const { isAuth, name } = user
 
   return (
     <>
-      { isAuth ? (
-          <Div centerchildren flex fills className={`${theme}`}>
-            <Div flex column card centertext className={`${theme}`}>
+      { loading ? <>load</>
+        : isAuth ? (
+          <Div centerchildren flex fills>
+            <Div flex column card centertext>
               <div>
                 Hello: {name.first} {name.last}
               </div>
             </Div>
           </Div>
         ) : (
-          <Div className="p1login">
-            <Img className="mainimg" alt="login" src={p1login} />
-            <Img className="mainimg-mobile" alt="login" src={p1loginmobile} />
-            <SignInBtn />
+          <Div centerchildren flex fills className='login-screen'>
+            <Div className="p1login">
+              <Img className="mainimg" alt="login" src={p1login} />
+              <Img className="mainimg-mobile" alt="login" src={p1loginmobile} />
+              <SignInBtn />
+            </Div>
           </Div>
         )
       }

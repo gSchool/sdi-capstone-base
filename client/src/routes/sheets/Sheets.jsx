@@ -8,7 +8,7 @@ import api, { noCallback } from '../../_helpers/api'
 import dummyData from '../../_dummy/sheet.json';
 import SheetDisplay from  './SheetDisplay'
 import Sidebar from '../../_components/Sidebar';
-import "./sheets.css";
+import "../../_styles/sheets.css";
 
 const Sheets = () => {
 

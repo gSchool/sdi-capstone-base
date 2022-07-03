@@ -4,7 +4,7 @@ const useUser = () => {
 
   const defaults = {
     isAuth: false,
-    token: '',
+    uid: '',
     name: {
       full: '',
       first: '',
@@ -38,10 +38,10 @@ const useUser = () => {
   }
 
   // update the user token
-  const setToken = (string) => {
+  const setUid = (string) => {
     setUserState({
     ...user,
-    token: string,
+    uid: string,
     })
   }
 
@@ -73,7 +73,7 @@ const useUser = () => {
     })
   }
 
-  return { user, setUser, resetUser, setIsAuth, setToken, setName, setEmail, setProfileImg }
+  return { user, setUser, resetUser, setIsAuth, setUid, setName, setEmail, setProfileImg }
 
 }
 

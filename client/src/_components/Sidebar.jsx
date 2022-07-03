@@ -7,6 +7,7 @@ import add from '../_assets/icons/plus.png';
 import menu from '../_assets/icons/grip.png';
 import account from '../_assets/icons/account.png';
 import '../_styles/sidebar.css'
+import ThemeSwitcher from '../_components/ThemeSwitcher'
 
 const Sidebar = () => {
 
@@ -16,7 +17,7 @@ const Sidebar = () => {
 
   return (
     <>
-      <nav className="sidebar" onMouseEnter={(e)=>eHandler(e, 'showCover', null, noCallback)} onMouseLeave={(e)=>eHandler(e, 'showCover', null, noCallback)}>
+      <nav className="sidebar" onMouseOver={(e)=>eHandler(e, 'showCover', null, noCallback)} onMouseEnter={(e)=>eHandler(e, 'showCover', null, noCallback)} onMouseLeave={(e)=>eHandler(e, 'hideCover', null, noCallback)}>
         <ul className="sidebar-container">
           <li className="sidebar-header">
             <Link to="/" className="sidebar-header-link">
@@ -104,6 +105,9 @@ const Sidebar = () => {
               : <img alt='profile' src={account} /> }
               <div className="sidebar-footer-link-text">Account</div>
             </Link>
+            <div className="sidebar-footer-theme">
+              <ThemeSwitcher/>
+            </div>
           </li>
         </ul>
       </nav>

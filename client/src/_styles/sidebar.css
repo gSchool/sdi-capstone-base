@@ -34,7 +34,7 @@
   align-items: center;
   white-space: nowrap;
   text-decoration: none;
-  color: var(--color-text-menu-lite);
+  color: var(--color-text-menu);
 }
 
 .sidebar-header-logo {
@@ -74,26 +74,29 @@
 
 .sidebar-add-entry-btn-dummy {
   display: flex;
-  width: 26rem;
+  width: 24rem;
 }
 
 .sidebar-add-entry-btn {
   position: fixed;
   left: 50%;
   bottom: 0;
-  transform: translate(-50%);
+  transform: translate(calc(-50%));
+  padding: 3rem 3rem 4.2rem 3rem;
+  margin-bottom: -3rem;
+  background-color: var(--color-quaternary);
+  border-radius: 50%;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
 }
 
 .sidebar-add-entry {
   display: flex;
   z-index: 3000;
-  padding: 1rem 2.8rem;
   align-items: center;
-  background-color: var(--color-quaternary);
   width: 2.8rem;
   min-width: 2.8rem;
-  border-top-left-radius: var(--global-border-radius);
-  border-top-right-radius: var(--global-border-radius);
+  margin-top: -1.2rem;
   transition: all var(--global-transition-speed) ease;
   cursor: pointer;
 }
@@ -121,7 +124,7 @@
   width: 100%;
   height: 100%;
   text-decoration: none;
-  color: var(--color-text-menu-lite);
+  color: var(--color-text-menu);
 }
 
 .sidebar-sheet-item-group {
@@ -169,11 +172,11 @@
 .sidebar-footer {
   display: flex;
   margin-top: auto;
-  font-weight: var(--medium);
+  font-weight: var(--thick);
   width: 100%;
   justify-content: center;
   align-items: center;
-  min-height: 5rem;
+  min-height: 6rem;
   text-transform: uppercase;
   color: var(--text-secondary);
   background: var(--color-primary);
@@ -188,10 +191,10 @@
   white-space: nowrap;
   text-decoration: none;
   width: 100%;
-  color: var(--color-text-menu-lite);
+  color: var(--color-text-menu);
 }
 
-.sidebar-footer img {
+.sidebar-footer-link img {
   border-radius: 50%;
   width: 2.5rem;
   min-width: 2.5rem;
@@ -201,4 +204,25 @@
 .sidebar-footer-link-text {
   display: none;
   padding-left: 1rem;
+}
+
+.sidebar-footer-theme {
+  display: none;
+  margin-right: 0.8rem;
+}
+
+.sidebar-footer-theme svg.sun {
+  width: 3rem;
+  min-width: 3rem;
+  height: auto;
+  fill: var(--color-quinary);
+}
+
+.sidebar-footer-theme svg.moon {
+  width: 3rem;
+  min-width: 3rem;
+  margin-top: -0.3rem;
+  margin-right: 0.15rem;
+  height: auto;
+  fill: var(--color-quinary);
 }

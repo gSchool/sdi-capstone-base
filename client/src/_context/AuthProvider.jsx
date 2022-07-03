@@ -1,24 +1,29 @@
-import React from 'react';
-import { useContext, useEffect } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { GlobalContext } from './AppProvider'
 import { useAuthState } from 'react-firebase-hooks/auth';
 import auth from '../_config/firebase_config.js';
-import Loader from '../_components/Loader';
+import PageLoader from '../_components/PageLoader';
+import { useNavigate, useLocation } from 'react-router-dom';
 
-const AuthProvider = ({children}) => {
+const useAuthProvider = ({children}) => {
   
   const { store } = useContext(GlobalContext)
-  const { setUser } = store
+  const { setUser, setGlobalState } = store
   
-  const [user, loading, error] = useAuthState(auth);
+  // the magic that checks local storage to see if if a user is already authenticated
+  const [user, loading, error] = useAuthState(auth)
+  
+  const navigate = useNavigate();
+  const prevLocation = useLocation().pathname
 
   useEffect(()=>{
     
     if (user) {
-      console.log('setting user details')
+      // console.log('setting user details')
       setUser({
         isAuth: true,
-        // token: user.uid,
+        uid: user.uid,
+        token: user.accessToken,
         name: {
           full: user.displayName,
           first: user.displayName.split(' ')[0],
@@ -28,16 +33,21 @@ const AuthProvider = ({children}) => {
         profileImg: user.photoURL,
       })
     }
-
+    
     if (loading) {
-      console.log('auth loading')
+      // console.log('auth loading')
+      setGlobalState({loading: true})
     }
-
+    
     if (!loading) {
-      console.log('auth loaded')
+      // console.log('auth loaded')
+      setGlobalState({loading: false})
+      navigate(prevLocation)
     }
-
+    
     if (error) {
+      // console.log('auth error')
+      setGlobalState({loading: false})
       console.log(error)
     }
 
@@ -45,10 +55,10 @@ const AuthProvider = ({children}) => {
 
   return (
     <>
-      {loading ? <Loader /> : children}
+      { loading ? <PageLoader /> : children }
     </>
   )
 
 }
 
-export default AuthProvider
+export default useAuthProvider

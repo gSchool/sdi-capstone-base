@@ -14,8 +14,14 @@ const eHandler = async (e, target, options, callback) => {
       api(options, callback)
       break;
     case 'showCover':
-      document.getElementById('page').classList.toggle('extend');
-      document.getElementById('cover').classList.toggle('show');
+      document.getElementById('page').classList.add('extend');
+      document.getElementById('cover').classList.remove('hide');
+      document.getElementById('cover').classList.add('show');
+      break;
+    case 'hideCover':
+      document.getElementById('page').classList.remove('extend');
+      document.getElementById('cover').classList.remove('show');
+      document.getElementById('cover').classList.add('hide');
       break;
     default:
       console.log('unhandled click event')
