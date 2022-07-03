@@ -11,7 +11,8 @@ import { SheetProvider } from '../_context/SheetProvider'
 const Index = () => {
 
   const { store } = useContext(GlobalContext)
-  const { isAuth } = store
+  const { user } = store
+  const { isAuth } = user
 
   const Sheets = lazy(() => import('./sheets/Sheets'));
   const Account = lazy(() => import('./account/Account'));
@@ -30,7 +31,8 @@ const Index = () => {
 const Page = () => {
 
   const { store } = useContext(GlobalContext)
-  const { theme, isAuth } = store
+  const { theme, user } = store
+  const { isAuth, name } = user
 
   return (
     <>
@@ -38,12 +40,11 @@ const Page = () => {
           <Div centerchildren flex fills className={`${theme}`}>
             <Div flex column card centertext className={`${theme}`}>
               <div>
-                Hello: {store.name.first} {store.name.last}
+                Hello: {name.first} {name.last}
               </div>
             </Div>
           </Div>
         ) : (
-          // <Div flex column fills centerchildren className="p1login">
           <Div className="p1login">
             <Img className="mainimg" alt="login" src={p1login} />
             <Img className="mainimg-mobile" alt="login" src={p1loginmobile} />

@@ -1,7 +1,6 @@
 .sheet-page{
   display: flex;
   flex-direction: row;
-  margin: -15px -10px -15px -30px;
 }
 
 .sheet-display-container{
@@ -99,11 +98,11 @@ tr:nth-child(even) {background: rgba(241, 241, 241, 0.8)}
   max-height: 30px;
 }
 
-.entry-row:hover{
+.entry-row:hover {
   background-color: rgba(216, 216, 216, 0.8);
 }
 
-.entry-details-container{
+.entry-details-container {
   display: flex;
   flex-direction: column;
   height: calc(100vh - 30px);
@@ -118,7 +117,7 @@ tr:nth-child(even) {background: rgba(241, 241, 241, 0.8)}
   margin-right: 5px;
 }
 
-.hidden{
+.hidden {
   min-width: 0px;
   width: 0px;
   background-color: var(--color-secondary);

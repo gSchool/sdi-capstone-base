@@ -10,7 +10,7 @@ const GlobalContext = createContext()
 const AppProvider = ({ children }) => {
 
   const { globalState, setGlobalState } = useGlobalState();
-  const { isAuth, setIsAuth, token, setToken, name, setName, email, setEmail, profileImg, setProfileImg } = useUser();
+  const { user, setUser, resetUser, setIsAuth, setToken, setName, setEmail, setProfileImg } = useUser();
   const { theme, toggleTheme } = useToggleTheme();
   const { refresh } = useRefresh();
 
@@ -19,14 +19,11 @@ const AppProvider = ({ children }) => {
     /* STATES */
     globalState,
     theme,
-    isAuth,
-    token,
-    name,
-    email,
-    profileImg,
+    user,
 
     /* SETTERS */
     setGlobalState,
+    setUser,
     setIsAuth,
     setToken,
     setName,
@@ -34,6 +31,7 @@ const AppProvider = ({ children }) => {
     setProfileImg,
     
     /* EFFECTS */
+    resetUser,
     refresh,
     toggleTheme,
 

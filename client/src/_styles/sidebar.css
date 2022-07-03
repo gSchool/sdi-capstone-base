@@ -25,7 +25,7 @@
   min-height: 6rem;
   width: 100%;
   background: var(--color-secondary);
-  border-radius: var(--global-border-radius);
+  border-top-right-radius: var(--global-border-radius);
   transition: all var(--global-transition-speed) ease;
 }
 
@@ -87,7 +87,7 @@
 .sidebar-add-entry {
   display: flex;
   z-index: 3000;
-  padding: 1.5rem 3.4rem;
+  padding: 1rem 2.8rem;
   align-items: center;
   background-color: var(--color-quaternary);
   width: 2.8rem;
@@ -177,7 +177,6 @@
   text-transform: uppercase;
   color: var(--text-secondary);
   background: var(--color-primary);
-  border-bottom-left-radius: var(--global-border-radius);
   border-bottom-right-radius: var(--global-border-radius);
   transition: all var(--global-transition-speed) ease;
   cursor: pointer;
@@ -193,8 +192,8 @@
 }
 
 .sidebar-footer img {
-  width: 2rem;
-  min-width: 2rem;
+  width: 2.5rem;
+  min-width: 2.5rem;
 }
 
 .sidebar-footer-link-text {

@@ -1,5 +1,6 @@
-import React, { useEffect, useContext } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useContext } from 'react';
+import { Link } from 'react-router-dom';
+import { GlobalContext } from '../_context/AppProvider'
 import eHandler, { noCallback } from '../_helpers/eHandler';
 import logo from '../_assets/img/logo.png';
 import add from '../_assets/icons/plus.png';
@@ -8,6 +9,10 @@ import account from '../_assets/icons/account.png';
 import '../_styles/sidebar.css'
 
 const Sidebar = () => {
+
+  const { store } = useContext(GlobalContext)
+  const { user } = store
+  const { profileImg } = user
 
   return (
     <>
@@ -95,7 +100,8 @@ const Sidebar = () => {
 
           <li className="sidebar-footer">
             <Link to="/account" className="sidebar-footer-link">
-              <img alt='logo' src={account}/>
+              { profileImg ? <img className='profile-img-small' alt='profile' src={profileImg} />
+              : <img alt='profile' src={account} /> }
               <div className="sidebar-footer-link-text">Account</div>
             </Link>
           </li>

@@ -2,37 +2,78 @@ import { useState } from 'react'
 
 const useUser = () => {
 
-  const [isAuth, setIsAuthState] = useState(false)
-  const [token, setTokenState] = useState('')
-  const [name, setNameState] = useState('')
-  const [email, setEmailState] = useState('')
-  const [profileImg, setProfileImgState] = useState('')
-
-  const setIsAuth = (bool) => {
-    setIsAuthState(bool)
+  const defaults = {
+    isAuth: false,
+    token: '',
+    name: {
+      full: '',
+      first: '',
+      last: '',
+    },
+    email: '',
+    profileImg: '',
   }
 
-  const setToken = (token) => {
-    setTokenState(token)
-  }
+  const [user, setUserState] = useState(defaults)
 
-  const setName = (name) => {
-    setNameState({
-      full: name,
-      first: name.split(' ')[0],
-      last: name.split(' ')[1]
+  // update multiple parts of the user state in one action
+  const setUser = (updatedUserObj) => {
+    setUserState({
+      ...user,
+      ...updatedUserObj,
     })
   }
 
-  const setEmail = (email) => {
-    setEmailState(email)
+  // reset the user state to default values
+  const resetUser = (updatedUserObj) => {
+    setUserState(defaults)
   }
 
-  const setProfileImg = (imgurl) => {
-    setProfileImgState(imgurl)
+  // update the user auth status
+  const setIsAuth = (bool) => {
+    setUserState({
+      ...user,
+      isAuth: bool,
+    })
   }
 
-  return { isAuth, setIsAuth, token, setToken, name, setName, email, setEmail, profileImg, setProfileImg }
+  // update the user token
+  const setToken = (string) => {
+    setUserState({
+    ...user,
+    token: string,
+    })
+  }
+
+  // update the user name, pass in a full name as a string
+  const setName = (string) => {
+    setUserState({
+      ...user,
+      name: {
+        full: string,
+        first: string.split(' ')[0],
+        last: string.split(' ')[1]
+      }
+    })
+  }
+
+  // update the user email
+  const setEmail = (string) => {
+    setUserState({
+      ...user,
+      email: string,
+    })
+  }
+
+  // update the user profileImg url
+  const setProfileImg = (url) => {
+    setUserState({
+      ...user,
+      profileImg: url,
+    })
+  }
+
+  return { user, setUser, resetUser, setIsAuth, setToken, setName, setEmail, setProfileImg }
 
 }
 

@@ -2,23 +2,25 @@ import React, { useContext } from 'react';
 import { GlobalContext } from '../../_context/AppProvider'
 import { Div } from '../../_styles/_global'
 import { SignOutBtn } from '../../_components/SignInOutBtns';
+import '../../_styles/account.css';
 
 const Account = () => {
   
   const { store } = useContext(GlobalContext)
   const { theme, user } = store
+  const { profileImg, name, email } = user
 
   return (
     <Div centerchildren flex fills className={`${theme}`}>
       <Div flex column card centertext className={`${theme}`}>
         <div>
-          { store.profileImg ? <img src={store.profileImg} alt='profile' /> : 'no profile image' }
+          { profileImg ? <img src={profileImg} alt='profile' className='profile-img' /> : 'no profile image' }
         </div>
         <div>
-          Name: {store.name.first} {store.name.last}
+          Name: {name.first} {name.last}
         </div>
         <div>
-          Email: {store.email}
+          Email: {email}
         </div>
         <SignOutBtn />
       </Div>

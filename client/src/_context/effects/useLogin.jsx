@@ -6,7 +6,7 @@ import { GlobalContext } from "../AppProvider"
 const useLogin = () => {
 
   const { store } = useContext(GlobalContext)
-  const { theme, setIsAuth, setToken, setName, setEmail, setProfileImg } = store
+  const { setUser, resetUser } = store
 
   const provider = new GoogleAuthProvider()
 
@@ -14,27 +14,29 @@ const useLogin = () => {
     signInWithPopup(auth, provider).then((userCred) => {
 
         const credential = GoogleAuthProvider.credentialFromResult(userCred);
-        const token = credential.accessToken
+        const newToken = credential.accessToken
         const user = userCred.user
 
         // console.log(userCred)
 
-        setIsAuth(true)
-        setToken(token)
-        setName(user.displayName)
-        setEmail(user.email)
-        setProfileImg(user.photoURL)
+        setUser({
+          isAuth: true,
+          token: newToken,
+          name: {
+            full: user.displayName,
+            first: user.displayName.split(" ")[0],
+            last: user.displayName.split(" ")[1]
+          },
+          email: user.email,
+          profileImg: user.photoURL,
+        })
 
       })
   }
 
   const handleSignOut = () => {
     signOut(auth).then(() => {
-      setIsAuth(false);
-      setToken('')
-      setName('')
-      setEmail('')
-      setProfileImg('')
+      resetUser()
     })
   }
 

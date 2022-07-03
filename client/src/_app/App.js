@@ -6,7 +6,7 @@ import Sidebar from '../_components/Sidebar';
 function App() {
 
   const { store } = useContext(GlobalContext)
-  const { isAuth} = store
+  const { isAuth } = store.user
 
   return (
     <>
