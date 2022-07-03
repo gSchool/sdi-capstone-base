@@ -11,7 +11,7 @@
 /coverage
 
 # client
-# *firebase_config.js
+*firebase_config.js
 
 # production
 /build

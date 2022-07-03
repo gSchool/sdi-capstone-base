@@ -35,7 +35,7 @@ const SignInBtn = () => {
   const { handleSignOut } = useLogin()
 
   return (
-    <div className="signout-btn" onClick={() => handleSignOut()}> <Img small alt="google" src={google} /> <span>Sign Out</span> </div>
+    <div className="signout-btn" onClick={() => handleSignOut()}> <Img small alt="google" src={google} /> <span>Logout</span> </div>
   )
 
 }

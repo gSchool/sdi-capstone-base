@@ -192,9 +192,10 @@
 }
 
 .sidebar-footer img {
+  border-radius: 50%;
   width: 2.5rem;
   min-width: 2.5rem;
-  box-shadow: 0 0 2px 2px var(--color-secondary);
+  box-shadow: 0 0 4px 0px var(--color-secondary);
 }
 
 .sidebar-footer-link-text {
