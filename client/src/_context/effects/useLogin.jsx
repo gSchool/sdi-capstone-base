@@ -8,30 +8,34 @@ const useLogin = () => {
   const { store } = useContext(GlobalContext)
   const { setUser, resetUser } = store
 
-  const provider = new GoogleAuthProvider()
-
   const loginWithGoogle = () => {
+
+    const provider = new GoogleAuthProvider();
+    
     signInWithPopup(auth, provider).then((userCred) => {
 
-        const credential = GoogleAuthProvider.credentialFromResult(userCred);
-        const newToken = credential.accessToken
-        const user = userCred.user
+      const credential = GoogleAuthProvider.credentialFromResult(userCred);
+      const newToken = credential.accessToken
+      const user = userCred.user // console.log(userCred) for user details
 
-        // console.log(userCred)
-
-        setUser({
-          isAuth: true,
-          token: newToken,
-          name: {
-            full: user.displayName,
-            first: user.displayName.split(" ")[0],
-            last: user.displayName.split(" ")[1]
-          },
-          email: user.email,
-          profileImg: user.photoURL,
-        })
-
+      setUser({
+        isAuth: true,
+        token: newToken,
+        name: {
+          full: user.displayName,
+          first: user.displayName.split(" ")[0],
+          last: user.displayName.split(" ")[1]
+        },
+        email: user.email,
+        profileImg: user.photoURL,
       })
+
+    })
+  .catch((error) => {
+    console.log('Auth error code:\n', error.code)
+    console.log('Auth error message:\n', error.message)
+  });
+
   }
 
   const handleSignOut = () => {

@@ -1,10 +1,10 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { GlobalContext } from '../_context/AppProvider';
 import Index from '../routes/Index'
 import Sidebar from '../_components/Sidebar';
 
 function App() {
-
+  
   const { store } = useContext(GlobalContext)
   const { isAuth } = store.user
 
