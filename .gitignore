@@ -11,7 +11,7 @@
 /coverage
 
 # client
-client/src/_config/firebase_config.js
+client/src/_config
 
 # production
 /build
