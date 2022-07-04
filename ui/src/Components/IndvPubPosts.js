@@ -28,7 +28,7 @@ const IndvPubPosts = () => {
           <h2 className="postHeader">{post.title}</h2>
         </div>
         <div className="postBodyContainer">
-          <p className="indPostBody">{post.content}</p>
+          <p className="indPostBody">{post.content}<p>{post.date}</p></p>
         </div>
     </div>
     </div>

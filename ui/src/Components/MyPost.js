@@ -28,7 +28,7 @@ const MyPost = () => {
           <h2 className="postHeader"><button className="signInButton"onClick={() => {nav(`/profile/${username}/edit/${id}`)}}>Edit</button><br/>{post.title}</h2>
         </div>
         <div className="postBodyContainer">
-          <p className="indPostBody">{post.content}</p>
+          <p className="indPostBody">{post.content}<p>@{username}</p><p>{post.date}</p></p>
         </div>
     </div>
     </div>

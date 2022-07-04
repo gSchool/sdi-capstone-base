@@ -11,7 +11,6 @@ const Profile = () => {
   const user = useParams();
   let username = user.username
   const nav = useNavigate();
-  console.log(values.date)
 
   useEffect(() => {
 
@@ -49,7 +48,7 @@ const Profile = () => {
           <h2 className="postHeader">{post.title}</h2>
         </div>
         <div className="postBodyContainer">
-          <p className="postBody">{post.content.substring(0,100)}...{values.date}</p>
+          <p className="postBody">{post.content.length < 100 ? post.content : post.content.substring(0,100)+'...'}<p>@{username}</p><p>{post.date}</p></p>
         </div>
       </div>))}
     </div>

@@ -46,7 +46,7 @@ const SignUp = () => {
         <input id="username" placeholder="Username"></input>
       </div>
       <div className="form4">
-        <input id="password" placeholder="Password"></input>
+        <input id="password" type ="password" placeholder="Password"></input>
       </div>
       <div className="addUser">
         <button className="addUserButton" onClick={() => {addUser(document.getElementById('first').value, document.getElementById('last').value, document.getElementById('username').value, document.getElementById('password').value)}}>Sign Up!</button>

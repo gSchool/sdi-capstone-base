@@ -20,6 +20,8 @@ const CreatePost = () => {
   }, []);
   let userId = values.users.filter(user => user.username === params.username)
   const postIt = (title, content) => {
+    let date = Date.now()
+    let convertedDate = new Intl.DateTimeFormat('en-US', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit' }).format(date)
     const newPost = {
       method: 'POST',
       headers: {
@@ -28,15 +30,13 @@ const CreatePost = () => {
       body: JSON.stringify({
         title: title,
         content: content,
+        date: convertedDate,
         user_id: userId[0].id
       })
     }
     fetch(`${ApiUrl}/posts`, newPost)
     .then(res => res.json())
-    .then(data => {setters.setPosts(data)})
-    let date = Date.now()
-    console.log(date)
-    setters.setDate(date)    
+    .then(data => {setters.setPosts(data)})   
     nav(`/profile/${username}`)
   }
 
