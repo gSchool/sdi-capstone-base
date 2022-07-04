@@ -40,7 +40,7 @@ const Profile = () => {
 
       <h1 className="profileHeader">Welcome, {user.username}!</h1>
         <div className="newPostContainer">
-          <button className="myFeed" onClick={() => {nav(`/profile/${username}/create`)}}>Create New Post!</button>
+          <button className="signInButton" onClick={() => {nav(`/profile/${username}/create`)}}>Create New Post!</button>
         </div>
     <div>
       {filteredBlogs.map(post => (

@@ -38,6 +38,7 @@ const nav = useNavigate();
 
   return(
     <div className="background">
+    <div>
       <h1 className="landingHeader">BLOG</h1>
       <h2 className="logIn">Log in!</h2>
       <div className="input1">
@@ -57,6 +58,7 @@ const nav = useNavigate();
         <div className="signIn">
           <button className="signInButton"onClick={() => {nav('/publicfeed')}}>View Public Feed</button>
         </div>
+    </div>
     </div>
   )
 }

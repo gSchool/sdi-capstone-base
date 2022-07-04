@@ -22,7 +22,7 @@ const IndvPubPosts = () => {
   return(
     <div className="background">
       <h1 className="blogTitle">BLOG</h1>
-      <button onClick={()=> {nav(`/publicfeed`)}}>Return</button>
+      <button className="signInButton" onClick={()=> {nav(`/publicfeed`)}}>Return</button>
       <div className="IndvPosts" >
         <div className="viewPostsHeader">
           <h2 className="postHeader">{post.title}</h2>
