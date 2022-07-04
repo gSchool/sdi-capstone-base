@@ -7,7 +7,7 @@
     .then((rows) => {
       if (rows.length === 0) {
         return knex('posts').insert([
-          {title: 'hi', content: 'some content', user_id: 1}
+          {title: 'hi', content: 'some content', date: 'July 4, 2022', user_id: 1}
         ]);
       }
     })

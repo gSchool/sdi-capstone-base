@@ -52,7 +52,7 @@ app.get('/posts', (req, res) => {
     knex('posts')
         .select('*')
         .then(postInfo => {
-            let postData = postInfo.map(post => ({id: post.id, title: post.title, content: post.content, user_id: post.user_id}));
+            let postData = postInfo.map(post => ({id: post.id, title: post.title, content: post.content, date: post.date, user_id: post.user_id}));
             res.status(200).send(postData)
         })
 })
