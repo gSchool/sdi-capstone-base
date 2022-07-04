@@ -3,6 +3,7 @@ import { GlobalContext } from '../_context/AppProvider'
 import useLogin from '../_context/effects/useLogin'
 import { Img } from '../_styles/_global'
 import google from '../_assets/icons/google.png';
+import defaultProfileImg from '../_assets/img/default-profile-img.png';
 
 const SignInBtn = () => {
   
@@ -23,7 +24,7 @@ const SignInBtn = () => {
           last: "Doe"
         },
         email: 'user@gmail.com',
-        profileImg: 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png',
+        profileImg: defaultProfileImg,
       }))}>Instant Login</div>
     </>
     )

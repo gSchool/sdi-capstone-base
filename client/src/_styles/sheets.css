@@ -59,7 +59,7 @@ tbody tr:nth-child(odd):first-of-type {
 }
 
 tr:nth-child(even) {
-  background: var(--color-primary-transparent);
+  background: var(--color-secondary-transparent);
 }
 
 .sheet-display-header button {

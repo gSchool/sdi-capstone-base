@@ -37,8 +37,9 @@
   --color-text-menu: #ffffff;
 
   --color-primary: #60558a;
-  --color-primary-transparent: #60558a24;
+  --color-primary-transparent: #60558a31;
   --color-secondary: #4f427b;
+  --color-secondary-transparent: #4f427b31;
   --color-tertiary: #6e639e;
   --color-quaternary: #8377ba;
   --color-quinary: #9c90d0;
@@ -64,8 +65,9 @@
   --color-text-menu: #ffffff;
 
   --color-primary: #60558a;
-  --color-primary-transparent: #60558a24;
+  --color-primary-transparent: #60558a31;
   --color-secondary: #4f427b;
+  --color-secondary-transparent: #4f427b31;
   --color-tertiary: #6e639e;
   --color-quaternary: #8377ba;
   --color-quinary: #9c90d0;
@@ -158,7 +160,7 @@ img {
   top: 0;
   left: 0;
   opacity: 0;
-  background: #110c1d4e;
+  background: #20183435;
 }
 
 .login-screen {

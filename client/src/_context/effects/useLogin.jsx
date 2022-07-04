@@ -2,6 +2,7 @@ import {useContext} from "react"
 import auth from "../../_config/firebase_config.js"
 import { GoogleAuthProvider, signInWithPopup, signOut } from "firebase/auth"
 import { GlobalContext } from "../AppProvider"
+import defaultProfileImg from '../../_assets/img/default-profile-img.png';
 
 const useLogin = () => {
 
@@ -28,7 +29,7 @@ const useLogin = () => {
           last: user.displayName.split(" ")[1]
         },
         email: user.email,
-        profileImg: user.photoURL,
+        profileImg: user.photoURL ? user.photoURL : defaultProfileImg,
       })
 
     })
