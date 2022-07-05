@@ -4,8 +4,9 @@ volumes:
   pgdatasource:
 
 services:
-  capstone-db:
-    image: postgres
+  db:
+    image: postgres:alpine
+    container_name: db
     restart: always
     environment: 
      - DATABASE_HOST=127.0.0.1
@@ -23,8 +24,9 @@ services:
     volumes:
       - pgdatasource:/var/lib/postgresql/data
 
-  capstone-api:
+  api:
     build: api/
+    container_name: api
     depends_on:
       capstone-db:
         condition: service_healthy
@@ -32,7 +34,7 @@ services:
       - '8080:8082'
     environment: 
       - NODE_ENV=development
-      - DATABASE_HOST=capstone-db
+      - DATABASE_HOST=db
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=docker
       - POSTGRES_PORT=5432
@@ -43,10 +45,11 @@ services:
         target: /app
     command: npm run start:dev
 
-  capstone-ui:
+  ui:
     build: ui/
+    container_name: ui
     depends_on:
-      - 'capstone-api'
+      - 'api'
     ports:
       - '3001:3000'
     volumes:

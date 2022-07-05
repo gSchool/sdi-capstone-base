@@ -28,11 +28,11 @@ jobs:
       # Runs a single command using the runners shell to build the UI
       - name: Build UI
         run: |
-          docker build -t capstone-ui ./ui
+          docker build -t ui ./ui
       # Runs a set of commands using the runners shell to test the UI
       - name: Test UI
         run: |
-          docker run -e CI=true capstone-ui npm run test
+          docker run -e CI=true ui npm run test
           
   # This workflow kicks off the build and test for the API
   build-and-test-api:
@@ -42,10 +42,10 @@ jobs:
       - uses: actions/checkout@v3
       - name: Build API
         run: |
-          docker build -t capstone-api ./api
+          docker build -t api ./api
       - name: Test API
         run: |
-          docker run -e CI=true capstone-api npm run test
+          docker run -e CI=true api npm run test
   
   # This workflow kicks off the deployment to Heroku for the UI
   deploy-ui:
@@ -59,8 +59,8 @@ jobs:
       - uses: akhileshns/heroku-deploy@v3.12.12
         with: 
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-          heroku_app_name: "gschool-sdi-ui"
-          heroku_email: "jeff.haddock.developer@gmail.com"
+          heroku_app_name: "taskify-capstone-ui"
+          heroku_email: "ralph.1996.3@gmail.com"
           appdir: "ui/"
           usedocker: true
   
@@ -78,8 +78,8 @@ jobs:
       - uses: akhileshns/heroku-deploy@v3.12.12
         with: 
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-          heroku_app_name: "gschool-sdi-api"
-          heroku_email: "jeff.haddock.developer@gmail.com"
+          heroku_app_name: "taskify-capstone-api"
+          heroku_email: "ralph.1996.3@gmail.com"
           appdir: "api/"
           usedocker: true
 
