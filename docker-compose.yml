@@ -28,7 +28,7 @@ services:
     build: api/
     container_name: api
     depends_on:
-      capstone-db:
+      db:
         condition: service_healthy
     ports:
       - '8080:8082'
