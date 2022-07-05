@@ -17,6 +17,18 @@
     - Begin creating API
     - Collapsible menu created
     - Authentication tokens in Firebase implemented
+
+    v0.2:
+    - Added "instant login" button to login instantly when desired -- user auth only persists until page refresh
+    - Refactored user object in useUser.jsx state
+    - Added profile image to sidebar
+    - General updates to sidebar CSS
+    - User authentication now persists in local storage
+    - Created AuthProvider to route the user based on authentication in local storage
+    - Refreshing the page now preserves the previous location in history, instead of defaulting to the homepage
+    - Created PageLoader element with animation for page loads
+    - Lite and dark theme added, still needs work -- theme toggle button added to sidebar
+    - Small updates to Sheets page CSS
     
 <br>
 

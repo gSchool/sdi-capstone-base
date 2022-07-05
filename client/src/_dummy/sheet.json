@@ -80,21 +80,21 @@
       "archived": false
     },
     {
-      "name": "Sign-In Name",
+      "name": "Sign-Out Name",
       "type": "text",
       "field_id": 12,
       "favorited": false,
       "archived": false
     },
     {
-      "name": "Sign-In Man No.",
+      "name": "Sign-Out Man No.",
       "type": "text",
       "field_id": 13,
       "favorited": false,
       "archived": false
     },
     {
-      "name": "Sign-In Date",
+      "name": "Sign-Out Date",
       "type": "text",
       "field_id": 14,
       "favorited": false,

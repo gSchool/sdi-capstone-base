@@ -7,7 +7,6 @@
   --global-padding: 1rem;
   --global-padding-half: 0.5rem;
   --global-border-radius: 24px;
-  --global-box-shadow-color: #413768ba;
   --global-transition-speed: 300ms;
 
   --input-padding: 0.5rem 1rem 0.5rem 1rem;
@@ -36,7 +35,25 @@
   --color-text: #222222;
   --color-text-menu: #ffffff;
 
-  --color-primary: #60558a;
+  --global-box-shadow-color: #55658aba;
+
+  --color-primary: #55658a;
+  --color-primary-transparent: #55658a31;
+  --color-secondary: #42527b;
+  --color-secondary-transparent: #42527b31;
+  --color-tertiary: #67779e;
+  --color-quaternary: #778fba;
+  --color-quaternary-transparent: #778fba31;
+  --color-quinary: #b0bad6;
+
+  --color-undenary: #413768;
+  --color-duodenary: #352b57;
+  
+  --edit-dark: url('../_assets/icons/edit-blue.png');
+  --edit-light: url('../_assets/icons/edit.png');
+
+  /* PURPLE BACKUP */
+  /* --color-primary: #60558a;
   --color-primary-transparent: #60558a31;
   --color-secondary: #4f427b;
   --color-secondary-transparent: #4f427b31;
@@ -45,7 +62,7 @@
   --color-quinary: #9c90d0;
 
   --color-undenary: #413768;
-  --color-duodenary: #352b57;
+  --color-duodenary: #352b57; */
 
   --color-green: #0ca789;
   --color-yellow: #fac70d;
@@ -60,20 +77,31 @@
   transition:
   background-color 100ms ease,
   background 1000ms ease;
+
+  /* display: flex; */
 }
 
 #dark {
-  --color-background: #30244c;
+  --color-background: #252525;
   --color-text: #ffffff;
   --color-text-menu: #ffffff;
 
-  --color-primary: #60558a;
-  --color-primary-transparent: #60558a31;
-  --color-secondary: #4f427b;
-  --color-secondary-transparent: #4f427b31;
-  --color-tertiary: #6e639e;
-  --color-quaternary: #8377ba;
-  --color-quinary: #9c90d0;
+  --global-box-shadow-color: #353535ba;
+
+  --color-primary: #5e5e5e;
+  --color-primary-transparent: #80808080;
+  --color-secondary: #3e3e3f;
+  --color-secondary-transparent: #3e3e3f80;
+  --color-tertiary: #01255d;  
+  --color-quaternary: #03255c;
+  --color-quaternary-transparent: #0042a531;
+  --color-quinary: #505050;
+
+  --color-undenary: #374b68;
+  --color-duodenary: #4d4f57;
+
+  --edit-dark: url('../_assets/icons/edit-light-blue.png');
+  --edit-light: url('../_assets/icons/edit-blue.png');
 
   --color-green: #0ca789;
   --color-yellow: #fac70d;
@@ -88,6 +116,8 @@
   transition:
   background-color 100ms ease,
   background 1000ms ease;
+
+  /* display: flex; */
 }
 
 html {
@@ -123,6 +153,8 @@ body {
   width: calc(100% - 6rem);
   margin-left: 6rem;
   transition: all var(--global-transition-speed) ease;
+  /* display: flex; */
+  /* justify-content: center; */
 }
 
 button, input {
@@ -155,6 +187,10 @@ img {
   white-space: nowrap;
 }
 
+.nowrap {
+  white-space: nowrap;
+}
+
 .page-cover {
   display: none;
   position: fixed;
@@ -163,7 +199,7 @@ img {
   top: 0;
   left: 0;
   opacity: 0;
-  background: #20183435;
+  background: #272a3035;
 }
 
 .login-screen {

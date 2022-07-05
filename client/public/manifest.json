@@ -3,6 +3,6 @@
   "name": "SmartSheets",
   "start_url": ".",
   "display": "standalone",
-  "theme_color": "#4f427b",
+  "theme_color": "#42527b",
   "background_color": "#ffffff"
 }

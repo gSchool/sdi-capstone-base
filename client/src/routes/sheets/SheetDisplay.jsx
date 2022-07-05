@@ -17,7 +17,7 @@ const SheetDisplay = () => {
         <div className='sheet-display-header'>
           <div>
             <img src={logo} />
-            <span>{sheet.currentSheet.name}</span>
+            <span className="nowrap">{sheet.currentSheet.name}</span>
           </div>
           <div>
             <input placeholder='Search'/>
@@ -43,7 +43,7 @@ const SheetDisplay = () => {
             </tbody>
           </table>
         </div>
-        <button className="new-entry" onClick={() => sheet.setNewEntry(true)}><img src={edit}/></button>
+        <button className="new-entry" onClick={() => sheet.setNewEntry(true)}><img alt='edit-icon'/></button>
       </div>
       <EntryDetails />
     </>

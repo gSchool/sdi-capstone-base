@@ -9,8 +9,23 @@ const capitalize = (string) => {
 
 const EntryDetails = () => {
   const { sheet } = useContext(SheetContext);
-
   const [isLoading, setIsLoading] = useState(false);
+
+  const submitData = () => {
+    //TODO: Build json to send to server
+    for (let element of document.getElementsByClassName('entry-details-field')) {
+      let fieldData = JSON.parse(element.dataset.field)
+      let inputElement = element.querySelector('input')
+  
+      console.log(inputElement.value) // newValue
+      console.log(inputElement.id) // value id
+    }
+  
+    setIsLoading(true);
+  
+    //TODO: Send request to server and set up logic to handle response
+    new Promise(resolve => setTimeout(resolve, 2000)).then(() => setIsLoading(false))
+  }
 
   useEffect(() => {
   }, [sheet.selectedEntry])
@@ -20,62 +35,64 @@ const EntryDetails = () => {
     <div className="entry-details-container hidden"></div>
     :
     <div className="entry-details-container">
-      {isLoading === true ? <div className="entry-details-loader">Updating...</div> : <></>}
+
       <div className="entry-details-header">
         <button className="entry-details-cancel" onClick={() => {
           sheet.setSelectedEntry({})
           sheet.setNewEntry(false)
         }}>&gt;</button>
         <span>{sheet.newEntry === true ? 'New Entry' : 'Update Entry'}</span>
-        <img src={edit} />
+        <img alt='edit icon'/>
       </div>
+
       <form className='entry-details-form'>
         {sheet.currentSheet.fields.map((field, i) => {
+          // map through each field of the sheet and try to get the corresponding value from the selected entry
           let index;
           if (sheet.newEntry === false) {
             index = sheet.selectedEntry.values.findIndex(value => value.field_id === field.field_id)
           } else {
-            index = -1;
+            index = -1; // values won't exist for a new entry
           }
-            return (
-              <div key={i} data-field={JSON.stringify(field)} className='entry-details-field' onFocus={(e)=>{
-                  for (let element of document.getElementsByClassName('entry-details-field')) {
-                    element.classList.remove('field-selected')
-                  }
-                  e.target.closest('.entry-details-field').classList.add('field-selected');
-                }}>
+          return (
+            <div key={i} data-field={JSON.stringify(field)} className='entry-details-field' onFocus={(e)=>{
+                for (let element of document.getElementsByClassName('entry-details-field')) {
+                  element.classList.remove('field-selected')
+                }
+                e.target.closest('.entry-details-field').classList.add('field-selected');
+              }}>
+              <div>
+                <span className="field-name">{field.name}</span>
+                <span className="field-type">{capitalize(field.type)}</span>
+              </div>
+              <hr />
+              {field.type === 'checkbox' ? 
                 <div>
-                  <span className="field-name">{field.name}</span>
-                  <span className="field-type">{capitalize(field.type)}</span>
+                  <input id={index === -1 ? 'new' : sheet.selectedEntry.values[index].value_id}
+                    key={index === -1 ? 'new' : sheet.selectedEntry.values[index].value_id}
+                    className='entry-details-checkbox'
+                    type="checkbox" defaultChecked={index === -1 ? 'false':sheet.selectedEntry.values[index].value === 'true'} />
+                  <span>test</span>
                 </div>
-                <hr />
+                :
                 <input id={index === -1 ? 'new' : sheet.selectedEntry.values[index].value_id}
                   key={index === -1 ? 'new' : sheet.selectedEntry.values[index].value_id}
                   className='entry-details-input'
                   defaultValue={index === -1 ? '': sheet.selectedEntry.values[index].value} />
-              </div>
+              }
+            </div>
             )
           }
         )}
       </form>
+
       <button className='entry-details-update' onClick={async (e) => {
         e.preventDefault()
-
-        //TODO: Build json to send to server
-        for (let element of document.getElementsByClassName('entry-details-field')) {
-          let fieldData = JSON.parse(element.dataset.field)
-          let inputElement = element.querySelector('input')
-
-          console.log(inputElement.value) // newValue
-          console.log(inputElement.id) // value id
-        }
-
-        setIsLoading(true);
-
-        //TODO: Send request to server and set up logic to handle response
-        new Promise(resolve => setTimeout(resolve, 2000)).then(() => setIsLoading(false))
-
+        submitData();
       }}>Submit</button>
+
+      {/* Covers the entire component after data is submitted. */}
+      {isLoading === true ? <div className="entry-details-loader">Please Wait...</div> : <></>}
     </div>
   )
 }

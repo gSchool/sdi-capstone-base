@@ -20,8 +20,10 @@ export const Div = styled.div`
 export const Fix = styled.div`
   display: block;
   position: fixed;
-  right: 1rem;
-  bottom: 1rem;
+  top: ${(props) => props.lower ? "unset" : props.offset};
+  bottom: ${(props) => props.lower ? props.offset : "unset"};
+  left: ${(props) => props.right ? "unset" : props.offset};
+  right: ${(props) => props.right ? props.offset : "unset"};
 `;
 
 export const Img = styled.img`

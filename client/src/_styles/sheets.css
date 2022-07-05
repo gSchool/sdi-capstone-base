@@ -1,6 +1,10 @@
 .sheet-page{
   display: flex;
   flex-direction: row;
+  /* flex-grow: 1; */
+  /* max-width: 1920px; */
+  margin-left: 1rem;
+  margin-right: 1rem;
 }
 
 .sheet-display-container{
@@ -36,6 +40,7 @@
   height: 40px;
   width: 40px;
   margin: 20px;
+  content: url('../_assets/img/logo.png');
 }
 
 .sheet-display-header span {
@@ -61,7 +66,7 @@ tbody tr:nth-child(odd):first-of-type {
 }
 
 tr:nth-child(even) {
-  background: var(--color-secondary-transparent);
+  background: var(--color-quaternary-transparent);
 }
 
 .sheet-display-header button {
@@ -114,7 +119,7 @@ tbody .sheet-display-cell {
 }
 
 .entry-row:hover {
-  background-color: rgba(216, 216, 216, 0.8);
+  background-color: var(--color-secondary-transparent);
 }
 
 .entry-details-container {
@@ -131,7 +136,7 @@ tbody .sheet-display-cell {
   margin-top: 15px;
   margin-left: 10px;
   margin-right: 5px;
-  box-shadow: 0 2px 6px 0 #413768ba;
+  box-shadow: 0 2px 6px 0 var(--global-box-shadow-color);
 }
 
 .hidden {
@@ -185,6 +190,7 @@ tbody .sheet-display-cell {
 }
 
 .entry-details-header img{
+  content: var(--edit-dark);
   height: 40px;
   margin-right: 1rem;
 }
@@ -211,7 +217,7 @@ tbody .sheet-display-cell {
   background-color: var(--color-tertiary);
   border-radius: 5px;
   margin: 4px 0px;
-  box-shadow: 0 3px 6px 1px #413768ba;
+  box-shadow: 0 3px 6px 1px var(--global-box-shadow-color);
   transition: all var(--global-transition-speed) ease;
 }
 
@@ -241,6 +247,21 @@ tbody .sheet-display-cell {
   color: rgb(255, 255, 255, 0.5);
 }
 
+.entry-details-checkbox{
+  margin-left: 5px;
+  min-height: 24px;
+  max-height: 24px;
+  min-width: 24px;
+  -webkit-appearance: none;
+  background-color: var(--color-quinary);
+  border-radius: 3px;
+  box-shadow: 0 2px 6px 0 var(--global-box-shadow-color);
+}
+
+.entry-details-checkbox:checked{
+  background-color: var(--color-primary);
+  content: var(--edit-light);
+}
 
 .entry-details-input{
   background-color: var(--color-primary);
@@ -250,7 +271,7 @@ tbody .sheet-display-cell {
   padding: 2px 10px;
   border-radius: 4px;
   font-size: var(--font-size-body-large);
-  box-shadow: 0 2px 6px 0 #413768ba;
+  box-shadow: 0 2px 6px 0 var(--global-box-shadow-color);
 }
 
 .entry-details-input::selection {
@@ -328,9 +349,11 @@ tbody .sheet-display-cell {
   right: 0%;
   margin: 30px;
   transition: all var(--global-transition-speed) ease;
+  cursor: pointer;
 }
 
 .new-entry img{
+  content: var(--edit-dark);
   height: 35px;
   margin: 15px 10px;
 }
@@ -340,5 +363,5 @@ tbody .sheet-display-cell {
 }
 
 .new-entry:hover > img{
-  content: url('../_assets/icons/edit.png')
+  content: var(--edit-light);
 }
