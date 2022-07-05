@@ -7,7 +7,7 @@ export function up(knex) {
     table.increments();
     table.string("name", 255);
     table.integer("man_number");
-    table.integer("firebase_uuid");
+    table.string("firebase_uuid");
   });
 }
 
