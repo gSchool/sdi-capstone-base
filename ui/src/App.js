@@ -1,18 +1,51 @@
-import React, { useEffect, useState} from 'react';
-import config from './config'
+import React, { useEffect, useState, createContext } from 'react';
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Dashboard from './components/Dashboard.js';
+import AddPage from './components/AddPage.js';
+import TaskDetails from './components/TaskDetails.js';
+import TaskTable from './components/TaskTable.js';
+import Profile from './components/Profile.js';
+import AdminMenu from './components/AdminMenu.js';
+import Header from './components/Header.js';
+import SignUp from './components/SignUp.js';
+import Login from './components/Login.js';
+import TaskCard from './components/TaskCard.js'
 
-const ApiUrl = config[process.env.REACT_APP_NODE_ENV || "development"].apiUrl;
+const TaskContext = createContext(null)
 
 function App() {
-  
-  const userId = 1 //change these to match the actual logged in user
-  const isAdmin = false
+
+  const [userId, setUserId] = useState([])
+  const [isAdmin, setIsAdmin] = useState(false)
+  const [selectedTask, setSelectedTask] = useState({})
+  const [siteLoc, setSiteLoc] = useState('')
+
+  const TaskContextValues = {
+    userId, setUserId,
+    isAdmin, setIsAdmin,
+    selectedTask, setSelectedTask,
+    siteLoc, setSiteLoc
+  }
 
   return (
     <div>
-      {
-        isAdmin ? 
+    <Router>
+      <TaskContext.Provider value={TaskContextValues}>
+        <Header />
+        <TaskTable />
+        <Dashboard user = {false}/>
+      </TaskContext.Provider>
+      </Router>
+    </div>
+  );
+}
 
+export { TaskContext, App };
+
+/*
+{
+        isAdmin ? 
+        
           <Router>
             <Header/>
               <Routes>
@@ -44,7 +77,7 @@ function App() {
                 <Route path = '/tasks/weekly' element ={<TaskTable/>}> </Route>
                 <Route path = '/tasks/weekly/:user' element ={<TaskTable/>}> </Route>
                 <Route path = '/profile' element ={<Profile/>}> </Route>
-                <Route path = '/*' element = {<Posts user = {false}/>}></Route>
+                <Route path = '/*' element = {<Dashboard user = {false}/>}></Route>
               </Routes>
           </Router>
 
@@ -59,8 +92,4 @@ function App() {
           </Routes>
         </Router>
       }
-    </div>
-  );
-}
-
-export default App;
+*/
