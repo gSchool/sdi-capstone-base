@@ -24,13 +24,16 @@ function App() {
                 <Route path = '/tasks/weekly/:user' element ={<TaskTable/>}> </Route>
                 <Route path = '/profile' element ={<Profile/>}> </Route>
                 <Route path = '/menu' element ={<AdminMenu/>}> </Route>
-                <Route path = '/allO' element ={<Profile/>}> </Route>
+                <Route path = '/organizations' element ={<TaskTable/>}> </Route>
+                <Route path = '/roles' element ={<TaskTable/>}> </Route>
                 <Route path = '/*' element = {<Posts user = {false}/>}></Route>
               </Routes>
           </Router>
+          
         :
 
         userId !== null ?
+
             <Router>
             <Header/>
               <Routes>
