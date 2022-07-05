@@ -5,11 +5,10 @@ import Entry from './Entry';
 import EntryDetails from './EntryDetails';
 import logo from '../../_assets/img/logo-dark.png';
 import dummyData from '../../_dummy/sheet.json';
+import edit from '../../_assets/icons/edit-purple.png'
 
 const SheetDisplay = () => {
   const { sheet } = useContext(SheetContext);
-
-  let count = -1;
 
   return (
     <>
@@ -39,12 +38,12 @@ const SheetDisplay = () => {
             <tbody>
 
               {sheet.currentSheet.entries.map((entry, i) => {
-                count += 1;
                 return <Entry data={entry} key={i}/>
               })}
             </tbody>
           </table>
         </div>
+        <button className="new-entry" onClick={() => sheet.setNewEntry(true)}><img src={edit}/></button>
       </div>
       <EntryDetails />
     </>

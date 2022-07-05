@@ -4,11 +4,12 @@
 }
 
 .sheet-display-container{
-  min-height: calc(100vh - 30px);
-  max-height: calc(100vh - 30px);
+  min-height: calc(100vh);
+  max-height: calc(100vh);
   width: 100%;
   overflow: hidden;
   /* border: 1px solid black; */
+  border-radius: var(--global-border-radius);
 }
 
 .sheet-display-header{
@@ -21,6 +22,7 @@
 .sheet-display-body{
   border-radius: var(--global-border-radius);
   height: calc(100% - 82px);
+  /* border: 1px solid pink; */
   overflow: scroll;
 }
 
@@ -126,14 +128,17 @@ tbody .sheet-display-cell {
   color: white;
   border-radius: var(--global-border-radius);
   transition: all var(--global-transition-speed) ease;
+  margin-top: 15px;
   margin-left: 10px;
   margin-right: 5px;
+  box-shadow: 0 2px 6px 0 #413768ba;
 }
 
 .hidden {
   min-width: 0px;
   width: 0px;
   background-color: var(--color-secondary);
+  z-index: 30;
 }
 
 .entry-details-header{
@@ -206,7 +211,7 @@ tbody .sheet-display-cell {
   background-color: var(--color-tertiary);
   border-radius: 5px;
   margin: 4px 0px;
-  /* border: 1px solid var(--color-tertiary); */
+  box-shadow: 0 3px 6px 1px #413768ba;
   transition: all var(--global-transition-speed) ease;
 }
 
@@ -219,7 +224,7 @@ tbody .sheet-display-cell {
 .entry-details-field hr{
   min-width: 100%;
   width: 100%;
-  border: 1px solid var(--color-primary);
+  border: 1px solid var(--color-secondary);
   /* color: var(--color-tertiary); */
 }
 
@@ -245,6 +250,7 @@ tbody .sheet-display-cell {
   padding: 2px 10px;
   border-radius: 4px;
   font-size: var(--font-size-body-large);
+  box-shadow: 0 2px 6px 0 #413768ba;
 }
 
 .entry-details-input::selection {
@@ -287,10 +293,52 @@ tbody .sheet-display-cell {
 }
 
 .field-selected hr{
-  border: 1px solid var(--color-tertiary);
+  border: 1px solid var(--color-quinary);
 }
 
 .field-selected input{
   background-color: var(--color-tertiary);
 }
 
+.entry-details-loader{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  height: calc(100% - 30px);
+  min-width: 400px;
+  max-width: 400px;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 30;
+  border-radius: var(--global-border-radius);
+
+  font-size: var(--font-size-heading);
+  font-weight: 700;
+}
+
+.new-entry{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  border: none;
+  border-radius: 90px;
+  background-color: lightgray;
+  bottom: 0%;
+  right: 0%;
+  margin: 30px;
+  transition: all var(--global-transition-speed) ease;
+}
+
+.new-entry img{
+  height: 35px;
+  margin: 15px 10px;
+}
+
+.new-entry:hover{
+  background-color: var(--color-primary);
+}
+
+.new-entry:hover > img{
+  content: url('../_assets/icons/edit.png')
+}

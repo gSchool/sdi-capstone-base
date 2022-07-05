@@ -44,6 +44,9 @@
   --color-quaternary: #8377ba;
   --color-quinary: #9c90d0;
 
+  --color-undenary: #413768;
+  --color-duodenary: #352b57;
+
   --color-green: #0ca789;
   --color-yellow: #fac70d;
   --color-red: #da0063;
@@ -365,7 +368,7 @@ img {
     font-size: 2.5vw;
     top: unset;
   }
-  
+
   .p1login span {
     padding-left: 0.8rem;
   }
@@ -400,7 +403,7 @@ img {
     background-color: var(--color-quaternary);
     transition: all var(--global-transition-speed) ease;
   }
-  
+
   .sidebar-add-entry-btn {
     display: none;
   }
@@ -413,12 +416,12 @@ img {
     -o-animation: fadeIn var(--global-transition-speed) ease-out;
     animation: fadeIn var(--global-transition-speed) ease-out;
   }
-  
+
   .sidebar-sheet:hover {
     background: var(--color-tertiary);
     transition: all var(--global-transition-speed) ease;
   }
-  
+
   .sidebar-footer-link {
     display: flex;
     align-items: center;
@@ -460,11 +463,11 @@ img {
     margin-left: 2rem;
     transition: all var(--global-transition-speed) ease;
   }
-  
+
   .sidebar:hover .sidebar-header-text {
     display: inline;
   }
-  
+
   .sidebar:hover .sidebar-header-add-sheet {
     display: inline;
   }
@@ -482,7 +485,7 @@ img {
   .sidebar:hover .sidebar-sheet-link-text {
     display: inline;
   }
-    
+
   .sidebar:hover .sidebar-footer {
     justify-content: start;
   }
