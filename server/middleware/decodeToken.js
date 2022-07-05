@@ -18,8 +18,14 @@ import {getAuth} from "firebase-admin/auth"
 // }
 
 const decodedToken = (req, res, next) => {
+  const auth = req.headers.authorization
+  
+  if (!auth) {
+    res.send("no Auth")
+    return
+  }
 
-  const idToken = req.headers.authorization.split(" ")[1];
+  const idToken = auth.split(" ")[1];
   getAuth(admin)
     .verifyIdToken(idToken)
     .then((decodedToken) => {
@@ -29,8 +35,8 @@ const decodedToken = (req, res, next) => {
       }
       res.send("Unauthorized")
     })
-    .catch(() => {
-      res.send('Internal Error')
+    .catch((e) => {
+      res.send('Internal Error: DEV HEY TOKEN IS DEAD')
     });
 }
 

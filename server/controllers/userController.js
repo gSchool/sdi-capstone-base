@@ -23,32 +23,34 @@ const requestUser = (id, res) => {
 };
 
 const add = (req, res) => {
-  const { name, man_number } = req.body;
+  console.log(req.user)
 
-  if (!name) {
-    res.status(400).send("you dumb");
-    return;
-  }
-  // TODO : firebase_uuid from token.
-  //  validate that the name of the user is the same as firebase.
-  // NOTE : code bellow is just a filler till we get firebase auth up.
-  let firebase_uuid = Math.floor(Math.random() * 100);
+  // const { name, man_number } = req.body;
 
-  knex("users")
-    .select("*")
-    .where({ name: name })
-    .then((data) => {
-      if (
-        data.length === 0 &&
-        !firebaseCheck("{INPUT TOKEN HERE}", "{WHAT DO YOU WANT TO CHECK HERE}")
-      ) {
-        return knex("users")
-          .insert({ name, firebase_uuid, man_number })
-          .then(() => {
-            res.status(200).send("user added");
-          });
-      }
-    });
+  // if (!name) {
+  //   res.status(400).send("you dumb");
+  //   return;
+  // }
+  // // TODO : firebase_uuid from token.
+  // //  validate that the name of the user is the same as firebase.
+  // // NOTE : code bellow is just a filler till we get firebase auth up.
+  // let firebase_uuid = Math.floor(Math.random() * 100);
+
+  // knex("users")
+  //   .select("*")
+  //   .where({ name: name })
+  //   .then((data) => {
+  //     if (
+  //       data.length === 0 &&
+  //       !firebaseCheck("{INPUT TOKEN HERE}", "{WHAT DO YOU WANT TO CHECK HERE}")
+  //     ) {
+  //       return knex("users")
+  //         .insert({ name, firebase_uuid, man_number })
+  //         .then(() => {
+  //           res.status(200).send("user added");
+  //         });
+  //     }
+  //   });
 
   // knex('users')
   //   .insert({name, firebase_uuid, man_number})

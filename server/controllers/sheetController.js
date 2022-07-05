@@ -1,6 +1,7 @@
 import knex from "../db/db.js";
 
 const request = (req, res) => {
+  console.log(req.body)
   knex("sheets")
     .select("*")
     .then((data) => {
@@ -8,7 +9,12 @@ const request = (req, res) => {
     });
 };
 const add = (req, res) => {
-  res.status(200).send(`${req.method} - add`);
+  let newSheet = req.body;
+
+  knex('sheets')
+    .insert(newSheet)
+    .then(() => res.status(200).send(`New sheet has been added`))
+  
 };
 const remove = (req, res) => {
   res.status(200).send(`${req.method} - remove`);
