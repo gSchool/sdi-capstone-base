@@ -29,6 +29,11 @@
     - Created PageLoader element with animation for page loads
     - Lite and dark theme added, still needs work -- theme toggle button added to sidebar
     - Small updates to Sheets page CSS
+
+    v0.3:
+    - Formatted ADD ITEM menu to be seperate from page; enables easier mobile display
+    - Adjusted light/dark theme options for aesthetics, ease of viewing
+    - 
     
 <br>
 
@@ -83,6 +88,11 @@
 
 > 30 June
 >> ![Project_Status](https://i.imgur.com/fmJPcK3.png)
+
+<br>
+
+> 5 July
+>> ![Project_Status_2](https://i.imgur.com/yQMBjKO.png)
 
 <br>
 

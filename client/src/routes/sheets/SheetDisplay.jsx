@@ -15,11 +15,11 @@ const SheetDisplay = () => {
       <div className='sheet-display-container'>
         {/* <SheetHeader> */}
         <div className='sheet-display-header'>
-          <div>
-            <img src={logo} />
+          <div className="sheet-header-meta">
+            <img className="sheet-header-icon" src={logo} />
             <span className="nowrap">{sheet.currentSheet.name}</span>
           </div>
-          <div>
+          <div className="sheet-search">
             <input placeholder='Search'/>
             <button>Filter</button>
           </div>
@@ -32,11 +32,11 @@ const SheetDisplay = () => {
                 {sheet.currentSheet.fields.map((field, i) =>
                   <td className="sheet-display-cell" key={i}>{field.name}</td>
                 )}
+                <td className="sheet-display-cell" key='option'></td>
               </tr>
             </thead>
             {/* <SheetEntries> */}
             <tbody>
-
               {sheet.currentSheet.entries.map((entry, i) => {
                 return <Entry data={entry} key={i}/>
               })}

@@ -2,6 +2,8 @@ import React, { useState, useEffect, useContext, useRef } from 'react';
 import { SheetContext } from '../../_context/SheetProvider';
 import edit from '../../_assets/icons/edit-purple.png'
 import Loader from '../../_components/Loader';
+import '../../_styles/entry-details.css';
+import { ReactComponent as Check } from '../../_assets/icons/checkmark.svg';
 
 const capitalize = (string) => {
   return string.charAt(0).toUpperCase() + string.slice(1);
@@ -10,6 +12,8 @@ const capitalize = (string) => {
 const EntryDetails = () => {
   const { sheet } = useContext(SheetContext);
   const [isLoading, setIsLoading] = useState(false);
+
+  const [forceRefresh, setForceRefresh] = useState(false);
 
   const submitData = () => {
     //TODO: Build json to send to server
@@ -68,14 +72,21 @@ const EntryDetails = () => {
               <hr />
               {field.type === 'checkbox' ? 
                 <div>
-                  <input id={index === -1 ? 'new' : sheet.selectedEntry.values[index].value_id}
+                  <input id={`${field.field_id}_${index === -1 ? 'new' : sheet.selectedEntry.values[index].value_id}`}
                     key={index === -1 ? 'new' : sheet.selectedEntry.values[index].value_id}
                     className='entry-details-checkbox'
-                    type="checkbox" defaultChecked={index === -1 ? 'false':sheet.selectedEntry.values[index].value === 'true'} />
-                  <span>test</span>
+                    type="checkbox" defaultChecked={index === -1 ? false : sheet.selectedEntry.values[index].value === 'true'}
+                    onChange={(e) => {
+                      let element = e.target.nextSibling;
+                      element.innerText = element.innerText === 'Yes' ? 'No' : 'Yes';
+                    }}
+                  />
+                  <div className='entry-details-checkbox-text'>
+                    {index === -1 ? 'No' : (sheet.selectedEntry.values[index].value === 'true' ? 'Yes' : 'No')}
+                  </div>
                 </div>
                 :
-                <input id={index === -1 ? 'new' : sheet.selectedEntry.values[index].value_id}
+                <input id={`${field.field_id}_${index === -1 ? 'new' : sheet.selectedEntry.values[index].value_id}`}
                   key={index === -1 ? 'new' : sheet.selectedEntry.values[index].value_id}
                   className='entry-details-input'
                   defaultValue={index === -1 ? '': sheet.selectedEntry.values[index].value} />

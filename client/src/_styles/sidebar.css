@@ -3,6 +3,7 @@
   transition: width var(--global-transition-speed) ease;
   overflow-y: hidden;
   overflow-x: hidden;
+  z-index: 200;
 }
 
 .sidebar-container {

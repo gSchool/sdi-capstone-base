@@ -28,6 +28,9 @@
   --thick: 500;
   --bold: 600;
   --heavy: 800;
+
+  --breakpoint-mobile: 767px;
+  --breakpoint-tablet: 768px;
 }
 
 #lite {
@@ -92,13 +95,13 @@
   --color-primary-transparent: #80808080;
   --color-secondary: #3e3e3f;
   --color-secondary-transparent: #3e3e3f80;
-  --color-tertiary: #01255d;  
-  --color-quaternary: #03255c;
+  --color-tertiary: #01245d;  
+  --color-quaternary: #03255c31;
   --color-quaternary-transparent: #0042a531;
   --color-quinary: #505050;
 
   --color-undenary: #374b68;
-  --color-duodenary: #4d4f57;
+  --color-duodenary: #4d4f5783;
 
   --edit-dark: url('../_assets/icons/edit-light-blue.png');
   --edit-light: url('../_assets/icons/edit-blue.png');
@@ -115,7 +118,8 @@
 
   transition:
   background-color 100ms ease,
-  background 1000ms ease;
+  background 1000ms ease,
+  border-color 1000ms ease;
 
   /* display: flex; */
 }
@@ -151,10 +155,12 @@ body {
 #page {
   height: 100%;
   width: calc(100% - 6rem);
-  margin-left: 6rem;
+  margin-left: 5.5rem;
   transition: all var(--global-transition-speed) ease;
   /* display: flex; */
   /* justify-content: center; */
+  /* padding-left: 2rem; */
+  /* padding-top: 4rem; */
 }
 
 button, input {
@@ -162,7 +168,7 @@ button, input {
   font-weight: var(--global-font-weight);
 }
 
-::-webkit-scrollbar {
+html ::-webkit-scrollbar {
   display: none;
 }
 
@@ -314,7 +320,7 @@ img {
 
 /* SMALL SCREENS */
 
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 767px) {
 
   #page {
     height: calc(100vh - 4rem);
@@ -362,6 +368,10 @@ img {
   .sidebar-container {
     flex-direction: row;
     background-color: var(--color-secondary);
+  }
+
+  .sidebar {
+    border-top: 4px solid var(--color-primary);
   }
 
   .p1login .mainimg {
@@ -416,7 +426,7 @@ img {
 
 /* LARGE SCREENS */
 
-@media only screen and (min-width: 601px) {
+@media only screen and (min-width: 768px) {
 
   #page.extend  {
     height: 100%;
@@ -482,8 +492,8 @@ img {
   .sidebar {
     top: 0;
     width: 5rem;
-    height: calc(100% - 2rem);
-    padding: 1rem 0.5rem 1rem 0rem;
+    height: calc(100% - 6rem);
+    padding: 3rem 0.5rem 3rem 0rem;
     z-index: 10;
   }
 
