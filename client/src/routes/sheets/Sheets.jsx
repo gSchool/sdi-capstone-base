@@ -6,6 +6,7 @@ import { Div } from '../../_styles/_global'
 import Loader from '../../_components/Loader'
 import api, { noCallback } from '../../_helpers/api'
 import dummyData from '../../_dummy/sheet.json';
+import dummyData2 from '../../_dummy/sheet2.json';
 import SheetDisplay from  './SheetDisplay'
 import Sidebar from '../../_components/Sidebar';
 import "../../_styles/sheets.css";
@@ -30,7 +31,7 @@ const Page = () => {
   const { sheet } = useContext(SheetContext);
 
   useEffect(() => {
-    sheet.setCurrentSheet(dummyData);
+    sheet.setCurrentSheet(dummyData2);
   }, [])
 
   // useEffect(() => {
@@ -39,7 +40,6 @@ const Page = () => {
   //     .catch(err => console.log(err))
   // }, [])
   
-
   return (
     <>
       <div className='sheet-page'>
