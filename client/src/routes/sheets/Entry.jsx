@@ -8,6 +8,7 @@ const Entry = (props) => {
   return (
     <tr className="entry-row" key={entry.id} onClick={() => {
       sheet.setSelectedEntry(entry);
+      sheet.setNewEntry(false);
       }}>
       {sheet.currentSheet.fields.map((field, i) => {
         let index = entry.values.findIndex(value => value.field_id === field.field_id)
