@@ -17,10 +17,10 @@ const Account = () => {
           { profileImg ? <img src={profileImg} alt='profile' className='profile-img' /> : 'no profile image' }
         </div>
         <div>
-          Name: {name.first} {name.last}
+          {name.first} {name.last}
         </div>
         <div>
-          Email: {email}
+          {email}
         </div>
         <SignOutBtn />
       </Div>
