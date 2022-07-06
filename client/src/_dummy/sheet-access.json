@@ -1,0 +1,14 @@
+{
+  "sheets": [
+    {
+      "sheet_id": 1,
+      "name": "Example Sheet",
+      "short_name": "EX"
+    },
+    {
+      "sheet_id": 100,
+      "name": "Kinds of Food",
+      "short_name": "KOF"
+    }
+  ]
+}

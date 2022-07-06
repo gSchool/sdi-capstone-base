@@ -30,10 +30,22 @@
     - Lite and dark theme added, still needs work -- theme toggle button added to sidebar
     - Small updates to Sheets page CSS
 
-    v0.3:
+    v0.3 (5 July):
     - Formatted ADD ITEM menu to be seperate from page; enables easier mobile display
     - Adjusted light/dark theme options for aesthetics, ease of viewing
-    - 
+    - Implementing FIREBASE authentication between client, host
+    - Added scrollbars to sheet view, formatted to be outside of viewable area
+    - ADD ITEM container now goes across entire page rather than being a sidebar
+    - Played with checkboxes, verified that Family Size Baked Beans IS BEANS
+
+    v0.4 (6 July):
+    - Formatting front end DIV's, containers, to ensure proper display
+    - Resolved FIREBASE login issue where token wasn't being passed between host, client
+    - Beginning to implement GET requests from backend to frontend
+    - Implementing USER ACCESS/menus page from mobile view
+    - Wolfe bought GitHub Co-Pilot because of Levi's peer pressure
+    - Clicking on a sheet now generates a dynamic route
+    - Beginning to tie together backend, frontend tables/presentation together
     
 <br>
 

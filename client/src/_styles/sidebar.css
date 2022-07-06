@@ -237,3 +237,9 @@
   height: auto;
   fill: var(--color-quinary);
 }
+
+.sidebar-sheet-options {
+  z-index: 20;
+  padding: 1rem;
+  border-radius: var(--global-border-radius);
+}

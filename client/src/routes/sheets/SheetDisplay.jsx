@@ -43,6 +43,7 @@ const SheetDisplay = () => {
             </tbody>
           </table>
         </div>
+        <button className="dummy-users-button" onClick={() => sheet.setSheetPageView('users')}><img alt='edit-icon'/></button>
         <button className="new-entry" onClick={() => sheet.setNewEntry(true)}><img alt='edit-icon'/></button>
       </div>
       <EntryDetails />

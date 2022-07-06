@@ -9,7 +9,7 @@ const GlobalContext = createContext()
 const AppProvider = ({ children }) => {
 
   const { globalState, setGlobalState, toggleTheme, setTheme } = useGlobalState();
-  const { user, setUser, resetUser, setIsAuth, setUid, setName, setEmail, setProfileImg } = useUser();
+  const { user, setUser, resetUser, setIsAuth, setUid, setName, setEmail, setProfileImg, setSheetAccess, addSheetAccess, removeSheetAccess } = useUser();
   const { refresh } = useRefresh();
 
   const store = {
@@ -27,11 +27,14 @@ const AppProvider = ({ children }) => {
     setEmail,
     setProfileImg,
     setTheme,
+    setSheetAccess,
     
     /* EFFECTS */
     resetUser,
     refresh,
     toggleTheme,
+    addSheetAccess,
+    removeSheetAccess,
 
   }
 

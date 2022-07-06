@@ -136,13 +136,12 @@
 
 .entry-details-checkbox:checked {
   background-color: var(--color-primary);
-  content: var(--edit-light);
+  content: url('../_assets/icons/checkmark.svg');
 }
 
 .entry-details-checkbox-text {
   font-weight: 600;
 }
-
 
 .entry-details-input {
   background-color: var(--color-primary);

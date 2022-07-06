@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { GlobalContext } from '../_context/AppProvider'
 import eHandler, { noCallback } from '../_helpers/eHandler';
@@ -8,13 +8,22 @@ import menu from '../_assets/icons/grip.png';
 import account from '../_assets/icons/account.png';
 import '../_styles/sidebar.css'
 import ThemeSwitcher from '../_components/ThemeSwitcher'
+import { Portal } from './Portal';
+import dummySheetAccessData from '../_dummy/sheet-access.json';
 
 const Sidebar = () => {
 
   const { store } = useContext(GlobalContext)
-  const { user } = store
-  const { profileImg } = user
+  const { user, setSheetAccess } = store
+  const { profileImg, sheetAccess } = user
 
+  const test = [1, 100]
+
+  useEffect(() => {
+    // get user's sheet access and set it
+    setSheetAccess(dummySheetAccessData.sheets);
+  }, [])
+  
   return (
     <>
       <nav className="sidebar" onMouseOver={(e)=>eHandler(e, 'showCover', null, noCallback)} onMouseEnter={(e)=>eHandler(e, 'showCover', null, noCallback)} onMouseLeave={(e)=>eHandler(e, 'hideCover', null, noCallback)}>
@@ -36,66 +45,21 @@ const Sidebar = () => {
           </span>
 
           <li className="sidebar-main">
-            
-            <span className="sidebar-sheet">
-              <Link to="/sheets" className="sidebar-sheet-item">
-                <div className="sidebar-sheet-item-group">
-                  <span className="sidebar-sheet-circle">B2</span>
-                  <span className="sidebar-sheet-link-text">B-2 Parts Inventory</span>
-                </div>
-                <img alt='logo' src={menu} className="sidebar-sheet-menu"/>
-              </Link>
-            </span>
 
-            <span className="sidebar-sheet">
-              <Link to="/sheets" className="sidebar-sheet-item">
-                <div className="sidebar-sheet-item-group">
-                  <span className="sidebar-sheet-circle">C5</span>
-                  <span className="sidebar-sheet-link-text">C-5M Parts Inventory</span>
-                </div>
-                <img alt='logo' src={menu} className="sidebar-sheet-menu"/>
-              </Link>
-            </span>
-
-            <span className="sidebar-sheet">
-              <Link to="/sheets" className="sidebar-sheet-item">
-                <div className="sidebar-sheet-item-group">
-                  <span className="sidebar-sheet-circle">COM</span>
-                  <span className="sidebar-sheet-link-text">Computer Parts Inventory</span>
-                </div>
-                <img alt='logo' src={menu} className="sidebar-sheet-menu"/>
-              </Link>
-            </span>
-
-            <span className="sidebar-sheet">
-              <Link to="/sheets" className="sidebar-sheet-item">
-                <div className="sidebar-sheet-item-group">
-                  <span className="sidebar-sheet-circle">135</span>
-                  <span className="sidebar-sheet-link-text">KC-135 Parts Inventory</span>
-                </div>
-                <img alt='logo' src={menu} className="sidebar-sheet-menu"/>
-              </Link>
-            </span>
-
-            <span className="sidebar-sheet">
-              <Link to="/sheets" className="sidebar-sheet-item">
-                <div className="sidebar-sheet-item-group">
-                  <span className="sidebar-sheet-circle">MQ9</span>
-                  <span className="sidebar-sheet-link-text">MQ-9 Reaper Parts Inventory</span>
-                </div>
-                <img alt='logo' src={menu} className="sidebar-sheet-menu"/>
-              </Link>
-            </span>
-
-            <span className="sidebar-sheet">
-              <Link to="/sheets" className="sidebar-sheet-item">
-                <div className="sidebar-sheet-item-group">
-                  <span className="sidebar-sheet-circle">SAT</span>
-                  <span className="sidebar-sheet-link-text">Satellite Database</span>
-                </div>
-                <img alt='logo' src={menu} className="sidebar-sheet-menu"/>
-              </Link>
-            </span>
+            { sheetAccess.map((sheet, i) => {
+                return (
+                  <span key={i} className="sidebar-sheet">
+                    <Link to={`/sheet/${sheet.sheet_id}`} className="sidebar-sheet-item" onClick={()=>{console.log('clicked')}}>
+                      <div className="sidebar-sheet-item-group">
+                        <span className="sidebar-sheet-circle">{sheet.short_name}</span>
+                        <span className="sidebar-sheet-link-text">{sheet.name}</span>
+                      </div>
+                      <img alt='logo' src={menu} className="sidebar-sheet-menu" onClick={() => {console.log('sheet id: ', sheet.sheet_id)}}/>
+                    </Link>
+                  </span>
+                )
+              })
+            }
 
           </li>
 
@@ -112,6 +76,11 @@ const Sidebar = () => {
         </ul>
       </nav>
       <div id="cover" className="page-cover" />
+      <Portal>
+        <div className="sidebar-sheet-options">
+          MENU
+        </div>
+      </Portal>
     </>
   );
 }

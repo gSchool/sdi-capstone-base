@@ -1,0 +1,24 @@
+{
+  "users": [
+    {
+      "name": "Kevin",
+      "role": "Owner"
+    },
+    {
+      "name": "Kyle",
+      "role": "Manager"
+    },
+    {
+      "name": "Levi",
+      "role": "User"
+    },
+    {
+      "name": "Daniel",
+      "role": "Manager"
+    },
+    {
+      "name": "Dayan",
+      "role": "User"
+    }
+  ]
+}
