@@ -170,6 +170,7 @@ tbody .sheet-display-cell {
   bottom: 2.8rem;
   right: 1.2rem;
   transition: all var(--global-transition-speed) ease;
+  box-shadow: 0 0 8px 0 var(--global-box-shadow-color);
   cursor: pointer;
 }
 
