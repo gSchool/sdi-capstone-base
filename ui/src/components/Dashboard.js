@@ -9,21 +9,11 @@ import { Button } from "@mui/material";
 import { CircularProgress } from "@mui/material";
 import TaskCard from "./TaskCard.js";
 import { Stack } from "@mui/material";
+import { Divider } from "@mui/material";
 
 import { TaskContext } from "../App.js";
 
 const ApiUrl = config[process.env.REACT_APP_NODE_ENV || "development"].apiUrl;
-
-/*
-const useStyles = makeStyles((theme) => ({
-  column: {
-    border: '4px solid black',
-    textAlign: 'center',
-  },
-  container: {
-    border: '4px solid black',
-  }
-}))*/
 
 const dummy = [
   {
@@ -50,79 +40,99 @@ const dummy = [
     status: "In Progress",
     priority: 1,
     suspense_date: "now",
-    created_by: "rank/firstname/lastname",
+    author_id: 2,
     assigned_to: "Sp4 Jones",
   },
 ];
 
-const userColumns = ["Backlog", "To Do", "In Progress", "Created"];
-const unitColumns = ["Backlog", "To Do", "In Progress"];
+const userColumns = ["not started", "in progress", "Created"]; //CHANGE "not started" TO "to do"
+const unitColumns = ["not started", "in progress"];
 
 const Dashboard = ({ user }) => {
-
   const tc = useContext(TaskContext);
-  let [tasks, setTasks] = useState([])
-  let [isLoading, setIsLoading] = useState(null) //use this to make loading circle
-  let [columns, setColumns] = useState([])
+  let [tasks, setTasks] = useState([]);
+  let [isLoading, setIsLoading] = useState(null); //use this to make loading circle
+  let [columns, setColumns] = useState([]);
 
-  useEffect(()=>{
+  const formatColumn = (someWords) => {
+    const words = someWords.split(" ");
 
-    user ? getUrl = `${ApiUrl}users/${tc.userId}` : getUrl = `${ApiUrl}orgs/${tc.orgId}`
-    user ? setColumns(userColumns) : setColumns(unitColumns)
+    for (let i = 0; i < words.length; i++) {
+      words[i] = words[i][0].toUpperCase() + words[i].substr(1);
+    }
 
-        setIsLoading(true);
-        fetch(getUrl)
-            .then(res => res.json())
-            .then(data => {
-                console.log(data)
-                setTasks(data)
-                setIsLoading(false);
-                if (user){
-                    console.log(userId)
-                }
-            })
-        
-    },[user])
+    return words.join(" ");
+  };
+
+  useEffect(() => {
+    let getUrl;
+    user
+      ? (getUrl = `${ApiUrl}/tasks/users/${tc.userId}`)
+      : (getUrl = `${ApiUrl}/tasks/orgs/${tc.userOrg}`);
+    user ? setColumns(userColumns) : setColumns(unitColumns);
+
+    setIsLoading(true);
+    fetch(getUrl)
+      .then((res) => res.json())
+      .then((data) => {
+        setTasks(data);
+        setIsLoading(false);
+        if (user) {
+          console.log(userId);
+        }
+      });
+  }, [user]);
 
   //const classes = useStyles()
   // let [columns, setColumns] = useState([])
 
-  // useEffect(() => {
-  //   user ? setColumns(userColumns) : setColumns(unitColumns)
-  // }, [])
+  //ONCE WE HAVE MERGED, IN THIS RETURN CHANGE
 
   return (
     <div>
-      <Grid container direction="row" justifyContent="space-evenly" alignItems="center">
-      {unitColumns.map((colName) => {
-        return (
-        <Stack>
-          <Typography>{colName}</Typography>
-          {
-            dummy.map((element) => {
-              return 
-                element.
-
-                element.task_status === colName ? 
-
-                <TaskCard
-                  title={element.task_title}
-                  status={element.task_status}
-                  suspense_date={element.task_suspense_date}
-                  priority={element.task_priority}
-                />
-              : 
-                <></>
-              ;
-            })
-          }
-        </Stack>
-        )
-      })}
-    </Grid>
+      <Grid
+        container
+        direction="row"
+        justifyContent="space-evenly"
+        alignItems="center"
+      >
+        {columns.map((colName) => {
+          return (
+            <Box marginTop={7}>
+              <Stack
+                spacing={2}
+                divider={<Divider orientation="horizontal" flexItem />}
+              >
+                <Typography variant="h4">{formatColumn(colName)}</Typography>
+                {tasks.map((element) => {
+                  return colName === "Created" &&
+                    element.author_id === tc.userId ? (
+                    <TaskCard
+                      id={element.task_id}
+                      title={element.task_title}
+                      status={formatColumn(element.task_status)}
+                      suspense_date={element.task_suspense_date}
+                      priority={element.task_priority}
+                    />
+                  ) : element.task_status === colName ? (
+                    <TaskCard
+                      id={element.task_id}
+                      title={element.task_title}
+                      status={element.task_status}
+                      suspense_date={element.task_suspense_date}
+                      priority={element.task_priority}
+                    />
+                  ) : (
+                    <></>
+                  );
+                })}
+              </Stack>
+            </Box>
+          );
+        })}
+      </Grid>
     </div>
   );
 };
 
 export default Dashboard;
-

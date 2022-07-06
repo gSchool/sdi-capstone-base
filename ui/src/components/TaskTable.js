@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState,useEffect } from 'react'
 import * as React from 'react';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -7,6 +7,10 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import config from "../config";
+import { TaskContext } from "../App.js";
+const ApiUrl = config[process.env.REACT_APP_NODE_ENV || "development"].apiUrl;
+
 
 const createData = (task, date_completed, completed_by) => {
   return { task, date_completed, completed_by };
@@ -20,11 +24,36 @@ const rows = [
   createData('get wrecked', "now", "ur MOM"),
 ];
 
+//variables here can probably have better names, these are the possible names of the columns
 const rowNames = ["Task", "Date Completed", "Completed By"]
+const adminRoles = []
+const adminOrgs = []
 
-const TaskTable = () => {
+const TaskTable = (props) => {
 
-  let [data, setData] = useState([])
+  const tc = useContext(TaskContext);
+  let [tasks, setTasks] = useState([])
+  let [isUnit, setIsUnit] = useState(true) //make toggle button to toggle if the table should show unit data or single user data
+
+  useEffect(()=>{
+    let url
+    isUnit ? url = `${ApiUrl}/war/orgs/${tc.userOrg}` : url = `${ApiUrl}/war/users/${tc.userOrg}`
+    fetch(url)
+      .then(res => res.json())
+      .then(data => sortTasks(data))
+  },[isUnit])
+
+
+  const sortTasks = (data) =>{
+    let temp = []
+    if (props.isArchive){ //if its archived then the completed date is not null
+      temp = data.filter((element)=> element.task_completed_date !== null)
+    }
+    else{ //get more info from the backend
+
+    }
+    setTasks(temp)
+  }
 
   return (
     <TableContainer component={Paper}>

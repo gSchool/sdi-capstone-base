@@ -5,53 +5,15 @@ import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import { Button } from "@mui/material";
+// import { useParams } from "react-router-dom";
 
 import config from "../config";
 // const ApiUrl = config[process.env.REACT_APP_NODE_ENV || "development"].apiUrl;
-const ApiUrl = 'http://localhost:8080/tasks/2'
+const ApiUrl = "http://localhost:8080";
+
 /*
 scroll container for comments?
 */
-
-const dummyComments = [
-  {
-    id: 1,
-    body: "This is the first Comment",
-    user_id: 3,
-    timestamp: "now",
-  },
-  {
-    id: 2,
-    body: "This is the Second Comment",
-    user_id: 1,
-    timestamp: "now",
-  },
-  {
-    id: 3,
-    body: "This is the reply to the first comment",
-    user_id: 1,
-    timestamp: "now",
-  },
-];
-
-const dummyOwners = [
-  { rank: "Lt", name: "I dont know" },
-  { rank: "Spc1", name: "I dont know" },
-];
-
-const dummy = {
-  id: 1,
-  title: "no u",
-  description: "got em",
-  assigned_date: "a year ago",
-  suspense_date: "now",
-  completed_date: "n/a",
-  status: "In Progress",
-  owner: dummyOwners,
-  created_by_rank: "Spc3",
-  created_by_name: "Lauren Enders",
-  comments: dummyComments,
-}; //desription or body?
 
 const TaskDetails = () => {
   /*
@@ -71,26 +33,35 @@ const TaskDetails = () => {
     return 0;
   }
 
-  const { taskDetails, setTaskDetails } = useState();
-  
-  //have this be inside useEffect, handle the same way as sorting for Project 3!!
-  let sortedComments = sortComments();
-  
-  const sortComments = () => {
-    let commentArray = taskDetails.comments; //maybe have to do a deep copy?
-    commentArray.sort(compare);
-    return commentArray;
-  };
+  const [taskDetails, setTaskDetails] = useState([]);
+  const [comments, setComments] = useState([]);
 
-  //let { id } = useParams(); ${id}
+  // let { id } = useParams();
+
+  //let sortedComments = sortComments();
+
+  const sortComments = (data) => {
+    let commentArray = data; //maybe have to do a deep copy?
+    commentArray.sort(compare);
+    console.log(commentArray)
+    setComments(commentArray)
+  };
 
   useEffect(() => {
     fetch(ApiUrl + `/tasks/2`)
       .then((res) => res.json())
-      .then((data) => setTaskDetails(data))
-      .then((data) => console.log(`tasks: ${tasks}`))
+      .then((data) => {
+        setTaskDetails(data[0]);
+        setComments(data[0].comments)
+        return data[0]
+      })
+      .then((data) => {
+         sortComments(data.comments);
+       })
       .catch((err) => console.log(err));
   }, []);
+
+  //have this be inside useEffect, handle the same way as sorting for Project 3!!
 
   return (
     <>
@@ -102,13 +73,15 @@ const TaskDetails = () => {
             columnSpacing={{ xs: 1, sm: 2, md: 3 }}
           >
             <Grid item xs={6}>
-              <Typography>{`Title: ${taskDetails.title}`}</Typography>
+              {console.log(taskDetails)}
+              {console.log('comments', comments)}
+              <Typography>{`Title: ${taskDetails.task_title}`}</Typography>
             </Grid>
             <Grid item xs={6}>
-              <Typography>{`Priority: ${taskDetails.priority}`}</Typography>
+              <Typography>{`Priority: ${taskDetails.task_priority}`}</Typography>
             </Grid>
             <Grid item xs={6}>
-              <Typography>{`Status: ${taskDetails.status}`}</Typography>
+              <Typography>{`Status: ${taskDetails.task_status}`}</Typography>
             </Grid>
             <Grid item xs={6}>
               <Typography>{`Assigned Date: ${taskDetails.task_assigned_date}`}</Typography>
@@ -117,24 +90,24 @@ const TaskDetails = () => {
               <Typography>{`Suspense Date: ${taskDetails.task_suspense_date}`}</Typography>
             </Grid>
             <Grid item xs={12}>
-              <Typography>{`Description: ${taskDetails.description}`}</Typography>
+              <Typography>{`Description: ${taskDetails.task_description}`}</Typography>
             </Grid>
           </Grid>
         </Container>
         <Container>
           <h1>Comments</h1>
           <Paper style={{ padding: "40px 20px" }}>
-            {sortedComments.map((comment) => {
+            {comments.map((comment) => {
               return (
                 <>
                   <Grid container wrap="nowrap" spacing={2}>
                     <Grid justifyContent="left" item xs zeroMinWidth>
                       <h4 style={{ margin: 0, textAlign: "left" }}>
-                        {comment.user_id}
+                        {`${comment.user_rank} ${comment.user_name}`}
                       </h4>
-                      <p style={{ textAlign: "left" }}>{comment.body}</p>
+                      <p style={{ textAlign: "left" }}>{comment.comment_body}</p>
                       <p style={{ textAlign: "left", color: "gray" }}>
-                        {comment.timestamp}
+                        {comment.comment_timestamp}
                       </p>
                     </Grid>
                   </Grid>

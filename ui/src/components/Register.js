@@ -4,27 +4,58 @@ import Paper from "@mui/material/Paper";
 import Stack from "@mui/material/Stack";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
+import Container from "@mui/material/Container";
+import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import { Button } from "@mui/material";
+import { useNavigate } from "react-router-dom";
+import config from "../config";
+const ApiUrl = config[process.env.REACT_APP_NODE_ENV || "development"].apiUrl;
 
 import { TaskContext } from "../App.js";
 
-const SignUp = () => {
+const Register = () => {
   const tc = useContext(TaskContext);
-  let [input, setInput] = useState[{}]
+  const navigate = useNavigate();
 
-  const handleSubmit = () => {
-    console.log('Submitted! Now what does submit do?')
-  }
+  let [input, setInput] = useState({
+    rank: "",
+    name: "",
+    email: "",
+    password: "",
+    position: "",
+  });
 
   const handleChange = (e) => {
-    const value = e.target.value;
+    // sets Input state depending on what the user inputted into registration fields
     setInput({
       ...input,
-      [e.target.name]: value
+      [e.target.name]: e.target.value,
     });
     e.preventDefault();
-  }
+  };
+
+  const handleSubmit = (e) => {
+    // sends post request with input state info to API when user clicks submit/register
+    const request = {
+      method: "POST",
+      headers: {
+        "Content-Type": "applications/json",
+      },
+      body: JSON.stringify(input),
+    };
+    fetch(`${ApiUrl}/register`, request)
+      .then((res) => res.json())
+      .then((data) => {
+        alert("Registration successful!");
+        navigate("/login");
+      })
+      .catch((err) => {
+        console.log(err);
+        alert(`Failed to register new user`);
+      });
+    e.preventDefault();
+  };
 
   return (
     <Container
@@ -46,33 +77,42 @@ const SignUp = () => {
             justifyContent="space-evenly"
           >
             <Box m={2} pt={3}>
-              <Typography variant="h5">Register</Typography>
+              <Typography variant="h5">Register Here</Typography>
             </Box>
             <Box m={1}>
               <TextField
-                label="First Name"
-                type="fName"
-                name="fName"
-                value={input.fName}
+                label="Name"
+                type="name"
+                name="name"
+                value={input.name}
                 onChange={handleChange}
                 required="required"
               />
             </Box>
             <Box m={1}>
               <TextField
-                label="Last Name"
-                type="lName"
-                name="lName"
-                value={input.lName}
+                label="Rank"
+                type="rank"
+                name="rank"
+                value={input.rank}
                 onChange={handleChange}
                 required="required"
               />
             </Box>
             <Box m={1}>
               <TextField
-                label="Username"
-                name="username"
-                value={input.username}
+                label="Email"
+                name="email"
+                value={input.email}
+                onChange={handleChange}
+                required="required"
+              />
+            </Box>
+            <Box m={1}>
+              <TextField
+                label="Position"
+                name="position"
+                value={input.position}
                 onChange={handleChange}
                 required="required"
               />
@@ -98,4 +138,4 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+export default Register;
