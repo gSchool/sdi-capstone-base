@@ -6,6 +6,8 @@
   padding-top: 2rem;
   padding-left: 2rem;
   padding-right: 2rem;
+  -webkit-user-select: text;
+  user-select: text;
 }
 
 .sheet-display-container {
@@ -132,6 +134,7 @@ thead .sheet-display-cell {
   position: -webkit-sticky;
   position: sticky;
   top: 0;
+  z-index: 1;
 }
 
 .sheet-display-table tbody tr:last-of-type {
@@ -164,8 +167,8 @@ tbody .sheet-display-cell {
   border: none;
   border-radius: 90px;
   background-color: var(--color-tertiary);
-  bottom: 2.5rem;
-  right: 2.5rem;
+  bottom: 2.8rem;
+  right: 1.2rem;
   transition: all var(--global-transition-speed) ease;
   cursor: pointer;
 }
@@ -173,8 +176,8 @@ tbody .sheet-display-cell {
 .new-entry img {
   /* content: var(--edit-dark); */
   content: var(--edit-light);
-  height: 2rem;
-  padding: 0.5rem;
+  height: 1.8rem;
+  padding: 0.4rem;
   margin: 15px 10px;
 }
 
@@ -187,12 +190,20 @@ tbody .sheet-display-cell {
 }
 
 .entry-row-option {
-  padding: 0.8rem;
+  position: -webkit-sticky;
+  position: sticky;
+  right: 0;
+  /* background-color: #ffffff; */
+  padding-right: 0rem;
   font-weight: 1000;
   font-size: 2rem;
   color: var(--color-primary);
   text-align: center;
   cursor: pointer;
+}
+
+tr:nth-child(even) .entry-row-option  {
+  /* background: #e7eaf2; */
 }
 
 /* SMALL SCREENS */
@@ -231,6 +242,10 @@ tbody .sheet-display-cell {
 
   .sheet-display-body::-webkit-scrollbar {
     display: none;
+  }
+
+  .entry-row-option {
+    padding-right: 1rem;
   }
 
 }

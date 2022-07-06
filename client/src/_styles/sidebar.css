@@ -40,8 +40,8 @@
 }
 
 .sidebar-header-logo {
-  width: 2.5rem;
-  min-width: 2.5rem;
+  width: 2.4rem;
+  min-width: 2.4rem;
 }
 
 .sidebar-header-text {
@@ -96,8 +96,8 @@
   display: flex;
   z-index: 3000;
   align-items: center;
-  width: 2.8rem;
-  min-width: 2.8rem;
+  width: 2.4rem;
+  min-width: 2.4rem;
   margin-top: -1.2rem;
   transition: all var(--global-transition-speed) ease;
   cursor: pointer;

@@ -338,7 +338,7 @@ img {
   .sidebar-header, .sidebar-footer {
     border-radius: 0;
     background-color: var(--color-secondary);
-    min-height: 4rem;
+    min-height: 100%;
     cursor: pointer;
   }
 
