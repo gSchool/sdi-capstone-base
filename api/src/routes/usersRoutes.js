@@ -1,5 +1,5 @@
 const express = require("express");
-const { profile, add, update, remove, byOrg, all } = require("../controllers/usersController.js");
+const { profile, register, login, update, remove, byOrg, all } = require("../controllers/usersController.js");
 const router = express.Router();
 
 /*
@@ -18,7 +18,8 @@ const router = express.Router();
 */
 
 router.route("/users/:userid").get(profile);
-router.route("/users").post(add);
+router.route("/login").post(login);
+router.route("/register").post(register);
 router.route("/users/:userid").patch(update);
 router.route("/users/:userid").delete(remove);
 router.route("/users").get(all);
