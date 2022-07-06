@@ -103,6 +103,8 @@ const register = (req, res, next) => {
     res.status(404).send();
   }
 }
+
+//returns 200 on success, 400 on invalid email, 401 on other invalid logins
 const login = (req, res) => {
   console.log(`working on post for /login`)
   let keys = ['email', 'password']
@@ -137,6 +139,7 @@ const update = (req, res) => {
 }
 const remove = (req, res) => {
   console.log(`working on delete for /users/${req.params.userid}`)
+
 }
 
 module.exports = { profile, all, byOrg, register, login, update, remove }
