@@ -11,7 +11,6 @@ TODO: NICE TO HAVE
 
 # sdi-capstone-proof-of-concept
 
-
 To set up application:
 
 `git clone <url here>`
