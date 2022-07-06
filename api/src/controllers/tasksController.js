@@ -28,15 +28,14 @@ const userRequest = (req, res) => {
   //{id, title, status, priority, suspense date, author_rank, author_name (database is author_id)}
 
   knex('tasks')
-  .join('users', 'users.id', '=', 'tasks.author_id')
   .join('users_tasks as ut', 'task_id', '=', 'tasks.id')
   .select('tasks.id as task_id', 
     'tasks.title as task_title',
     'tasks.status as task_status',
     'tasks.priority as task_priority',
     'tasks.suspense_date as task_suspense_date',
-    'users.rank as author_rank',
-    'users.name as author_name')
+    'tasks.author_id as author_id',
+  )
   .where('ut.user_id', '=', req.params.userid)
   .then(data => {
   res.set("Access-Control-Allow-Origin", "*");
@@ -56,6 +55,7 @@ const detailedRequest = (req, res) => {
     .join('users as authors', 'authors.id', '=', 'tasks.author_id')
     .select('tasks.id as task_id', 
       'tasks.title as task_title',
+      'tasks.description as task_description',
       'tasks.status as task_status',
       'tasks.priority as task_priority',
       'tasks.assigned_date as task_assigned_date',
@@ -70,8 +70,8 @@ const detailedRequest = (req, res) => {
     knex('users as owners')
       .join('users_tasks as ut', 'ut.user_id', '=', 'owners.id')
       .select(
-        'owners.rank as owners_rank',
-        'owners.name as owners_name',
+        'owners.rank as owner_rank',
+        'owners.name as owner_name',
       )
       .where('ut.task_id', '=', req.params.taskid)
     )
@@ -105,10 +105,74 @@ const detailedRequest = (req, res) => {
 
 const orgWar = (req, res) => {
   console.log(`working on get for /war/orgs/${req.params.orgid}`)
+  //{id, title, completed_date, owner(s)}
+  /* 
+    {
+      id: 
+      title:
+      completed_date
+      owners: [
+        {},
+        {}
+      ]
+    }
+  */
+ let promiseArr = [];
+
+ promiseArr.push(
+  knex('tasks')
+    .select('tasks.id as task_id', 
+      'tasks.title as task_title',
+      'tasks.completed_date as task_completed_date',
+      )
+      .where('tasks.org_id', '=', req.params.orgid)
+    )
+    
+  promiseArr.push(
+    knex('users as owners')
+      .join('users_tasks as ut', 'ut.user_id', '=', 'owners.id')
+      .join('tasks', 'tasks.id', '=', 'ut.task_id')
+      .select(
+        'tasks.id as task_id',
+        'owners.rank as owner_rank',
+        'owners.name as owner_name',
+      )
+      .where('tasks.org_id', '=', req.params.orgid)
+      .then(data => {console.log(`owners: `, data); return data;})
+    )
+
+  Promise.all(promiseArr)
+  .then(data => {
+    const body = data[0].map(task => {
+      let owners = []
+      data[1].forEach(owner => {
+        if(parseInt(owner.task_id) === parseInt(task.task_id)) {
+          owners.push({rank: owner.owner_rank, name: owner.owner_name});
+        }
+      })
+      task.owners = owners;
+      return task;
+    })
+    res.set("Access-Control-Allow-Origin", "*");
+    res.status(200).send(body)
+  })
 }
 
 const userWar = (req, res) => {
   console.log(`working on get for /war/users/${req.params.userid}`)
+  //{id, title, completed_date}
+  knex('tasks')
+    .join('users_tasks as ut', 'ut.task_id', '=', 'tasks.id')
+    .select('tasks.id as task_id', 
+      'tasks.title as task)_title',
+      'tasks.completed_date as task_completed_date',
+      'tasks.status as task_status'
+    )
+    .where('ut.user_id', '=', req.params.userid)
+    .then(data => {
+      res.set("Access-Control-Allow-Origin", "*");
+      res.status(200).send(data)
+    })
 }
 
 // POST

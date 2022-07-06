@@ -7,6 +7,8 @@ exports.up = function(knex) {
     table.increments();
     table.string('name', 250)
     table.string('img_url', 250)
+    table.integer('parent_id')
+    table.foreign('parent_id').references('organizations.id')
     })
 };
 
@@ -15,5 +17,11 @@ exports.up = function(knex) {
  * @returns { Promise<void> }
  */
 exports.down = function(knex) {
-  return knex.schema.dropTableIfExists('organizations')
+  return knex.schema.alterTable('organizations', table => {
+    table.dropForeign('parent_id')
+   
+})
+.then(function () {
+return knex.schema.dropTableIfExists('organizations');
+})
 };

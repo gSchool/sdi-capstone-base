@@ -16,6 +16,16 @@ exports.seed = async function(knex) {
       author_id: 3,
     },
     {
+      title: "Base Cleanup", 
+      description: "Clean ENT street", 
+      priority: 2, 
+      assigned_date: new Date("2022-07-06"), 
+      suspense_date:new Date("2022-07-14"), 
+      status: "not started", 
+      org_id: 1,
+      author_id: 3,
+    },
+    {
       title: "Snow Duty", 
       description: "Complete by EOD", 
       priority: 3, 

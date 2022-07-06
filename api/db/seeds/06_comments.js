@@ -8,7 +8,6 @@ exports.seed = async function(knex) {
     {
       task_id: 2, 
       body: "Snow on sidewalks and in parking has to be shoveled",
-      parent_id: null,
       user_id: 2,
     }
   ]);
