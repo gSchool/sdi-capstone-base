@@ -17,14 +17,15 @@ function App() {
 
   const [userId, setUserId] = useState([])
   const [isAdmin, setIsAdmin] = useState(false)
-  const [selectedTask, setSelectedTask] = useState({})
+  const [userOrg, setUserOrg] = useState({})
   const [siteLoc, setSiteLoc] = useState('')
 
   const TaskContextValues = {
     userId, setUserId,
     isAdmin, setIsAdmin,
-    selectedTask, setSelectedTask,
-    siteLoc, setSiteLoc
+    userOrg, setUserOrg,
+    siteLoc, setSiteLoc,
+    
   }
 
   return (
@@ -34,6 +35,8 @@ function App() {
         <Header />
         <TaskTable />
         <Dashboard user = {false}/>
+        <TaskDetails/>
+        <Login/>
       </TaskContext.Provider>
       </Router>
     </div>
