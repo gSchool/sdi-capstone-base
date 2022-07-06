@@ -11,7 +11,7 @@ https://codesandbox.io/s/flamboyant-stonebraker-le1eq?file=/index.js
 const EditableText = (props) => {
     let [isEdit, setIsEdit] = useState(false)
     let [value, setValue] = useState(props.val);
-    let [typography, setTypography] = useState("")
+    let [typography, setTypography] = useState("") //can set the 
     
 
     useEffect(()=>{
@@ -48,7 +48,7 @@ const EditableText = (props) => {
                 </Grid>
             :
                 <Grid container spacing={1} direction="column" alignItems="center" justifyContent="space-evenly">
-                    <Typography variant = {typography} style={{ fontFamily: 'Monospace'}}>{value}</Typography>
+                    <Typography >{value}</Typography>
                     {props.canEdit ? <Button size="small" onClick={toggleEdit}>Edit</Button> : <></>}
                 </Grid>   
             }
