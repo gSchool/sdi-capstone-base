@@ -1,14 +1,18 @@
 import express from "express";
 const router = express.Router();
 
-import { request, add, edit } from "../controllers/sheetController.js";
+import { requestAllSheet, requestSheetData, requestUserSheets, add, edit } from "../controllers/sheetController.js";
 
-router.route("/edit_sheet").patch(edit);
+router.route("/edit_sheet/:sheetId").patch(edit);
 
 router.route("/add_sheet").post(add);
 
-router.route("/get_all_sheet").get(request);
+// Kill code, when shipping. we don't want this end point open to pub
+router.route("/get_all_sheet").get(requestAllSheet);
+//
 
-router.route("/get_sheet:sheetId").get(request);
+router.route('/get_sheets').get(requestUserSheets)
+
+router.route("/get_sheet/:sheetId").get(requestSheetData);
 
 export default router;

@@ -21,7 +21,7 @@ const decodedToken = (req, res, next) => {
   const auth = req.headers.authorization
   
   if (!auth) {
-    res.send("no Auth")
+    res.send("no Auth -> you don't have a header")
     return
   }
 
@@ -33,7 +33,7 @@ const decodedToken = (req, res, next) => {
         req.user = decodedToken
         return next()
       }
-      res.send("Unauthorized")
+      res.send("Unauthorized -> Token provied isn't ours")
     })
     .catch((e) => {
       res.send('Internal Error: DEV HEY TOKEN IS DEAD')
@@ -42,3 +42,4 @@ const decodedToken = (req, res, next) => {
 
 
 export default decodedToken
+

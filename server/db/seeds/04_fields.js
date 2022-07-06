@@ -6,6 +6,8 @@ export async function seed(knex) {
   // Deletes ALL existing entries
   await knex("fields").del();
   await knex("fields").insert([
-    { field_type: "string", sheet_id: 1, value: "columnOne" },
+    { type: "string", sheet_id: 1, name: "columnOne" },
+    { type: "string", sheet_id: 1, name: "columnTwo" },
+    { type: "string", sheet_id: 1, name: "columnThree" },
   ]);
 }

@@ -5,12 +5,12 @@
 export function up(knex) {
   return knex.schema.createTable("fields", (table) => {
     table.increments();
-    table.string("field_type", 255);
+    table.string("type", 255);
     table.integer("sheet_id");
     table.foreign("sheet_id").references("sheets.id");
     table.boolean("archived").defaultTo(false);
     table.boolean("favorite").defaultTo(false);
-    table.string("value", 255);
+    table.string("name", 255);
   });
 }
 

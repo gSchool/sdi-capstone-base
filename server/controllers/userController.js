@@ -1,31 +1,42 @@
 import knex from "../db/db.js";
+import { requestCurrentUser } from "./helpers.js";
 
-const request = (req, res) => {
-  if (req.params.id) {
-    requestUser(req.params.id, res);
+const request = async (req, res) => {
+  const { user_id, name } = req.user
+
+  if (user_id) {
+    const data = await requestCurrentUser(user_id)
+    res.status(200).send(data[0]);
     return;
+  } 
+};
+
+const requestAllUsers = async (req, res) => {
+  knex('users')
+    .select('*')
+    .then(data => res.status(200).json(data))
+}
+
+
+const getAllSheetUsers = (req, res) => {
+  const reqId = req.params.sheetId
+  if(!reqId) {
+    res.status(400).send("Need a sheet to get the users")
+    return
   }
 
-  knex("users")
-    .select("*")
-    .then((data) => {
-      res.status(200).json(data);
-    });
-};
+  knex('user_roles')
+    .join('users', 'user_roles.user_id', 'users.id')
+    .select('user_id', 'role_name', 'name')
+    .where({sheet_id: reqId})
+    .then(data => res.status(200).json(data))
 
-const requestUser = (id, res) => {
-  knex("users")
-    .select("*")
-    .where({ id: id })
-    .then((data) => {
-      res.status(200).json(data[0].name);
-    });
-};
+}
 
 const add = (req, res) => {
   console.log("start")
   const { user_id, name } = req.user
-  console.log(user_id, name)
+  
 
   knex("users")
     .select("*")
@@ -35,10 +46,10 @@ const add = (req, res) => {
         return knex("users")
           .insert({ name: name, firebase_uuid: user_id })
           .then(() => {
-            res.status(200).send(`${name} has been added.`);
+            res.status(201).send(`${name} has been added.`);
           });
       } else {
-        res.status(400).send(`${name} already exists.`);
+        res.status(202).send(`${name} already exists.`);
       }
     });
 
@@ -52,4 +63,4 @@ const edit = (req, res) => {
 };
 
 
-export { request, add, remove, edit };
+export { request, add, remove, edit, getAllSheetUsers, requestAllUsers };

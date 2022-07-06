@@ -26,6 +26,14 @@ const add = (req, res) => {
  }
 };
 
+const archive = (req, res) => {
+  const targetId = req.params.entry_id
+  knex('entries').where({id: targetId}).update({
+    archived: knex.raw('NOT ??', ['archived'])
+  }).returning('*')
+    .then(data => res.status(200).send("entry archived has flipped."))
+};
+
 const remove = (req, res) => {
   res.status(200).send(`${req.method} - remove`);
 };
@@ -67,4 +75,4 @@ const ValidataEntry = async (id) => {
     })
 }
 
-export { request, add, remove, edit };
+export { request, add, remove, edit, archive };

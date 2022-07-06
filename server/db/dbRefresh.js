@@ -7,7 +7,7 @@ const runMigrations = async (retries, delay) => {
       await db.migrate.rollback();
       return await db.migrate.latest();
     } catch (err) {
-      console.log(chalk.red(`Oh no, failed attempt! ${i} out of ${retries}`));
+      console.log(chalk.red(`Oh no, failed migrations attempt! ${i} out of ${retries}`));
       await setTimeoutAsync(delay * i);
     }
   }
@@ -15,11 +15,12 @@ const runMigrations = async (retries, delay) => {
 };
 
 const runSeed = async (retries, delay) => {
+  await setTimeoutAsync(delay * 1)
   for (let i = 1; i !== retries; i++) {
     try {
       return await db.seed.run();
     } catch (err) {
-      console.log(chalk.red(`Oh no, failed attempt! ${i} out of ${retries}`));
+      console.log(chalk.red(`Oh no, failed seed attempt! ${i} out of ${retries}`));
       await setTimeoutAsync(delay * i);
     }
   }

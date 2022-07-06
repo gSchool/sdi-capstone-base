@@ -6,6 +6,7 @@ export function up(knex) {
   return knex.schema.createTable("sheets", (table) => {
     table.increments();
     table.string("name", 255);
+    table.string("short_name", 3);
     table.string("templates", 255);
   });
 }
