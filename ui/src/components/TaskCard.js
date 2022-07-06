@@ -10,13 +10,12 @@ import { TaskContext } from "../App.js";
 
 const TaskCard = (props) => {
   console.log("here");
-  // const navigate = useNavigate()
+  const navigate = useNavigate()
 
   const tc = useContext(TaskContext);
 
   const clickHandler = () => {
-    tc.setSelectedTask(props.task);
-    console.log("Need to navigation to TaskDetails endpoint");
+    navigate(`/tasks/${props.id}`)
   };
 
   const card = (
