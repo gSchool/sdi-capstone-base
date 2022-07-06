@@ -17,7 +17,6 @@ function App() {
   const [userId, setUserId] = useState(1); //set this in Login (start as null)
   const [isAdmin, setIsAdmin] = useState(false);
   const [userOrg, setUserOrg] = useState(1); //set this in Login (start as null)
-  const [siteLoc, setSiteLoc] = useState("");
 
   const TaskContextValues = {
     userId,
@@ -26,8 +25,6 @@ function App() {
     setIsAdmin,
     userOrg,
     setUserOrg,
-    siteLoc,
-    setSiteLoc,
   };
 
   return (
@@ -51,13 +48,16 @@ function App() {
             <Route path="/tasks/:task" element={<TaskDetails />}>
               {" "}
             </Route>
-            <Route path="/tasks/weekly" element={<TaskTable isArchive={false}/>}>
+            <Route
+              path="/tasks/weekly"
+              element={<TaskTable isArchive={false} />}
+            >
               {" "}
             </Route>
             <Route path="/profile" element={<Profile />}>
               {" "}
             </Route>
-            <Route path="/archive" element={<TaskTable isArchive={true}/>}>
+            <Route path="/archive" element={<TaskTable isArchive={true} />}>
               {" "}
             </Route>
             <Route path="/register" element={<Register />}>
