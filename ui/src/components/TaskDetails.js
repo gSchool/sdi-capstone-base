@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import {useParams} from 'react-router-dom'
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
@@ -63,11 +63,11 @@ const TaskDetails = () => {
       .catch((err) => console.log(err));
   }, []);
 
- 
+
   //NOTE: To edit fields in place, change the Typography to Editable Text, pass the setInput as a "callback" prop for the function
   //If the canEdit field is false then it won't be editable. The only thing that might need to be customized for this project
-  //is if you want the type of text to be different between the different fields. 
-  
+  //is if you want the type of text to be different between the different fields.
+
   return (
     <>
       <Box marginTop={5} sx={{ width: "100%" }}>
@@ -95,7 +95,7 @@ const TaskDetails = () => {
               <Typography>{`Description:\n${taskDetails.task_description}`}</Typography>
             </Grid>
           </Grid>
-       
+
         <Container>
           <h1>Comments</h1>
           <Paper style={{ padding: "40px 20px" }}>

@@ -8,7 +8,7 @@ const Header = () => {
 
   return (
     <div className="layoutHeader">
-      
+
       <Link to="/">
         <div className="buttonToMainContainer">
           <button className="buttonToMain"> Taskify </button>
@@ -16,21 +16,19 @@ const Header = () => {
       </Link>
 
       <div className="navButtons">
-
-         {
+        {
           tc.isAdmin ?
             <Link to={`/menu`}>
-                <button className="toAdminMenu">Admin Menu</button>
+              <button className="toAdminMenu">Admin Menu</button>
             </Link>
-          :
+            :
             <></>
-         } 
-
-        <Link to={`/tasks/orgs/${tc.userOrg}`}>
+        }
+        <Link to={`/unit`}>
           <button className="toUnitTasks"> Unit Tasks </button>
         </Link>
 
-        <Link to={`/tasks/weekly`}>
+        <Link to={`/reports`}>
           <button className="toReports"> Reports </button>
         </Link>
 
@@ -40,6 +38,9 @@ const Header = () => {
 
         <Link to={`/profile`}>
           <button className="toProfile"> Profile </button>
+        </Link>
+        <Link to={`/admin`}>
+          <button className="toProfile"> Admin </button>
         </Link>
       </div>
     </div>

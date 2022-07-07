@@ -10,7 +10,8 @@ import Header from "./components/Header.js";
 import Register from "./components/Register.js";
 import Login from "./components/Login.js";
 import TaskCard from "./components/TaskCard.js";
-
+import ViewModifyRoles from "./components/ViewModifyRoles.js";
+import ViewModifyOrgs from "./components/ViewModifyOrgs.js"
 const TaskContext = createContext(null);
 
 function App() {
@@ -33,13 +34,10 @@ function App() {
         <TaskContext.Provider value={TaskContextValues}>
           <Header />
           <Routes>
-            <Route path="/tasks" element={<Dashboard user={false} />}>
+            <Route path="/" element={<Dashboard user={true} />}>
               {" "}
             </Route>
-            <Route
-              path="/tasks/users/:user"
-              element={<Dashboard user={false} />}
-            >
+            <Route path="/unit" element={<Dashboard user={false} />}>
               {" "}
             </Route>
             <Route path="/tasks/add" element={<CreateTask type={"task"} />}>
@@ -49,7 +47,7 @@ function App() {
               {" "}
             </Route>
             <Route
-              path="/tasks/weekly"
+              path="/reports"
               element={<TaskTable isArchive={false} />}
             >
               {" "}
@@ -66,6 +64,15 @@ function App() {
             <Route path="/login" element={<Login />}>
               {" "}
             </Route>
+            <Route path="/admin" element={<AdminMenu />}>
+              {" "}
+            </Route>
+            <Route path="/admin/roles" element={<ViewModifyRoles />}>
+              {" "}
+            </Route>
+            <Route path="/admin/orgs" element={<ViewModifyOrgs />}>
+              {" "}
+            </Route>
             <Route path="/*" element={<Dashboard user={false} />}></Route>
           </Routes>
         </TaskContext.Provider>
@@ -78,8 +85,8 @@ export { TaskContext, App };
 
 /*
 {
-        isAdmin ? 
-        
+        isAdmin ?
+
           <Router>
             <Header/>
               <Routes>
@@ -96,7 +103,7 @@ export { TaskContext, App };
                 <Route path = '/*' element = {<Posts user = {false}/>}></Route>
               </Routes>
           </Router>
-          
+
         :
 
         userId !== null ?
