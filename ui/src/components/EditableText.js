@@ -15,7 +15,7 @@ canEdit: true if this is a field you want the user to be able to edit. If it's n
 callback: Whatever function you get from the useState in the parent component to set the obj being submitted to the server
         on change, that is the callback. It uses the function returned by useState to hook into the state of the parent so 
         whatever is changed in this component can be submitted in the fetch in the parent
-        
+
         (example: I usually use [input, setInput] which is being changed onChange of a form and submitted onSubmit.
             the setInput is what I would pass into this component)
 
