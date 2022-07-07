@@ -18,7 +18,7 @@
 }
 
 .account-meta-name {
-  padding-bottom: 0rem;
+  padding-bottom: 0.2rem;
   font-weight: var(--bolder);
   font-size: var(--font-size-heading);
   color: var(--color-primary);
@@ -29,5 +29,5 @@
   font-weight: var(--bold);
   font-size: var(--font-size-body);
   color: var(--color-quinary-off-bright);
-  padding-bottom: 3rem;
+  padding-bottom: 2rem;
 }

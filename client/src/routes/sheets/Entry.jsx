@@ -44,7 +44,7 @@ const Entry = (props) => {
             }}>{entry.values[index].value}</td>
         }
       })}
-      <td className="entry-row-option" onClick={() => {console.log(entry)}}>⋮</td>
+      <td className="entry-row-option no-select" onClick={() => {console.log(entry)}}>⋮</td>
     </tr>
   )
 }

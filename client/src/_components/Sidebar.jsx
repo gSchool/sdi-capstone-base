@@ -14,15 +14,15 @@ import dummySheetAccessData from '../_dummy/sheet-access.json';
 const Sidebar = () => {
 
   const { store } = useContext(GlobalContext)
-  const { user, setSheetAccess } = store
+  const { user, setSheetAccess, refresh } = store
   const { profileImg, sheetAccess } = user
 
-  const test = [1, 100]
-
   useEffect(() => {
-    // get user's sheet access and set it
-    setSheetAccess(dummySheetAccessData.sheets);
+    const data = dummySheetAccessData
+    setSheetAccess(data.sheets);
   }, [])
+
+  const data = dummySheetAccessData.sheets
   
   return (
     <>
@@ -46,7 +46,8 @@ const Sidebar = () => {
 
           <li className="sidebar-main">
 
-            { sheetAccess.map((sheet, i) => {
+            {/* { sheetAccess.map((sheet, i) => { */}
+            { data.map((sheet, i) => {
                 return (
                   <span key={i} className="sidebar-sheet">
                     <Link to={`/sheet/${sheet.sheet_id}`} className="sidebar-sheet-item" onClick={()=>{console.log('clicked')}}>

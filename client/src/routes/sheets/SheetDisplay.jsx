@@ -21,6 +21,18 @@ const SheetDisplay = () => {
 
   const { sheetId } = useParams();
 
+  const { sheetPageView, setSheetPageView, selectedEntry, newEntry } = sheet;
+
+  useEffect(() => {
+    if (selectedEntry.entry_id > 0) {
+      setSheetPageView('edit-entry');
+    } else if (newEntry === true) {
+      setSheetPageView('new-entry');
+    } else if (selectedEntry.entry_id === undefined) {
+      setSheetPageView('sheet');
+    }
+  }, [selectedEntry, newEntry])
+
   useEffect(() => {
     // get user's sheets here
     sheet.setSheetLoading(true)
@@ -38,16 +50,18 @@ const SheetDisplay = () => {
     sheet.setSheetLoading(false);
   }, [sheet.currentSheet])
 
+  // const { sheet } = useContext(SheetContext);
+
   return (
     <>
-      <div className='sheet-display-container'>
+      <div className={`sheet-display-container ${(sheetPageView === 'edit-entry' || sheetPageView === 'new-entry') ? 'shrink' : ''}`}>
         {/* <SheetHeader> */}
         <div className='sheet-display-header'>
           <div className="sheet-header-meta">
-            <img className="sheet-header-icon" src={logo} />
+            <img className="sheet-header-icon no-select" src={logo} />
             <span className="nowrap">{sheet.currentSheet.name}</span>
           </div>
-          <div className="sheet-search">
+          <div className="sheet-search no-select">
             <input placeholder='Search'/>
             <button>Filter</button>
           </div>
@@ -73,7 +87,7 @@ const SheetDisplay = () => {
         </div>
         <button className="dummy-users-button" onClick={
           () => navigate(`/sheet/${sheet.currentSheet.sheet_id}/users`)}><img alt='edit-icon'/></button>
-        <button className="new-entry" onClick={() => sheet.setNewEntry(true)}><img alt='edit-icon'/></button>
+        <button className="new-entry no-select" onClick={() => sheet.setNewEntry(true)}><img alt='edit-icon'/></button>
       </div>
       <EntryDetails entryId={entryId}/>
     </>

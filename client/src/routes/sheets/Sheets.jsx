@@ -34,7 +34,7 @@ const Page = () => {
   // const { store } = useContext(GlobalContext)
   // const { theme, isAuth, setIsAuth } = store
 
-  // const { sheet } = useContext(SheetContext);
+  const { sheet } = useContext(SheetContext);
 
   // const { sheetId } = useParams();
 

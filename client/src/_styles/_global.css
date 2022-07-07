@@ -46,19 +46,22 @@
   --color-primary: #55658a;
   --color-primary-transparent: #55658a31;
   --color-secondary: #42527b;
-  --color-secondary-transparent: #42527b31;
+  --color-secondary-transparent: #42527b72;
   --color-tertiary: #67779e;
   --color-quaternary: #778fba;
   --color-quaternary-transparent: #778fba31;
   --color-quinary: #b0bad6;
-  --color-quinary-bright: #aeb6ca;
-  --color-quinary-off-bright: #959aaa;
+  --color-quinary-bright: #cdd3e3;
+  --color-quinary-off-bright: #838897;
 
   --color-odd-row: #ffffff;
-  --color-even-row: #e7eaf2; 
-  --color-row-hover: #ced4e1;
-  --color-highlighted: #bdc2d3;
-  
+  --color-even-row: #eff0f4; 
+  --color-row-hover: #cdd6e6;
+  --color-highlighted: #e0e5f5;
+  --color-highlighted-text: #42527b;
+
+  --color-cover: #dce6f64c;
+
   --color-undenary: #413768;
   --color-duodenary: #352b57;
   
@@ -100,10 +103,13 @@
   --color-quinary-bright: #283146;
   --color-quinary-off-bright: #374159;
 
+  --color-cover: #22233244;
+
   --color-odd-row: #2d364b;
   --color-even-row: #242c3e;
   --color-row-hover: #323b52;
-  --color-highlighted: #8799c3;
+  --color-highlighted: #586789;
+  --color-highlighted-text: #ffffff;
 
   --color-undenary: #374b68;
   --color-duodenary: #4d4f5783;
@@ -194,12 +200,34 @@ img {
   user-drag: none;
 }
 
+textarea:focus, input:focus{
+  outline: none;
+}
+
 .no-wrap {
   white-space: nowrap;
 }
 
 .nowrap {
   white-space: nowrap;
+}
+
+.noselect {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.no-select {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 .page-cover {
@@ -210,7 +238,8 @@ img {
   top: 0;
   left: 0;
   opacity: 0;
-  background: #272a3035;
+  background: var(--color-cover)
+  /* background: #272a3035; */
 }
 
 .login-screen {
@@ -396,6 +425,7 @@ img {
 
   .sidebar {
     border-top: 4px solid var(--color-primary);
+    z-index: 1000;
   }
 
   .p1login .mainimg {
@@ -572,6 +602,10 @@ img {
   .sidebar:hover .sidebar-footer-theme {
     display: flex;
   }
+
+  .sidebar:hover ~ #page .entry-details-container {
+  transform: translateX(+100%) !important;
+}
 
 }
 

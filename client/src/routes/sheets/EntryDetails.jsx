@@ -16,6 +16,7 @@ const EntryDetails = () => {
   const [isLoading, setIsLoading] = useState(false);
   const location = useLocation();
   const entryId = useParams().entryId;
+  const { sheetPageView, setSheetPageView } = sheet;
 
   const navigate = useNavigate();
   
@@ -41,6 +42,7 @@ const EntryDetails = () => {
   }
 
   useEffect(() => {
+
     //TODO: Move some of this to SheetDisplay
     if (entryId !== undefined) {
       let index = sheet.currentSheet.entries.findIndex(entry => entry.entry_id === parseInt(entryId))
@@ -57,15 +59,18 @@ const EntryDetails = () => {
         // console.log("Sheet ID", sheet.currentSheet.sheet_id)
         // console.log("Sheet Loading", sheet.sheetLoading)
         if (sheet.currentSheet.sheet_id !== 0 && sheet.sheetLoading === false) {
+          // setSheetPageView('sheet')
           navigate(`/sheet/${location.pathname.split('/')[2]}`)
         }
       }
       if (sheet.currentSheet.sheet_id === 0 && sheet.sheetLoading === false) {
+        // setSheetPageView('sheet')
         navigate(`/`)
       }
     }
-
+    
     if (sheet.currentSheet.sheet_id === 0 && sheet.sheetLoading === false) {
+      // setSheetPageView('sheet')
       navigate(`/`)
     }
   }, [location, sheet.currentSheet, sheet.sheetLoading])
@@ -78,14 +83,14 @@ const EntryDetails = () => {
     <>
       <div className="entry-details-container">
 
-        <div className="entry-details-header">
+        <div className="entry-details-header no-select">
+          <span>{sheet.newEntry === true ? 'New Entry' : 'Update Entry'}</span>
           <button className="entry-details-cancel" onClick={() => {
             navigate(`/sheet/${location.pathname.split('/')[2]}`)
             sheet.setSelectedEntry({})
             sheet.setNewEntry(false)
           }}>&gt;</button>
-          <span>{sheet.newEntry === true ? 'New Entry' : 'Update Entry'}</span>
-          <img alt='edit icon'/>
+          {/* <img alt='edit icon'/> */}
         </div>
 
         <form className='entry-details-form'>
@@ -130,13 +135,14 @@ const EntryDetails = () => {
                     className='entry-details-input'
                     defaultValue={index === -1 ? '': sheet.selectedEntry.values[index].value} />
                 }
+                <div className='entry-field-line' />
               </div>
               )
             }
           )}
         </form>
 
-        <button className='entry-details-update' onClick={async (e) => {
+        <button className='entry-details-update no-select' onClick={async (e) => {
           e.preventDefault()
           submitData();
         }}>Submit</button>
