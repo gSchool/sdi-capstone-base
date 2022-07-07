@@ -46,8 +46,8 @@ const dummy = [
   },
 ];
 
-const userColumns = ["not started", "in progress", "Created"]; //CHANGE "not started" TO "to do"
-const unitColumns = ["not started", "in progress"];
+const userColumns = ["to do", "in progress", "Created"]; //created is current user is author and sole owner
+const unitColumns = ["to do", "in progress"];
 
 const Dashboard = ({ user }) => {
   const tc = useContext(TaskContext);
