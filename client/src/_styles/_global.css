@@ -8,12 +8,14 @@
   --global-padding-half: 0.5rem;
   --global-border-radius: 24px;
   --global-transition-speed: 300ms;
+  --global-transition-speed-fast: 100ms;
 
   --input-padding: 0.5rem 1rem 0.5rem 1rem;
 
   --font-size-massive: calc(4rem * var(--global-font-multiplier));
   --font-size-huge: calc(3.5rem * var(--global-font-multiplier));
   --font-size-big: calc(3rem * var(--global-font-multiplier));
+  --font-size-title-large: calc(2.8rem * var(--global-font-multiplier));
   --font-size-title: calc(2.5rem * var(--global-font-multiplier));
   --font-size-heading: calc(2rem * var(--global-font-multiplier));
   --font-size-subheading: calc(1.5rem * var(--global-font-multiplier));
@@ -27,6 +29,7 @@
   --body: 400;
   --thick: 500;
   --bold: 600;
+  --bolder: 700;
   --heavy: 800;
 
   --breakpoint-mobile: 767px;
@@ -48,24 +51,19 @@
   --color-quaternary: #778fba;
   --color-quaternary-transparent: #778fba31;
   --color-quinary: #b0bad6;
+  --color-quinary-bright: #aeb6ca;
+  --color-quinary-off-bright: #959aaa;
 
+  --color-odd-row: #ffffff;
+  --color-even-row: #e7eaf2; 
+  --color-row-hover: #ced4e1;
+  --color-highlighted: #bdc2d3;
+  
   --color-undenary: #413768;
   --color-duodenary: #352b57;
   
   --edit-dark: url('../_assets/icons/edit-blue.png');
   --edit-light: url('../_assets/icons/edit.png');
-
-  /* PURPLE BACKUP */
-  /* --color-primary: #60558a;
-  --color-primary-transparent: #60558a31;
-  --color-secondary: #4f427b;
-  --color-secondary-transparent: #4f427b31;
-  --color-tertiary: #6e639e;
-  --color-quaternary: #8377ba;
-  --color-quinary: #9c90d0;
-
-  --color-undenary: #413768;
-  --color-duodenary: #352b57; */
 
   --color-green: #0ca789;
   --color-yellow: #fac70d;
@@ -85,26 +83,33 @@
 }
 
 #dark {
-  --color-background: #252525;
+  --color-background: #111520;
   --color-text: #ffffff;
   --color-text-menu: #ffffff;
 
-  --global-box-shadow-color: #353535ba;
+  --global-box-shadow-color: #090a0bba;
 
-  --color-primary: #5e5e5e;
-  --color-primary-transparent: #80808080;
-  --color-secondary: #3e3e3f;
-  --color-secondary-transparent: #3e3e3f80;
-  --color-tertiary: #01245d;  
-  --color-quaternary: #03255c31;
-  --color-quaternary-transparent: #0042a531;
-  --color-quinary: #505050;
+  --color-primary: #55658a;
+  --color-primary-transparent: #55658a31;
+  --color-secondary: #42527b;
+  --color-secondary-transparent: #42527b31;
+  --color-tertiary: #67779e;
+  --color-quaternary: #778fba;
+  --color-quaternary-transparent: #778fba31;
+  --color-quinary: #b0bad6;
+  --color-quinary-bright: #283146;
+  --color-quinary-off-bright: #374159;
+
+  --color-odd-row: #2d364b;
+  --color-even-row: #242c3e;
+  --color-row-hover: #323b52;
+  --color-highlighted: #8799c3;
 
   --color-undenary: #374b68;
   --color-duodenary: #4d4f5783;
 
-  --edit-dark: url('../_assets/icons/edit-light-blue.png');
-  --edit-light: url('../_assets/icons/edit-blue.png');
+  --edit-light: url('../_assets/icons/edit.png');
+  --edit-dark: url('../_assets/icons/edit-blue.png');
 
   --color-green: #0ca789;
   --color-yellow: #fac70d;
@@ -201,7 +206,7 @@ img {
   display: none;
   position: fixed;
   width: 100%;
-  height: 100%;
+  height: 100vh;
   top: 0;
   left: 0;
   opacity: 0;
@@ -302,14 +307,33 @@ img {
   padding-right: 0.8rem;
 }
 
+.index-welcome {
+  font-size: var(--font-size-title);
+  font-weight: var(--bold);
+  margin-bottom: -1.2rem;
+  color: var(--color-quinary-bright);
+}
 
+.index-app {
+  font-size: var(--font-size-big);
+  font-weight: var(--heavy);
+  padding-bottom: 0.6rem;
+  color: var(--color-quinary-bright);
+}
 
+.index-name {
+  font-weight: var(--medium);
+  font-size: var(--font-size-massive);
+  color: var(--color-quinary-off-bright);
+  letter-spacing: -2px;
+}
 
-
-
-
-
-
+.not-found {
+  font-size: var(--font-size-huge);
+  font-weight: var(--bold);
+  color: var(--color-quinary-off-bright);
+  margin-bottom: -0.8rem;
+}
 
 
 
@@ -438,7 +462,7 @@ img {
   .page-cover.show {
     display: block;
     opacity: 1;
-    z-index: 4;
+    z-index: 404;
     -webkit-animation: fadeIn var(--global-transition-speed) ease-out;
     -moz-animation: fadeIn var(--global-transition-speed) ease-out;
     -o-animation: fadeIn var(--global-transition-speed) ease-out;
@@ -492,9 +516,9 @@ img {
   .sidebar {
     top: 0;
     width: 5rem;
-    height: calc(100% - 6rem);
+    height: calc(100vh - 6rem);
     padding: 3rem 0.5rem 3rem 0rem;
-    z-index: 10;
+    z-index: 405;
   }
 
   .sidebar:hover {

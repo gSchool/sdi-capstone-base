@@ -21,7 +21,7 @@
     v0.2:
     - Added "instant login" button to login instantly when desired -- user auth only persists until page refresh
     - Refactored user object in useUser.jsx state
-    - Added profile image to sidebar
+    - Added profile image to sidebars
     - General updates to sidebar CSS
     - User authentication now persists in local storage
     - Created AuthProvider to route the user based on authentication in local storage
@@ -46,7 +46,8 @@
     - Wolfe bought GitHub Co-Pilot because of Levi's peer pressure
     - Clicking on a sheet now generates a dynamic route
     - Beginning to tie together backend, frontend tables/presentation together
-    
+    - USER ACCESS screen now displayers access rights per user
+
 <br>
 
 * * *

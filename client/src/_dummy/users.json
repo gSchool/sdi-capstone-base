@@ -1,22 +1,27 @@
 {
   "users": [
     {
+      "user_id": 1,
       "name": "Kevin",
       "role": "Owner"
     },
     {
+      "user_id": 2,
       "name": "Kyle",
       "role": "Manager"
     },
     {
+      "user_id": 3,
       "name": "Levi",
       "role": "User"
     },
     {
+      "user_id": 4,
       "name": "Daniel",
       "role": "Manager"
     },
     {
+      "user_id": 5,
       "name": "Dayan",
       "role": "User"
     }

@@ -1,9 +1,8 @@
 .profile-img {
   height: auto;
-  width: 6rem;
-  min-width: 6rem;
+  width: 10rem;
+  min-width: 10rem;
   border-radius: 50%;
-  padding: 1rem;
 }
 
 .profile-img-small {
@@ -11,4 +10,24 @@
   width: 2.5rem;
   min-width: 2.5rem;
   border-radius: 50%;
+}
+
+.account-meta-img {
+  font-weight: var(--bold);
+  padding-bottom: 1rem;
+}
+
+.account-meta-name {
+  padding-bottom: 0rem;
+  font-weight: var(--bolder);
+  font-size: var(--font-size-heading);
+  color: var(--color-primary);
+}
+
+.account-meta-email {
+  padding-bottom: 1rem;
+  font-weight: var(--bold);
+  font-size: var(--font-size-body);
+  color: var(--color-quinary-off-bright);
+  padding-bottom: 3rem;
 }

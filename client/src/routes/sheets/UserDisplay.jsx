@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { SheetContext } from '../../_context/SheetProvider';
 import { Div } from '../../_styles/_global'
 import logo from '../../_assets/img/logo-dark.png';
@@ -12,6 +13,8 @@ const UserDisplay = () => {
   const [ sheetUsers, setSheetUsers ] = useState([]);
   const [ userDisplayView, setUserDisplayView ] = useState('simple');
 
+  const navigate = useNavigate();
+
   useEffect(() => {
     setSheetUsers(dummyData.users);
   })
@@ -19,39 +22,41 @@ const UserDisplay = () => {
   return (
     <>
       <div className='users-display-container'>
-        <button className='users-display-exit' onClick={() => sheet.setSheetPageView('sheet')}>X</button>
+        <button className='users-display-exit' onClick={
+          () => navigate(-1)
+        }>X</button>
         <div className='users-display-header'>
           <div className="users-header-meta">
             <img className="users-header-icon" src={logo} />
             <span className="nowrap">User Access</span>
-          </div>
-          <button onClick={() => 
-            userDisplayView === 'fancy' ? setUserDisplayView('simple') : setUserDisplayView('fancy')}>
+            <button onClick={() => 
+            userDisplayView === 'smart' ? setUserDisplayView('simple') : setUserDisplayView('smart')}>
             Toggle View</button>
+          </div>
           {/* <div className="users-search">
             <input placeholder='Search'/>
             <button>Filter</button>
           </div> */}
         </div>
-        {userDisplayView === 'fancy' ? 
-          // fancy view here
+        {userDisplayView === 'smart' ? 
+          // smart view here
           <div>
-
+            
           </div>
           :
-          // normal view here
+          // simple view here
           <table className='users-table-simple'>
             <thead>
               <tr>
-                <td>Name</td>
-                <td>Role</td>
+                <td className='users-table-cell'>Name</td>
+                <td className='users-table-cell'>Role</td>
               </tr>
             </thead>
             <tbody>
               {sheetUsers.map((user,i) => 
-                <tr key={i}>
+                <tr key={i} className='user-row'>
                   <td>{user.name}</td>
-                  <td>
+                  <td className='users-table-cell'>
                     {user.role}
                   </td>
                 </tr>

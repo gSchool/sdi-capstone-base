@@ -14,34 +14,39 @@ import "../../_styles/sheets.css";
 
 const Sheets = () => {
 
+  const UserDisplay = lazy(() => import('./UserDisplay'));
   const NotFound = lazy(() => import('../NotFound'));
   
   return (
-    <Routes>
-      <Route path='/' element={ <Page/> } />
-        <Route path='/sheets/' element={ <Suspense fallback={<Loader/>}>{/* <Sheets/> */}</Suspense> } />
-      <Route path="/*" element={ <NotFound /> } />
-    </Routes>
+    <div className='sheet-page'>
+      <Routes>
+        <Route path='/' element={ <SheetDisplay/> } />
+          <Route path='/users/*' element={ <Suspense fallback={<Loader/>}><UserDisplay/></Suspense> } />
+          <Route path='/edit/*' element={ <Suspense fallback={<Loader/>}><NotFound/></Suspense> } />
+          <Route path='/:entryId' element={ <Suspense fallback={<Loader/>}><SheetDisplay/></Suspense> } />
+        <Route path="/*" element={ <NotFound /> } />
+      </Routes>
+    </div>
   );
 }
 
 const Page = () => {
-  const { store } = useContext(GlobalContext)
-  const { theme, isAuth, setIsAuth } = store
+  // const { store } = useContext(GlobalContext)
+  // const { theme, isAuth, setIsAuth } = store
 
-  const { sheet } = useContext(SheetContext);
+  // const { sheet } = useContext(SheetContext);
 
-  const { sheetId } = useParams();
+  // const { sheetId } = useParams();
 
-  useEffect(() => {
-    // get user's sheets here
-    if (sheetId === '1') {
-      sheet.setCurrentSheet(dummyData);
-    }
-    if (sheetId === '100') {
-      sheet.setCurrentSheet(dummyData2);
-    }
-  }, [sheetId])
+  // useEffect(() => {
+  //   // get user's sheets here
+  //   if (sheetId === '1') {
+  //     sheet.setCurrentSheet(dummyData);
+  //   }
+  //   if (sheetId === '100') {
+  //     sheet.setCurrentSheet(dummyData2);
+  //   }
+  // }, [sheetId])
 
   // useEffect(() => {
   //   api(['get', 'sheet/${sheetId}'], noCallback) // Usage: api([method, path, payload], callback)
@@ -51,10 +56,9 @@ const Page = () => {
   
   return (
     <>
-      <div className='sheet-page'>
-        {sheet.sheetPageView === 'sheet' ? <SheetDisplay/> : <></>}
-        {sheet.sheetPageView === 'users' ? <UserDisplay/> : <></>}
-      </div>
+        <SheetDisplay/>
+        {/* {sheet.sheetPageView === 'sheet' ? <SheetDisplay/> : <></>}
+        {sheet.sheetPageView === 'users' ? <UserDisplay/> : <></>} */}
     </>
   )
 }

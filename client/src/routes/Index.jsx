@@ -22,6 +22,7 @@ const Index = () => {
   return (
     <Routes>
       <Route path='/' element={ <Page/> } />
+        <Route path='/sheet/create/*' element={ <Suspense fallback={<Loader/>}><NotFound/></Suspense> } />
         <Route path='/sheet/:sheetId/*' element={ isAuth ? <Suspense fallback={<Loader/>}><SheetProvider><Sheets/></SheetProvider></Suspense> : <Navigate to="/" replace={true} /> }/>
         <Route path='/account/*' element={ isAuth ? <Suspense fallback={<Loader/>}><Account/></Suspense> : <Navigate to="/" replace={true} /> }/>
       <Route path="/*" element={ isAuth ? <Suspense fallback={<Loader/>}><NotFound/></Suspense> : <Navigate to="/" replace={true} /> }/>
@@ -41,9 +42,15 @@ const Page = () => {
       { loading ? <>load</>
         : isAuth ? (
           <Div centerchildren flex fills>
-            <Div flex column card centertext>
-              <div>
-                Hello: {name.first} {name.last}
+            <Div flex column centertext>
+              <div className="index-welcome">
+                Welcome to
+              </div>
+              <div className="index-app">
+                SmartSheets
+              </div>
+              <div className="index-name">
+                {name.first} {name.last}
               </div>
             </Div>
           </Div>

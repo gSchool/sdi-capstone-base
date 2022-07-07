@@ -76,11 +76,11 @@ const Sidebar = () => {
         </ul>
       </nav>
       <div id="cover" className="page-cover" />
-      <Portal>
+      {/* <Portal>
         <div className="sidebar-sheet-options">
           MENU
         </div>
-      </Portal>
+      </Portal> */}
     </>
   );
 }

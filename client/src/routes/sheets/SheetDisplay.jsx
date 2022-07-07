@@ -1,14 +1,42 @@
 import React, { useEffect, useContext } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { GlobalContext } from '../../_context/AppProvider'
 import { SheetContext } from '../../_context/SheetProvider';
 import { Div } from '../../_styles/_global'
 import Entry from './Entry';
 import EntryDetails from './EntryDetails';
 import logo from '../../_assets/img/logo-dark.png';
 import dummyData from '../../_dummy/sheet.json';
+import dummyData2 from '../../_dummy/sheet2.json'
 import edit from '../../_assets/icons/edit-purple.png'
 
 const SheetDisplay = () => {
+  const navigate = useNavigate();
+  const entryId = useParams.entryId;
+
+  const { store } = useContext(GlobalContext)
+  const { theme, isAuth, setIsAuth } = store
+
   const { sheet } = useContext(SheetContext);
+
+  const { sheetId } = useParams();
+
+  useEffect(() => {
+    // get user's sheets here
+    sheet.setSheetLoading(true)
+
+    if (sheetId === '1') {
+      sheet.setCurrentSheet(dummyData)
+    } else if (sheetId === '100') {
+      sheet.setCurrentSheet(dummyData2)
+    } else {
+      sheet.setSheetLoading(false)
+    }
+  }, [sheetId])
+
+  useEffect(() => {
+    sheet.setSheetLoading(false);
+  }, [sheet.currentSheet])
 
   return (
     <>
@@ -43,10 +71,11 @@ const SheetDisplay = () => {
             </tbody>
           </table>
         </div>
-        <button className="dummy-users-button" onClick={() => sheet.setSheetPageView('users')}><img alt='edit-icon'/></button>
+        <button className="dummy-users-button" onClick={
+          () => navigate(`/sheet/${sheet.currentSheet.sheet_id}/users`)}><img alt='edit-icon'/></button>
         <button className="new-entry" onClick={() => sheet.setNewEntry(true)}><img alt='edit-icon'/></button>
       </div>
-      <EntryDetails />
+      <EntryDetails entryId={entryId}/>
     </>
   );
 }

@@ -3,6 +3,7 @@ import useCurrentSheet from './states/useCurrentSheet'
 import useSelectedEntry from './states/useSelectedEntry'
 import useNewEntry from './states/useNewEntry'
 import useSheetPageView from './states/useSheetPageView'
+import useSheetLoading from './states/useSheetLoading'
 
 const SheetContext = createContext()
 
@@ -11,6 +12,7 @@ const SheetProvider = ({ children }) => {
   const { selectedEntry, setSelectedEntry } = useSelectedEntry();
   const { newEntry, setNewEntry } = useNewEntry();
   const { sheetPageView, setSheetPageView } = useSheetPageView();
+  const { sheetLoading, setSheetLoading } = useSheetLoading();
 
   const sheet = {
 
@@ -19,12 +21,14 @@ const SheetProvider = ({ children }) => {
     selectedEntry,
     newEntry,
     sheetPageView,
+    sheetLoading,
 
     /* SETTERS */
     setCurrentSheet,
     setSelectedEntry,
     setNewEntry,
     setSheetPageView,
+    setSheetLoading,
 
     /* EFFECTS */
 

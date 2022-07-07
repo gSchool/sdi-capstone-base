@@ -7,20 +7,22 @@ import '../../_styles/account.css';
 const Account = () => {
   
   const { store } = useContext(GlobalContext)
-  const { theme, user } = store
+  const { user } = store
   const { profileImg, name, email } = user
 
   return (
-    <Div centerchildren flex fills className={`${theme}`}>
-      <Div flex column card centertext className={`${theme}`}>
-        <div>
-          { profileImg ? <img src={profileImg} alt='profile' className='profile-img' /> : 'no profile image' }
-        </div>
-        <div>
-          {name.first} {name.last}
-        </div>
-        <div>
-          {email}
+    <Div centerchildren flex fills className="account-page">
+      <Div flex column card centertext className="account-details">
+        <div className="account-meta">
+          <div className="account-meta-img">
+            { profileImg ? <img src={profileImg} alt='profile' className='profile-img' /> : 'no profile image' }
+          </div>
+          <div className="account-meta-name">
+            {name.first} {name.last}
+          </div>
+          <div className="account-meta-email">
+            {email}
+          </div>
         </div>
         <SignOutBtn />
       </Div>
