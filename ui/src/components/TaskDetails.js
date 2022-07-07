@@ -1,32 +1,33 @@
-import Paper from '@mui/material/Paper';
-import Grid from '@mui/material/Grid';
-import Container from '@mui/material/Container'
-import Box from '@mui/material/Box'
+import React, { useState, useEffect } from "react";
+import {useParams} from 'react-router-dom'
+import Paper from "@mui/material/Paper";
+import Grid from "@mui/material/Grid";
+import Container from "@mui/material/Container";
+import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
+import TextField from "@mui/material/TextField";
 import { Button } from "@mui/material";
+import { TaskContext } from "../App.js";
+import EditableText from "./EditableText.js"
+// import { useParams } from "react-router-dom";
+
+import config from "../config";
+const ApiUrl = config[process.env.REACT_APP_NODE_ENV || "development"].apiUrl;
 
 /*
 scroll container for comments?
 */
 
-const dummyComments = [
-  { id: 1, parent_id: 5, body: "a comment", user_id: 1, timestamp: "now" },
-  { id: 2, parent_id: 1, body: "a comment", user_id: 1, timestamp: "now" },
-  { id: 5, parent_id: null, body: "a comment", user_id: 1, timestamp: "now" }
-]
-
-const dummyOwners = [
-  { rank: "Lt", name: 'I dont know' },
-  { rank: "Lt", name: 'I dont know' }
-]
-const dummy = { id: 1, title: "no u", description: "got em", assigned_date: "a year ago", suspense_date: "now", completed_date: "n/a", status: "In Progress", owner: dummyOwners, created_by_rank: "Spc3", created_by_name: "Lauren Enders", comments: dummyComments } //desription or body?
-
 const TaskDetails = () => {
-
   /*
-      Since the data is likely going to be a state, and i dont know if the Array.sort(), which sorts an array in place, is going
-      to change the state so I'm assuming we will have a "comments" state variable that we can sort and render
+      change the fields to use Editable Text if the userId is equal to the userId of the task
   */
+  const [ownsTask, setOwnsTask] = useState(null)
+  const [taskDetails, setTaskDetails] = useState([]);
+  const [comments, setComments] = useState([]);
+  const [input, setInput] = useState([])
+  const tc = useContext(TaskContext);
+  let {task} = useParams()
 
   function compare(a, b) {
     if (a.id < b.id) {
@@ -38,66 +39,95 @@ const TaskDetails = () => {
     return 0;
   }
 
-
-  const sortComments = () => {
-    let commentArray = dummyComments //maybe have to do a deep copy?
+  const sortComments = (data) => {
+    let commentArray = data; //maybe have to do a deep copy?
     commentArray.sort(compare);
-    return commentArray
-  }
+    console.log(commentArray)
+    setComments(commentArray)
+  };
 
-  //have this be inside useEffect, handle the same way as sorting for Project 3!!!
-  let sortedComments = sortComments()
 
+  useEffect(() => {
+    let url = `${ApiUrl}/tasks/${task}`
+    fetch(url)
+      .then((res) => res.json())
+      .then((data) => {
+        setTaskDetails(data[0]);
+        setComments(data[0].comments)
+        return data[0]
+      })
+      .then((data) => {
+         sortComments(data.comments);
+         setOwnsTask(data.author_id === tc.userId) //if the author of the task is the same user in the global context they can edit the task
+       })
+      .catch((err) => console.log(err));
+  }, []);
+
+ 
+  //NOTE: To edit fields in place, change the Typography to Editable Text, pass the setInput as a "callback" prop for the function
+  //If the canEdit field is false then it won't be editable. The only thing that might need to be customized for this project
+  //is if you want the type of text to be different between the different fields. 
+  
   return (
     <>
-    <Box sx={{ width: '100%' }}>
-      <Container>
-        <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-            <Grid item xs={6}>
-                <Typography>{`Title: ${dummy.title}`}</Typography>
+      <Box marginTop={5} sx={{ width: "100%" }}>
+          <Box m={2}><Typography variant="h5">{`Task #${taskDetails.task_id}`}</Typography></Box>
+          <Grid
+            container
+            spacing={3}
+          >
+            <Grid item xs={6} display="flex" justifyContent="center">
+              <Typography>{`Title: ${taskDetails.task_title}`}</Typography>
             </Grid>
-            <Grid item xs={6}>
-                <Typography>{`Priority: ${dummy.priority}`}</Typography>
+            <Grid item xs={6} display="flex" justifyContent="center">
+              <Typography>{`Priority: ${taskDetails.task_priority}`}</Typography>
             </Grid>
-            <Grid item xs={6}>
-                <Typography>{`Status: ${dummy.status}`}</Typography>
+            <Grid item xs={6} display="flex" justifyContent="center">
+              <Typography>{`Status: ${taskDetails.task_status}`}</Typography>
             </Grid>
-            <Grid item xs={6}>
-                <Typography>{`Assigned Date: ${dummy.assigned_date}`}</Typography>
+            <Grid item xs={6} display="flex" justifyContent="center">
+              <Typography>{`Assigned Date: ${taskDetails.task_assigned_date}`}</Typography>
             </Grid>
-            <Grid item xs={6}>
-                <Typography>{`Suspense Date: ${dummy.suspense_date}`}</Typography>
+            <Grid item xs={6} display="flex" justifyContent="center">
+              <Typography>{`Suspense Date: ${taskDetails.task_suspense_date}`}</Typography>
             </Grid>
-            <Grid item xs={12}>
-                <Typography>{`Description: ${dummy.description}`}</Typography>
+            <Grid item xs={12} display="flex" justifyContent="center">
+              <Typography>{`Description:\n${taskDetails.task_description}`}</Typography>
             </Grid>
-        </Grid>
-      </Container>
-      <Container>
-    
+          </Grid>
+       
+        <Container>
           <h1>Comments</h1>
           <Paper style={{ padding: "40px 20px" }}>
-            {
-              sortedComments.map((comment) => {
-                return (
-                  <>
-                    <Grid container wrap="nowrap" spacing={2}>
-                      <Grid justifyContent="left" item xs zeroMinWidth>
-                        <h4 style={{ margin: 0, textAlign: "left" }}>{comment.user_id}</h4>
-                        <p style={{ textAlign: "left" }}>{comment.body}</p>
-                        <p style={{ textAlign: "left", color: "gray" }}>{comment.timestamp}</p>
-                      </Grid>
+            {comments.map((comment) => {
+              return (
+                <>
+                  <Grid container wrap="nowrap" spacing={2}>
+                    <Grid justifyContent="left" item xs zeroMinWidth>
+                      <h4 style={{ margin: 0, textAlign: "left" }}>
+                        {`${comment.user_rank} ${comment.user_name}`}
+                      </h4>
+                      <p style={{ textAlign: "left" }}>{comment.comment_body}</p>
+                      <p style={{ textAlign: "left", color: "gray" }}>
+                        {comment.comment_timestamp}
+                      </p>
                     </Grid>
-                  </>
-                )
-              })
-            }
+                  </Grid>
+                </>
+              );
+            })}
+            <TextField
+               fullWidth
+                id="outlined-basic"
+                label="Add a comment"
+                variant="outlined"
+            />
+            <Button size="small" > Done </Button>
           </Paper>
-
-      </Container>
+        </Container>
       </Box>
     </>
-  )
-}
+  );
+};
 
-export default TaskDetails
+export default TaskDetails;

@@ -1,40 +1,74 @@
-import React, { useEffect, useState, createContext } from 'react';
+import React, { useEffect, useState, createContext } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Dashboard from './components/Dashboard.js';
-import AddPage from './components/AddPage.js';
-import TaskDetails from './components/TaskDetails.js';
-import TaskTable from './components/TaskTable.js';
-import Profile from './components/Profile.js';
-import AdminMenu from './components/AdminMenu.js';
-import Header from './components/Header.js';
-import SignUp from './components/SignUp.js';
-import Login from './components/Login.js';
-import TaskCard from './components/TaskCard.js'
+import Dashboard from "./components/Dashboard.js";
+import CreateTask from "./components/CreateTask.js";
+import TaskDetails from "./components/TaskDetails.js";
+import TaskTable from "./components/TaskTable.js";
+import Profile from "./components/Profile.js";
+import AdminMenu from "./components/AdminMenu.js";
+import Header from "./components/Header.js";
+import Register from "./components/Register.js";
+import Login from "./components/Login.js";
+import TaskCard from "./components/TaskCard.js";
 
-const TaskContext = createContext(null)
+const TaskContext = createContext(null);
 
 function App() {
-
-  const [userId, setUserId] = useState([])
-  const [isAdmin, setIsAdmin] = useState(false)
-  const [selectedTask, setSelectedTask] = useState({})
-  const [siteLoc, setSiteLoc] = useState('')
+  const [userId, setUserId] = useState(1); //set this in Login (start as null)
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [userOrg, setUserOrg] = useState(1); //set this in Login (start as null)
 
   const TaskContextValues = {
-    userId, setUserId,
-    isAdmin, setIsAdmin,
-    selectedTask, setSelectedTask,
-    siteLoc, setSiteLoc
-  }
+    userId,
+    setUserId,
+    isAdmin,
+    setIsAdmin,
+    userOrg,
+    setUserOrg,
+  };
 
   return (
     <div>
-    <Router>
-      <TaskContext.Provider value={TaskContextValues}>
-        <Header />
-        <TaskTable />
-        <Dashboard user = {false}/>
-      </TaskContext.Provider>
+      <Router>
+        <TaskContext.Provider value={TaskContextValues}>
+          <Header />
+          <Routes>
+            <Route path="/tasks" element={<Dashboard user={false} />}>
+              {" "}
+            </Route>
+            <Route
+              path="/tasks/users/:user"
+              element={<Dashboard user={false} />}
+            >
+              {" "}
+            </Route>
+            <Route path="/tasks/add" element={<CreateTask type={"task"} />}>
+              {" "}
+            </Route>
+            <Route path="/tasks/:task" element={<TaskDetails />}>
+              {" "}
+            </Route>
+            <Route
+              path="/tasks/weekly"
+              element={<TaskTable isArchive={false} />}
+            >
+              {" "}
+            </Route>
+            <Route path="/profile" element={<Profile />}>
+              {" "}
+            </Route>
+            <Route path="/archive" element={<TaskTable isArchive={true} />}>
+              {" "}
+            </Route>
+            <Route path="/register" element={<Register />}>
+              {" "}
+            </Route>
+            <Route path="/login" element={<Login />}>
+              {" "}
+            </Route>
+            <Route path="/*" element={<Dashboard user={false} />}></Route>
+          </Routes>
+        </TaskContext.Provider>
       </Router>
     </div>
   );
