@@ -1,5 +1,13 @@
 const express = require("express");
-const { profile, register, login, update, remove, byOrg, all } = require("../controllers/usersController.js");
+const {
+  profile,
+  register,
+  login,
+  update,
+  remove,
+  byOrg,
+  all,
+} = require("../controllers/usersController.js");
 const router = express.Router();
 
 /*

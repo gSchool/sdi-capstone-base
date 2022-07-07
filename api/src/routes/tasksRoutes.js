@@ -6,9 +6,11 @@ const {
   orgWar,
   userWar,
   addTask,
+  addTaskUser,
   addComment,
   editTask,
   deleteTask,
+  deleteTaskUsers,
 } = require("../controllers/tasksController.js");
 const router = express.Router();
 
@@ -42,11 +44,13 @@ router.route("/war/users/:userid").get(userWar);
 // POST REQUESTS for /tasks
 router.route("/tasks").post(addTask);
 router.route("/tasks/:taskid/comments").post(addComment);
+router.route("/owners/:taskid").post(addTaskUser);
 
 // PATCH REQUESTS for /tasks
 router.route("/tasks/:taskid").patch(editTask);
 
 // DELETE REQUESTS for /tasks
 router.route("/tasks/:taskid").delete(deleteTask);
+router.route("/owners/:taskid").delete(deleteTaskUsers);
 
 module.exports = router;
