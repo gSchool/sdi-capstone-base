@@ -11,7 +11,7 @@ exports.seed = async function(knex) {
       priority: 3, 
       assigned_date: new Date("2022-07-05"), 
       suspense_date:new Date("2022-07-25"), 
-      status: "not started", 
+      status: "to do", 
       org_id: 1,
       author_id: 3,
     },
@@ -21,7 +21,7 @@ exports.seed = async function(knex) {
       priority: 2, 
       assigned_date: new Date("2022-07-06"), 
       suspense_date:new Date("2022-07-14"), 
-      status: "not started", 
+      status: "in progress", 
       org_id: 1,
       author_id: 3,
     },
@@ -31,7 +31,7 @@ exports.seed = async function(knex) {
       priority: 3, 
       assigned_date: new Date('2022-01-08',), 
       suspense_date: new Date('2022-01-09'), 
-      status: "started", 
+      status: "in progress", 
       org_id: 3,
       author_id: 3,
     },
@@ -41,8 +41,8 @@ exports.seed = async function(knex) {
 /* 
   possible status:
   [
-    "not started",
-    "started",
+    "to do",
+    "in progress",
     "finished"
   ]
 */
