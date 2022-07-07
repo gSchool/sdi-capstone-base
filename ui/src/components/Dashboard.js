@@ -10,38 +10,39 @@ import { CircularProgress } from "@mui/material";
 import TaskCard from "./TaskCard.js";
 import { Stack } from "@mui/material";
 import { Divider } from "@mui/material";
-
+import Fab from "@mui/material/Fab";
+import AddIcon from "@mui/icons-material/Add";
 import { TaskContext } from "../App.js";
 
 const ApiUrl = config[process.env.REACT_APP_NODE_ENV || "development"].apiUrl;
 
 const dummy = [
   {
-    id: 1,
-    title: "dummy",
-    status: "Backlog",
-    priority: 1,
-    suspense_date: "now",
-    created_by: "rank/firstname/lastname",
-    assigned_to: "Sp4 Jones",
+    task_id: 1,
+    task_title: "dummy",
+    task_status: "Backlog",
+    task_priority: 1,
+    task_suspense_date: "now",
+    task_created_by: "rank/firstname/lastname",
+    task_assigned_to: "Sp4 Jones",
   },
   {
-    id: 2,
-    title: "dummy",
-    status: "To Do",
-    priority: 1,
-    suspense_date: "now",
-    created_by: "rank/firstname/lastname",
-    assigned_to: "Sp4 Jones",
+    task_id: 2,
+    task_title: "dummy",
+    task_status: "in progress",
+    task_priority: 1,
+    task_suspense_date: "now",
+    task_created_by: "rank/firstname/lastname",
+    task_assigned_to: "Sp4 Jones",
   },
   {
-    id: 3,
-    title: "dummy",
-    status: "In Progress",
-    priority: 1,
-    suspense_date: "now",
-    author_id: 2,
-    assigned_to: "Sp4 Jones",
+    task_id: 3,
+    task_title: "dummy",
+    task_status: "in progress",
+    task_priority: 1,
+    task_suspense_date: "now",
+    task_author_id: 2,
+    task_assigned_to: "Sp4 Jones",
   },
 ];
 
@@ -53,6 +54,7 @@ const Dashboard = ({ user }) => {
   let [tasks, setTasks] = useState([]);
   let [isLoading, setIsLoading] = useState(null); //use this to make loading circle
   let [columns, setColumns] = useState([]);
+  let navigate = useNavigate()
 
   const formatColumn = (someWords) => {
     const words = someWords.split(" ");
@@ -90,20 +92,27 @@ const Dashboard = ({ user }) => {
 
   return (
     <div>
+      <Box m = {4} display='flex' justifyContent='right'>
+        <Fab color="primary" aria-label="add" onClick={() => navigate('/tasks/add')}>
+          <AddIcon />
+        </Fab>
+      </Box>
       <Grid
         container
+        spacing={2}
         direction="row"
         justifyContent="space-evenly"
         alignItems="center"
       >
         {columns.map((colName) => {
           return (
-            <Box marginTop={7}>
-              <Stack
-                spacing={2}
-                divider={<Divider orientation="horizontal" flexItem />}
-              >
-                <Typography variant="h4">{formatColumn(colName)}</Typography>
+            <Box style={{ height: 100 }}>
+              <Stack spacing={2} alignItems="center">
+                  <Typography
+                    variant="h4"
+                  >
+                    {formatColumn(colName)}
+                  </Typography>
                 {tasks.map((element) => {
                   return colName === "Created" &&
                     element.author_id === tc.userId ? (
