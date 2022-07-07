@@ -27,11 +27,13 @@ const Profile = () => {
 
   return (
     <Box m={2} p={1} alignItems="center">
-      <Stack>
-        <Typography variant="h4">My Profile</Typography>
-        <Paper>
-          <Grid container spacing={2}>
-            <Grid item xs={4}>
+      <Stack spacing={2} alignItems="center">
+        <Typography variant="h4" alignContent="left">
+          My Profile
+        </Typography>
+        <Paper elevation={2}>
+          <Grid container spacing={2} marginTop={2}>
+            <Grid item xs={4} display="flex" justifyContent="flex-end" >
               <Typography>Name:</Typography>
             </Grid>
             <Grid item xs={8}>
@@ -43,7 +45,7 @@ const Profile = () => {
                 input={input}
               />
             </Grid>
-            <Grid item xs={4}>
+            <Grid item xs={4} display="flex" justifyContent="flex-end">
               <Typography>Rank:</Typography>
             </Grid>
             <Grid item xs={8}>
@@ -55,7 +57,7 @@ const Profile = () => {
                 input={input}
               />
             </Grid>
-            <Grid item xs={4}>
+            <Grid item xs={4} display="flex" justifyContent="flex-end">
               <Typography>Email:</Typography>
             </Grid>
             <Grid item xs={8}>
@@ -67,8 +69,8 @@ const Profile = () => {
                 input={input}
               />
             </Grid>
-            <Grid item xs={4}>
-              <Typography>organization:</Typography>
+            <Grid item xs={4} display="flex" justifyContent="flex-end">
+              <Typography>Organization:</Typography>
             </Grid>
             <Grid item xs={8}>
               <EditableText
@@ -81,6 +83,7 @@ const Profile = () => {
             </Grid>
           </Grid>
         </Paper>
+        <Button alignItems="right">Submit Changes</Button>
       </Stack>
     </Box>
   );
