@@ -1,5 +1,6 @@
 {
   "name": "Example Sheet",
+  "short_name": "EX",
   "sheet_id": 1,
   "fields": [
     {

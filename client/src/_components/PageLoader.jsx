@@ -11,7 +11,7 @@ const PageLoader = () => {
   }
 
   return (
-    <Fix offset="2rem" lower right>
+    <Fix offset="4rem" lower right>
       <Lottie style={style} animationData={loader} loop={true} />
     </Fix>
   )

@@ -1,51 +1,99 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useEffect, useContext, useRef } from 'react';
+import { useNavigate, useParams, useLocation } from 'react-router-dom';
+import { GlobalContext } from '../../_context/AppProvider'
 import { SheetContext } from '../../_context/SheetProvider';
 import { Div } from '../../_styles/_global'
 import Entry from './Entry';
 import EntryDetails from './EntryDetails';
 import logo from '../../_assets/img/logo-dark.png';
 import dummyData from '../../_dummy/sheet.json';
+import dummyData2 from '../../_dummy/sheet2.json'
 import edit from '../../_assets/icons/edit-purple.png'
+import useScrollHandler from '../../_helpers/useScrollHandler';
 
 const SheetDisplay = () => {
+  const navigate = useNavigate();
+  const entryId = useParams.entryId;
+  const location = useLocation();
+  const mouseDownHandler = useScrollHandler('scroll-container');
+
+  const { store } = useContext(GlobalContext)
+  const { theme, isAuth, setIsAuth } = store
+
   const { sheet } = useContext(SheetContext);
+
+  const { sheetId } = useParams();
+
+  const { sheetPageView, setSheetPageView, setSelectedEntry, selectedEntry, newEntry, setCurrentSheet } = sheet;
+
+  useEffect(() => {
+    if (selectedEntry.entry_id > 0) {
+      setSheetPageView('edit-entry');
+    } else if (newEntry === true) {
+      setSheetPageView('new-entry');
+    } else if (selectedEntry.entry_id === undefined) {
+      setSheetPageView('sheet');
+    }
+  }, [selectedEntry, newEntry])
+
+  useEffect(() => {
+    // get user's sheets here
+    sheet.setSheetLoading(true)
+
+    if (sheetId === '1') {
+      sheet.setCurrentSheet(dummyData)
+    } else if (sheetId === '100') {
+      sheet.setCurrentSheet(dummyData2)
+    } else {
+      sheet.setSheetLoading(false)
+    }
+  }, [sheetId])
+
+  useEffect(() => {
+    sheet.setSheetLoading(false);
+  }, [sheet.currentSheet])
 
   return (
     <>
-      <div className='sheet-display-container'>
+      <div className={`sheet-display-container ${(sheetPageView === 'edit-entry' || sheetPageView === 'new-entry') ? 'shrink' : ''}`}>
         {/* <SheetHeader> */}
         <div className='sheet-display-header'>
-          <div>
-            <img src={logo} />
+          <div className="sheet-header-meta">
+            <img className="sheet-header-icon no-select" src={logo} />
             <span className="nowrap">{sheet.currentSheet.name}</span>
           </div>
-          <div>
+          <div className="sheet-search no-select">
             <input placeholder='Search'/>
             <button>Filter</button>
           </div>
         </div>
-        <div className='sheet-display-body'>
+        <div id='scroll-container' className='sheet-display-body' onMouseDown={(e) => {
+          sheet.clickTime.current = new Date();
+          mouseDownHandler(e);
+          }}>
           <table className='sheet-display-table'>
             {/* <SheetFields> */}
-            <thead>
+            <thead className='no-select'>
               <tr>
                 {sheet.currentSheet.fields.map((field, i) =>
                   <td className="sheet-display-cell" key={i}>{field.name}</td>
                 )}
+                <td className="sheet-display-cell" key='option'></td>
               </tr>
             </thead>
             {/* <SheetEntries> */}
             <tbody>
-
               {sheet.currentSheet.entries.map((entry, i) => {
                 return <Entry data={entry} key={i}/>
               })}
             </tbody>
           </table>
         </div>
-        <button className="new-entry" onClick={() => sheet.setNewEntry(true)}><img alt='edit-icon'/></button>
+        <button className="dummy-users-button" onClick={
+          () => navigate(`/sheet/${sheet.currentSheet.sheet_id}/users`)}><img alt='edit-icon'/></button>
+        <button className="new-entry no-select" onClick={() => sheet.setNewEntry(true)}><img alt='edit-icon'/></button>
       </div>
-      <EntryDetails />
+      <EntryDetails entryId={entryId}/>
     </>
   );
 }

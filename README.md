@@ -21,7 +21,7 @@
     v0.2:
     - Added "instant login" button to login instantly when desired -- user auth only persists until page refresh
     - Refactored user object in useUser.jsx state
-    - Added profile image to sidebar
+    - Added profile image to sidebars
     - General updates to sidebar CSS
     - User authentication now persists in local storage
     - Created AuthProvider to route the user based on authentication in local storage
@@ -29,7 +29,41 @@
     - Created PageLoader element with animation for page loads
     - Lite and dark theme added, still needs work -- theme toggle button added to sidebar
     - Small updates to Sheets page CSS
+
+    v0.3 (5 July):
+    - Formatted ADD ITEM menu to be seperate from page; enables easier mobile display
+    - Adjusted light/dark theme options for aesthetics, ease of viewing
+    - Implementing FIREBASE authentication between client, host
+    - Added scrollbars to sheet view, formatted to be outside of viewable area
+    - ADD ITEM container now goes across entire page rather than being a sidebar
+    - Played with checkboxes, verified that Family Size Baked Beans IS BEANS
+
+    v0.4 (6 July):
+    - Formatting front end DIV's, containers, to ensure proper display
+    - Resolved FIREBASE login issue where token wasn't being passed between host, client
+    - Beginning to implement GET requests from backend to frontend
+    - Implementing USER ACCESS/menus page from mobile view
+    - Wolfe bought GitHub Co-Pilot because of Levi's peer pressure
+    - Clicking on a sheet now generates a dynamic route
+    - Beginning to tie together backend, frontend tables/presentation together
+    - USER ACCESS screen now displayers access rights per user
+
+    v0.5 (7 July):
+    - Refactored EDIT ENTRY code to iterate through all fields correctly, update values/value ID's
+    - Updated Miro board to ensure "living document" accuracy
+    - Implementing, refactoring USE STATE for table EDIT ENTRY array
+    - Refactoring, editing DARK MODE CSS to better display requisite information
+    - Refactoring USER ACCESS screen code
+    - Implemented CLICK TO DRAG for sheet view
+    - Implemented auto-scrolling, auto center
+
+    v0.6 (8 July):
+    - Tied frontend into backend for data handling
+    - Created MENUS for SHEETS VIEW
+    - Implemented SEARCH on USER ACCESS screen
+    - Added "UPDATE" notification if previously entered data is changed
     
+
 <br>
 
 * * *
@@ -83,6 +117,11 @@
 
 > 30 June
 >> ![Project_Status](https://i.imgur.com/fmJPcK3.png)
+
+<br>
+
+> 5 July
+>> ![Project_Status_2](https://i.imgur.com/yQMBjKO.png)
 
 <br>
 

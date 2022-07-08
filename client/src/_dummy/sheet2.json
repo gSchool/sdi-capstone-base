@@ -1,5 +1,6 @@
 {
   "name": "Kinds of Food",
+  "short_name": "KOF",
   "sheet_id": 100,
   "fields": [
     {
@@ -196,6 +197,564 @@
     },
     {
       "entry_id": 106,
+      "archived": false,
+      "values": [
+        {
+          "value": "Doritos",
+          "field_id": 101,
+          "value_id": 126
+        },
+        {
+          "value": "Snack",
+          "field_id": 102,
+          "value_id": 127
+        },
+        {
+          "value": "1 ounce",
+          "field_id": 103,
+          "value_id": 128
+        },
+        {
+          "value": "8",
+          "field_id": 104,
+          "value_id": 129
+        },
+        {
+          "value": "false",
+          "field_id": 105,
+          "value_id": 130
+        }
+      ]
+    },
+    {
+      "entry_id": 107,
+      "archived": false,
+      "values": [
+        {
+          "value": "Apple",
+          "field_id": 101,
+          "value_id": 101
+        },
+        {
+          "value": "Fruit",
+          "field_id": 102,
+          "value_id": 102
+        },
+        {
+          "value": "1/2 Apple",
+          "field_id": 103,
+          "value_id": 103
+        },
+        {
+          "value": "12",
+          "field_id": 104,
+          "value_id": 104
+        },
+        {
+          "value": "false",
+          "field_id": 105,
+          "value_id": 105
+        }
+      ]
+    },
+    {
+      "entry_id": 108,
+      "archived": false,
+      "values": [
+        {
+          "value": "Carrot",
+          "field_id": 101,
+          "value_id": 106
+        },
+        {
+          "value": "Vegetable",
+          "field_id": 102,
+          "value_id": 107
+        },
+        {
+          "value": "1 Carrot",
+          "field_id": 103,
+          "value_id": 108
+        },
+        {
+          "value": "84",
+          "field_id": 104,
+          "value_id": 109
+        },
+        {
+          "value": "false",
+          "field_id": 105,
+          "value_id": 110
+        }
+      ]
+    },
+    {
+      "entry_id": 109,
+      "archived": false,
+      "values": [
+        {
+          "value": "Milk",
+          "field_id": 101,
+          "value_id": 111
+        },
+        {
+          "value": "Dairy",
+          "field_id": 102,
+          "value_id": 112
+        },
+        {
+          "value": "1 Cup",
+          "field_id": 103,
+          "value_id": 113
+        },
+        {
+          "value": "4",
+          "field_id": 104,
+          "value_id": 114
+        },
+        {
+          "value": "false",
+          "field_id": 105,
+          "value_id": 115
+        }
+      ]
+    },
+    {
+      "entry_id": 110,
+      "archived": false,
+      "values": [
+        {
+          "value": "Family Size Baked Beans",
+          "field_id": 101,
+          "value_id": 116
+        },
+        {
+          "value": "Vegetable",
+          "field_id": 102,
+          "value_id": 117
+        },
+        {
+          "value": "2 Cans",
+          "field_id": 103,
+          "value_id": 118
+        },
+        {
+          "value": "9001",
+          "field_id": 104,
+          "value_id": 119
+        },
+        {
+          "value": "true",
+          "field_id": 105,
+          "value_id": 120
+        }
+      ]
+    },
+    {
+      "entry_id": 111,
+      "archived": false,
+      "values": [
+        {
+          "value": "Bread",
+          "field_id": 101,
+          "value_id": 121
+        },
+        {
+          "value": "Grains",
+          "field_id": 102,
+          "value_id": 122
+        },
+        {
+          "value": "1 Slice",
+          "field_id": 103,
+          "value_id": 123
+        },
+        {
+          "value": "15",
+          "field_id": 104,
+          "value_id": 124
+        },
+        {
+          "value": "false",
+          "field_id": 105,
+          "value_id": 125
+        }
+      ]
+    },
+    {
+      "entry_id": 112,
+      "archived": false,
+      "values": [
+        {
+          "value": "Doritos",
+          "field_id": 101,
+          "value_id": 126
+        },
+        {
+          "value": "Snack",
+          "field_id": 102,
+          "value_id": 127
+        },
+        {
+          "value": "1 ounce",
+          "field_id": 103,
+          "value_id": 128
+        },
+        {
+          "value": "8",
+          "field_id": 104,
+          "value_id": 129
+        },
+        {
+          "value": "false",
+          "field_id": 105,
+          "value_id": 130
+        }
+      ]
+    },
+    {
+      "entry_id": 113,
+      "archived": false,
+      "values": [
+        {
+          "value": "Apple",
+          "field_id": 101,
+          "value_id": 101
+        },
+        {
+          "value": "Fruit",
+          "field_id": 102,
+          "value_id": 102
+        },
+        {
+          "value": "1/2 Apple",
+          "field_id": 103,
+          "value_id": 103
+        },
+        {
+          "value": "12",
+          "field_id": 104,
+          "value_id": 104
+        },
+        {
+          "value": "false",
+          "field_id": 105,
+          "value_id": 105
+        }
+      ]
+    },
+    {
+      "entry_id": 114,
+      "archived": false,
+      "values": [
+        {
+          "value": "Carrot",
+          "field_id": 101,
+          "value_id": 106
+        },
+        {
+          "value": "Vegetable",
+          "field_id": 102,
+          "value_id": 107
+        },
+        {
+          "value": "1 Carrot",
+          "field_id": 103,
+          "value_id": 108
+        },
+        {
+          "value": "84",
+          "field_id": 104,
+          "value_id": 109
+        },
+        {
+          "value": "false",
+          "field_id": 105,
+          "value_id": 110
+        }
+      ]
+    },
+    {
+      "entry_id": 115,
+      "archived": false,
+      "values": [
+        {
+          "value": "Milk",
+          "field_id": 101,
+          "value_id": 111
+        },
+        {
+          "value": "Dairy",
+          "field_id": 102,
+          "value_id": 112
+        },
+        {
+          "value": "1 Cup",
+          "field_id": 103,
+          "value_id": 113
+        },
+        {
+          "value": "4",
+          "field_id": 104,
+          "value_id": 114
+        },
+        {
+          "value": "false",
+          "field_id": 105,
+          "value_id": 115
+        }
+      ]
+    },
+    {
+      "entry_id": 116,
+      "archived": false,
+      "values": [
+        {
+          "value": "Family Size Baked Beans",
+          "field_id": 101,
+          "value_id": 116
+        },
+        {
+          "value": "Vegetable",
+          "field_id": 102,
+          "value_id": 117
+        },
+        {
+          "value": "2 Cans",
+          "field_id": 103,
+          "value_id": 118
+        },
+        {
+          "value": "9001",
+          "field_id": 104,
+          "value_id": 119
+        },
+        {
+          "value": "true",
+          "field_id": 105,
+          "value_id": 120
+        }
+      ]
+    },
+    {
+      "entry_id": 117,
+      "archived": false,
+      "values": [
+        {
+          "value": "Bread",
+          "field_id": 101,
+          "value_id": 121
+        },
+        {
+          "value": "Grains",
+          "field_id": 102,
+          "value_id": 122
+        },
+        {
+          "value": "1 Slice",
+          "field_id": 103,
+          "value_id": 123
+        },
+        {
+          "value": "15",
+          "field_id": 104,
+          "value_id": 124
+        },
+        {
+          "value": "false",
+          "field_id": 105,
+          "value_id": 125
+        }
+      ]
+    },
+    {
+      "entry_id": 118,
+      "archived": false,
+      "values": [
+        {
+          "value": "Doritos",
+          "field_id": 101,
+          "value_id": 126
+        },
+        {
+          "value": "Snack",
+          "field_id": 102,
+          "value_id": 127
+        },
+        {
+          "value": "1 ounce",
+          "field_id": 103,
+          "value_id": 128
+        },
+        {
+          "value": "8",
+          "field_id": 104,
+          "value_id": 129
+        },
+        {
+          "value": "false",
+          "field_id": 105,
+          "value_id": 130
+        }
+      ]
+    },
+    {
+      "entry_id": 119,
+      "archived": false,
+      "values": [
+        {
+          "value": "Apple",
+          "field_id": 101,
+          "value_id": 101
+        },
+        {
+          "value": "Fruit",
+          "field_id": 102,
+          "value_id": 102
+        },
+        {
+          "value": "1/2 Apple",
+          "field_id": 103,
+          "value_id": 103
+        },
+        {
+          "value": "12",
+          "field_id": 104,
+          "value_id": 104
+        },
+        {
+          "value": "false",
+          "field_id": 105,
+          "value_id": 105
+        }
+      ]
+    },
+    {
+      "entry_id": 120,
+      "archived": false,
+      "values": [
+        {
+          "value": "Carrot",
+          "field_id": 101,
+          "value_id": 106
+        },
+        {
+          "value": "Vegetable",
+          "field_id": 102,
+          "value_id": 107
+        },
+        {
+          "value": "1 Carrot",
+          "field_id": 103,
+          "value_id": 108
+        },
+        {
+          "value": "84",
+          "field_id": 104,
+          "value_id": 109
+        },
+        {
+          "value": "false",
+          "field_id": 105,
+          "value_id": 110
+        }
+      ]
+    },
+    {
+      "entry_id": 121,
+      "archived": false,
+      "values": [
+        {
+          "value": "Milk",
+          "field_id": 101,
+          "value_id": 111
+        },
+        {
+          "value": "Dairy",
+          "field_id": 102,
+          "value_id": 112
+        },
+        {
+          "value": "1 Cup",
+          "field_id": 103,
+          "value_id": 113
+        },
+        {
+          "value": "4",
+          "field_id": 104,
+          "value_id": 114
+        },
+        {
+          "value": "false",
+          "field_id": 105,
+          "value_id": 115
+        }
+      ]
+    },
+    {
+      "entry_id": 122,
+      "archived": false,
+      "values": [
+        {
+          "value": "Family Size Baked Beans",
+          "field_id": 101,
+          "value_id": 116
+        },
+        {
+          "value": "Vegetable",
+          "field_id": 102,
+          "value_id": 117
+        },
+        {
+          "value": "2 Cans",
+          "field_id": 103,
+          "value_id": 118
+        },
+        {
+          "value": "9001",
+          "field_id": 104,
+          "value_id": 119
+        },
+        {
+          "value": "true",
+          "field_id": 105,
+          "value_id": 120
+        }
+      ]
+    },
+    {
+      "entry_id": 123,
+      "archived": false,
+      "values": [
+        {
+          "value": "Bread",
+          "field_id": 101,
+          "value_id": 121
+        },
+        {
+          "value": "Grains",
+          "field_id": 102,
+          "value_id": 122
+        },
+        {
+          "value": "1 Slice",
+          "field_id": 103,
+          "value_id": 123
+        },
+        {
+          "value": "15",
+          "field_id": 104,
+          "value_id": 124
+        },
+        {
+          "value": "false",
+          "field_id": 105,
+          "value_id": 125
+        }
+      ]
+    },
+    {
+      "entry_id": 124,
       "archived": false,
       "values": [
         {

@@ -3,6 +3,7 @@
   transition: width var(--global-transition-speed) ease;
   overflow-y: hidden;
   overflow-x: hidden;
+  z-index: 200;
 }
 
 .sidebar-container {
@@ -39,8 +40,8 @@
 }
 
 .sidebar-header-logo {
-  width: 2.5rem;
-  min-width: 2.5rem;
+  width: 2.4rem;
+  min-width: 2.4rem;
 }
 
 .sidebar-header-text {
@@ -95,8 +96,8 @@
   display: flex;
   z-index: 3000;
   align-items: center;
-  width: 2.8rem;
-  min-width: 2.8rem;
+  width: 2.4rem;
+  min-width: 2.4rem;
   margin-top: -1.2rem;
   transition: all var(--global-transition-speed) ease;
   cursor: pointer;
@@ -235,4 +236,49 @@
   margin-right: 0.15rem;
   height: auto;
   fill: var(--color-quinary);
+}
+
+.sheet-options-menu-container {
+  position: fixed;
+  background-color: var(--color-tertiary);
+  padding: 1rem;
+  border-radius: var(--global-border-radius);
+  box-shadow: 0 1rem 1rem 0 var(--global-menu-box-shadow-color);
+  z-index: 2000000;
+  cursor: pointer;
+}
+
+.sheet-options-menu-item:not(:first-of-type) {
+  margin-top: 0.8rem;
+}
+
+.sheet-options-menu-item {
+  background-color: var(--color-primary);
+  color: var(--color-text-menu);
+  padding: 0.8rem 1.7rem;
+  /* margin: 1rem; */
+  border-radius: var(--global-border-radius);
+  text-align: center;
+  z-index: 2000000;
+  cursor: pointer;
+}
+
+.sheet-options-menu-item.break {
+  background-color: #00000000;
+  color: var(--color-text-menu);
+  padding: 0.2rem 1.7rem;
+  /* margin: 1rem; */
+  border-radius: var(--global-border-radius);
+  text-align: center;
+  z-index: 2000000;
+}
+
+.sheet-options-menu-item.remove {
+  background-color: #dc7777;
+  color: var(--color-text-menu);
+  padding: 0.8rem 1.7rem;
+  /* margin: 1rem; */
+  border-radius: var(--global-border-radius);
+  text-align: center;
+  z-index: 2000000;
 }

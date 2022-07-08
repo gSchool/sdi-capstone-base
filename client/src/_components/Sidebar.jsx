@@ -1,5 +1,5 @@
-import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useContext, useEffect, useRef } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { GlobalContext } from '../_context/AppProvider'
 import eHandler, { noCallback } from '../_helpers/eHandler';
 import logo from '../_assets/img/logo.png';
@@ -8,23 +8,96 @@ import menu from '../_assets/icons/grip.png';
 import account from '../_assets/icons/account.png';
 import '../_styles/sidebar.css'
 import ThemeSwitcher from '../_components/ThemeSwitcher'
+import dummySheetAccessData from '../_dummy/sheet-access.json';
+import { ClickAwayListener } from '@mui/base';
 
 const Sidebar = () => {
 
+  const log = console.log
+
   const { store } = useContext(GlobalContext)
-  const { user } = store
-  const { profileImg } = user
+  const { user, setSheetAccess, refresh } = store
+  const { profileImg, sheetAccess } = user
+
+  // fetch sheet access data
+  useEffect(() => {
+    const data = dummySheetAccessData
+    setSheetAccess(data.sheets);
+  }, [])
+
+  const data = dummySheetAccessData.sheets  
+
+  const location = useLocation();
+  const [view, setView] = useState('desktop')
+  const [link, setLink] = useState('/create')
+ 
+  window.onresize = () => {
+    if (window.innerWidth < 768) {
+      setView('mobile')
+    } else {
+      setView('desktop')
+    }
+  }
+
+  useEffect(() => {
+        
+    const path = window.location.pathname.split('/')
+
+    if (view === 'mobile') {
+      if (path.length < 3) {
+        // console.log('set to create sheet on mobile')
+        setLink('/create')
+      } else {
+        // console.log('set to new entry on mobile')
+        setLink('/sheet/new')
+      }
+    } else {
+      // console.log('set to create sheet on desktop')
+      setLink('/create')
+    }
+  
+  }, [location, view])
+
+  const [applyStyle, setApplyStyle] = useState(false)
+  const [menuLocation, setMenuLocation] = useState({
+    visibility: 'hidden',
+    top: 0,
+    left: 0
+  })
+
+  // open a menu next to the component clicked on
+  const openMenu = (e) => {
+    const { top, left } = e.target.getBoundingClientRect()
+    setApplyStyle(true)
+    setMenuLocation({
+      visibility: 'visible',
+      top: top + 20,
+      left: left
+    })
+  }
+  
+  // close the menu
+  const closeMenu = () => {
+    log('close menu')
+    setApplyStyle(false)
+    setMenuLocation({
+      visibility: "hidden",
+      top: 0,
+      left: 0
+    })
+  }
+
 
   return (
     <>
-      <nav className="sidebar" onMouseOver={(e)=>eHandler(e, 'showCover', null, noCallback)} onMouseEnter={(e)=>eHandler(e, 'showCover', null, noCallback)} onMouseLeave={(e)=>eHandler(e, 'hideCover', null, noCallback)}>
+      <nav className="sidebar" onMouseOver={(e)=>{eHandler(e, 'showCover', null, noCallback)}} onMouseEnter={(e)=>{eHandler(e, 'showCover', null, noCallback)}} onMouseLeave={(e)=>{closeMenu(); eHandler(e, 'hideCover', null, noCallback)}}>
         <ul className="sidebar-container">
           <li className="sidebar-header">
             <Link to="/" className="sidebar-header-link">
               <img alt='logo' src={logo} className="sidebar-header-logo"/>
               <span className="sidebar-header-text">SmartSheets</span>
             </Link>
-            <Link to="/add">
+            <Link to={link}>
               <img alt='add sheet' src={add} className="sidebar-header-add-sheet" />
             </Link>
           </li>
@@ -32,70 +105,28 @@ const Sidebar = () => {
           <span className="sidebar-add-entry-btn-dummy" />
           
           <span className="sidebar-add-entry-btn">
-            <img alt='add entry' src={add} className="sidebar-add-entry" />
+            <Link to={link}>
+              <img alt='add entry' src={add} className="sidebar-add-entry" />
+            </Link>
           </span>
 
           <li className="sidebar-main">
-            
-            <span className="sidebar-sheet">
-              <Link to="/sheets" className="sidebar-sheet-item">
-                <div className="sidebar-sheet-item-group">
-                  <span className="sidebar-sheet-circle">B2</span>
-                  <span className="sidebar-sheet-link-text">B-2 Parts Inventory</span>
-                </div>
-                <img alt='logo' src={menu} className="sidebar-sheet-menu"/>
-              </Link>
-            </span>
 
-            <span className="sidebar-sheet">
-              <Link to="/sheets" className="sidebar-sheet-item">
-                <div className="sidebar-sheet-item-group">
-                  <span className="sidebar-sheet-circle">C5</span>
-                  <span className="sidebar-sheet-link-text">C-5M Parts Inventory</span>
-                </div>
-                <img alt='logo' src={menu} className="sidebar-sheet-menu"/>
-              </Link>
-            </span>
-
-            <span className="sidebar-sheet">
-              <Link to="/sheets" className="sidebar-sheet-item">
-                <div className="sidebar-sheet-item-group">
-                  <span className="sidebar-sheet-circle">COM</span>
-                  <span className="sidebar-sheet-link-text">Computer Parts Inventory</span>
-                </div>
-                <img alt='logo' src={menu} className="sidebar-sheet-menu"/>
-              </Link>
-            </span>
-
-            <span className="sidebar-sheet">
-              <Link to="/sheets" className="sidebar-sheet-item">
-                <div className="sidebar-sheet-item-group">
-                  <span className="sidebar-sheet-circle">135</span>
-                  <span className="sidebar-sheet-link-text">KC-135 Parts Inventory</span>
-                </div>
-                <img alt='logo' src={menu} className="sidebar-sheet-menu"/>
-              </Link>
-            </span>
-
-            <span className="sidebar-sheet">
-              <Link to="/sheets" className="sidebar-sheet-item">
-                <div className="sidebar-sheet-item-group">
-                  <span className="sidebar-sheet-circle">MQ9</span>
-                  <span className="sidebar-sheet-link-text">MQ-9 Reaper Parts Inventory</span>
-                </div>
-                <img alt='logo' src={menu} className="sidebar-sheet-menu"/>
-              </Link>
-            </span>
-
-            <span className="sidebar-sheet">
-              <Link to="/sheets" className="sidebar-sheet-item">
-                <div className="sidebar-sheet-item-group">
-                  <span className="sidebar-sheet-circle">SAT</span>
-                  <span className="sidebar-sheet-link-text">Satellite Database</span>
-                </div>
-                <img alt='logo' src={menu} className="sidebar-sheet-menu"/>
-              </Link>
-            </span>
+            {/* { sheetAccess.map((sheet, i) => { */}
+            { data.map((sheet, i) => {
+                return (
+                  <span key={i} className="sidebar-sheet">
+                    <Link to={`/sheet/${sheet.sheet_id}`} className="sidebar-sheet-item" onClick={()=>{}}>
+                      <div className="sidebar-sheet-item-group">
+                        <span className="sidebar-sheet-circle">{sheet.short_name}</span>
+                        <span className="sidebar-sheet-link-text">{sheet.name}</span>
+                      </div>
+                      <img alt='Options' src={menu} className="sidebar-sheet-menu" onClick={(e)=>openMenu(e)}/>
+                    </Link>
+                  </span>
+                )
+              })
+            }
 
           </li>
 
@@ -110,10 +141,25 @@ const Sidebar = () => {
             </div>
           </li>
         </ul>
+        <ClickAwayListener
+          mouseEvent="onMouseDown"
+          touchEvent="onTouchStart"
+          onClickAway={closeMenu}
+        >
+          <div className="sheet-options-menu-container" style={menuLocation}>
+            <div className={`sheet-options-menu-item ${applyStyle ? 'options-menu-show' : 'options-menu-hidden'}`}>Edit Sheet</div>
+            <div className={`sheet-options-menu-item ${applyStyle ? 'options-menu-show' : 'options-menu-hidden'}`}>Duplicate Sheet</div>
+            <div className={`sheet-options-menu-item ${applyStyle ? 'options-menu-show' : 'options-menu-hidden'}`}>Generate Report</div>
+            <div className={`sheet-options-menu-item ${applyStyle ? 'options-menu-show' : 'options-menu-hidden'}`}>Download Sheet</div>
+            <div className={`sheet-options-menu-item ${applyStyle ? 'options-menu-show' : 'options-menu-hidden'}`}>User Access</div>
+            <div className={`sheet-options-menu-item break ${applyStyle ? 'options-menu-show' : 'options-menu-hidden'}`}></div>
+            <div className={`sheet-options-menu-item remove ${applyStyle ? 'options-menu-show' : 'options-menu-hidden'}`}>Leave Sheet</div>
+          </div>
+        </ClickAwayListener>
       </nav>
-      <div id="cover" className="page-cover" />
+      <div id="cover" className="page-cover"/>
     </>
   );
 }
 
-export default Sidebar;
+export default Sidebar

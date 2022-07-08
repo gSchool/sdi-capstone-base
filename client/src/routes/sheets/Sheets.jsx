@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext, lazy, Suspense } from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, useParams, Navigate } from 'react-router-dom';
+import { SheetProvider } from '../../_context/SheetProvider'
 import { GlobalContext } from '../../_context/AppProvider'
 import { SheetContext } from '../../_context/SheetProvider';
 import { Div } from '../../_styles/_global'
@@ -7,32 +8,46 @@ import Loader from '../../_components/Loader'
 import api, { noCallback } from '../../_helpers/api'
 import dummyData from '../../_dummy/sheet.json';
 import dummyData2 from '../../_dummy/sheet2.json';
-import SheetDisplay from  './SheetDisplay'
+import SheetDisplay from  './SheetDisplay';
+import UserDisplay from './UserDisplay';
 import Sidebar from '../../_components/Sidebar';
 import "../../_styles/sheets.css";
 
 const Sheets = () => {
 
   const NotFound = lazy(() => import('../NotFound'));
-  
+
   return (
-    <Routes>
-      <Route path='/' element={ <Page/> } />
-        <Route path='/sheets/' element={ <Suspense fallback={<Loader/>}>{/* <Sheets/> */}</Suspense> } />
-      <Route path="/*" element={ <NotFound /> } />
-    </Routes>
+    <div className='sheet-page'>
+      <Routes>
+        <Route path='/' element={ <SheetDisplay/> } />
+          <Route path='/users/*' element={ <Suspense fallback={<Loader/>}><UserDisplay/></Suspense> } />
+          <Route path='/edit/*' element={ <Suspense fallback={<Loader/>}><NotFound/></Suspense> } />
+          <Route path='/:entryId' element={ <Suspense fallback={<Loader/>}><SheetDisplay/></Suspense> } />
+          <Route path='/:entryId/*' element={ <Suspense fallback={<Loader/>}><Loader/><Navigate to={`/sheet/${location.pathname.split('/')[2]}`} /></Suspense> } />
+        <Route path="/*" element={ <NotFound /> } />
+      </Routes>
+    </div>
   );
 }
 
 const Page = () => {
-  const { store } = useContext(GlobalContext)
-  const { theme, isAuth, setIsAuth } = store
+  // const { store } = useContext(GlobalContext)
+  // const { theme, isAuth, setIsAuth } = store
 
-  const { sheet } = useContext(SheetContext);
+  // const { sheet } = useContext(SheetContext);
 
-  useEffect(() => {
-    sheet.setCurrentSheet(dummyData2);
-  }, [])
+  // const { sheetId } = useParams();
+
+  // useEffect(() => {
+  //   // get user's sheets here
+  //   if (sheetId === '1') {
+  //     sheet.setCurrentSheet(dummyData);
+  //   }
+  //   if (sheetId === '100') {
+  //     sheet.setCurrentSheet(dummyData2);
+  //   }
+  // }, [sheetId])
 
   // useEffect(() => {
   //   api(['get', 'sheet/${sheetId}'], noCallback) // Usage: api([method, path, payload], callback)
@@ -42,9 +57,9 @@ const Page = () => {
   
   return (
     <>
-      <div className='sheet-page'>
         <SheetDisplay/>
-      </div>
+        {/* {sheet.sheetPageView === 'sheet' ? <SheetDisplay/> : <></>}
+        {sheet.sheetPageView === 'users' ? <UserDisplay/> : <></>} */}
     </>
   )
 }

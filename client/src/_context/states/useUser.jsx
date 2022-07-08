@@ -12,6 +12,7 @@ const useUser = () => {
     },
     email: '',
     profileImg: '',
+    sheetAccess: [],
   }
 
   const [user, setUserState] = useState(defaults)
@@ -73,7 +74,51 @@ const useUser = () => {
     })
   }
 
-  return { user, setUser, resetUser, setIsAuth, setUid, setName, setEmail, setProfileImg }
+  // set sheets a user has access to - pass in an array of sheet ids
+  const setSheetAccess = (array) => {
+
+    setUserState({
+      ...user,
+      sheetAccess: array,
+    })
+  }
+
+  // add sheets a user has access to - pass in an array of sheet ids
+  const addSheetAccess = (array) => {
+
+    let mySheets = user.sheetAccess
+
+    for (let i = 0; i < array.length; i++) {
+      if (!mySheets.includes(array[i])) {
+        mySheets.push(array[i])
+      }
+    }
+
+    setUserState({
+      ...user,
+      sheetAccess: mySheets,
+    })
+  }
+
+  // remove sheets a user has access to - pass in an array of sheet ids
+  const removeSheetAccess = (array) => {
+
+    let mySheets = user.sheetAccess
+
+    for (let i = 0; i < array.length; i++) {
+      let index = mySheets.indexOf(array[i])
+      if (index !== -1) {
+        mySheets.splice(index, 1)
+      }
+    }
+
+    setUserState({
+      ...user,
+      sheetAccess: mySheets,
+    })
+  }
+
+  return { user, setUser, resetUser, setIsAuth, setUid, setName, setEmail, setProfileImg, setSheetAccess, addSheetAccess, removeSheetAccess }
 
 }
 
