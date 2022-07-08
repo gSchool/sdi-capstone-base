@@ -7,7 +7,7 @@ import dummyData from '../../_dummy/users.json';
 import edit from '../../_assets/icons/edit-purple.png'
 import useScrollHandler from '../../_helpers/useScrollHandler';
 import '../../_styles/userdisplay.css';
-import account from '../../_assets/icons/google.png';
+import defaultProfileImage from '../../_assets/img/default-profile-img.png';
 import plus from '../../_assets/icons/plus.png';
 
 const UserDisplay = () => {
@@ -77,15 +77,16 @@ const UserDisplay = () => {
                   <td className='users-display-cell'></td>
                   <td className='users-display-cell'>Name</td>
                   <td className='users-display-cell'>Role</td>
+                  <td className='users-display-cell'>E-Mail</td>
                   <td className='users-display-cell'></td>
                 </tr>
               </thead>
               <tbody>
                 {sheetUsers.map((user,i) => {
-                  let roles = ['Owner', 'Editor', 'Viewer']
+                  let roles = ['Owner', 'Editor', 'Viewer', 'Daniel']
                   return (
                     <tr id={user.user_id} key={i} className='user-row'>
-                      <td className='user-row-picture'><img className='user-profile-picture' src={account} /></td>
+                      <td className='user-row-picture'><img className='user-profile-picture' src={defaultProfileImage} /></td>
                       <td className='users-display-cell'>{user.name}</td>
                       <td className='users-display-cell'>
                         <select defaultValue={user.role} className='users-display-role-select' onChange={(e) => {
@@ -108,6 +109,7 @@ const UserDisplay = () => {
                             <option key={`option-${role}`} className={`${role === user.role ? 'previous-value' : 'other-value'}`}value={role}>{role}</option>)}
                         </select>
                       </td>
+                      <td className='users-display-cell'>thisismyemail@gmail.com</td>
                       <td className='user-row-option'><img alt='delete-icon'/></td>
                     </tr>
                   )}

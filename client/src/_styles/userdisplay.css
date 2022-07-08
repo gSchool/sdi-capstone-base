@@ -239,7 +239,8 @@ tbody .users-display-cell {
 .user-row-option {
   position: -webkit-sticky;
   position: sticky;
-  padding-right: 2.6rem;
+  padding-right: 1.4rem;
+  right: 0;
   font-weight: 1000;
   font-size: 2rem;
   color: var(--color-primary);
@@ -258,7 +259,7 @@ tbody .users-display-cell {
 }
 
 tr:nth-child(even) .user-row-option  {
-  /* background: #e7eaf2; */
+  background: var(--color-even-row);
 }
 
 tr:nth-child(odd).entry-highlighted, tr:nth-child(odd).entry-highlighted .user-row-option {
@@ -276,6 +277,15 @@ tr:nth-child(even).entry-highlighted, tr:nth-child(even).entry-highlighted .user
   /* font-weight: var(--bold); */
 }
 
+tr:nth-child(odd), tr:nth-child(odd) .user-row-option {
+  background: var(--color-odd-row);
+  transition: all var(--global-transition-speed-fast) ease;
+}
+
+tr:nth-child(even), tr:nth-child(even) .user-row-option {
+  background: var(--color-even-row);
+  transition: all var(--global-transition-speed-fast) ease;
+}
 
 .users-display-role-select{
   background-color: var(--color-background);
@@ -324,7 +334,7 @@ tr:nth-child(even).entry-highlighted, tr:nth-child(even).entry-highlighted .user
 .role-changed{
   box-shadow: 0 0px 8px 0 var(--color-quaternary);
   background-color: var(--color-primary);
-  color: var(--color-font);
+  color: var(--color-text-menu);
 }
 
 .previous-value{
@@ -340,13 +350,13 @@ tr:nth-child(even).entry-highlighted, tr:nth-child(even).entry-highlighted .user
   text-align: center;
   width: 50px;
   /* margin-left: 10px; */
-  padding: 0px 0px 0px 10px;
+  padding: 0 0 0 1rem;
 }
 
 .user-profile-picture{
-  height: 30px;
+  border-radius: 90px;
+  height: 2.5rem;
 }
-
 
 .update-enabled, .update-disabled {
   font-size: var(--font-size-body-large);
@@ -354,7 +364,7 @@ tr:nth-child(even).entry-highlighted, tr:nth-child(even).entry-highlighted .user
   color: rgb(95, 95, 95);
   width: 120px;
   height: 47px;
-  border-radius: 8px;
+  border-radius: 0.5rem;
   background-color: lightgray;
   border: none;
 }
@@ -364,4 +374,21 @@ tr:nth-child(even).entry-highlighted, tr:nth-child(even).entry-highlighted .user
   border: 1px solid var(--color-quaternary);
   color: white;
   box-shadow: 0 0 10px 0 var(--color-primary);
+}
+
+
+/* LARGE SCREENS */
+
+@media only screen and (min-width: 768px) {
+
+  .user-header-icon {
+    display: none;
+  }
+
+  .users-display-container.shrink {
+    width: calc(100% - 365px);
+    padding-right: 28rem;
+    transition: all var(--global-transition-speed) ease;
+  }
+
 }
