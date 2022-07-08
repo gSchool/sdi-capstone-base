@@ -40,6 +40,7 @@
   --color-background: #ffffff;
   --color-text: #222222;
   --color-text-menu: #ffffff;
+  --color-bright-text: #bdc7d7;
 
   --global-box-shadow-color: #55658aba;
 
@@ -51,22 +52,32 @@
   --color-quaternary: #778fba;
   --color-quaternary-transparent: #778fba31;
   --color-quinary: #b0bad6;
-  --color-quinary-bright: #cdd3e3;
-  --color-quinary-off-bright: #838897;
+  --color-quinary-bright: #d9dee9;
+  --color-quinary-off-bright: #6b6f7a;
 
   --color-odd-row: #ffffff;
   --color-even-row: #eff0f4; 
   --color-row-hover: #cdd6e6;
-  --color-highlighted: #e0e5f5;
+  --color-highlighted: #67779e;
   --color-highlighted-text: #42527b;
+  --color-input-text: #222222;
+  --color-sheet-title: #35405d;
 
-  --color-cover: #dce6f64c;
+  --color-entry-header-text: #4c5670;
+  --color-entry-text: #5a688b;
+  --color-entry-checkbox: #ced0d9;
+  --color-entry-field-type: #c8c9cc;
+
+  --color-cover: #dce6f633;
 
   --color-undenary: #413768;
   --color-duodenary: #352b57;
   
   --edit-dark: url('../_assets/icons/edit-blue.png');
   --edit-light: url('../_assets/icons/edit.png');
+
+  --arrow-up: url('../_assets/icons/up-arrow.png');
+  --arrow-down: url('../_assets/icons/down-arrow.png');
 
   --color-green: #0ca789;
   --color-yellow: #fac70d;
@@ -89,8 +100,9 @@
   --color-background: #111520;
   --color-text: #ffffff;
   --color-text-menu: #ffffff;
+  --color-bright-text: #98aad1;
 
-  --global-box-shadow-color: #090a0bba;
+  --global-box-shadow-color: #4059729c;
 
   --color-primary: #55658a;
   --color-primary-transparent: #55658a31;
@@ -110,12 +122,22 @@
   --color-row-hover: #323b52;
   --color-highlighted: #586789;
   --color-highlighted-text: #ffffff;
+  --color-input-text: #222222;
+  --color-sheet-title: #eff1f6;
+
+  --color-entry-header-text: #919dbf;
+  --color-entry-text: #cccfd6;
+  --color-entry-checkbox: #ffffff;
+  --color-entry-field-type: #535d73;
 
   --color-undenary: #374b68;
   --color-duodenary: #4d4f5783;
 
   --edit-light: url('../_assets/icons/edit.png');
   --edit-dark: url('../_assets/icons/edit-blue.png');
+
+  --arrow-up: url('../_assets/icons/up-arrow-dark.png');
+  --arrow-down: url('../_assets/icons/down-arrow-dark.png');
 
   --color-green: #0ca789;
   --color-yellow: #fac70d;
@@ -202,6 +224,13 @@ img {
 
 textarea:focus, input:focus{
   outline: none;
+}
+
+.toast {
+  padding: 1rem 2rem;
+  background-color: var(--color-primary);
+  color: var(--color-text-menu);
+  font-size: var(--font-size-body);
 }
 
 .no-wrap {
@@ -341,24 +370,25 @@ textarea:focus, input:focus{
   font-weight: var(--bold);
   margin-bottom: -1.2rem;
   color: var(--color-quinary-bright);
+  background-image: url('../_assets/img/dod-seal.png');
 }
 
 .index-app {
-  font-size: var(--font-size-big);
+  font-size: var(--font-size-title-large);
   font-weight: var(--heavy);
   padding-bottom: 0.6rem;
   color: var(--color-quinary-bright);
 }
 
 .index-name {
+  font-size: var(--font-size-huge);
   font-weight: var(--medium);
-  font-size: var(--font-size-massive);
   color: var(--color-quinary-off-bright);
   letter-spacing: -2px;
 }
 
 .not-found {
-  font-size: var(--font-size-huge);
+  font-size: var(--font-size-big);
   font-weight: var(--bold);
   color: var(--color-quinary-off-bright);
   margin-bottom: -0.8rem;
@@ -376,7 +406,7 @@ textarea:focus, input:focus{
 @media only screen and (max-width: 767px) {
 
   #page {
-    height: calc(100vh - 4rem);
+    height: calc(100% - 4rem);
     width: 100vw;
     margin: 0rem;
     padding: 0rem;
@@ -604,8 +634,8 @@ textarea:focus, input:focus{
   }
 
   .sidebar:hover ~ #page .entry-details-container {
-  transform: translateX(+100%) !important;
-}
+    transform: translateX(+100%) !important;
+  }
 
 }
 

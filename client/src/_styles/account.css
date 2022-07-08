@@ -21,7 +21,7 @@
   padding-bottom: 0.2rem;
   font-weight: var(--bolder);
   font-size: var(--font-size-heading);
-  color: var(--color-primary);
+  color: var(--color-bright-text);
 }
 
 .account-meta-email {
@@ -31,3 +31,24 @@
   color: var(--color-quinary-off-bright);
   padding-bottom: 2rem;
 }
+
+/* SMALL SCREENS */
+
+@media only screen and (max-width: 767px) {
+
+}
+
+
+
+
+/* LARGE SCREENS */
+
+@media only screen and (min-width: 768px) {
+
+  .account-theme-switcher {
+    display: none;
+  }
+
+}
+
+

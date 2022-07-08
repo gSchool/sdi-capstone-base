@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext, lazy, Suspense } from 'react';
-import { Route, Routes, useParams } from 'react-router-dom';
+import { Route, Routes, useParams, Navigate } from 'react-router-dom';
+import { SheetProvider } from '../../_context/SheetProvider'
 import { GlobalContext } from '../../_context/AppProvider'
 import { SheetContext } from '../../_context/SheetProvider';
 import { Div } from '../../_styles/_global'
@@ -14,18 +15,20 @@ import "../../_styles/sheets.css";
 
 const Sheets = () => {
 
-  const UserDisplay = lazy(() => import('./UserDisplay'));
   const NotFound = lazy(() => import('../NotFound'));
-  
+
   return (
     <div className='sheet-page'>
-      <Routes>
-        <Route path='/' element={ <SheetDisplay/> } />
-          <Route path='/users/*' element={ <Suspense fallback={<Loader/>}><UserDisplay/></Suspense> } />
-          <Route path='/edit/*' element={ <Suspense fallback={<Loader/>}><NotFound/></Suspense> } />
-          <Route path='/:entryId' element={ <Suspense fallback={<Loader/>}><SheetDisplay/></Suspense> } />
-        <Route path="/*" element={ <NotFound /> } />
-      </Routes>
+      <SheetProvider>
+        <Routes>
+          <Route path='/' element={ <SheetDisplay/> } />
+            <Route path='/users/*' element={ <Suspense fallback={<Loader/>}><UserDisplay/></Suspense> } />
+            <Route path='/edit/*' element={ <Suspense fallback={<Loader/>}><NotFound/></Suspense> } />
+            <Route path='/:entryId' element={ <Suspense fallback={<Loader/>}><SheetDisplay/></Suspense> } />
+            <Route path='/:entryId/*' element={ <Suspense fallback={<Loader/>}><Loader/><Navigate to={`/sheet/${location.pathname.split('/')[2]}`} /></Suspense> } />
+          <Route path="/*" element={ <NotFound /> } />
+        </Routes>
+      </SheetProvider>
     </div>
   );
 }
@@ -34,7 +37,7 @@ const Page = () => {
   // const { store } = useContext(GlobalContext)
   // const { theme, isAuth, setIsAuth } = store
 
-  const { sheet } = useContext(SheetContext);
+  // const { sheet } = useContext(SheetContext);
 
   // const { sheetId } = useParams();
 

@@ -29,7 +29,7 @@ const SignInBtn = () => {
         email: 'user@gmail.com',
         profileImg: defaultProfileImg,
       })
-      navigate('/sheet/1')
+      navigate('/sheet/100')
       }}>Instant Login</div>
     </>
     )

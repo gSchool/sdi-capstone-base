@@ -1,4 +1,4 @@
-import React, { createContext } from 'react'
+import React, { useRef, createContext } from 'react'
 import useCurrentSheet from './states/useCurrentSheet'
 import useSelectedEntry from './states/useSelectedEntry'
 import useNewEntry from './states/useNewEntry'
@@ -13,6 +13,7 @@ const SheetProvider = ({ children }) => {
   const { newEntry, setNewEntry } = useNewEntry();
   const { sheetPageView, setSheetPageView } = useSheetPageView();
   const { sheetLoading, setSheetLoading } = useSheetLoading();
+  const clickTime = useRef(0);
 
   const sheet = {
 
@@ -32,6 +33,9 @@ const SheetProvider = ({ children }) => {
 
     /* EFFECTS */
 
+
+    /* REFS */
+    clickTime,
   }
 
   return (

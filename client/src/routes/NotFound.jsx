@@ -5,7 +5,7 @@ const NotFound = () => {
 
   return (
     <Div flex fills centerchildren className="not-found">
-        404
+      404
     </Div>
   )
   

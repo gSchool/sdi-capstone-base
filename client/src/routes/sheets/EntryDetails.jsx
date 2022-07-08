@@ -6,6 +6,7 @@ import '../../_styles/entry-details.css';
 import { Div } from '../../_styles/_global'
 import { ReactComponent as Check } from '../../_assets/icons/checkmark.svg';
 import { useParams, useLocation, useNavigate } from 'react-router-dom';
+import toast from 'react-hot-toast'
 
 const capitalize = (string) => {
   return string.charAt(0).toUpperCase() + string.slice(1);
@@ -16,7 +17,7 @@ const EntryDetails = () => {
   const [isLoading, setIsLoading] = useState(false);
   const location = useLocation();
   const entryId = useParams().entryId;
-  const { sheetPageView, setSheetPageView } = sheet;
+  const { sheetPageView, setSheetPageView, setSelectedEntry } = sheet;
 
   const navigate = useNavigate();
   
@@ -26,8 +27,8 @@ const EntryDetails = () => {
       let fieldData = JSON.parse(element.dataset.field)
       let inputElement = element.querySelector('input')
   
-      // console.log(inputElement.value) // newValue
-      // console.log(inputElement.id) // value id
+      console.log(inputElement.value) // newValue
+      console.log(inputElement.id) // value id
     }
   
     setIsLoading(true);
@@ -48,29 +49,37 @@ const EntryDetails = () => {
       let index = sheet.currentSheet.entries.findIndex(entry => entry.entry_id === parseInt(entryId))
 
       if (index !== -1) {
+        
         sheet.setSelectedEntry(sheet.currentSheet.entries[index])
+
         var topPos = document.getElementById(entryId).offsetTop
-        // console.log(topPos);
-        document.getElementsByClassName('sheet-display-body')[0].scroll({
-          top: topPos-120,
-          behavior: 'smooth'
-        })
+        var containerHeight = document.getElementsByClassName('sheet-display-body')[0].offsetHeight
+        console.log("Offset Top:", topPos)
+        if (topPos > containerHeight-200) {
+          document.getElementsByClassName('sheet-display-body')[0].scroll({
+            top: topPos-400,
+            behavior: 'smooth'
+          })
+        } 
       } else {
-        // console.log("Sheet ID", sheet.currentSheet.sheet_id)
-        // console.log("Sheet Loading", sheet.sheetLoading)
         if (sheet.currentSheet.sheet_id !== 0 && sheet.sheetLoading === false) {
           // setSheetPageView('sheet')
+          setSelectedEntry({})
           navigate(`/sheet/${location.pathname.split('/')[2]}`)
         }
       }
       if (sheet.currentSheet.sheet_id === 0 && sheet.sheetLoading === false) {
         // setSheetPageView('sheet')
+        setSelectedEntry({})
         navigate(`/`)
       }
+    } else {
+      setSelectedEntry({})
     }
     
     if (sheet.currentSheet.sheet_id === 0 && sheet.sheetLoading === false) {
       // setSheetPageView('sheet')
+      setSelectedEntry({})
       navigate(`/`)
     }
   }, [location, sheet.currentSheet, sheet.sheetLoading])
@@ -85,11 +94,16 @@ const EntryDetails = () => {
 
         <div className="entry-details-header no-select">
           <span>{sheet.newEntry === true ? 'New Entry' : 'Update Entry'}</span>
-          <button className="entry-details-cancel" onClick={() => {
+          <button className="entry-details-cancel cancel-desktop" onClick={() => {
             navigate(`/sheet/${location.pathname.split('/')[2]}`)
             sheet.setSelectedEntry({})
             sheet.setNewEntry(false)
           }}>&gt;</button>
+          <button className="entry-details-cancel cancel-mobile" onClick={() => {
+            navigate(`/sheet/${location.pathname.split('/')[2]}`)
+            sheet.setSelectedEntry({})
+            sheet.setNewEntry(false)
+          }}>x</button>
           {/* <img alt='edit icon'/> */}
         </div>
 
@@ -103,7 +117,11 @@ const EntryDetails = () => {
               index = -1; // values won't exist for a new entry
             }
             return (
-              <div key={i} data-field={JSON.stringify(field)} className='entry-details-field' onFocus={(e)=>{
+              <div key={i} data-field={JSON.stringify(field)} className='entry-details-field' onClick={(e)=> {
+                  const el = e.currentTarget.getElementsByClassName('entry-details-input')[0];
+                  el.focus()
+                }}
+                onFocus={(e)=>{
                   for (let element of document.getElementsByClassName('entry-details-field')) {
                     element.classList.remove('field-selected')
                   }
@@ -115,7 +133,7 @@ const EntryDetails = () => {
                 </div>
                 <hr />
                 {field.type === 'checkbox' ? 
-                  <div>
+                  <div className='entry-details-checkbox-row'>
                     <input id={`${field.field_id}_${index === -1 ? 'new' : sheet.selectedEntry.values[index].value_id}`}
                       key={index === -1 ? 'new' : sheet.selectedEntry.values[index].value_id}
                       className='entry-details-checkbox'
@@ -145,6 +163,7 @@ const EntryDetails = () => {
         <button className='entry-details-update no-select' onClick={async (e) => {
           e.preventDefault()
           submitData();
+          toast.success('Entry Updated')
         }}>Submit</button>
 
         {/* Covers the entire component after data is submitted. */}

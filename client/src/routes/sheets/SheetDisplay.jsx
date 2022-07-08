@@ -1,5 +1,5 @@
-import React, { useEffect, useContext } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import React, { useEffect, useContext, useRef } from 'react';
+import { useNavigate, useParams, useLocation } from 'react-router-dom';
 import { GlobalContext } from '../../_context/AppProvider'
 import { SheetContext } from '../../_context/SheetProvider';
 import { Div } from '../../_styles/_global'
@@ -9,10 +9,13 @@ import logo from '../../_assets/img/logo-dark.png';
 import dummyData from '../../_dummy/sheet.json';
 import dummyData2 from '../../_dummy/sheet2.json'
 import edit from '../../_assets/icons/edit-purple.png'
+import useScrollHandler from '../../_helpers/useScrollHandler';
 
 const SheetDisplay = () => {
   const navigate = useNavigate();
   const entryId = useParams.entryId;
+  const location = useLocation();
+  const mouseDownHandler = useScrollHandler();
 
   const { store } = useContext(GlobalContext)
   const { theme, isAuth, setIsAuth } = store
@@ -21,7 +24,7 @@ const SheetDisplay = () => {
 
   const { sheetId } = useParams();
 
-  const { sheetPageView, setSheetPageView, selectedEntry, newEntry } = sheet;
+  const { sheetPageView, setSheetPageView, setSelectedEntry, selectedEntry, newEntry, setCurrentSheet } = sheet;
 
   useEffect(() => {
     if (selectedEntry.entry_id > 0) {
@@ -50,8 +53,6 @@ const SheetDisplay = () => {
     sheet.setSheetLoading(false);
   }, [sheet.currentSheet])
 
-  // const { sheet } = useContext(SheetContext);
-
   return (
     <>
       <div className={`sheet-display-container ${(sheetPageView === 'edit-entry' || sheetPageView === 'new-entry') ? 'shrink' : ''}`}>
@@ -66,10 +67,13 @@ const SheetDisplay = () => {
             <button>Filter</button>
           </div>
         </div>
-        <div className='sheet-display-body'>
+        <div id='scroll-container' className='sheet-display-body' onMouseDown={(e) => {
+          sheet.clickTime.current = new Date();
+          mouseDownHandler(e);
+          }}>
           <table className='sheet-display-table'>
             {/* <SheetFields> */}
-            <thead>
+            <thead className='no-select'>
               <tr>
                 {sheet.currentSheet.fields.map((field, i) =>
                   <td className="sheet-display-cell" key={i}>{field.name}</td>

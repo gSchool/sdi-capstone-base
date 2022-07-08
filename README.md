@@ -48,6 +48,15 @@
     - Beginning to tie together backend, frontend tables/presentation together
     - USER ACCESS screen now displayers access rights per user
 
+    v0.5 (7 July):
+    - Refactored EDIT ENTRY code to iterate through all fields correctly, update values/value ID's
+    - Updated Miro board to ensure "living document" accuracy
+    - Implementing, refactoring USE STATE for table EDIT ENTRY array
+    - Refactoring, editing DARK MODE CSS to better display requisite information
+    - Refactoring USER ACCESS screen code
+    - Implemented CLICK TO DRAG for sheet view
+    - Implemented auto-scrolling, auto center
+
 <br>
 
 * * *

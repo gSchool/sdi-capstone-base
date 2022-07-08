@@ -23,7 +23,7 @@ const Index = () => {
     <Routes>
       <Route path='/' element={ <Page/> } />
         <Route path='/sheet/create/*' element={ <Suspense fallback={<Loader/>}><NotFound/></Suspense> } />
-        <Route path='/sheet/:sheetId/*' element={ isAuth ? <Suspense fallback={<Loader/>}><SheetProvider><Sheets/></SheetProvider></Suspense> : <Navigate to="/" replace={true} /> }/>
+        <Route path='/sheet/:sheetId/*' element={ isAuth ? <Suspense fallback={<Loader/>}><Sheets/></Suspense> : <Navigate to="/" replace={true} /> }/>
         <Route path='/account/*' element={ isAuth ? <Suspense fallback={<Loader/>}><Account/></Suspense> : <Navigate to="/" replace={true} /> }/>
       <Route path="/*" element={ isAuth ? <Suspense fallback={<Loader/>}><NotFound/></Suspense> : <Navigate to="/" replace={true} /> }/>
     </Routes>

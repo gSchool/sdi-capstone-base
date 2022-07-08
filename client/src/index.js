@@ -13,11 +13,11 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <AppProvider>
     <ThemeProvider>
-      <Router fallback={<NotFound />} exceptionElement={<NotFound />}>
-        <AuthProvider>
-          <App />
-        </AuthProvider>
-      </Router>
+        <Router fallback={<NotFound />} exceptionElement={<NotFound />}>
+          <AuthProvider>
+            <App />
+          </AuthProvider>
+        </Router>
     </ThemeProvider>
   </AppProvider>
 );

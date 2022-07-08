@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useState, useContext, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { GlobalContext } from '../_context/AppProvider'
 import eHandler, { noCallback } from '../_helpers/eHandler';
@@ -8,8 +8,8 @@ import menu from '../_assets/icons/grip.png';
 import account from '../_assets/icons/account.png';
 import '../_styles/sidebar.css'
 import ThemeSwitcher from '../_components/ThemeSwitcher'
-import { Portal } from './Portal';
 import dummySheetAccessData from '../_dummy/sheet-access.json';
+import ClickAwayListener from 'react-click-away-listener'
 
 const Sidebar = () => {
 
@@ -26,7 +26,7 @@ const Sidebar = () => {
   
   return (
     <>
-      <nav className="sidebar" onMouseOver={(e)=>eHandler(e, 'showCover', null, noCallback)} onMouseEnter={(e)=>eHandler(e, 'showCover', null, noCallback)} onMouseLeave={(e)=>eHandler(e, 'hideCover', null, noCallback)}>
+      <nav className="sidebar" onMouseOver={(e)=>{eHandler(e, 'showCover', null, noCallback)}} onMouseEnter={(e)=>{eHandler(e, 'showCover', null, noCallback)}} onMouseLeave={(e)=>eHandler(e, 'hideCover', null, noCallback)}>
         <ul className="sidebar-container">
           <li className="sidebar-header">
             <Link to="/" className="sidebar-header-link">
@@ -50,12 +50,12 @@ const Sidebar = () => {
             { data.map((sheet, i) => {
                 return (
                   <span key={i} className="sidebar-sheet">
-                    <Link to={`/sheet/${sheet.sheet_id}`} className="sidebar-sheet-item" onClick={()=>{console.log('clicked')}}>
+                    <Link to={`/sheet/${sheet.sheet_id}`} className="sidebar-sheet-item" onClick={()=>{}}>
                       <div className="sidebar-sheet-item-group">
                         <span className="sidebar-sheet-circle">{sheet.short_name}</span>
                         <span className="sidebar-sheet-link-text">{sheet.name}</span>
                       </div>
-                      <img alt='logo' src={menu} className="sidebar-sheet-menu" onClick={() => {console.log('sheet id: ', sheet.sheet_id)}}/>
+                      <img alt='Options' src={menu} className="sidebar-sheet-menu"/>
                     </Link>
                   </span>
                 )
@@ -76,12 +76,7 @@ const Sidebar = () => {
           </li>
         </ul>
       </nav>
-      <div id="cover" className="page-cover" />
-      {/* <Portal>
-        <div className="sidebar-sheet-options">
-          MENU
-        </div>
-      </Portal> */}
+      <div id="cover" className="page-cover"/>
     </>
   );
 }

@@ -238,8 +238,17 @@
   fill: var(--color-quinary);
 }
 
-.sidebar-sheet-options {
-  z-index: 20;
+.sheet-options-menu {
+  z-index: 2000000;
+  position: fixed;
+  display: block;
   padding: 1rem;
   border-radius: var(--global-border-radius);
+  background-color: aqua;
+  color: red;
+}
+
+.sheet-options-menu.hidden-menu {
+  display: none;
+  pointer-events: none ;
 }
