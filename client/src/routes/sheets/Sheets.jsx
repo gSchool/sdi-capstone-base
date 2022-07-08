@@ -19,16 +19,14 @@ const Sheets = () => {
 
   return (
     <div className='sheet-page'>
-      <SheetProvider>
-        <Routes>
-          <Route path='/' element={ <SheetDisplay/> } />
-            <Route path='/users/*' element={ <Suspense fallback={<Loader/>}><UserDisplay/></Suspense> } />
-            <Route path='/edit/*' element={ <Suspense fallback={<Loader/>}><NotFound/></Suspense> } />
-            <Route path='/:entryId' element={ <Suspense fallback={<Loader/>}><SheetDisplay/></Suspense> } />
-            <Route path='/:entryId/*' element={ <Suspense fallback={<Loader/>}><Loader/><Navigate to={`/sheet/${location.pathname.split('/')[2]}`} /></Suspense> } />
-          <Route path="/*" element={ <NotFound /> } />
-        </Routes>
-      </SheetProvider>
+      <Routes>
+        <Route path='/' element={ <SheetDisplay/> } />
+          <Route path='/users/*' element={ <Suspense fallback={<Loader/>}><UserDisplay/></Suspense> } />
+          <Route path='/edit/*' element={ <Suspense fallback={<Loader/>}><NotFound/></Suspense> } />
+          <Route path='/:entryId' element={ <Suspense fallback={<Loader/>}><SheetDisplay/></Suspense> } />
+          <Route path='/:entryId/*' element={ <Suspense fallback={<Loader/>}><Loader/><Navigate to={`/sheet/${location.pathname.split('/')[2]}`} /></Suspense> } />
+        <Route path="/*" element={ <NotFound /> } />
+      </Routes>
     </div>
   );
 }

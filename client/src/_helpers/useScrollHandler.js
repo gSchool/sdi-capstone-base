@@ -1,9 +1,9 @@
-const useScrollHandler = () => {
-  const ele = document.getElementById('scroll-container');
+const useScrollHandler = (elementID) => {
+  const ele = document.getElementById(elementID);
+  console.log(ele);
   let pos = { top: 0, left: 0, x: 0, y: 0 };
 
   const mouseUpHandler = function (e) {
-    // e.target.classList.remove('.dragging')
     e.preventDefault()
     document.removeEventListener('mousemove', mouseMoveHandler);
     document.removeEventListener('mouseup', mouseUpHandler);
@@ -23,7 +23,6 @@ const useScrollHandler = () => {
   };
 
   const mouseDownHandler = function (e) {
-      // e.target.classList.add('.dragging')
       ele.style.cursor = 'grabbing';
       ele.style.userSelect = 'none';
 

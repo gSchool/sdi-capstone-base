@@ -15,7 +15,7 @@ const SheetDisplay = () => {
   const navigate = useNavigate();
   const entryId = useParams.entryId;
   const location = useLocation();
-  const mouseDownHandler = useScrollHandler();
+  const mouseDownHandler = useScrollHandler('scroll-container');
 
   const { store } = useContext(GlobalContext)
   const { theme, isAuth, setIsAuth } = store

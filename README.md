@@ -57,6 +57,13 @@
     - Implemented CLICK TO DRAG for sheet view
     - Implemented auto-scrolling, auto center
 
+    v0.6 (8 July):
+    - Tied frontend into backend for data handling
+    - Created MENUS for SHEETS VIEW
+    - Implemented SEARCH on USER ACCESS screen
+    - Added "UPDATE" notification if previously entered data is changed
+    
+
 <br>
 
 * * *

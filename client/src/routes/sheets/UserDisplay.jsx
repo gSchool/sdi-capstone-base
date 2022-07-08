@@ -9,21 +9,27 @@ import useScrollHandler from '../../_helpers/useScrollHandler';
 import '../../_styles/userdisplay.css';
 import defaultProfileImage from '../../_assets/img/default-profile-img.png';
 import plus from '../../_assets/icons/plus.png';
+import dummySheetAccessData from '../../_dummy/sheet-access.json';
+import UserLookup from './UserLookup';
+
 
 const UserDisplay = () => {
   const { sheet } = useContext(SheetContext);
   const [ sheetUsers, setSheetUsers ] = useState([]);
   const [ usersChanged, setUsersChanged] = useState(0);
   const [ userDisplayView, setUserDisplayView ] = useState('simple');
-  const mouseDownHandler = useScrollHandler();
+  const mouseDownHandler = useScrollHandler('scroll-container');
   const location = useLocation();
   const navigate = useNavigate();
-
   let usersToUpdate = useRef([]);
+  let sheetId;
+  const [ sheetName, setSheetName ] = useState('');
 
   useEffect(() => {
     // get sheetId
-    let sheetId = parseInt(location.pathname.split('/')[2]);
+    sheetId = parseInt(location.pathname.split('/')[2]);
+    let index = dummySheetAccessData.sheets.findIndex(sheet => sheet.sheet_id === sheetId)
+    setSheetName(dummySheetAccessData.sheets[index].name);
 
     // load user data here
     if (sheetId === 1 || sheetId === 100) {
@@ -44,13 +50,16 @@ const UserDisplay = () => {
 
   return (
     <>
-      <div className='users-display-container'>
+      <div className={`users-display-container ${location.pathname.split('/').length >= 5 && location.pathname.split('/')[4] === 'lookup' ? 'shrink' : ''}`}>
         <div className='users-display-header'>
           <div className="users-header-meta">
             <div className="users-header-icon">
               <img />
             </div>
-            <span className="nowrap">User Access</span>
+            <div className='users-header-title'>
+              <span className="page-name nowrap">User Access</span>
+              <span className={`sheet-name ${sheetName === '' ? 'filler':''} nowrap`}>{sheetName === '' ? 'Loading...': sheetName}</span>
+            </div>
           </div>
           <div className="users-search">
             {/* <input placeholder='Search'/> */}
@@ -109,7 +118,7 @@ const UserDisplay = () => {
                             <option key={`option-${role}`} className={`${role === user.role ? 'previous-value' : 'other-value'}`}value={role}>{role}</option>)}
                         </select>
                       </td>
-                      <td className='users-display-cell'>thisismyemail@gmail.com</td>
+                      <td className='users-display-cell'>{user.name.split(' ')[0]}.{user.name.split(' ')[1]}@gmail.com</td>
                       <td className='user-row-option'><img alt='delete-icon'/></td>
                     </tr>
                   )}
@@ -119,7 +128,8 @@ const UserDisplay = () => {
           }
         </div>
       </div>
-      <button className='add-user'><img className='primary-image'/><img className='secondary-image'/></button>
+      <UserLookup/>
+      <button className='add-user' onClick={() => navigate('lookup')}><img className='primary-image'/><img className='secondary-image'/></button>
       <button className='users-display-exit' onClick={
           () => navigate(-1)
         }>&lt;</button>

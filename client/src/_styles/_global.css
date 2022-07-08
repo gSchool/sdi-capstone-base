@@ -23,6 +23,7 @@
   --font-size-body: calc(1rem * var(--global-font-multiplier));
   --font-size-body-small: calc(0.75rem * var(--global-font-multiplier));
   --font-size-tiny: calc(0.5rem * var(--global-font-multiplier));
+  --font-size-microscopic: calc(0.25rem * var(--global-font-multiplier));
 
   --ultra-thin: 200;
   --thin: 300;
@@ -43,6 +44,7 @@
   --color-bright-text: #bdc7d7;
 
   --global-box-shadow-color: #55658aba;
+  --global-menu-box-shadow-color: #0b1f4e3b;
 
   --color-primary: #55658a;
   --color-primary-transparent: #55658a31;
@@ -68,6 +70,7 @@
   --color-entry-checkbox: #ced0d9;
   --color-entry-field-type: #c8c9cc;
 
+  --color-menu-plus: #55658a;
   --color-cover: #dce6f633;
 
   --color-undenary: #413768;
@@ -78,6 +81,8 @@
 
   --arrow-up: url('../_assets/icons/up-arrow.png');
   --arrow-down: url('../_assets/icons/down-arrow.png');
+
+  --search-icon: url('../_assets/icons/edit-blue.png');
 
   --color-green: #0ca789;
   --color-yellow: #fac70d;
@@ -103,6 +108,7 @@
   --color-bright-text: #98aad1;
 
   --global-box-shadow-color: #4059729c;
+  --global-menu-box-shadow-color: #24305021;
 
   --color-primary: #55658a;
   --color-primary-transparent: #55658a31;
@@ -130,6 +136,8 @@
   --color-entry-checkbox: #ffffff;
   --color-entry-field-type: #535d73;
 
+  --color-menu-plus: #ffffff;
+
   --color-undenary: #374b68;
   --color-duodenary: #4d4f5783;
 
@@ -138,6 +146,8 @@
 
   --arrow-up: url('../_assets/icons/up-arrow-dark.png');
   --arrow-down: url('../_assets/icons/down-arrow-dark.png');
+
+  --search-icon: url('../_assets/icons/edit-blue.png');
 
   --color-green: #0ca789;
   --color-yellow: #fac70d;
@@ -394,6 +404,14 @@ textarea:focus, input:focus{
   margin-bottom: -0.8rem;
 }
 
+#page.extend .dod-img {
+  transform: translateX(29rem);
+  transition: all var(--global-transition-speed) ease;
+}
+.dod-img {
+  transition: all var(--global-transition-speed) ease;
+}
+
 
 
 
@@ -503,9 +521,11 @@ textarea:focus, input:focus{
     padding-left: 0.8rem;
   }
 
+  .dod-img {
+    display: none !important;
+  }
+
 }
-
-
 
 
 /* LARGE SCREENS */
@@ -634,6 +654,10 @@ textarea:focus, input:focus{
   }
 
   .sidebar:hover ~ #page .entry-details-container {
+    transform: translateX(+100%) !important;
+  }
+
+  .sidebar:hover ~ #page .user-lookup-container {
     transform: translateX(+100%) !important;
   }
 

@@ -7,17 +7,20 @@ import NotFound from './routes/NotFound';
 import './_styles/_global.css'
 import AuthProvider from './_context/AuthProvider';
 import ThemeProvider from './_context/ThemeProvider';
+import { SheetProvider } from './_context/SheetProvider'
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
   <AppProvider>
     <ThemeProvider>
+      <SheetProvider>
         <Router fallback={<NotFound />} exceptionElement={<NotFound />}>
           <AuthProvider>
             <App />
           </AuthProvider>
         </Router>
+      </SheetProvider>
     </ThemeProvider>
   </AppProvider>
 );

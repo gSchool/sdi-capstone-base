@@ -238,17 +238,47 @@
   fill: var(--color-quinary);
 }
 
-.sheet-options-menu {
-  z-index: 2000000;
+.sheet-options-menu-container {
   position: fixed;
-  display: block;
+  background-color: var(--color-tertiary);
   padding: 1rem;
   border-radius: var(--global-border-radius);
-  background-color: aqua;
-  color: red;
+  box-shadow: 0 1rem 1rem 0 var(--global-menu-box-shadow-color);
+  z-index: 2000000;
+  cursor: pointer;
 }
 
-.sheet-options-menu.hidden-menu {
-  display: none;
-  pointer-events: none ;
+.sheet-options-menu-item:not(:first-of-type) {
+  margin-top: 0.8rem;
+}
+
+.sheet-options-menu-item {
+  background-color: var(--color-primary);
+  color: var(--color-text-menu);
+  padding: 0.8rem 1.7rem;
+  /* margin: 1rem; */
+  border-radius: var(--global-border-radius);
+  text-align: center;
+  z-index: 2000000;
+  cursor: pointer;
+}
+
+.sheet-options-menu-item.break {
+  background-color: #00000000;
+  color: var(--color-text-menu);
+  padding: 0.2rem 1.7rem;
+  /* margin: 1rem; */
+  border-radius: var(--global-border-radius);
+  text-align: center;
+  z-index: 2000000;
+}
+
+.sheet-options-menu-item.remove {
+  background-color: #dc7777;
+  color: var(--color-text-menu);
+  padding: 0.8rem 1.7rem;
+  /* margin: 1rem; */
+  border-radius: var(--global-border-radius);
+  text-align: center;
+  z-index: 2000000;
 }
