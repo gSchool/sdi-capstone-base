@@ -10,8 +10,7 @@ export function up(knex) {
     table.foreign("field_id").references("fields.id");
     table.integer("entry_id");
     table.foreign("entry_id").references("entries.id");
-    table.integer("sheet_id");
-    table.foreign("sheet_id").references("sheets.id");
+    table.boolean("checked").defaultTo(false);
   });
 }
 
@@ -24,7 +23,6 @@ export function down(knex) {
     .alterTable("values", (table) => {
       table.dropForeign("entry_id");
       table.dropForeign("field_id");
-      table.dropForeign("sheet_id");
 
     })
     .then(() => {

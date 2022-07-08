@@ -1,9 +1,9 @@
 import express from "express";
 const router = express.Router();
 
-import { requestAllSheet, requestSheetData, requestUserSheets, add, edit } from "../controllers/sheetController.js";
+import { requestAllSheet, requestSheetData, requestUserSheets, add, edit, addUserRole } from "../controllers/sheetController.js";
 
-router.route("/edit_sheet/:sheetId").patch(edit);
+router.route("/edit_sheet/:sheet_id").patch(edit);
 
 router.route("/add_sheet").post(add);
 
@@ -11,8 +11,10 @@ router.route("/add_sheet").post(add);
 router.route("/get_all_sheet").get(requestAllSheet);
 //
 
+router.route("/add_user_roles/:sheet_id").post(addUserRole);
+
 router.route('/get_sheets').get(requestUserSheets)
 
-router.route("/get_sheet/:sheetId").get(requestSheetData);
+router.route("/get_sheet/:sheet_id").get(requestSheetData);
 
 export default router;

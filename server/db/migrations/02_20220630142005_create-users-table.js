@@ -8,6 +8,8 @@ export function up(knex) {
     table.string("name", 255);
     table.integer("man_number");
     table.string("firebase_uuid");
+    table.string('picture');
+    table.string('email');
   });
 }
 

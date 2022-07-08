@@ -19,7 +19,7 @@ const requestAllUsers = async (req, res) => {
 
 
 const getAllSheetUsers = (req, res) => {
-  const reqId = req.params.sheetId
+  const reqId = req.params.sheet_id
   if(!reqId) {
     res.status(400).send("Need a sheet to get the users")
     return
@@ -27,16 +27,42 @@ const getAllSheetUsers = (req, res) => {
 
   knex('user_roles')
     .join('users', 'user_roles.user_id', 'users.id')
-    .select('user_id', 'role_name', 'name')
+    .select('user_id', 'role_name', 'name', 'picture', 'email')
     .where({sheet_id: reqId})
     .then(data => res.status(200).json(data))
 
 }
 
+const editUserRoles = (req, res) => {
+  const targetId = req.params.sheet_id;
+  const { users } = req.body;
+
+  users.forEach(user => {
+    knex('user_roles')
+    .select('*')
+    .where({user_id: user.user_id, sheet_id: targetId})
+    .update({role_name: user.role_name})
+    .then((data) => console.log(data) )
+  })
+  res.status(200).json(`user roles updated`)
+}
+
+const removeUserRoles = (req, res) => {
+  const targetId = req.params.sheet_id;
+  const { users } = req.body;
+
+  users.forEach(user => {
+    knex('user_roles')
+    .select('*')
+      .where({user_id: user.user_id, sheet_id: targetId})
+      .del()
+      .then(data => res.status(201).json(`${data} records deleted`))
+  })
+}
+
 const add = (req, res) => {
-  console.log("start")
-  const { user_id, name } = req.user
-  
+  const { user_id, name, picture, email } = req.user
+  console.log(req.user);
 
   knex("users")
     .select("*")
@@ -44,7 +70,7 @@ const add = (req, res) => {
     .then((data) => {
       if (data.length === 0) {
         return knex("users")
-          .insert({ name: name, firebase_uuid: user_id })
+          .insert({ name: name, firebase_uuid: user_id, picture: picture, email: email })
           .then(() => {
             res.status(201).send(`${name} has been added.`);
           });
@@ -52,7 +78,6 @@ const add = (req, res) => {
         res.status(202).send(`${name} already exists.`);
       }
     });
-
 };
 
 const remove = (req, res) => {
@@ -63,4 +88,4 @@ const edit = (req, res) => {
 };
 
 
-export { request, add, remove, edit, getAllSheetUsers, requestAllUsers };
+export { request, add, remove, edit, getAllSheetUsers, requestAllUsers, editUserRoles, removeUserRoles};

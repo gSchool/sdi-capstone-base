@@ -7,17 +7,41 @@ const request = (req, res) => {
       res.status(200).json(data);
     });
 };
-const add = (req, res) => {
 
+const handleField = (req, res) => {
+  const targetId = req.params.sheet_id;
+  let { fields } = req.body;
 
-  res.status(200).send(`${req.method} - add`);
+  fields.forEach(field =>{
+    if (field.field_id !== 'new') {
+      console.log(field)
+      knex('fields')
+        .select('*')
+        .where({id: field.field_id})
+        .update({name: field.name, id: field.field_id})
+        .then((data => console.log(data)))
+    } else {
+      knex('fields')
+        .insert({type: field.type, sheet_id: targetId, name: field.name})
+        .then((data => console.log(data)))
+    }
+  })
+
+  knex('fields')
+    .select('*')
+    .where({sheet_id: targetId})
+    .then(data => res.status(200).json(data))
 };
-const remove = (req, res) => {
-  res.status(200).send(`${req.method} - remove`);
-};
-const edit = (req, res) => {
-  res.status(200).send(`${req.method} - edit`);
-};
+
+const flipChecked = (req, res) => {
+  const targetId = req.params.field_id;
+
+  knex('values')
+    .where({field_id: targetId}).update({
+      checked: knex.raw('NOT ??', ['checked'])
+    }).returning('*')
+      .then(data => res.status(200).send("field checked has flipped."))
+}
 
 const favorite = (req, res) => {
   const targetId = req.params.field_id
@@ -35,4 +59,4 @@ const archive = (req, res) => {
     .then(data => res.status(200).send("field archived has flipped."))
 };
 
-export { request, add, remove, edit, favorite, archive };
+export { request, handleField, favorite, archive, flipChecked };

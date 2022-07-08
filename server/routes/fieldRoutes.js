@@ -1,11 +1,11 @@
 import express from "express";
 const router = express.Router();
 
-import { add, edit, favorite, archive } from "../controllers/fieldController.js";
+import { handleField, favorite, archive, flipChecked } from "../controllers/fieldController.js";
 
-router.route("/edit_field").patch(edit);
+router.route("/handle_field/:sheet_id").patch(handleField);
 
-router.route("/add_field").post(add);
+router.route("/check_field/:field_id").patch(flipChecked);
 
 router.route('/favorite_field/:field_id').patch(favorite)
 
