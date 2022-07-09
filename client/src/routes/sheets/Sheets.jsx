@@ -5,13 +5,13 @@ import { GlobalContext } from '../../_context/AppProvider'
 import { SheetContext } from '../../_context/SheetProvider';
 import { Div } from '../../_styles/_global'
 import Loader from '../../_components/Loader'
-import api, { noCallback } from '../../_helpers/api'
 import dummyData from '../../_dummy/sheet.json';
 import dummyData2 from '../../_dummy/sheet2.json';
 import SheetDisplay from  './SheetDisplay';
 import UserDisplay from './UserDisplay';
 import Sidebar from '../../_components/Sidebar';
 import "../../_styles/sheets.css";
+import { UserAccessProvider } from '../../_context/UserAccessProvider';
 
 const Sheets = () => {
 
@@ -19,14 +19,16 @@ const Sheets = () => {
 
   return (
     <div className='sheet-page'>
-      <Routes>
-        <Route path='/' element={ <SheetDisplay/> } />
-          <Route path='/users/*' element={ <Suspense fallback={<Loader/>}><UserDisplay/></Suspense> } />
-          <Route path='/edit/*' element={ <Suspense fallback={<Loader/>}><NotFound/></Suspense> } />
-          <Route path='/:entryId' element={ <Suspense fallback={<Loader/>}><SheetDisplay/></Suspense> } />
-          <Route path='/:entryId/*' element={ <Suspense fallback={<Loader/>}><Loader/><Navigate to={`/sheet/${location.pathname.split('/')[2]}`} /></Suspense> } />
-        <Route path="/*" element={ <NotFound /> } />
-      </Routes>
+      <UserAccessProvider>
+        <Routes>
+          <Route path='/' element={ <SheetDisplay/> } />
+            <Route path='/users/*' element={ <Suspense fallback={<Loader/>}><UserDisplay/></Suspense> } />
+            <Route path='/edit/*' element={ <Suspense fallback={<Loader/>}><NotFound/></Suspense> } />
+            <Route path='/:entryId' element={ <Suspense fallback={<Loader/>}><SheetDisplay/></Suspense> } />
+            <Route path='/:entryId/*' element={ <Suspense fallback={<Loader/>}><Loader/><Navigate to={`/sheet/${location.pathname.split('/')[2]}`} /></Suspense> } />
+          <Route path="/*" element={ <NotFound /> } />
+        </Routes>
+      </UserAccessProvider>
     </div>
   );
 }

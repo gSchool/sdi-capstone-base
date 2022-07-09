@@ -10,22 +10,30 @@ import '../_styles/sidebar.css'
 import ThemeSwitcher from '../_components/ThemeSwitcher'
 import dummySheetAccessData from '../_dummy/sheet-access.json';
 import { ClickAwayListener } from '@mui/base';
+import smartApi from '../_helpers/smartApi';
 
 const Sidebar = () => {
 
-  const log = console.log
-
   const { store } = useContext(GlobalContext)
   const { user, setSheetAccess, refresh } = store
-  const { profileImg, sheetAccess } = user
-
-  // fetch sheet access data
-  useEffect(() => {
-    const data = dummySheetAccessData
-    setSheetAccess(data.sheets);
-  }, [])
+  const { profileImg, sheetAccess, token } = user
 
   const data = dummySheetAccessData.sheets  
+  // get sheet access data
+  useEffect(() => {
+
+    const data = dummySheetAccessData
+    setSheetAccess(data.sheets);
+
+    smartApi(['GET', 'get_sheets/'], user.token)
+      .then(result => {
+        const allsheets = [...data.sheets, ...result]
+        setSheetAccess(allsheets)
+      })
+      .catch(error => console.log('error', error));
+
+  }, [])
+
 
   const location = useLocation();
   const [view, setView] = useState('desktop')
@@ -78,7 +86,7 @@ const Sidebar = () => {
   
   // close the menu
   const closeMenu = () => {
-    log('close menu')
+    // log('close menu')
     setApplyStyle(false)
     setMenuLocation({
       visibility: "hidden",
@@ -112,8 +120,8 @@ const Sidebar = () => {
 
           <li className="sidebar-main">
 
-            {/* { sheetAccess.map((sheet, i) => { */}
-            { data.map((sheet, i) => {
+            {/* { data.map((sheet, i) => { */}
+            { sheetAccess.map((sheet, i) => {
                 return (
                   <span key={i} className="sidebar-sheet">
                     <Link to={`/sheet/${sheet.sheet_id}`} className="sidebar-sheet-item" onClick={()=>{}}>

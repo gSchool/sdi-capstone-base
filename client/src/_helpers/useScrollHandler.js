@@ -1,6 +1,5 @@
 const useScrollHandler = (elementID) => {
   const ele = document.getElementById(elementID);
-  console.log(ele);
   let pos = { top: 0, left: 0, x: 0, y: 0 };
 
   const mouseUpHandler = function (e) {

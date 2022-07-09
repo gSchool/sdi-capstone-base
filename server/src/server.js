@@ -9,7 +9,7 @@ import {
 import decodedToken from "../middleware/decodeToken.js"
 
 const server = express();
-
+//
 var opts = {
   origin: "*",
   optionsSuccessStatus: 200,

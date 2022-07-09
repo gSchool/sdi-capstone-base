@@ -10,6 +10,7 @@ import dummyData from '../../_dummy/sheet.json';
 import dummyData2 from '../../_dummy/sheet2.json'
 import edit from '../../_assets/icons/edit-purple.png'
 import useScrollHandler from '../../_helpers/useScrollHandler';
+import smartApi from '../../_helpers/smartApi';
 
 const SheetDisplay = () => {
   const navigate = useNavigate();
@@ -26,6 +27,8 @@ const SheetDisplay = () => {
 
   const { sheetPageView, setSheetPageView, setSelectedEntry, selectedEntry, newEntry, setCurrentSheet } = sheet;
 
+  const { user, setSheetAccess, refresh } = store;
+
   useEffect(() => {
     if (selectedEntry.entry_id > 0) {
       setSheetPageView('edit-entry');
@@ -40,18 +43,38 @@ const SheetDisplay = () => {
     // get user's sheets here
     sheet.setSheetLoading(true)
 
-    if (sheetId === '1') {
+    if (sheetId === '1001') {
       sheet.setCurrentSheet(dummyData)
-    } else if (sheetId === '100') {
+    } else if (sheetId === '1002') {
       sheet.setCurrentSheet(dummyData2)
     } else {
-      sheet.setSheetLoading(false)
+
+      if (isNaN(sheetId)) {
+        navigate('/')
+      } else {
+
+        smartApi(['GET', `get_sheet/${sheetId}`], user.token)
+          .then(result => {
+            if (result.name === undefined) {
+              // fix for sheet name location
+              result.name = result.sheet.name;
+            }
+            // console.log(result.name)
+            sheet.setCurrentSheet(result);
+            sheet.setSheetLoading(false);
+          })
+          .catch(error => {
+            sheet.setSheetLoading(false);
+            console.log('error', error)});
+      }
+
+
     }
   }, [sheetId])
 
-  useEffect(() => {
-    sheet.setSheetLoading(false);
-  }, [sheet.currentSheet])
+  // useEffect(() => {
+  //   sheet.setSheetLoading(false);
+  // }, [sheet.currentSheet])
 
   return (
     <>

@@ -37,19 +37,25 @@ const editUserRoles = (req, res) => {
   const targetId = req.params.sheet_id;
   const { users } = req.body;
 
+  console.log('Target ID:', req.params.sheet_id)
+  console.log('Request Body:', req.body)
+
   users.forEach(user => {
     knex('user_roles')
     .select('*')
     .where({user_id: user.user_id, sheet_id: targetId})
     .update({role_name: user.role_name})
-    .then((data) => console.log(data) )
+    .then((data) => console.log('test', data))
   })
   res.status(200).json(`user roles updated`)
 }
 
 const removeUserRoles = (req, res) => {
   const targetId = req.params.sheet_id;
-  const { users } = req.body;
+  const { users } = req.body.title;
+
+  console.log('Target ID:', req.params.sheet_id)
+  console.log('Request Body:', req.body.title)
 
   users.forEach(user => {
     knex('user_roles')

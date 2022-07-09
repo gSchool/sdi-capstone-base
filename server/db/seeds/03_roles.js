@@ -4,6 +4,7 @@
  */
 export async function seed(knex) {
   // Deletes ALL existing entries
+  await knex.schema.raw('TRUNCATE user_roles CASCADE')
   await knex("user_roles").del();
   await knex("user_roles").insert([
     { user_id: 1, role_name: "admin", sheet_id: 1 },

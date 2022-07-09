@@ -27,8 +27,8 @@ const EntryDetails = () => {
       let fieldData = JSON.parse(element.dataset.field)
       let inputElement = element.querySelector('input')
   
-      console.log(inputElement.value) // newValue
-      console.log(inputElement.id) // value id
+      // console.log(inputElement.value) // newValue
+      // console.log(inputElement.id) // value id
     }
   
     setIsLoading(true);
@@ -54,7 +54,7 @@ const EntryDetails = () => {
 
         var topPos = document.getElementById(entryId).offsetTop
         var containerHeight = document.getElementsByClassName('sheet-display-body')[0].offsetHeight
-        console.log("Offset Top:", topPos)
+        // console.log("Offset Top:", topPos)
         if (topPos > containerHeight-200) {
           document.getElementsByClassName('sheet-display-body')[0].scroll({
             top: topPos-400,
@@ -68,15 +68,14 @@ const EntryDetails = () => {
           navigate(`/sheet/${location.pathname.split('/')[2]}`)
         }
       }
-      if (sheet.currentSheet.sheet_id === 0 && sheet.sheetLoading === false) {
-        // setSheetPageView('sheet')
-        setSelectedEntry({})
-        navigate(`/`)
-      }
+      // if (sheet.currentSheet.sheet_id === 0 && sheet.sheetLoading === false) {
+      //   // setSheetPageView('sheet')
+      //   setSelectedEntry({})
+      //   navigate(`/`)
+      // }
     } else {
       setSelectedEntry({})
     }
-    
     if (sheet.currentSheet.sheet_id === 0 && sheet.sheetLoading === false) {
       // setSheetPageView('sheet')
       setSelectedEntry({})

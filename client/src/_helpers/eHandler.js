@@ -1,4 +1,3 @@
-import api from "./api";
 
 // Example usage: eHandler(null, 'api', {method: 'get', path: 'movies'}, (res)=>setGlobalState({movies: res}))
 const eHandler = async (e, target, options, callback) => {
@@ -10,9 +9,6 @@ const eHandler = async (e, target, options, callback) => {
   if (!callback) return console.log(`No callback supplied to eHandler!\nimport { eHandler, noCallback }\nand pass 'noCallback' if you want to do nothing.\nOr, pass an empty function () => {}`);
 
   switch(target) {
-    case 'api':
-      api(options, callback)
-      break;
     case 'showCover':
       document.getElementById('page').classList.add('extend');
       document.getElementById('cover').classList.remove('hide');

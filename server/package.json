@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "start": "nodemon ./src/index.js",
-    "start:dev": "export NODE_ENV=development && knex migrate:latest && knex seed:run && nodemon --watch ./ ./src/index.js",
+    "start:dev": "export NODE_ENV=development && knex migrate:rollback && knex migrate:latest && knex seed:run && nodemon --watch ./ ./src/index.js",
     "startlocal:dev": "export NODE_ENV=development && nodemon --watch ./ ./src/index.js",
     "test": "jest",
     "build": "node build.js",

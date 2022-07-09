@@ -75,7 +75,7 @@ const requestSheetData = async (req, res) => {
 
 const requestAllSheet = (req, res) => {
   knex("sheets")
-    .select("*")
+    .select("id as sheet_id", "name", "short_name", "templates")
     .then((data) => {
       res.status(200).json(data);
     });
@@ -94,7 +94,7 @@ const requestUserSheets = async (req, res) => {
         res.status(200).send(data)
       })
   } else {
-    res.status(200).send(`No user`)
+    res.status(404).send(`No user`)
   }
 }
 
@@ -113,7 +113,7 @@ const add = async (req, res) => {
           .then(() => res.status(200).send(`New sheet has been added`))
       })
   } else {
-    res.status(200).send(`No user`)
+    res.status(404).send(`No user`)
   }
 
 };
@@ -124,7 +124,8 @@ const addUserRole = async (req, res) => {
   const { users } = req.body;
   let flag = false;
   let results = [];
-
+  console.log("Target ID:", targetId);
+  console.log("Request Body:", req.body);
   await users.forEach(user => {
     knex('users')
       .select('id')

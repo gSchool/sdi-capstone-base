@@ -83,10 +83,16 @@
   --arrow-down: url('../_assets/icons/down-arrow.png');
 
   --search-icon: url('../_assets/icons/edit-blue.png');
-
-  --color-green: #0ca789;
+  
+  --color-green: #b3f0d0;
+  --color-green-toast: #418d66;
+  --color-green-toast-icon-primary: #418d66;
+  --color-green-toast-icon-secondary: #b3f0d0;
   --color-yellow: #fac70d;
-  --color-red: #da0063;
+  --color-red: #e6bdbd;
+  --color-red-toast: #9e6060;
+  --color-red-toast-icon-primary: #9e6060;
+  --color-red-toast-icon-secondary: #e6bdbd;
 
   color: var(--color-text);
   background: var(--color-background);
@@ -149,9 +155,15 @@
 
   --search-icon: url('../_assets/icons/edit-blue.png');
 
-  --color-green: #0ca789;
+  --color-green: #9ad7b7;
+  --color-green-toast: #276f4a;
+  --color-green-toast-icon-primary: #276f4a;
+  --color-green-toast-icon-secondary: #9ad7b7;
   --color-yellow: #fac70d;
-  --color-red: #da0063;
+  --color-red: #d79a9a;
+  --color-red-toast: #814444;
+  --color-red-toast-icon-primary: #814444;
+  --color-red-toast-icon-secondary: #d79a9a;
 
   color: var(--color-text);
   background: var(--color-background);

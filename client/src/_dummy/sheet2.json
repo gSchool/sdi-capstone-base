@@ -1,7 +1,7 @@
 {
   "name": "Kinds of Food",
   "short_name": "KOF",
-  "sheet_id": 100,
+  "sheet_id": 1002,
   "fields": [
     {
       "name": "Name",

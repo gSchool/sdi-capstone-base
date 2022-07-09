@@ -62,7 +62,7 @@
     - Created MENUS for SHEETS VIEW
     - Implemented SEARCH on USER ACCESS screen
     - Added "UPDATE" notification if previously entered data is changed
-    
+    - Resolved issue with FIREBASE authentication not passing header
 
 <br>
 

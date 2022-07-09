@@ -9,6 +9,7 @@ function App() {
   const { store } = useContext(GlobalContext)
   const { isAuth } = store.user
 
+
   return (
     <>
       { isAuth ? (
@@ -27,6 +28,30 @@ function App() {
                   primary: '#35405d',
                   secondary: '#fff',
                   padding: '2rem',
+                },
+                success: {
+                  style: {
+                    background: 'var(--color-green)',
+                    color: 'var(--color-green-toast)',
+                    fontWeight: 'var(--bold)'
+                  },
+                  iconTheme: {
+                    primary: 'var(--color-green-toast-icon-primary)',
+                    secondary: 'var(--color-green-toast-icon-secondary)',
+                    padding: '2rem',
+                  },
+                },
+                error: {
+                  style: {
+                    background: 'var(--color-red)',
+                    color: 'var(--color-red-toast)',
+                    fontWeight: 'var(--bold)'
+                  },
+                  iconTheme: {
+                    primary: 'var(--color-red-toast-icon-primary)',
+                    secondary: 'var(--color-red-toast-icon-secondary)',
+                    padding: '2rem',
+                  },
                 },
               }}
             />

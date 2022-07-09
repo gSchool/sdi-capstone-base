@@ -29,6 +29,7 @@ const decodedToken = (req, res, next) => {
   getAuth(admin)
     .verifyIdToken(idToken)
     .then((decodedToken) => {
+      console.log(decodedToken)
       if(decodedToken) {
         req.user = decodedToken
         return next()
@@ -36,7 +37,7 @@ const decodedToken = (req, res, next) => {
       res.send("Unauthorized -> Token provied isn't ours")
     })
     .catch((e) => {
-      res.send('Internal Error: DEV HEY TOKEN IS DEAD')
+      res.send({head : `This is the token i have ${idToken}\n=====`, ErrorMessage:e})
     });
 }
 

@@ -32,6 +32,24 @@
   padding-bottom: 2rem;
 }
 
+.token-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: var(--bold);
+  color: #000000;
+  padding: 1rem 1.6rem;
+  font-size: 1rem;
+  min-width: 6rem;
+  background-color: #ffffff;
+  box-shadow: 0 0 4px 0 var(--global-box-shadow-color);
+  border: 0;
+  border-radius: var(--global-border-radius);
+  cursor: pointer;
+  margin: 1rem;
+  margin-bottom: 0;
+}
+
 /* SMALL SCREENS */
 
 @media only screen and (max-width: 767px) {

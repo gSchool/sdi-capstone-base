@@ -11,11 +11,16 @@ import defaultProfileImage from '../../_assets/img/default-profile-img.png';
 import plus from '../../_assets/icons/plus.png';
 import dummySheetAccessData from '../../_dummy/sheet-access.json';
 import UserLookup from './UserLookup';
-
+import { GlobalContext } from '../../_context/AppProvider'
+import smartApi from '../../_helpers/smartApi';
+import toast from 'react-hot-toast'
+import { UserAccessContext } from '../../_context/UserAccessProvider';
 
 const UserDisplay = () => {
+  const { store } = useContext(GlobalContext)
   const { sheet } = useContext(SheetContext);
-  const [ sheetUsers, setSheetUsers ] = useState([]);
+  const { userAccess } = useContext(UserAccessContext);
+
   const [ usersChanged, setUsersChanged] = useState(0);
   const [ userDisplayView, setUserDisplayView ] = useState('simple');
   const mouseDownHandler = useScrollHandler('scroll-container');
@@ -25,27 +30,107 @@ const UserDisplay = () => {
   let sheetId;
   const [ sheetName, setSheetName ] = useState('');
 
+  const { user, setSheetAccess, refresh } = store;
+
+  useEffect(()=> {
+    // console.log('Use Effect Triggered')
+  }, [userAccess.sheetUsers])
+
   useEffect(() => {
     // get sheetId
     sheetId = parseInt(location.pathname.split('/')[2]);
-    let index = dummySheetAccessData.sheets.findIndex(sheet => sheet.sheet_id === sheetId)
-    setSheetName(dummySheetAccessData.sheets[index].name);
 
     // load user data here
-    if (sheetId === 1 || sheetId === 100) {
-      setSheetUsers(dummyData.users);
+    if (sheetId === 1001 || sheetId === 1002) {
+      let index = dummySheetAccessData.sheets.findIndex(sheet => sheet.sheet_id === sheetId)
+      setSheetName(dummySheetAccessData.sheets[index].name);
+      userAccess.setSheetUsers(dummyData.users);
     } else {
-      navigate('/')
+
+    
+      smartApi(['GET', `get_sheet_users/${sheetId}`], user.token)
+        .then(result => {
+          userAccess.setSheetUsers(result);
+          if (result.length === 0) {
+            console.log(result);
+            navigate('/')
+          }
+        })
+        .catch(error => console.log('error', error));
+
+      // navigate('/')
     }
-  })
+  },[])
+
+  const getSheetUsers = () => {
+    sheetId = parseInt(location.pathname.split('/')[2]);
+    smartApi(['GET', `get_sheet_users/${sheetId}`], user.token)
+      .then(result => {
+        userAccess.setSheetUsers(result);
+        if (result.length === 0) {
+          console.log(result);
+          navigate('/')
+        } else {
+          navigate(location.pathname);
+        }
+      })
+      .catch(error => console.log('error', error));
+  }
 
   const updateUsers = () => {
+    let payload = {users: []}
     for (let element of document.getElementsByClassName('role-changed')) {
       console.log(`Set User ID: ${element.closest('tr').id} to ${element.value}`)
-      // updateUsers.push({user_id: element.closest('tr').id, role_name: element.value})
+      // let payload = {users: [{user_id: userId, role_name: 'Viewer'}]}
+      payload.users.push({user_id: element.closest('tr').id, "role_name": element.value})
     }
+    setUsersChanged(0)
+    let sheetId = location.pathname.split('/')[2];
 
-    console.log(usersToUpdate.current)
+    var myHeaders = new Headers();
+    myHeaders.append("Authorization", `Bearer ${user.token}`);
+    myHeaders.append('Content-Type', 'application/json')
+
+    var requestOptions = {
+      method: 'PATCH',
+      headers: myHeaders,
+      redirect: 'follow',
+      body: JSON.stringify(payload)
+    };
+  
+    fetch(`http://localhost:8080/api/edit_user_roles/${sheetId}`, requestOptions)
+      .then(response => response.json())
+      .then(result => {
+        toast.success('Users Roles Updated!')
+        console.log(result); // user role has been added
+        getSheetUsers();
+        // window.location.reload();
+      })
+      .catch(error => console.log('error', error));
+
+    // smartApi(['PATCH', `edit_user_roles/${sheetId}`, payload], user.token)
+    //   .then(result => {
+    //     // toast.success('Users Roles Updated!')
+    //     console.log(result); 
+    //   })
+    //   .catch(error => console.log('error', error));
+
+    console.log(payload)
+  }
+
+
+
+  const deleteUser = (target) => {
+    let payload = {users: [target]}
+
+    let sheetId = location.pathname.split('/')[2];
+
+    smartApi(['DELETE', `remove_roles/${sheetId}`, payload], user.token)
+      .then(result => {
+        toast.success('User Removed')
+        console.log(result); 
+      })
+      .catch(error => console.log('error', error));
   }
 
   return (
@@ -91,11 +176,18 @@ const UserDisplay = () => {
                 </tr>
               </thead>
               <tbody>
-                {sheetUsers.map((user,i) => {
+                {userAccess.sheetUsers.map((user,i) => {
                   let roles = ['Owner', 'Editor', 'Viewer', 'Daniel']
+
+                  if (user.email === undefined || user.email === null) {
+                    user.email = `${user.name.split(' ')[0]}.${user.name.split(' ')[1]}@gmail.com`
+                  }
+                  if (user.role === undefined) {
+                    user.role = user.role_name //fix 
+                  }
                   return (
                     <tr id={user.user_id} key={i} className='user-row'>
-                      <td className='user-row-picture'><img className='user-profile-picture' src={defaultProfileImage} /></td>
+                      <td className='user-row-picture'><img className='user-profile-picture' src={user.picture !== undefined ? user.picture : defaultProfileImage} /></td>
                       <td className='users-display-cell'>{user.name}</td>
                       <td className='users-display-cell'>
                         <select defaultValue={user.role} className='users-display-role-select' onChange={(e) => {
@@ -118,8 +210,12 @@ const UserDisplay = () => {
                             <option key={`option-${role}`} className={`${role === user.role ? 'previous-value' : 'other-value'}`}value={role}>{role}</option>)}
                         </select>
                       </td>
-                      <td className='users-display-cell'>{user.name.split(' ')[0]}.{user.name.split(' ')[1]}@gmail.com</td>
-                      <td className='user-row-option'><img alt='delete-icon'/></td>
+                      <td className='users-display-cell'>
+                        {user.email}
+                      </td>
+                      <td className='user-row-option'>
+                        <img alt='delete-icon' onClick={() => {deleteUser(user)}}/>
+                      </td>
                     </tr>
                   )}
                 )}
