@@ -44,7 +44,7 @@ const Profile = () => {
         </div>
       <div>
         {filteredBlogs.map(post => (
-        <div key={post.id}className="viewAllPosts" onClick={() => {nav(`/profile/${username}/${post.id}`)}}>
+        <div key={post.id} className="viewAllPosts" onClick={() => {nav(`/profile/${username}/${post.id}`)}}>
           <div className="viewPostsHeader">
             <h2 className="postHeader">{post.title}</h2>
           </div>

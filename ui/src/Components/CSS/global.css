@@ -1,6 +1,8 @@
 .background {
   background-image: url('../../../public/cybyl.jpeg');
   position: fixed;
+  background-repeat: no-repeat;
+  background-size: cover;
   top: 0%; 
   bottom: 0%;
   left: 0%; 
@@ -39,49 +41,39 @@ button:hover {
   transform: scale(1.05);
 }
 
-.indPostBody {
-  text-align: center;
-  font-size: large;
-  background-color: white;
-  min-height: 500px;
-  height: auto;
-  width: 700px;
-  margin-top: 0;
-  border: 2px solid black;
- }
-
- .encapped {
-  display: flex;
-  justify-content: space-between;
-}
-
 .postHeader {
-  height: auto;
-}
-
-.indPostBody {
-  height: auto;
-}
-
-.postHeader {
+  width: 100%;
   text-align: center;
   font-size: x-large;
   min-height: 30px;
   height: auto;
-  width: 657px;
   border: 2px solid black;
   background-color: rgb(247, 236, 246);
-  margin-bottom: -2px;
+  margin-bottom: -20px;
   margin-top: 5px;
 }
 
 .postBody{
+  width: 104%;
   text-align: center;
   font-size: large;
   background-color: white;
   min-height: 60px;
   height: auto;
-  width: 700px;
   border: 2px solid black;
   margin-bottom: 50px;
+}
+
+.IndvPosts {
+  width: 800px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.viewAllPosts {
+  width: 800px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }

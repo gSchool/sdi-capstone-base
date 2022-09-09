@@ -25,13 +25,9 @@ const IndvPubPosts = () => {
       <Header/>
       <button className="signInButton" onClick={()=> {nav(`/publicfeed`)}}>Return</button>
       <div className="IndvPosts" >
-        <div className="viewPostsHeader">
-          <h2 className="postHeader">{post.title}</h2>
-        </div>
-        <div className="postBodyContainer">
-          <p className="indPostBody">{post.content}<p>{post.date}</p></p>
-        </div>
-    </div>
+        <h2 className="postHeader">{post.title}</h2>
+        <p className="postBody">{post.content}<p>{post.date}</p></p>
+      </div>
     </div>
   )
 }
