@@ -1,8 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import './CSS/PrivPosts.css'
-import config from '../config'
+import './CSS/global.css';
+import config from '../config';
+import Header from "./Header";
+import { AppContext } from "../AppContext";
 const ApiUrl = config[process.env.REACT_APP_NODE_ENV || "development"].apiUrl;
+
 
 const PrivPost = () => {
   const params = useParams();
@@ -10,6 +13,8 @@ const PrivPost = () => {
   const id = params.post
   const username = params.username
   const [post, setPost] = useState([])
+  const {setters} = useContext(AppContext)
+
   
   useEffect(() => {
     fetch(`${ApiUrl}/posts/${id}`)
@@ -29,9 +34,9 @@ const PrivPost = () => {
           content: content,
         })
       }
-      fetch(`${ApiUrl}/posts/${id}`, updated)
+      fetch(`${ApiUrl}/posts`, updated)
       .then(res => res.json)
-      .then(data => setPost(data))
+      .then(data => setters.setPosts(data))
       nav(`/profile/${username}`)
       }
   }
@@ -48,7 +53,7 @@ const PrivPost = () => {
 
   return(
     <div className="background">
-      <h1 className="blogTitle">BLOG</h1>
+      <Header/>
       <button className="signInButton" onClick={()=> {nav(`/profile/${username}`)}}>Return</button>
       <div className="IndvPosts">
       <div className="encapped">

@@ -1,7 +1,9 @@
 import React, { useContext, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { AppContext } from "../AppContext";
-import config from '../config'
+import Header from "./Header";
+import config from '../config';
+import './CSS/global.css';
 const ApiUrl = config[process.env.REACT_APP_NODE_ENV || "development"].apiUrl;
 
 const CreatePost = () => {
@@ -42,7 +44,7 @@ const CreatePost = () => {
 
   return(
     <div className="background">
-      <h1 className="blogTitle">BLOG</h1>
+      <Header/>
       <button className="signInButton" onClick={()=> {nav(`/profile/${username}`)}}>Return</button>
       <div className="IndvPosts">
       <div className="encapped">

@@ -2,7 +2,9 @@ import React, { useContext, useEffect} from "react";
 import { useParams } from "react-router-dom";
 import { AppContext } from "../AppContext";
 import { useNavigate } from "react-router-dom";
-import './CSS/Profile.css'
+import './CSS/Profile.css';
+import './CSS/global.css';
+import Header from "./Header";
 import config from '../config'
 const ApiUrl = config[process.env.REACT_APP_NODE_ENV || "development"].apiUrl;
 
@@ -31,27 +33,26 @@ const Profile = () => {
   
   return(
     <div className="background">
-      <h1 className="blogTitle">BLOG</h1>
+      <Header/>
       <div className="profileButtons">
         <button className="profile" onClick={() => {nav('/')}}>Sign Out</button>
         <button className="profile" onClick={() => {nav(`/publicfeed`)}}>Public Feed</button>
       </div>
-
-      <h1 className="profileHeader">Welcome, {user.username}!</h1>
+      <h2 className="profileHeader">Welcome, {user.username}!</h2>
         <div className="newPostContainer">
-          <button className="signInButton" onClick={() => {nav(`/profile/${username}/create`)}}>Create New Post!</button>
+          <button className="newPostButton" onClick={() => {nav(`/profile/${username}/create`)}}>Create New Post!</button>
         </div>
-    <div>
-      {filteredBlogs.map(post => (
-      <div key={post.id}className="viewAllPosts" onClick={() => {nav(`/profile/${username}/${post.id}`)}}>
-        <div className="viewPostsHeader">
-          <h2 className="postHeader">{post.title}</h2>
-        </div>
-        <div className="postBodyContainer">
-          <p className="postBody">{post.content.length < 100 ? post.content : post.content.substring(0,100)+'...'}<p>@{username}</p><p>{post.date}</p></p>
-        </div>
-      </div>))}
-    </div>
+      <div>
+        {filteredBlogs.map(post => (
+        <div key={post.id}className="viewAllPosts" onClick={() => {nav(`/profile/${username}/${post.id}`)}}>
+          <div className="viewPostsHeader">
+            <h2 className="postHeader">{post.title}</h2>
+          </div>
+          <div className="postBodyContainer">
+            <p className="postBody">{post.content.length < 100 ? post.content : post.content.substring(0,100)+'...'}<p>@{username}</p><p>{post.date}</p></p>
+          </div>
+        </div>))}
+      </div>
     </div>
   )
 }

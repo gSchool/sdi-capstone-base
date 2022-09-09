@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import './CSS/IndvPubPosts.css'
-import config from '../config'
+import './CSS/global.css';
+import config from '../config';
+import Header from "./Header";
 const ApiUrl = config[process.env.REACT_APP_NODE_ENV || "development"].apiUrl;
 
 const IndvPubPosts = () => {
@@ -21,7 +22,7 @@ const IndvPubPosts = () => {
 
   return(
     <div className="background">
-      <h1 className="blogTitle">BLOG</h1>
+      <Header/>
       <button className="signInButton" onClick={()=> {nav(`/publicfeed`)}}>Return</button>
       <div className="IndvPosts" >
         <div className="viewPostsHeader">

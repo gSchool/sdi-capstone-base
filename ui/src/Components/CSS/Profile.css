@@ -1,22 +1,3 @@
-.blogTitle {
-  text-align: center;
-  font-size: 50px;
-}
-
-.profileHeader {
-  text-align: center;
-}
-
-.background {
-  background-color: url('../../../public/cybyl.jpeg');
-  position: absolute;
-  overflow: auto;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-}
-
 .viewPostsHeader {
   display: flex;
   justify-content: center;
@@ -27,36 +8,20 @@
   justify-content: center;
 }
 
-.postHeader {
-  text-align: center;
-  font-size: x-large;
-  min-height: 50px;
-  height: auto;
-  width: 700px;
-  border: 2px solid black;
-  background-color: rgb(247, 236, 246);
-  margin-bottom: 0;
-}
-
-.postBody{
-  text-align: center;
-  font-size: large;
-  background-color: white;
-  min-height: 60px;
-  height: auto;
-  width: 700px;
-  margin-top: 0;
-  border: 2px solid black;
-}
-
 .profileButtons{
   display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
 }
 
 .profile {
   border-radius: 50rem;
-  background-color:rgb(207, 181, 219);}
+  background-color:rgb(207, 181, 219);
+  margin-top: -50px;
+}
+
+.profileHeader {
+  margin-top: 10px;
+}
 
 .profile:hover {
   cursor: pointer;
@@ -73,6 +38,10 @@
   cursor: pointer;
   background-color:rgb(182, 164, 255);
   transform: scale(1.05);
+}
+
+.newPostButton {
+  margin-top: -35px;
 }
 
 .newPostContainer {

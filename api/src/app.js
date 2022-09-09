@@ -98,7 +98,7 @@ app.delete('/posts/:id', (req, res) => {
     .where({id: req.params.id})
     .then(()=> knex('posts'))
     .then(data => res.status(200).json(data))
-  })
+})
 
 module.exports = app;
 

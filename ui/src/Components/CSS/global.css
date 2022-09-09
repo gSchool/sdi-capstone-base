@@ -1,0 +1,87 @@
+.background {
+  background-image: url('../../../public/cybyl.jpeg');
+  position: fixed;
+  top: 0%; 
+  bottom: 0%;
+  left: 0%; 
+  right: 0%;
+  width: 100%; 
+  height: 100%;
+  overflow: auto;
+}
+
+h1 {
+  text-align: center;
+  font-size: 100px;
+}
+
+h2 {
+  font-size: 50px;
+  text-align: center;
+  margin-top: -50px;
+  padding: 2%;
+}
+
+h3 {
+  font-size: 30px;
+}
+
+button {
+  border-radius: 50rem;
+  height: 40px;
+  width: 90px;
+  background-color:rgb(207, 181, 219);
+}
+
+button:hover {
+  cursor: pointer;
+  background-color:rgb(188, 159, 210);
+  transform: scale(1.05);
+}
+
+.indPostBody {
+  text-align: center;
+  font-size: large;
+  background-color: white;
+  min-height: 500px;
+  height: auto;
+  width: 700px;
+  margin-top: 0;
+  border: 2px solid black;
+ }
+
+ .encapped {
+  display: flex;
+  justify-content: space-between;
+}
+
+.postHeader {
+  height: auto;
+}
+
+.indPostBody {
+  height: auto;
+}
+
+.postHeader {
+  text-align: center;
+  font-size: x-large;
+  min-height: 30px;
+  height: auto;
+  width: 657px;
+  border: 2px solid black;
+  background-color: rgb(247, 236, 246);
+  margin-bottom: -2px;
+  margin-top: 5px;
+}
+
+.postBody{
+  text-align: center;
+  font-size: large;
+  background-color: white;
+  min-height: 60px;
+  height: auto;
+  width: 700px;
+  border: 2px solid black;
+  margin-bottom: 50px;
+}

@@ -1,9 +1,11 @@
 import React, { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { AppContext } from "../AppContext";
-import './CSS/Landing.css'
+import './CSS/Landing.css';
+import './CSS/global.css';
+import Header from "./Header";
 import bcrypt from 'bcryptjs';
-import config from '../config'
+import config from '../config';
 const ApiUrl = config[process.env.REACT_APP_NODE_ENV || "development"].apiUrl;
 
 const Landing = () => {
@@ -39,8 +41,8 @@ const nav = useNavigate();
   return(
     <div className="background">
     <div>
-      <h1 className="landingHeader">BLOG</h1>
-      <h2 className="logIn">Log in!</h2>
+      <Header/>
+      <h3 className="logIn">Log in!</h3>
       <div className="input1">
         <input id="username" placeholder="username"></input>
       </div>
@@ -48,16 +50,14 @@ const nav = useNavigate();
         <input id="password" type="password" placeholder="password"></input>
       </div>
       <div className="signIn">
-        <button className="signInButton" onClick={() => {signIn(document.getElementById('username').value, document.getElementById('password').value)}}>Sign in</button>
+        <button className="signInBtn" onClick={() => {signIn(document.getElementById('username').value, document.getElementById('password').value)}}>Sign in</button>
       </div>
       <h2 className="noAcct">No Account?</h2>
-      <div className="signUp">      
-        <button className="signUpButton" onClick={() => {nav('/signup')}}>Sign up now!</button>
-      </div>
+      <div className="noAcctDiv">      
+        <button className="noAcctBtn" onClick={() => {nav('/signup')}}>Sign up now!</button>
         <p className="noAcct">OR</p>
-        <div className="signIn">
-          <button className="signInButton"onClick={() => {nav('/publicfeed')}}>View Public Feed</button>
-        </div>
+        <button className="noAcctBtn" onClick={() => {nav('/publicfeed')}}>View Public Feed</button>
+      </div>
     </div>
     </div>
   )

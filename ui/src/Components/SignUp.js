@@ -2,6 +2,7 @@ import React, { useContext } from "react"
 import { useNavigate } from "react-router-dom"
 import { AppContext } from "../AppContext";
 import './CSS/SignUp.css';
+import Header from "./Header";
 import bcrypt from 'bcryptjs';
 import config from '../config'
 const ApiUrl = config[process.env.REACT_APP_NODE_ENV || "development"].apiUrl;
@@ -34,8 +35,8 @@ const SignUp = () => {
 
   return(
     <div className="background">
-      <h1 className="blogHeader">BLOG</h1>
-      <h1 className="signUpHeader">Sign up today!</h1>
+      <Header/>
+      <h2 className="signUpHeader">Sign up today!</h2>
       <div className="form1">
         <input id="first" placeholder="First Name"></input>
       </div>
