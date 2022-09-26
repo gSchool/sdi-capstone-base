@@ -1,3 +1,8 @@
+# SDI Operations App
+
+
+
+
 TODO: 
 1. Create Volumes for API and UI - set up in docker compose
 1. Set up deployment pipeline
