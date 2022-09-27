@@ -40,3 +40,16 @@ to run against the running database (if 'docker-compose up' has been executed)
 
 Check Heroku Logs
 `heroku logs --tail -a bsdi-poc-api`
+
+
+Commands:
+
+docker-compose up --build
+
+docker-compose down --rmi all
+
+joins:
+
+select * from user_table full outer join certification  on cert_id = certification.id;
+
+select * from weapon_user full join user_table on user_id = user_table.id full join weapon on weapon_id = weapon.id;
