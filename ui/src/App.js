@@ -7,7 +7,7 @@ function App() {
   let [names, setNames] = useState([ ]);
 
   useEffect(() => {
-    fetch(ApiUrl + "/users")
+    fetch(ApiUrl + "/alluserdata")
       .then(response => response.json())
       .then(data => setNames(data))
       .catch(err => console.log(err))

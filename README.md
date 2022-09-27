@@ -1,8 +1,5 @@
 # SDI Operations App
 
-
-
-
 TODO: 
 1. Create Volumes for API and UI - set up in docker compose
 1. Set up deployment pipeline
@@ -15,7 +12,6 @@ TODO: NICE TO HAVE
 1. install and run cypress tests
 
 # sdi-capstone-proof-of-concept
-
 
 To set up application:
 
@@ -41,8 +37,7 @@ to run against the running database (if 'docker-compose up' has been executed)
 Check Heroku Logs
 `heroku logs --tail -a bsdi-poc-api`
 
-
-Commands:
+## Commands:
 
 docker-compose up --build
 

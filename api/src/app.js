@@ -3,7 +3,8 @@ const cors = require('cors');
 const app = express();
 
 const {
-    getAllUsers
+    getAllUsers,
+    getAllUserData
 } = require('./controller.js');
 
 app.use(cors());
@@ -24,13 +25,14 @@ app.get('/users', (request, response) => {
     response.set("Access-Control-Allow-Origin", "*");
 });
 
-app.get('/authors', (request, response) => {
-    knex('app_authors')
-        .select('*')
-        .then(authorRecords => {
-            response.status(200).send(responseData)
-        })
-})
+app.get('/alluserdata', (request, response) => {
+    getAllUserData()
+    .then(data => response.status(200).send(data))
+    .catch(err => response.status(500).send(err))
+    response.set("Access-Control-Allow-Origin", "*");
+});
+
+
 
 // app.get('*', (request, response) => {
 //     response.set("Access-Control-Allow-Origin", "*");
