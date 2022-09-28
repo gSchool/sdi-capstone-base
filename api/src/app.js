@@ -4,10 +4,13 @@ const app = express();
 
 const {
     getAllUsers,
-    getAllUserData
+    getAllUserData,
+    postUsers,
+    individualUser
 } = require('./controller.js');
 
 app.use(cors());
+app.use(express.json());
 
 const env = process.env.NODE_ENV || 'development'
 const config = require('../knexfile')[env]
@@ -31,6 +34,19 @@ app.get('/alluserdata', (request, response) => {
     .catch(err => response.status(500).send(err))
     response.set("Access-Control-Allow-Origin", "*");
 });
+
+app.get('/users/:id', (req, res) => {
+    individualUser(req.params.id)
+    .then(data => res.status(200).send(data))
+    .catch(err => res.status(500).send(err))
+})
+
+app.post('/postusers', (req, res) => {
+    postUsers(req.body)
+    .then((data) => res.send({ message: "We have posted a user." }))
+    .catch((err) => res.status(500).send(console.log(err)));
+
+})
 
 
 
