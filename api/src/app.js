@@ -6,15 +6,22 @@ const {
     getAllUsers,
     getAllUserData,
     postUsers,
-    individualUser
+    individualUser,
+    postWeaponUser,
+    weaponUsers,
+    deleteUser,
+    updateUser,
+    updateWeaponUser,
+    allWeapons
+    
 } = require('./controller.js');
 
 app.use(cors());
 app.use(express.json());
 
-const env = process.env.NODE_ENV || 'development'
-const config = require('../knexfile')[env]
-const knex = require('knex')(config)
+// const env = process.env.NODE_ENV || 'development'
+// const config = require('../knexfile')[env]
+// const knex = require('knex')(config)
 
 app.get('/', (request, response) => {
     response.set("Access-Control-Allow-Origin", "*");
@@ -41,12 +48,54 @@ app.get('/users/:id', (req, res) => {
     .catch(err => res.status(500).send(err))
 })
 
+app.get('/allweapons', (req, res) => {
+    allWeapons()
+    .then(data => res.status(200).send(data))
+    .catch(err => res.status(500).send(err))
+})
+
+app.get('/weaponusers', (req, res) => {
+    weaponUsers()
+    .then(data => res.status(200).send(data))
+    .catch(err => res.status(500).send(err))
+    res.set("Access-Control-Allow-Origin", "*");
+});
+
 app.post('/postusers', (req, res) => {
     postUsers(req.body)
-    .then((data) => res.send({ message: "We have posted a user." }))
+    .then(() => res.send({ message: "We have posted a user." }))
     .catch((err) => res.status(500).send(console.log(err)));
-
 })
+
+app.post('/postweaponuser', (req, res) => {
+    postWeaponUser(req.body)
+    .then(() => res.send({ message: "We have posted a weapon to a user." }))
+    .catch((err) => res.status(500).send(console.log(err)));
+})
+
+app.delete('/deleteuser/:id', (req, res) => {
+    deleteUser(req.params.id)
+    .then(() => res.send({ message: "We have deleted a user." }))
+    .catch((err) => res.status(500).send(console.log(err)));
+});
+
+app.patch("/updateuser/:id", (req, res) => {
+    updateUser(req)
+    .then(() => res.send({ message: "We have updated a user." }))
+    .catch((err) => res.status(500).send(console.log(err)));
+});
+
+app.patch("/updateweaponuser/:id", (req, res) => {
+    updateWeaponUser(req)
+    .then(() => res.send({ message: "We have updated a weapon to a user." }))
+    .catch((err) => res.status(500).send(console.log(err)));
+});
+
+// app.patch("/updateweaponuser/:id", (req, res) => {
+//     updateWeaponUser(req)
+//     .then(() => res.send({ message: "We have updated a weapon to a user." }))
+//     .catch((err) => res.status(500).send(console.log(err)));
+// });
 
 
 
