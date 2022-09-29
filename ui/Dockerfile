@@ -4,7 +4,10 @@ WORKDIR /app
 
 COPY . /app
 
-RUN npm install
+RUN npm install &&\
+    npm install react-router-dom &&\
+    npm install @mui/material @emotion/react @emotion/styled @mui/icons-material @mui/styled-engine
+
 
 EXPOSE 3000
 

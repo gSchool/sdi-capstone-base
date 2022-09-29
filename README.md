@@ -48,3 +48,18 @@ joins:
 select * from user_table full outer join certification  on cert_id = certification.id;
 
 select * from weapon_user full join user_table on user_id = user_table.id full join weapon on weapon_id = weapon.id;
+
+## API Dependacies
+    - npm i nodemon
+    - npm install express
+    - npm i knex
+    - npm i cors
+
+
+
+## UI Dependencies
+    - npx create-react-app my-app
+    - npm i react-router-dom
+    - npm install @mui/material @emotion/react @emotion/styled
+
+    

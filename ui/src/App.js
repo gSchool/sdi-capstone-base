@@ -1,25 +1,49 @@
-import React, { useEffect, useState} from 'react';
-import config from './config'
+import React, {useState, useEffect} from 'react'
+import Home from './Components/Home.js'
+import { MemberDetails } from './Components/MembersDetail.js';
+// import {Navbar} from './Components/Navbar.js'
+import { BrowserRouter as  Router, Routes, Route } from "react-router-dom";
+import { MemberContext } from './Components/MemberContext.js';
+import  PersistentDrawerLeft from './Components/Navbar.jsx'
+import { FlightStatus } from './Components/FlightStatus.js';
+// import Home from './Components/Home';
 
-const ApiUrl = config[process.env.REACT_APP_NODE_ENV || "development"].apiUrl;
-
-function App() {
-  let [names, setNames] = useState([ ]);
+const App = () => {
+  const [data, setData] = useState();
 
   useEffect(() => {
-    fetch(ApiUrl + "/alluserdata")
-      .then(response => response.json())
-      .then(data => setNames(data))
-      .catch(err => console.log(err))
+    fetch('http://localhost:8080/users', {
+    method: 'GET',
+    
+    })
+    .then (res => res.json())
+    .then (data => setData(data))
+    .catch (err => console.log(err))
+    
   }, []);
 
+    const obj = {
+      // value: [data, setData]
+      data,
+      setData
+      
+    }
+
   return (
-    <div>
-      App is running - good work: 
-      { names.map(author => author.first_name + " ")}
-      <h1>Hello, World!</h1>
-    </div>
-  );
+   
+    <MemberContext.Provider value={obj}>
+      <Router>
+        <PersistentDrawerLeft />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/sfmembers" element={<MemberDetails />} />
+          <Route path="/flightstatus" element={<FlightStatus />} />
+        </Routes>
+      </Router>
+    </MemberContext.Provider>
+
+  )
 }
+
 
 export default App;

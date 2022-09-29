@@ -12,11 +12,18 @@ const {
     deleteUser,
     updateUser,
     updateWeaponUser,
-    allWeapons
+    allWeapons,
+    deleteWeaponUser,
+    onlyWeaponUserTable,
+    getUsersAndCerts
     
 } = require('./controller.js');
 
-app.use(cors());
+app.use(cors({
+    origin: '*',
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    credentials: true
+}));
 app.use(express.json());
 
 // const env = process.env.NODE_ENV || 'development'
@@ -61,6 +68,20 @@ app.get('/weaponusers', (req, res) => {
     res.set("Access-Control-Allow-Origin", "*");
 });
 
+app.get('/onlyweaponusertable', (req,res) => {
+    onlyWeaponUserTable()
+    .then(data => res.status(200).send(data))
+    .catch(err => res.status(500).send(err))
+})
+
+
+app.get('/usersandcerts', (req, res) => {
+    getUsersAndCerts()
+    .then(data => res.status(200).send(data))
+    .catch(err => res.status(500).send(err))
+});
+
+
 app.post('/postusers', (req, res) => {
     postUsers(req.body)
     .then(() => res.send({ message: "We have posted a user." }))
@@ -72,12 +93,6 @@ app.post('/postweaponuser', (req, res) => {
     .then(() => res.send({ message: "We have posted a weapon to a user." }))
     .catch((err) => res.status(500).send(console.log(err)));
 })
-
-app.delete('/deleteuser/:id', (req, res) => {
-    deleteUser(req.params.id)
-    .then(() => res.send({ message: "We have deleted a user." }))
-    .catch((err) => res.status(500).send(console.log(err)));
-});
 
 app.patch("/updateuser/:id", (req, res) => {
     updateUser(req)
@@ -91,18 +106,18 @@ app.patch("/updateweaponuser/:id", (req, res) => {
     .catch((err) => res.status(500).send(console.log(err)));
 });
 
-// app.patch("/updateweaponuser/:id", (req, res) => {
-//     updateWeaponUser(req)
-//     .then(() => res.send({ message: "We have updated a weapon to a user." }))
-//     .catch((err) => res.status(500).send(console.log(err)));
-// });
+app.delete('/deleteuser/:id', (req, res) => {
+    deleteUser(req.params.id)
+    .then(() => res.send({ message: "We have deleted a user." }))
+    .catch((err) => res.status(500).send(console.log(err)));
+});
 
+app.delete('/deleteweaponuser/:id', (req, res) => {
+    deleteWeaponUser(req.params.id)
+    .then(() => res.send({ message: "We have deleted a weapon from a user."}))
+    .catch((err) => res.status(500).send(console.log(err)));
+});
 
-
-// app.get('*', (request, response) => {
-//     response.set("Access-Control-Allow-Origin", "*");
-//     response.status(200).send('Not a valid endpoint');
-// })
 
 
 module.exports = app;

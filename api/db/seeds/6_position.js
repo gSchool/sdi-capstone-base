@@ -15,6 +15,5 @@ exports.seed = async function(knex) {
     {name: 'Security_4', man_req: 1 },
     {name: 'BDOC', man_req: 1 },
     {name: 'Flight Chief', man_req: 1 },
-
   ]);
 };

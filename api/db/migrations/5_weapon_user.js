@@ -4,6 +4,7 @@
  */
 exports.up = function(knex) {
     return knex.schema.createTable('weapon_user', table => {
+        table.increments('id');
         table.integer('weapon_id');
         table.integer('user_id');
         table.foreign('weapon_id').references('id').inTable('weapon')

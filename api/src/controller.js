@@ -8,7 +8,18 @@ const knex = require("knex")(
 
 
   const getAllUserData =  () => {
-    return knex('weapon_user').select('*')
+    return knex('weapon_user').select(
+      'user_table.id',
+      'first_name',
+      'last_name',
+      'rank',
+      'cert',
+      'weapon',
+      'flight',
+      'weapon_arming',
+      'admin'
+      
+      )
     .fullOuterJoin("user_table", 'user_id', '=', 'user_table.id')
     .fullOuterJoin("weapon", 'weapon_id', '=', 'weapon.id')
     .fullOuterJoin("certification", 'cert_id', '=', 'certification.id')
@@ -17,6 +28,17 @@ const knex = require("knex")(
   const individualUser = (id) => {
     return knex('user_table')
     .where({id : id})
+  }
+  
+  const getUsersAndCerts = () => {
+    return knex .select(
+      'user_table.id',
+      'first_name',
+      'last_name',
+      'cert'
+    )
+    .from('user_table')
+    .join('certification', 'cert_id', '=', 'certification.id')
   }
 
   const postUsers = (body) => {
@@ -27,28 +49,28 @@ const knex = require("knex")(
     return knex('weapon_user').insert(body)
   }
 
-  const deleteUser = (id) => {
-    return knex('user_table')
-    .where({id : id})
-    .delete()
-    
-  }
-
   const allWeapons = () => {
     return knex('weapon').select('*')
   }
 
   const weaponUsers = () => {
     return knex .select(
+      
       'first_name',
       'last_name',
       'weapon',
       'type',
+      
+    
     )
     .from('weapon_user')
     .join('user_table', 'user_table.id', '=', 'weapon_user.user_id')
     .join('weapon', 'weapon.id', '=', 'weapon_user.weapon_id')
   
+  }
+
+  const onlyWeaponUserTable = () => {
+    return knex('weapon_user').select('*')
   }
 
   const updateUser = (req) => {
@@ -65,6 +87,19 @@ const knex = require("knex")(
     .update(req.body)
   }
 
+  const deleteWeaponUser = (id) => {
+    return knex('weapon_user')
+    .where({id : id})
+    .delete()
+    
+  }
+
+  const deleteUser = (id) => {
+    return knex('user_table')
+    .where({id : id})
+    .delete()
+    
+  }
   
 
   module.exports = {
@@ -77,7 +112,10 @@ const knex = require("knex")(
     deleteUser,
     updateUser,
     updateWeaponUser,
-    allWeapons
+    allWeapons,
+    deleteWeaponUser,
+    onlyWeaponUserTable,
+    getUsersAndCerts
   }
 
   
