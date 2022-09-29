@@ -1,0 +1,9 @@
+.muibox {
+    display: 'flex';
+    flex-Wrap: 'wrap';
+    flex-direction: 'row';
+
+}
+.muilist {
+    flex: 0 0 33.3333%;
+}
