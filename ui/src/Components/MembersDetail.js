@@ -1,13 +1,8 @@
 import React, { useContext } from "react";
 import { MemberContext } from "./MemberContext";
-import Box from '@mui/material/Box';
-import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
-import { CardActionArea } from '@mui/material';
 import '../styles/MembersDetail.css';
+// import  Grid  from '@mui/material/Grid';
+import BasicCard from '../Features/Card';
 
 
 export const MemberDetails = () => {
@@ -23,22 +18,15 @@ export const MemberDetails = () => {
   return (
     <div>
       <h1>Member Details</h1>
-      <div className='muibox'>
-            {data.map((member) => (
-            <>
-            <Box key={member.id} className='muilist' >
-              <Card key={member.id} sx={{ maxWidth: 200, Direction: "row"  }} >
-                  <CardActionArea  >               
-                      <CardContent key={member.id} >
-                          <Typography  key={member.id} sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-                              {member.first_name} {member.last_name} {member.weapon_arming === true ? '🟢' : '🔴'}
-                          </Typography>
-                      </CardContent>
-                  </CardActionArea>
-              </Card>
-            </Box>
-            </>
-            ))}
+      <div>
+        
+        {/* <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}> */}
+          
+            <BasicCard key={data.id}/>
+          {/* <div>asdfasdfasdf</div> */}
+          
+        {/* </Grid > */}
+
         </div>
     </div>
   );

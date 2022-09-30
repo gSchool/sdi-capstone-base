@@ -21,8 +21,7 @@ import HomeIcon from '@mui/icons-material/Home';
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 import SignalWifiStatusbar4BarIcon from '@mui/icons-material/SignalWifiStatusbar4Bar';
 import GroupsIcon from '@mui/icons-material/Groups';
-
-
+import "../styles/MembersDetail.css";
 
 const drawerWidth = 240;
 
@@ -99,7 +98,7 @@ export default function PersistentDrawerLeft() {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap component="div">
-            Flight Chief Application
+           <h1>Flyte Chief</h1>
           </Typography>
         </Toolbar>
       </AppBar>
@@ -140,7 +139,7 @@ export default function PersistentDrawerLeft() {
             </ListItemButton>
           </ListItem>
           <ListItem disablePadding>
-            <ListItemButton>
+            <ListItemButton onClick ={() => navigate ('/Schedule')}>
               <ListItemIcon>
                 <CalendarTodayIcon />
               </ListItemIcon>

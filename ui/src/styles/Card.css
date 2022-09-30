@@ -1,0 +1,11 @@
+.cards {
+    
+    padding: 50px;  
+    align-items: start;
+}
+.card {
+    /* border: 1px solid white; */
+    padding: 10px;  
+    align-items: start;
+    /* box-shadow: 40px 40px #151515; */
+}

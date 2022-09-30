@@ -1,5 +1,7 @@
 import React, { useContext } from 'react'
 import { MemberContext } from './MemberContext';
+import Box from '@mui/material/Box';
+import LinearProgress from '@mui/material/LinearProgress';
 
 
 
@@ -11,12 +13,14 @@ const Home = () => {
 
   if (data === undefined) {
     return (
-      <div>loading..</div>
+      <Box sx={{ width: '100%' }}>
+      <LinearProgress />
+    </Box>
     )
     } else {
   return (
     <>
-    <div> does it work?</div>
+    <div> does it work</div>
    
     {data.map((item) => (
       <>
