@@ -14,21 +14,20 @@ const Home = () => {
   if (data === undefined) {
     return (
       <Box sx={{ width: '100%' }}>
-      <LinearProgress />
-    </Box>
-    )
+        <LinearProgress />
+      </Box>
+      )
     } else {
   return (
     <>
-    <div> does it work</div>
-   
-    {data.map((item) => (
-      <>
-      <div key={item.first_name}>{item.first_name}</div>
+      <div> does it work</div>
     
-      </>
-  ))}
-  </>
+      {data.map((item) => (
+        <>
+          <div key={item.first_name}>{item.first_name}</div>
+        </>
+      ))}
+    </>
   )}
 }
 export default Home;

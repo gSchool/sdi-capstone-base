@@ -8,32 +8,32 @@ import  PersistentDrawerLeft from './Components/Navbar.jsx'
 import { FlightStatus } from './Components/FlightStatus.js';
 import Schedule from './Components/Schedule.js';
 import InvdivdualMember from './Components/InvidualMember.js';
-
 // import Home from './Components/Home';
 
 
 const App = () => {
   const [data, setData] = useState();
   const [member, setMember] = useState();
+  const [API, setAPI] = useState("http://localhost:8080");
 
   useEffect(() => {
-    fetch('http://localhost:8080/users', {
+    fetch(`${API}/users`, {
     method: 'GET',
-    
     })
     .then (res => res.json())
     .then (data => setData(data))
     .catch (err => console.log(err))
     
-  }, []);
+  }, [API]);
 
     const obj = {
       // value: [data, setData]
       data,
       setData,
       member,
-      setMember
-      
+      setMember,
+      API, 
+      setAPI
     }
 
   return (
@@ -45,7 +45,7 @@ const App = () => {
           <Route path="/sfmembers" element={<MemberDetails />} />
           <Route path="/flightstatus" element={<FlightStatus />} />
           <Route path="/schedule" element={<Schedule />} />
-          <Route path="sfmembers/:id" element={<InvdivdualMember />} />
+          <Route path="/sfmembers/:id" element={<InvdivdualMember />} />
         </Routes>
       </Router>
     </MemberContext.Provider>

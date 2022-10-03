@@ -17,17 +17,14 @@ const BasicCard = () => {
     setMember(member)
     navigate(`/sfmembers/${member.id}`);
     
-
   }
-
-  
 
 console.log(data);
 
 
   return ( 
-    <Box sx={{ p: 5 }}>
-        <Grid container rowSpacing={8}  sx={{ p: 10 }}>
+    <Box sx={{ p: 5, boxShadow: 3, mx:10, my:5,  bordorRadius: 3 }}>
+        <Grid container rowSpacing={8}  sx={{ p: 10}}>
                 {data.map((member) => (
                   <>
                     <Box key={member.first_name} 
@@ -54,7 +51,7 @@ console.log(data);
                           <div >
                               Arming status:{member.weapon_arming === true ? '🟢' : '🔴'}
                           </div > 
-                          <Button variant="contained" onClick={() => navigateToMember(member)}>View Profile
+                          <Button color ="secondary" variant="contained" onClick={() => navigateToMember(member)}>View Profile
                     </Button>
                     </Box>
                   </>
