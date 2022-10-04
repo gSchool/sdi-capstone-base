@@ -14,6 +14,7 @@ const {
     deleteWeaponUser,
     onlyWeaponUserTable,
     getAllSchedule,
+    getScheduleByDate,
 } = require('./controller.js');
 
 app.use(cors({
@@ -32,18 +33,20 @@ app.get('/', (request, response) => {
     response.status(200).send('Welcome to the API');
 })
 
-app.get('/getallschedule', (request, response) => {
-    // response.set("Access-Control-Allow-Origin", "*");
-    getAllSchedule()
-    .then(data => response.status(200).send(data))
-    .catch(err => response.status(500).send(err))   
-});
 
 app.get('/schedule', (request, response) => {
     getAllSchedule()
     .then(data => response.status(200).send(data))
     .catch(err => response.status(500).send(err))
 });
+
+app.post('/schedule/date', (req, res) => {
+    console.log('recieved schedule date req', req.body)
+    getScheduleByDate(req.body)
+    .then(data => res.status(200).send(data))
+    .catch(err => res.status(500).send(err))
+});
+
 
 app.get('/users', (request, response) => {
     getAllUsers()

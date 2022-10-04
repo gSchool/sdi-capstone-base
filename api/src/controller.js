@@ -40,6 +40,16 @@ const getAllSchedule = async () => {
   return schedules;
 }
 
+const getScheduleByDate = async props => {
+  // convert to date object to look up //////////////////////////////////
+  //    let dateInfo = new Date(year, monthIndex, day)
+  let dateInfo = `${props.year}-${props.month}-${props.day}`
+  console.log('before knex date', dateInfo)
+  let schedules = await knex('post_schedule').select('*').whereILike('date', `${dateInfo}%`);
+  return schedules;
+}
+
+
 const individualUser = (id) => {
   return knex('user_table')
   .where({id : id})
@@ -98,4 +108,5 @@ module.exports = {
   allWeapons,
   deleteWeaponUser,
   getAllSchedule,
+  getScheduleByDate,
 }

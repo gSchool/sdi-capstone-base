@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Box from '@mui/material/Box';
 import Collapse from '@mui/material/Collapse';
@@ -13,31 +13,9 @@ import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import { MemberContext } from '../Components/MemberContext';
 
-function PostList(name, calories, fat, carbs, protein, price) {
-  return {
-    name,
-    calories,
-    fat,
-    carbs,
-    protein,
-    price,
-    history: [
-      {
-        position: 'Lead',
-        member: '11091700',
-        amount: 3,
-      },
-      {
-        date: 'Alpha',
-        customerId: 'Anonymous',
-        amount: 1,
-      },
-    ],
-  };
-}
-
-function Row(props) {
+const Row = (props) => {
   const { row } = props;
   const [open, setOpen] = React.useState(false);
 
@@ -56,10 +34,9 @@ function Row(props) {
         <TableCell component="th" scope="row">
           {row.name}
         </TableCell>
-        <TableCell align="right">{row.calories}</TableCell>
-        <TableCell align="right">{row.fat}</TableCell>
-        <TableCell align="right">{row.carbs}</TableCell>
-        <TableCell align="right">{row.protein}</TableCell>
+        <TableCell align="right">{row.manningReq}</TableCell>
+        <TableCell align="right">{row.weaponReq}</TableCell>
+        <TableCell align="right">{row.certs}</TableCell>
       </TableRow>
       <TableRow>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
@@ -78,16 +55,14 @@ function Row(props) {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {row.history.map((historyRow) => (
-                    <TableRow key={historyRow.date}>
+                  {row.users.map((userRow) => (
+                    <TableRow key={userRow.position}>
                       <TableCell component="th" scope="row">
-                        {historyRow.date}
+                        {userRow.position}
                       </TableCell>
-                      <TableCell>{historyRow.customerId}</TableCell>
-                      <TableCell align="right">{historyRow.amount}</TableCell>
-                      <TableCell align="right">
-                        {Math.round(historyRow.amount * row.price * 100) / 100}
-                      </TableCell>
+                      <TableCell>{userRow.userName}</TableCell>
+                      <TableCell align="right">{userRow.weapons}</TableCell>
+                      <TableCell align="right">{userRow.certifications}</TableCell>   
                     </TableRow>
                   ))}
                 </TableBody>
@@ -100,37 +75,81 @@ function Row(props) {
   );
 }
 
-Row.propTypes = {
-  row: PropTypes.shape({
-    calories: PropTypes.number.isRequired,
-    carbs: PropTypes.number.isRequired,
-    fat: PropTypes.number.isRequired,
-    history: PropTypes.arrayOf(
-      PropTypes.shape({
-        amount: PropTypes.number.isRequired,
-        customerId: PropTypes.string.isRequired,
-        date: PropTypes.string.isRequired,
-      }),
-    ).isRequired,
-    name: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired,
-    protein: PropTypes.number.isRequired,
-  }).isRequired,
-};
-
-const rows = [
-  PostList('Golf 1', 2, "M4 M18", "Entry Controller", ),
-  PostList('Golf 2', 2, "M4 M18", "Entry Controller", ),
-  PostList('Golf 3', 2, "M4 M18", "Entry Controller", ),
-  PostList('Security 1', 1, "M4 M18", "Patrol", ),
-  PostList('Security 2', 1, "M4 M18", "Patrol", ),
-  PostList('Security 3', 1, "M4 M18", "Patrol", ),
-  PostList('Security 4', 1, "M4 M18", "Patrol", ),
-  PostList('BDOC', 1, "M4 M18", "Desk Certification", ),
-  PostList('Flight Sargeant', 1, "M4 M18", "Flight Sargeant Certification", ),
-];
-
 export default function CollapsibleTable() {
+  const { data, api } = useContext(MemberContext)
+  let currentDate = new Date()
+
+  currentDate = { 
+    day: currentDate.getDate(),
+    month: currentDate.getMonth(),
+    year: currentDate.getFullYear(),
+  }
+  console.log(currentDate);
+
+  const fetchSchedule = () => {
+    console.log('fetching schedule')
+    fetch(`${api}/schedule/date`, {
+      method: 'POST',
+      // credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      redirect: 'follow',
+      body: JSON.stringify(currentDate),
+    })
+      .then(res => {
+       // console.log(res.status);
+       return res.json();
+    })
+    .then(data => {
+      console.log(data);
+    })
+    .catch(err => {
+      console.log('error: ', err);
+    });
+  }
+
+  useEffect(() => {
+    fetchSchedule()
+  }, [])
+  
+  const PostList = (name, manningReq, weaponReq, certs, users) => {
+    return {
+      name,
+      manningReq,
+      weaponReq,
+      certs,
+      users: [
+        {
+          position: 'Lead',
+          userName: 'john',
+          weapons: 3,
+          certifications: 'test',
+        },
+        {
+          position: 'Alpha',
+          userName: 'jane',
+          weapons: 1,
+          certifications: 'test',
+        },
+      ],
+    };
+  }
+
+  // generate rows with information passes to create an obj to map for subtables
+  const rows = [
+    PostList('Golf 1', 2, "M4 M18", "Entry Controller", 'users'),
+    PostList('Golf 2', 2, "M4 M18", "Entry Controller", ),
+    PostList('Golf 3', 2, "M4 M18", "Entry Controller", ),
+    PostList('Security 1', 1, "M4 M18", "Patrol", ),
+    PostList('Security 2', 1, "M4 M18", "Patrol", ),
+    PostList('Security 3', 1, "M4 M18", "Patrol", ),
+    PostList('Security 4', 1, "M4 M18", "Patrol", ),
+    PostList('BDOC', 1, "M4 M18", "Desk Certification", ),
+    PostList('Flight Sargeant', 1, "M4 M18", "Flight Sargeant Certification", ),
+  ];
+
+
   return (
     <TableContainer component={Paper}>
       <Table aria-label="collapsible table">

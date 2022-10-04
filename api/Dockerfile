@@ -7,7 +7,6 @@ RUN npm install -g nodemon@2.0.15 &&\
     npm install &&\
     npm install knex --save
 
-
-EXPOSE 8082
+EXPOSE 8080
 
 CMD ["npm", "start"]

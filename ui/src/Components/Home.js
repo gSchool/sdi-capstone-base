@@ -21,14 +21,13 @@ const Home = () => {
     } else {
   return (
     <>
-      <h3> {Date()}</h3>
+      <h3> {Date()} did eric shave?</h3>
       <div>Panama 12s</div>
-    
-      {data.map((item, index) => (
+      {/* {data.map((item, index) => (
         <div key={index}>
           <div ></div>
         </div>
-      ))}
+      ))} */}
 
       <div>
         <PostList />

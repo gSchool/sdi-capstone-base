@@ -32,7 +32,7 @@ export const MemberDetails = () => {
         mx: '80px',
       }}
     >
-      <TextField Search People label="Search People" id="fullWidth" />
+      <TextField  label="Search People" id="fullWidth" />
     </Box>
     <Box>
 
