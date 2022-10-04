@@ -3,7 +3,7 @@ const knex = require("knex")(
   );
 
   const getAllUsers = () => {
-    return knex('user_table').select('*')
+    return knex('user_table').select('*').orderBy("last_name", "asc")
   };
 
 
@@ -17,17 +17,19 @@ const knex = require("knex")(
       'weapon',
       'flight',
       'weapon_arming',
-      'admin'
-      
+      'admin',
+      'notes',
       )
     .fullOuterJoin("user_table", 'user_id', '=', 'user_table.id')
     .fullOuterJoin("weapon", 'weapon_id', '=', 'weapon.id')
     .fullOuterJoin("certification", 'cert_id', '=', 'certification.id')
+    .orderBy("last_name", "asc")
   };
 
   const individualUser = (id) => {
     return knex('user_table')
     .where({id : id})
+    .orderBy("last_name", "asc")
   }
   
   const getUsersAndCerts = () => {
@@ -39,6 +41,7 @@ const knex = require("knex")(
     )
     .from('user_table')
     .join('certification', 'cert_id', '=', 'certification.id')
+    .orderBy("last_name", "asc")
   }
 
   const postUsers = (body) => {
@@ -66,6 +69,7 @@ const knex = require("knex")(
     .from('weapon_user')
     .join('user_table', 'user_table.id', '=', 'weapon_user.user_id')
     .join('weapon', 'weapon.id', '=', 'weapon_user.weapon_id')
+    .orderBy("last_name", "asc")
   
   }
 

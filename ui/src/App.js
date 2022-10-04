@@ -14,6 +14,7 @@ import InvdivdualMember from './Components/InvidualMember.js';
 const App = () => {
   const [data, setData] = useState();
   const [member, setMember] = useState();
+  const [user, setUser] = useState();
   const [API, setAPI] = useState("http://localhost:8080");
 
   useEffect(() => {
@@ -27,13 +28,14 @@ const App = () => {
   }, [API]);
 
     const obj = {
-      // value: [data, setData]
       data,
       setData,
       member,
       setMember,
+      user, 
+      setUser,
       API, 
-      setAPI
+      setAPI,
     }
 
   return (
@@ -45,7 +47,7 @@ const App = () => {
           <Route path="/sfmembers" element={<MemberDetails />} />
           <Route path="/flightstatus" element={<FlightStatus />} />
           <Route path="/schedule" element={<Schedule />} />
-          <Route path="/sfmembers/:id" element={<InvdivdualMember />} />
+          <Route path="/sfmembers/:memberId" element={<InvdivdualMember />} />
         </Routes>
       </Router>
     </MemberContext.Provider>

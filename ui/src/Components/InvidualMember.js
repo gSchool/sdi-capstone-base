@@ -1,19 +1,23 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { MemberContext } from "../Components/MemberContext";
 import '../styles/Card.css';
-import {Box, LinearProgress, Avatar, Button, Typography, Modal, TextField, InputLabel, MenuItem, FormControl, Select} from "@mui/material"
-// import Box from '@mui/material/Box';
-// import LinearProgress from '@mui/material/LinearProgress';
-// import Avatar from '@mui/material/Avatar';
-// import Button from '@mui/material/Button';
-// import Typography from '@mui/material/Typography';
-// import Modal from '@mui/material/Modal';
-// import TextField from '@mui/material/TextField';
-// import TextareaAutosize from '@mui/material/TextareaAutosize';
-
+import {Box, LinearProgress, Avatar, Button, Typography, Modal, TextField, InputLabel, MenuItem, Select} from "@mui/material"
+import CloseIcon from '@mui/icons-material/Close';
+import {useParams} from "react-router"
+//import {useNavigate} from "react-router-dom";
 
 const InvdivdualMember= () => {
-    const {member} = useContext(MemberContext);
+    const {member, API, setMember} = useContext(MemberContext);
+    const {memberId} = useParams();
+    console.log(member);
+    console.log(typeof(member));
+    console.log("params: ", memberId)
+
+    useEffect(() => {
+        fetch(`${API}/users/${memberId}`)
+        .then((res) => res.json())
+        .then((data) => setMember(data[0]))
+    }, []);
 
     if (member === undefined) {
         return (      
@@ -32,7 +36,7 @@ const InvdivdualMember= () => {
             <Box sx={{m: 20, height: 400, width: 400, boxShadow: 3}}>
                 <p>User Profile</p>
                 {/* <Button>Edit Profile</Button>*/}
-                <EditMemberModal/>
+                <EditMemberModal memberObject={member} />
                 <p>Name: {member.first_name} {member.last_name}</p>
                 <p>Rank: {member.rank}</p>
                 <p>Weapons Qualifications: </p>
@@ -44,7 +48,6 @@ const InvdivdualMember= () => {
                 {/* {console.log(member)} */}
             </Box>
         </>
-        
         )}
 };
 
@@ -54,33 +57,56 @@ const style = {
     left: '50%',
     transform: 'translate(-50%, -50%)',
     width: 600,
-    height: 600,
+    height: 800,
     bgcolor: 'background.paper',
     border: '2px solid #000',
     boxShadow: 24,
     p: 4,
+    borderRadius: 4,
 };
 
-const EditMemberModal = () => {
+const EditMemberModal = props => {
     const {API, member} = useContext(MemberContext);
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
+    const [userType, setUserType] = useState();
+    const [rank, setRank] = useState("");
+    const [cert, setCert] = useState(0);
+    const [weapon, setWeapon] = useState(0);
+    const [status, setStatus] = useState();
+    const [notes, setNotes] = useState("");
 
+    let memberObject = props;
+    memberObject = memberObject.memberObject
+    console.log("member object, ", memberObject)
+
+    //const navigate = useNavigate();
+
+    //need to modify this so old data is persisted
     const handleEdit = () => {
+        const updatedUser = {
+            first_name: firstName,
+            last_name: lastName,
+            admin: userType,
+            rank: rank,
+            cert_id: cert,
+            weapon_arming: status,
+            notes: notes
+        }
+        console.log("updated user, ", updatedUser)
+        
         fetch(`${API}/updateuser/${member.id}`, {
             method: 'PATCH',
-            content: JSON.stringify({
-                first_name: firstName,
-                last_name: lastName
-            }),
+            body: JSON.stringify(updatedUser),
             headers: {
                 "Content-Type": "application/json; charset=utf-8",
             }
         })
-        .then(window.location.reload(false))
+        // .then(window.location.reload(false))
+        // .then(navigate(`/sfmembers/${member.id}`))
         .then((res) => res.json())
         .catch(err => {
             console.log('Error: ', err);
@@ -88,6 +114,7 @@ const EditMemberModal = () => {
     };
 
     return (
+
         <>
             <Button onClick={handleOpen} variant="outlined" color="secondary">Edit Profile</Button>
             <Modal
@@ -97,121 +124,120 @@ const EditMemberModal = () => {
                 aria-describedby="modal-modal-description"
             >
                 <Box sx={style}>
-                    <Button onClick={handleClose} sx={{textAlign: "right"}}>Close</Button>
+                    {/* <Button onClick={handleClose} sx={{textAlign: "right"}}>Close</Button> */}
+                    <CloseIcon onClick={handleClose} sx={{cursor: "pointer", right: "50%", display: "flex", justifyContent: "right"}} />
                     <Typography id="modal-modal-title" variant="h6" component="h2" sx={{textAlign: "center"}}>
                     Profile
                     </Typography>
-                    <Typography id="modal-modal-description" variant="h4" sx={{ mt: 1 , textAlign: "center"}}>
+                    <Typography id="modal-modal-description" variant="h4" sx={{ mt: 1 , textAlign: "center", fontWeight: "bold"}}>
                         Edit Profile
                     </Typography>
                     
                     <TextField 
                     id="outlined-basic" 
-                    label="First Name" 
-                    defaultValue={`${member.first_name}`} 
+                    label="First Name"
+                    vaue={firstName}
+                    // defaultVaue='test'
+                    // defaultVaue={memberObject.first_name}
                     variant="outlined" 
                     onChange={(e) => setFirstName(e.target.value)}/>
 
                     <TextField 
                     id="outlined-basic" 
                     label="Last Name" 
-                    defaultValue={`${member.last_name}`} 
+                    vaue={lastName}
                     variant="outlined" 
                     onChange={(e) => setLastName(e.target.value)}/>
 
-                    {/* <FormControl fullWidth > */}
-                        
+                    {/* <FormControl > */}
+                        <InputLabel id="demo-simple-select-label">User Type</InputLabel>
+                        <Select
+                        htmlFor='weapon_arming'
+                        labelId="demo-simple-select-label"
+                        id="demo-simple-select"
+                        value={userType}
+                        label="User Type"
+                        onChange={(e) => setUserType(e.target.value)}
+                        >
+                            <MenuItem value={true}>Admin</MenuItem>
+                            <MenuItem value={false}>User</MenuItem>
+                        </Select>
 
-                    <InputLabel id="demo-simple-select-label">User Type</InputLabel>
-                    <Select
-                    htmlFor='weapon_arming'
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    //value={age}
-                    label="User Type"
-                    //onChange={handleChange}
-                    >
-                        <MenuItem value={true}>Admin</MenuItem>
-                        <MenuItem value={false}>User</MenuItem>
-                    </Select>
+                        <InputLabel id="demo-simple-select-label">Rank</InputLabel>
+                        <Select
+                        htmlFor="rank"
+                        labelId="demo-simple-select-label"
+                        id="demo-simple-select"
+                        value={rank}
+                        label="Rank"
+                        onChange={(e) => setRank(e.target.value)}
+                        >
+                            <MenuItem value={null}></MenuItem>
+                            <MenuItem value={'e1'}>AB</MenuItem>
+                            <MenuItem value={'e2'}>AMN</MenuItem>
+                            <MenuItem value={'e3'}>A1C</MenuItem>
+                            <MenuItem value={'e4'}>SrA</MenuItem>
+                            <MenuItem value={'e5'}>SSgt</MenuItem>
+                            <MenuItem value={'e6'}>TSgt</MenuItem>
+                            <MenuItem value={'e7'}>MSgt</MenuItem>
+                            <MenuItem value={'e8'}>SMSgt</MenuItem>
+                            <MenuItem value={'e9'}>CMSgt</MenuItem>
+                            <MenuItem value={'o1'}>1LT</MenuItem>
+                            <MenuItem value={'o2'}>2LT</MenuItem>
+                            <MenuItem value={'o3'}>Capt</MenuItem>
+                            <MenuItem value={'o4'}>Major</MenuItem>
+                            <MenuItem value={'o5'}>Lt. Col</MenuItem>
+                            <MenuItem value={'o6'}>Colonel</MenuItem>
+                            
+                        </Select>
 
-                    <InputLabel id="demo-simple-select-label">Rank</InputLabel>
-                    <Select
-                    htmlFor="rank"
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    //value={age}
-                    label="Rank"
-                    //onChange={handleChange}
-                    >
-                        <MenuItem value={null}></MenuItem>
-                        <MenuItem value={'AB'}>AB</MenuItem>
-                        <MenuItem value={'AMN'}>AMN</MenuItem>
-                        <MenuItem value={'A1C'}>A1C</MenuItem>
-                        <MenuItem value={'SrA'}>SrA</MenuItem>
-                        <MenuItem value={'SSgt'}>SSgt</MenuItem>
-                        <MenuItem value={'TSgt'}>TSgt</MenuItem>
-                        <MenuItem value={'MSgt'}>MSgt</MenuItem>
-                        <MenuItem value={'SMSgt'}>SMSgt</MenuItem>
-                        <MenuItem value={"CMSgt"}>CMSgt</MenuItem>
-                        <MenuItem value={'1LT'}>1LT</MenuItem>
-                        <MenuItem value={'2LT'}>2LT</MenuItem>
-                        <MenuItem value={'Capt'}>Capt</MenuItem>
-                        <MenuItem value={'Major'}>Major</MenuItem>
-                        <MenuItem value={'Lt. Col'}>Lt. Col</MenuItem>
-                        <MenuItem value={'Colonel'}>Colonel</MenuItem>
-                        
-                    </Select>
+                        <InputLabel id="demo-simple-select-label">Certifications</InputLabel>
+                        <Select
+                        htmlFor="cert_id"
+                        labelId="demo-simple-select-label"
+                        id="demo-simple-select"
+                        value={cert}
+                        label="Certifications"
+                        onChange={(e) => setCert(e.target.value)}
+                        >
+                            <MenuItem value={null}></MenuItem>
+                            <MenuItem value={1}>Entry Controller</MenuItem>
+                            <MenuItem value={2}>Patrol</MenuItem>
+                            <MenuItem value={3}>Desk Sergeant</MenuItem>
+                            <MenuItem value={4}>Flight Sergreant</MenuItem>
+                        </Select>
 
-                    <InputLabel id="demo-simple-select-label">Certifications</InputLabel>
-                    <Select
-                    htmlFor="cert_id"
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    //value={age}
-                    label="Certifications"
-                    //onChange={handleChange}
-                    >
-                        <MenuItem value={null}></MenuItem>
-                        <MenuItem value={1}>Entry Controller</MenuItem>
-                        <MenuItem value={2}>Patrol</MenuItem>
-                        <MenuItem value={3}>Desk Sergeant</MenuItem>
-                        <MenuItem value={4}>Flight Sergreant</MenuItem>
-                    </Select>
+                        <InputLabel id="demo-simple-select-label">Weapon Qualifications</InputLabel>
+                        <Select
 
-                    <InputLabel id="demo-simple-select-label">Weapon Qualifications</InputLabel>
-                    <Select
+                        labelId="demo-simple-select-label"
+                        id="demo-simple-select"
+                        value={weapon}
+                        label="Weapon"
+                        onChange={(e) => setWeapon(e.target.value)}
+                        >
+                            <MenuItem value={null}></MenuItem>
+                            <MenuItem value={1}>M4</MenuItem>
+                            <MenuItem value={2}>M18</MenuItem>
+                            <MenuItem value={3}>X26P Tazer</MenuItem>
+                            <MenuItem value={4}>M249</MenuItem>
+                            <MenuItem value={5}>M240</MenuItem>
+                            <MenuItem value={6}>M107</MenuItem>
+                            <MenuItem value={7}>M320</MenuItem>
+                            
+                        </Select>
 
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    //value={age}
-                    label="Weapon"
-                    //onChange={handleChange}
-                    >
-                        <MenuItem value={null}></MenuItem>
-                        <MenuItem value={1}>M4</MenuItem>
-                        <MenuItem value={2}>M18</MenuItem>
-                        <MenuItem value={3}>X26P Tazer</MenuItem>
-                        <MenuItem value={4}>M249</MenuItem>
-                        <MenuItem value={5}>M240</MenuItem>
-                        <MenuItem value={6}>M107</MenuItem>
-                        <MenuItem value={7}>M320</MenuItem>
-                        
-                    </Select>
-
-                    <InputLabel id="demo-simple-select-label">Arm Status</InputLabel>
-                    <Select
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    //value={age}
-                    label="Arm"
-                    //onChange={handleChange}
-                    >
-                        <MenuItem value={true}>Arm 🟢</MenuItem>
-                        <MenuItem value={false}>Do Not Arm🔴</MenuItem>
-                    </Select>
-
-                        
+                        <InputLabel id="demo-simple-select-label">Arm Status</InputLabel>
+                        <Select
+                        labelId="demo-simple-select-label"
+                        id="demo-simple-select"
+                        value={status}
+                        label="Arm"
+                        onChange={(e) => setStatus(e.target.value)}
+                        >
+                            <MenuItem value={true}>Arm 🟢</MenuItem>
+                            <MenuItem value={false}>Do Not Arm🔴</MenuItem>
+                        </Select>
                     {/* </FormControl> */}
 
                     <TextField 
@@ -219,7 +245,10 @@ const EditMemberModal = () => {
                     label="Notes" 
                     variant="outlined" 
                     fullWidth multiline
-                    rows={4}/>
+                    rows={4}
+                    value={notes}
+                    onChange={(e) => setNotes(e.target.value)}
+                    />
                     <Button onClick={() => handleEdit()} color="secondary" variant="contained">Save Profile</Button>
                 </Box>
             </Modal>
@@ -228,31 +257,3 @@ const EditMemberModal = () => {
 }
 
 export default InvdivdualMember;
-
- {/* // <Box sx={{ p: 5 }}>
-    //     <Grid container rowSpacing={8}  sx={{ p: 10 }}>
-    //             {data.map((member) => (
-    //               <>
-    //                 <Box onClick = {() => navigateToMember(member)}
-    //                       key={member.first_name} 
-    //                       className="card"
-    //                       sx={{ width: 200, boxShadow: 3, m:1}}>
-    //                       <h4 >
-    //                           {member.first_name} {member.last_name} 
-    //                           <div >{member.rank}</div> 
-    //                       </h4 >
-                          
-    //                       <div >
-    //                           {member.flight}
-    //                       </div >
-    //                       <div  >
-    //                           {member.cert_id}
-    //                       </div >
-    //                       <div >
-    //                           Arming status:{member.weapon_arming === true ? '🟢' : '🔴'}
-    //                       </div > 
-    //                 </Box>    
-    //               </>
-    //             ))}
-    //     </Grid>
-    // </Box> */}

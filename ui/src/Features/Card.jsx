@@ -1,62 +1,116 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { MemberContext } from "../Components/MemberContext";
-import Box from '@mui/material/Box';
-import  Grid  from "@mui/material/Grid";
-import Button from '@mui/material/Button';
+import {Stack, Box, Checkbox, Typography} from '@mui/material'
 import '../styles/Card.css';
 import { useNavigate } from 'react-router-dom';
-
-
+import {Filter} from "../Components/Filter.js"
 
 
 const BasicCard = () => {
-  const {data, setMember} = useContext(MemberContext);
+  const {data, setMember, setUser, API} = useContext(MemberContext);
   const navigate = useNavigate();
 
-  const navigateToMember = (member) => {
-    setMember(member)
-    navigate(`/sfmembers/${member.id}`);
+  useEffect(() => {
+    fetch(`${API}/alluserdata`, {
+    method: 'GET',
+    })
+    .then (res => res.json())
+    .then (data => setUser(data))
+    .catch (err => console.log(err))
     
+  }, [API]);
+
+  //console.log("allusers", user)
+
+  const navigateToMember = (member) => {
+    // console.log("current member", member);
+    setMember(member) 
+    navigate(`/sfmembers/${member.id}`);
   }
 
-console.log(data);
-
-
+  
   return ( 
-    <Box sx={{ p: 5, boxShadow: 3, mx:10, my:5,  bordorRadius: 3 }}>
-        <Grid container rowSpacing={8}  sx={{ p: 10}}>
-                {data.map((member) => (
-                  <>
-                    <Box key={member.first_name} 
-                          className="card"
-                          sx={{ width: 200, 
-                                boxShadow: 3,
-                                m:1,
-                                borderRadius: 3
-                                }}>                  
-                    
+    <Box sx={{ boxShadow: 3, mx:10, my:5,  bordorRadius: 3 }}>
+      <Box sx={{px:5, py:5}}>
+        <Stack component="span" direction="row" alignItems="center" justifyContent="space-between" sx={{display:"flex"}}>
+          <Box justifyContent="left" sx={{display:"flex"}}>
+          <h2>All Users</h2>
+          </Box>
+          
+          <Box justifyContent="right" sx={{display:"flex"}}>
+            {/* <Button color ="secondary" variant="outlined" size="large">
+              Filter
+            </Button> */}
+            <Filter/>
+          </Box>
+        </Stack>
 
-                         
-                          <h4 >
-                              {member.first_name} {member.last_name} 
-                              <div >{member.rank}</div> 
-                          </h4 >
-                          
-                          <a >
-                              {member.flight}
-                          </a >
-                          <div  >
-                              {member.cert_id}
-                          </div >
-                          <div >
-                              Arming status:{member.weapon_arming === true ? '🟢' : '🔴'}
-                          </div > 
-                          <Button color ="secondary" variant="contained" onClick={() => navigateToMember(member)}>View Profile
-                    </Button>
-                    </Box>
-                  </>
+        <Stack component="span" direction="row" alignItems="center" justifyContent="space-between" sx={{display:"flex"}}>
+          <Box>
+            <Typography sx={{fontWeight: "bold"}}>Name</Typography>
+          </Box>
+          <Box>
+            <Typography sx={{fontWeight: "bold"}}>Certifications</Typography>
+          </Box>
+          <Box>
+            <Typography sx={{fontWeight: "bold"}}>Weapon Qualification</Typography>
+          </Box>
+        </Stack>
+
+        <Stack container rowSpacing={8}  sx={{py:5}}>
+          {data.map((member) => (
+            <>
+              <Stack key={member.first_name} 
+                className="card"
+                direction="row"
+                component="span"
+                alignItems="center"
+                justifyContent="space-between"
+                sx={{
+                      boxShadow: 3,
+                      borderRadius: 3,
+                      display:'flex',
+
+                      }}>  
+                <Box justifyContent="left" alignItems="center" sx={{display:'flex'}}>
+                            <Checkbox label="Name"/>                
+                            <Typography onClick={() => navigateToMember(member)} sx={
+                              {cursor: 'pointer',
+                                fontWeight: "bold",
+                                color: "blue"
+                              }}>
+                              {member.last_name}, {member.first_name}
+                            </Typography>
+                </Box>
+
+                
+                
+
+                <Box justifyContent="center" sx={{display:'flex'}}>
+                {/* <a>
+                  {member.flight}
+                </a > */}
+                <Typography sx={{textAlign: 'center'}}>
+                  Cert: {member.cert_id}
+                </Typography>
+
+                </Box>
+
+                <Box justifyContent="right" sx={{display:'flex'}}>
+                {/* <a>
+                  {member.flight}
+                </a > */}
+                <Typography sx={{textAlign: 'center'}}>
+                Arming status: &nbsp;{member.weapon_arming === true ? '🟢' : '🔴'}
+                </Typography>
+
+                </Box>
+
+              </Stack>
+            </>
                 ))}
-        </Grid>
+        </Stack>
+      </Box>
     </Box>
     
     
