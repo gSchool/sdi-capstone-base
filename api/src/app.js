@@ -4,19 +4,17 @@ const app = express();
 
 const {
     getAllUsers,
-    getAllUserData,
     postUsers,
     individualUser,
     postWeaponUser,
-    weaponUsers,
     deleteUser,
     updateUser,
     updateWeaponUser,
     allWeapons,
     deleteWeaponUser,
     onlyWeaponUserTable,
-    getUsersAndCerts
-    
+    getAllSchedule,
+    getScheduleByDate,
 } = require('./controller.js');
 
 app.use(cors({
@@ -35,18 +33,25 @@ app.get('/', (request, response) => {
     response.status(200).send('Welcome to the API');
 })
 
+
+app.get('/schedule', (request, response) => {
+    getAllSchedule()
+    .then(data => response.status(200).send(data))
+    .catch(err => response.status(500).send(err))
+});
+
+app.post('/schedule/date', (req, res) => {
+    console.log('recieved schedule date req', req.body)
+    getScheduleByDate(req.body)
+    .then(data => res.status(200).send(data))
+    .catch(err => res.status(500).send(err))
+});
+
+
 app.get('/users', (request, response) => {
     getAllUsers()
     .then(data => response.status(200).send(data))
     .catch(err => response.status(500).send(err))
-    response.set("Access-Control-Allow-Origin", "*");
-});
-
-app.get('/alluserdata', (request, response) => {
-    getAllUserData()
-    .then(data => response.status(200).send(data))
-    .catch(err => response.status(500).send(err))
-    response.set("Access-Control-Allow-Origin", "*");
 });
 
 app.get('/users/:id', (req, res) => {
@@ -61,25 +66,12 @@ app.get('/allweapons', (req, res) => {
     .catch(err => res.status(500).send(err))
 })
 
-app.get('/weaponusers', (req, res) => {
-    weaponUsers()
-    .then(data => res.status(200).send(data))
-    .catch(err => res.status(500).send(err))
-    res.set("Access-Control-Allow-Origin", "*");
-});
 
 app.get('/onlyweaponusertable', (req,res) => {
     onlyWeaponUserTable()
     .then(data => res.status(200).send(data))
     .catch(err => res.status(500).send(err))
 })
-
-
-app.get('/usersandcerts', (req, res) => {
-    getUsersAndCerts()
-    .then(data => res.status(200).send(data))
-    .catch(err => res.status(500).send(err))
-});
 
 
 app.post('/postusers', (req, res) => {

@@ -11,6 +11,7 @@ import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 import SignalWifiStatusbar4BarIcon from '@mui/icons-material/SignalWifiStatusbar4Bar';
 import GroupsIcon from '@mui/icons-material/Groups';
 import "../styles/MembersDetail.css";
+import logo from '../logo.svg';
 
 
 const drawerWidth = 240;
@@ -90,7 +91,7 @@ export default function PersistentDrawerLeft() {
           </IconButton>
 
           <div>
-            <img  src="https://i.postimg.cc/HnSnmq4G/Flight-Chief-UI-1-1.png" height ="150" alt="logo" className="logo" />
+            <img src={logo} alt="logo" />
           </div>
               
         </Toolbar>
