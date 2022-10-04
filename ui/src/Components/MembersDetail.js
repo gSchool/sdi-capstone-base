@@ -45,7 +45,7 @@ export const MemberDetails = () => {
 
       {/* <h1>Security Forces Members</h1> */}
         <div>
-          <BasicCard key={data.id}/>
+          <BasicCard />
         </div>
     </div>
   );

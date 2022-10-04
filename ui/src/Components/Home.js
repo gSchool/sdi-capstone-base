@@ -2,6 +2,7 @@ import React, { useContext } from 'react'
 import { MemberContext } from './MemberContext';
 import Box from '@mui/material/Box';
 import LinearProgress from '@mui/material/LinearProgress';
+import PostList from '../Features/PostList';
 
 
 
@@ -20,13 +21,19 @@ const Home = () => {
     } else {
   return (
     <>
-      <div> does it work</div>
+      <h3> {Date()}</h3>
+      <div>Panama 12s</div>
     
-      {data.map((item) => (
-        <>
-          <div key={item.first_name}>{item.first_name}</div>
-        </>
+      {data.map((item, index) => (
+        <div key={index}>
+          <div ></div>
+        </div>
       ))}
+
+      <div>
+        <PostList />
+      </div>
+
     </>
   )}
 }

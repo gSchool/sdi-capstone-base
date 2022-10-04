@@ -4,11 +4,13 @@
  */
 exports.up = function(knex) {
     return knex.schema.createTable('post_schedule', table => {
+        table.increments('id');
         table.integer('position_id');
+        table.foreign('position_id').references('id').inTable('position');
         table.integer('user_id');
         table.foreign('user_id').references('id').inTable('user_table');
-        table.foreign('position_id').references('id').inTable('position');
-        table.string('date');
+        table.date('date');
+        table.time('time');
     })
 };
 

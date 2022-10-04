@@ -25,9 +25,9 @@ console.log(data);
   return ( 
     <Box sx={{ p: 5, boxShadow: 3, mx:10, my:5,  bordorRadius: 3 }}>
         <Grid container rowSpacing={8}  sx={{ p: 10}}>
-                {data.map((member) => (
-                  <>
-                    <Box key={member.first_name} 
+                {data.map((member, index) => (
+                  
+                    <Box key={index} 
                           className="card"
                           sx={{ width: 200, 
                                 boxShadow: 3,
@@ -54,7 +54,7 @@ console.log(data);
                           <Button color ="secondary" variant="contained" onClick={() => navigateToMember(member)}>View Profile
                     </Button>
                     </Box>
-                  </>
+                  
                 ))}
         </Grid>
     </Box>

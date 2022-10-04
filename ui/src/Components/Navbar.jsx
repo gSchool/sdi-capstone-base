@@ -1,7 +1,8 @@
 import * as React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { styled, useTheme } from '@mui/material/styles';
-import { Box, Drawer, CssBaseline, Toolbar, List, Typography, Divider, IconButton, ListItem, ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
+import { Box, Drawer, CssBaseline, Toolbar, List, Divider, IconButton, ListItem, ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
+// import { Typography } from '@mui/material';
 import MuiAppBar from '@mui/material/AppBar';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
@@ -11,6 +12,7 @@ import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 import SignalWifiStatusbar4BarIcon from '@mui/icons-material/SignalWifiStatusbar4Bar';
 import GroupsIcon from '@mui/icons-material/Groups';
 import "../styles/MembersDetail.css";
+import logo from '../logo.svg';
 
 
 const drawerWidth = 240;
@@ -90,7 +92,7 @@ export default function PersistentDrawerLeft() {
           </IconButton>
 
           <div>
-            <img  src="https://i.postimg.cc/HnSnmq4G/Flight-Chief-UI-1-1.png" height ="150" alt="logo" className="logo" />
+            <img src={logo} alt="logo" />
           </div>
               
         </Toolbar>
