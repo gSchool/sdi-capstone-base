@@ -12,6 +12,7 @@ import SignalWifiStatusbar4BarIcon from '@mui/icons-material/SignalWifiStatusbar
 import GroupsIcon from '@mui/icons-material/Groups';
 import "../styles/MembersDetail.css";
 
+
 const drawerWidth = 240;
 
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
@@ -85,10 +86,13 @@ export default function PersistentDrawerLeft() {
             sx={{ mr: 2, ...(open && { display: 'none' }) }}
           >
             <MenuIcon />
+            
           </IconButton>
-          <Box sx={{ height:'25%' }}>
-            {/* <img src="https://i.postimg.cc/HnSnmq4G/Flight-Chief-UI-1-1.png" alt="logo" className="logo" /> */}
-          </Box>
+
+          <div>
+            <img  src="https://i.postimg.cc/HnSnmq4G/Flight-Chief-UI-1-1.png" height ="150" alt="logo" className="logo" />
+          </div>
+              
         </Toolbar>
       </AppBar>
       <Drawer
@@ -132,7 +136,7 @@ export default function PersistentDrawerLeft() {
               <ListItemIcon>
                 <CalendarTodayIcon />
               </ListItemIcon>
-              <ListItemText primary="Flight Calender" />
+              <ListItemText primary="Schedule" />
             </ListItemButton>
           </ListItem>
           <ListItem disablePadding>
@@ -140,7 +144,7 @@ export default function PersistentDrawerLeft() {
               <ListItemIcon>
                 <GroupsIcon />
               </ListItemIcon>
-              <ListItemText primary="Security Forces Members" />
+              <ListItemText primary="People" />
             </ListItemButton>
           </ListItem>
           {/* {['Dash Board', 'Flight Status', 'Flight Calender', 'Master Schedule', 'Map of Post','Edit Help', 'Edit FAQ'].map((text, index) => (

@@ -74,6 +74,7 @@ const knex = require("knex")(
   }
 
   const updateUser = (req) => {
+    console.log("this is req.body for update user: ", req.body)
     knex.raw("TRUNCATE users_table CASCADE");
     return knex ('user_table')
     .where({id : req.params.id})

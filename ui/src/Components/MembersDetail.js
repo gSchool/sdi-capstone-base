@@ -33,10 +33,13 @@ export const MemberDetails = () => {
       }}
     >
       <TextField Search People label="Search People" id="fullWidth" />
+    </Box>
+    <Box>
+
+    </Box>
       <Button variant="contained" size="large">
           Add User
         </Button>
-    </Box>
 
 
 

@@ -66,20 +66,24 @@ const EditMemberModal = () => {
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
-    const [name, setName] = useState("");
+    const [firstName, setFirstName] = useState("");
+    const [lastName, setLastName] = useState("");
 
     const handleEdit = () => {
         fetch(`${API}/updateuser/${member.id}`, {
             method: 'PATCH',
             content: JSON.stringify({
-                first_name: name
+                first_name: firstName,
+                last_name: lastName
             }),
             headers: {
-                "Content-Type": "application/json; charset=utf-8"
+                "Content-Type": "application/json; charset=utf-8",
             }
         })
+        .then(window.location.reload(false))
+        .then((res) => res.json())
         .catch(err => {
-            console.log('error: ', err);
+            console.log('Error: ', err);
         });
     };
 
@@ -101,14 +105,26 @@ const EditMemberModal = () => {
                         Edit Profile
                     </Typography>
                     
-                    <TextField id="outlined-basic" label="Name" variant="outlined" onChange={(e) => setName(e.target.value)}/>
+                    <TextField 
+                    id="outlined-basic" 
+                    label="First Name" 
+                    defaultValue={`${member.first_name}`} 
+                    variant="outlined" 
+                    onChange={(e) => setFirstName(e.target.value)}/>
+
+                    <TextField 
+                    id="outlined-basic" 
+                    label="Last Name" 
+                    defaultValue={`${member.last_name}`} 
+                    variant="outlined" 
+                    onChange={(e) => setLastName(e.target.value)}/>
 
                     {/* <FormControl fullWidth > */}
                         
 
                     <InputLabel id="demo-simple-select-label">User Type</InputLabel>
                     <Select
-                    htmlFor='e'
+                    htmlFor='weapon_arming'
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
                     //value={age}
@@ -149,6 +165,7 @@ const EditMemberModal = () => {
 
                     <InputLabel id="demo-simple-select-label">Certifications</InputLabel>
                     <Select
+                    htmlFor="cert_id"
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
                     //value={age}
@@ -164,6 +181,7 @@ const EditMemberModal = () => {
 
                     <InputLabel id="demo-simple-select-label">Weapon Qualifications</InputLabel>
                     <Select
+
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
                     //value={age}
