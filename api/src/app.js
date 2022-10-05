@@ -56,7 +56,8 @@ app.get('/users', (request, response) => {
 });
 
 app.get('/users/:id', (req, res) => {
-    individualUser(req.params.id)
+    let { id } = req.params
+    individualUser(id)
     .then(data => res.status(200).send(data))
     .catch(err => res.status(500).send(err))
 })

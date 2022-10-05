@@ -17,6 +17,14 @@ const addWeapon = async users => {
   }
   return modifiedUsers
 }
+const addCerts = async users => {
+  let modifiedUsers = users
+  for (let user of modifiedUsers) {
+    let newCerts = await knex('certification').select('*').where('id', user.cert_id)
+    user.certs = newCerts
+  }
+  return modifiedUsers
+}
 
 const postWeapon = async posts => {
   let modifiedPosts = posts
@@ -39,14 +47,7 @@ const postCert = async posts => {
   return modifiedPosts;
 }
 
-const addCerts = async users => {
-  let modifiedUsers = users
-  for (let user of modifiedUsers) {
-    let newCerts = await knex('certification').select('*').where('id', user.cert_id)
-    user.certs = newCerts
-  }
-  return modifiedUsers
-}
+
 
 const getAllUsers = async () => {
   let users = await knex('user_table').select('*')
@@ -57,18 +58,25 @@ const getAllUsers = async () => {
 
 const getAllSchedule = async () => {
   let schedules = await knex('post_schedule').select('*');
-  return schedules;
+  let schedUsers = await schedAddUsers(schedules);
+  return schedUsers;
+}
+
+const schedAddUsers = async (schedules) => {
+  let newSchedules = schedules
+  for (let schedule of newSchedules) {
+    // call user by id and add to sched
+    let userInfo = await individualUser(schedule.user_id)
+    schedule.user_info = userInfo
+  }
+  return newSchedules;
 }
 
 const getScheduleByDate = async props => {
-  // convert to date object to look up? //////////////////////////////////
-  //    let dateInfo = new Date(year, monthIndex, day)
-  let dateInfo = `${props.year}-${props.month}-${props.day}`
-  let dateEnd = `${props.year}-${props.month}-${props.day + 7}`
-  console.log('before knex date', dateInfo)
-  let schedules = await knex('post_schedule').select('*').whereBetween('date', [dateInfo, dateEnd]);
-  console.log('after knex date')
-  return schedules;
+  // console.log('before knex date', props)
+  let schedules = await knex('post_schedule').select('*').whereBetween('date', [props.date, props.dateEnd]);
+  let schedUsers = await schedAddUsers(schedules);
+  return schedUsers;
 }
 
 const getAllposition = async () => {
@@ -78,9 +86,11 @@ const getAllposition = async () => {
   return positionsCerts;
 }
 
-const individualUser = (id) => {
-  return knex('user_table')
-  .where({id : id})
+const individualUser = async (id) => {
+  let user = await knex('user_table').where({id : id})
+  let wepUsers = await addWeapon(user);
+  let certUsers = await addCerts(wepUsers);
+  return certUsers
 }
 
 const postUsers = (body) => {

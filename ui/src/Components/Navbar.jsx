@@ -15,6 +15,9 @@ import logo from '../logo.svg';
 import Avatar from '@mui/material/Avatar';
 import profile from '../profile.svg';
 import Grid from '@mui/material/Unstable_Grid2';
+import Badge from '@mui/material/Badge';
+import NotificationsIcon from '@mui/icons-material/Notifications';
+
 
 
 const drawerWidth = 240;
@@ -98,6 +101,9 @@ export default function PersistentDrawerLeft() {
           </div>
 
           <Grid xs display="flex" justifyContent="flex-end" alignItems="center" >
+          <Badge color="secondary" badgeContent={0} showZero>
+            <NotificationsIcon />
+          </Badge>
             <Avatar alt="Security Forces Member" src="" />
           </Grid>
 
