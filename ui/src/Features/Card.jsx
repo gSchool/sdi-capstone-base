@@ -19,16 +19,16 @@ const BasicCard = () => {
 
   const onDataPageChange = (event, page) => setDataPage(page - 1);
 
-  useEffect(() => {
-    fetch(`${API}/alluserdata`, {
-    method: 'GET',
-    })
-    .then (res => res.json())
-    .then (data => setUser(data))
-    .then(setPage(0))
-    .catch (err => console.log(err))
-  }, [API, dataPage]);
-  //console.log("allusers", user)
+  // useEffect(() => {
+  //   fetch(`${API}/alluserdata`, {
+  //   method: 'GET',
+  //   })
+  //   .then (res => res.json())
+  //   .then (data => setUser(data))
+  //   .then(setPage(0))
+  //   .catch (err => console.log(err))
+  // }, [API, dataPage]);
+  // console.log("allusers", user)
 
   const navigateToMember = (member) => {
     // console.log("current member", member);
@@ -47,7 +47,7 @@ const BasicCard = () => {
     });
   }
 
-  return ( 
+  return (
     <Box sx={{ boxShadow: 3, mx:10, my:5,  bordorRadius: 3 }}>
       <Box sx={{px:5, py:5}}>
         <Stack component="span" direction="row" alignItems="center" justifyContent="space-between" sx={{display:"flex"}}>
@@ -75,12 +75,11 @@ const BasicCard = () => {
         {/* <Stack>
           {displayPeople}
         </Stack> */}
-        <Stack container rowSpacing={8}  sx={{py:5}}>
+        <Stack  sx={{py:5}}>
           {usersArray
           // .slice(page * personPerPage, page * personPerPage + personPerPage)
-          .map((member) => (
-            <>
-              <Stack key={member.first_name} 
+          .map((member, index) => (
+              <Stack key={index} 
                 className="card"
                 direction="row"
                 component="span"
@@ -118,12 +117,12 @@ const BasicCard = () => {
                 </Box>
 
               </Stack>
-            </>
+            
                 ))}
         </Stack>
         
         <Box component="span" direction="row" alignItems="center" sx={{display:"flex", justifyContent:"center"}}>
-          <Button color ="secondary" variant="contained" size="medium" sx={{borderRadius: "30px", right: "280px"}} onClick={() => handleDeleteUser(id)}>
+          <Button color ="secondary" variant="contained" size="medium" sx={{borderRadius: "30px" }} onClick={() => handleDeleteUser(id)}>
             Delete User
           </Button>
           <Pagination count={usersArray.length} page={dataPage+1} onChange={onDataPageChange} color="secondary" />

@@ -101,7 +101,7 @@ export default function PersistentDrawerLeft() {
           </div>
 
           <Grid xs display="flex" justifyContent="flex-end" alignItems="center" >
-          <Badge color="secondary" badgeContent={0} showZero>
+          <Badge sx={{ m: 2 }} color="secondary" badgeContent={0} showZero>
             <NotificationsIcon />
           </Badge>
             <Avatar alt="Security Forces Member" src="" />

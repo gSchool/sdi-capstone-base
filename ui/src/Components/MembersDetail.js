@@ -46,7 +46,7 @@ export const MemberDetails = () => {
             display:"flex",
           }}
         >
-          <TextField Search People label="Search People" id="fullWidth" InputProps={{
+          <TextField label="Search People" id="fullWidth" InputProps={{
             startAdornment: (
               <InputAdornment position="start">
                 <SearchIcon/>
