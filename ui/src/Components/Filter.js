@@ -36,7 +36,9 @@ export const Filter = () => {
               aria-describedby="modal-modal-description"
           >
               <Box sx={style}>
-                <CloseIcon onClick={handleClose} sx={{cursor: "pointer", right: "50%", display: "flex", justifyContent: "right"}} />
+                <Box sx={{display: "flex", justifyContent: "right"}}>
+                    <CloseIcon onClick={handleClose} sx={{cursor: "pointer"}} />
+                </Box>
                 <Typography>Filters</Typography>
                 <FormControl sx={{ m: 3 }} component="fieldset" variant="standard">
                     <FormLabel component="legend">By Certification</FormLabel>
