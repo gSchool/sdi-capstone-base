@@ -5,33 +5,34 @@ import '../styles/Card.css';
 import { useNavigate } from 'react-router-dom';
 import {Filter} from "../Components/Filter.js"
 import WorkspacePremiumIcon from '@mui/icons-material/WorkspacePremium';
+import SecurityIcon from '@mui/icons-material/Security';
 
 
 const BasicCard = () => {
-  const {data, setMember, API, usersArray, member} = useContext(MemberContext);
+  const {setMember, API, usersArray} = useContext(MemberContext);
   const navigate = useNavigate();
   const [page, setPage] = useState(0);
   const [dataPage, setDataPage] = useState(0);
   const [id, setID] = useState([]);
+  
+  console.log(page);
 
-  //console.log(id);
-  const personPerPage = 8;
+  //const personPerPage = 8;
 
   const onDataPageChange = (event, page) => setDataPage(page - 1);
 
-  // useEffect(() => {
-  //   fetch(`${API}/alluserdata`, {
-  //   method: 'GET',
-  //   })
-  //   .then (res => res.json())
-  //   .then (data => setUser(data))
-  //   .then(setPage(0))
-  //   .catch (err => console.log(err))
-  // }, [API, dataPage]);
-  // console.log("allusers", user)
+  useEffect(() => {
+    fetch(`${API}/alluserdata`, {
+    method: 'GET',
+    })
+    .then (res => res.json())
+    .then(setPage(0))
+    .catch (err => console.log(err))
+  }, [API, dataPage]);
+  //console.log("allusers", user)
 
   const navigateToMember = (member) => {
-    // console.log("current member", member);
+    console.log("current member", member);
     setMember(member) 
     navigate(`/sfmembers/${member.id}`);
   }
@@ -47,8 +48,8 @@ const BasicCard = () => {
     });
   }
 
-  return (
-    <Box sx={{ boxShadow: 3, mx:10, my:5,  bordorRadius: 3 }}>
+  return ( 
+    <Box sx={{ boxShadow: 3, mx:10, my:5,  borderRadius: 3 }}>
       <Box sx={{px:5, py:5}}>
         <Stack component="span" direction="row" alignItems="center" justifyContent="space-between" sx={{display:"flex"}}>
           <Box justifyContent="left" pb={2} sx={{display:"flex"}}>
@@ -72,10 +73,7 @@ const BasicCard = () => {
           </Box>
         </Stack>
 
-        {/* <Stack>
-          {displayPeople}
-        </Stack> */}
-        <Stack  sx={{py:5}}>
+        <Stack container rowSpacing={8}  sx={{py:5}}>
           {usersArray
           // .slice(page * personPerPage, page * personPerPage + personPerPage)
           .map((member, index) => (
@@ -101,18 +99,20 @@ const BasicCard = () => {
                   </Typography>
                 </Box>
 
-                
                 <Box justifyContent="center" sx={{display:'flex'}}>
                   <Typography sx={{textAlign: 'center'}}>
                     {/* Cert: {member.cert_id} */}
-                    
-                    <Chip icon={<WorkspacePremiumIcon />} label={member.certs.map(cert => (cert.cert))} color="success"/>
+                    {member.certs === null ? <Typography>No certs</Typography> 
+                    : <Chip icon={<WorkspacePremiumIcon />} label={member.certs.map(cert => (cert.cert))} color="success"/>}
                   </Typography>
                 </Box>
 
                 <Box justifyContent="right" sx={{display:'flex'}}>
                   <Typography sx={{textAlign: 'center'}}>
-                  Arming status: &nbsp;{member.weapon_arming === true ? '🟢' : '🔴'}
+                  {/* Arming status: &nbsp;{member.weapon_arming === true ? '🟢' : '🔴'} */}
+                  {/* need to figure out how to break into different parts */}
+                  {member.weapons === null ? <Typography>No weapons</Typography> 
+                  : <Chip icon={<SecurityIcon />} label={member.weapons.map(weapon => (weapon.weapon) + ",")} color="secondary"/>}
                   </Typography>
                 </Box>
 
@@ -122,7 +122,7 @@ const BasicCard = () => {
         </Stack>
         
         <Box component="span" direction="row" alignItems="center" sx={{display:"flex", justifyContent:"center"}}>
-          <Button color ="secondary" variant="contained" size="medium" sx={{borderRadius: "30px" }} onClick={() => handleDeleteUser(id)}>
+          <Button color ="secondary" variant="contained" size="medium" sx={{borderRadius: "30px", right: "25%"}} onClick={() => handleDeleteUser(id)}>
             Delete User
           </Button>
           <Pagination count={usersArray.length} page={dataPage+1} onChange={onDataPageChange} color="secondary" />
@@ -131,7 +131,6 @@ const BasicCard = () => {
       </Box>
     </Box>
     
-      
      );
 };
 

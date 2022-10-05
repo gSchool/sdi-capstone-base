@@ -17,7 +17,7 @@ import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import { MemberContext } from '../Components/MemberContext';
 
 export default function CollapsibleTable() {
-  const { data, API } = useContext(MemberContext)
+  const { API } = useContext(MemberContext)
   const [positions, setPositions] = useState({});
   const [schedule, setSchedule] = useState([]);
   const [selectedDate, setSelectedDate] = useState('');

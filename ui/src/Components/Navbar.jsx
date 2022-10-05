@@ -13,7 +13,6 @@ import GroupsIcon from '@mui/icons-material/Groups';
 import "../styles/MembersDetail.css";
 import logo from '../logo.svg';
 import Avatar from '@mui/material/Avatar';
-import profile from '../profile.svg';
 import Grid from '@mui/material/Unstable_Grid2';
 import Badge from '@mui/material/Badge';
 import NotificationsIcon from '@mui/icons-material/Notifications';

@@ -52,7 +52,7 @@ const InvdivdualMember= () => {
                         <Typography sx={{mb:5}}>{member.rank}</Typography>
 
                         <Typography sx={{fontWeight:'bold'}}>Weapons Qualifications:</Typography>
-                        <Typography sx={{mb:5}}>{member.weapons.map(item => item.weapon)}</Typography>
+                        <Typography sx={{mb:5}}>{member.weapons.map(item => item.weapon + ",")}</Typography>
 
                         <Typography sx={{fontWeight:'bold'}}>Notes:</Typography>
                         <Typography sx={{mb:5}}>{member.notes}</Typography>
@@ -64,7 +64,7 @@ const InvdivdualMember= () => {
 
                         <Typography sx={{fontWeight:'bold'}}>Certifications:</Typography>
                         {/* <Typography sx={{mb:5}}>{member.cert_id}</Typography> */}
-                        <Typography sx={{mb:5}}>{member.certs.map(item => item.cert)}</Typography>
+                        <Typography sx={{mb:5}}>{member.certs.map(item => item.cert )}</Typography>
 
                         <Typography sx={{fontWeight:'bold'}}>Arm Status:</Typography>
                         <Typography sx={{mb:5}}>{member.weapon_arming === true ? 'Arm 🟢' : 'Do Not Arm🔴'}</Typography>
@@ -132,7 +132,7 @@ const EditMemberModal = props => {
         // .then(window.location.reload(false))
         // .then(navigate(`/sfmembers/${member.id}`))
         .then((res) => res.json())
-        .then(data => {
+        .then(() => {
             setTriggerFetch(curr => !curr)
             handleClose()
         })
@@ -151,8 +151,9 @@ const EditMemberModal = props => {
                 aria-describedby="modal-modal-description"
             >
                 <Box sx={style}>
-                    {/* <Button onClick={handleClose} sx={{textAlign: "right"}}>Close</Button> */}
-                    <CloseIcon onClick={handleClose} sx={{cursor: "pointer", right: "50%", display: "flex", justifyContent: "right"}} />
+                    <Box sx={{display: "flex", justifyContent: "right"}}>
+                        <CloseIcon onClick={handleClose} sx={{cursor: "pointer"}} />
+                    </Box>
                     <Typography id="modal-modal-title" variant="h6" component="h2" sx={{textAlign: "center"}}>
                     Profile
                     </Typography>

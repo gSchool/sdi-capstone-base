@@ -2,7 +2,7 @@ import React, { useContext, useState, useEffect } from "react";
 import { MemberContext } from "./MemberContext";
 import '../styles/MembersDetail.css';
 import BasicCard from '../Features/Card';
-import {Box, LinearProgress, Button, Typography, Modal, TextField, InputLabel, MenuItem, Select, InputAdornment, Stack, Pagination, Alert} from "@mui/material"
+import {Box, LinearProgress, Button, Typography, Modal, TextField, InputLabel, MenuItem, Select, InputAdornment, Stack, Alert} from "@mui/material"
 import CloseIcon from '@mui/icons-material/Close';
 import SearchIcon from '@mui/icons-material/Search';
 
@@ -156,25 +156,31 @@ const AddMemberModal = () => {
               aria-describedby="modal-modal-description"
           >
               <Box sx={style}>
-                  <CloseIcon onClick={handleClose} sx={{cursor: "pointer", right: "50%", display: "flex", justifyContent: "right"}} />
+                  <Box sx={{display: "flex", justifyContent: "right"}}>
+                    <CloseIcon onClick={handleClose} sx={{cursor: "pointer"}} />
+                  </Box>
+                  
                   <Typography id="modal-modal-title" variant="h6" component="h2" sx={{textAlign: "center"}}>
-                  People
+                    People
                   </Typography>
                   <Typography id="modal-modal-description" variant="h4" sx={{ mt: 1 , textAlign: "center", fontWeight: "bold"}}>
-                      Add User
+                    Add User
                   </Typography>
                   
+                  <Box>
+                    
+                  </Box>
                   <TextField 
                   id="outlined-basic" 
                   label="First Name" 
-                  vaue={firstName}
+                  value={firstName}
                   variant="outlined" 
                   onChange={(e) => setFirstName(e.target.value)}/>
 
                   <TextField 
                   id="outlined-basic" 
                   label="Last Name" 
-                  vaue={lastName}
+                  value={lastName}
                   variant="outlined" 
                   onChange={(e) => setLastName(e.target.value)}/>
 
@@ -280,7 +286,7 @@ const AddMemberModal = () => {
                   onChange={(e) => setNotes(e.target.value)}
                   />
                   
-                  <Button onClick={() => handleAdd()} color="secondary" variant="contained">Save Profile</Button>
+                  <Button onClick={() => handleAdd()} color="secondary" variant="contained" sx={{borderRadius: "30px"}}>Save Profile</Button>
               </Box>
           </Modal>
       </>
