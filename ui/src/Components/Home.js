@@ -10,7 +10,7 @@ const Home = () => {
   const {data} = useContext(MemberContext);
   // const [data, setData] = value;
 
-  console.log(data)
+  // console.log(data)
 
   if (data === undefined) {
     return (

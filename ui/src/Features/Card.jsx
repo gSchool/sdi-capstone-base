@@ -7,18 +7,18 @@ import {Filter} from "../Components/Filter.js"
 
 
 const BasicCard = () => {
-  const {data, setMember, setUser, API} = useContext(MemberContext);
+  const {data, setMember, setUser, api} = useContext(MemberContext);
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch(`${API}/alluserdata`, {
+    fetch(`${api}/alluserdata`, {
     method: 'GET',
     })
     .then (res => res.json())
     .then (data => setUser(data))
     .catch (err => console.log(err))
     
-  }, [API]);
+  }, [api]);
 
   //console.log("allusers", user)
 

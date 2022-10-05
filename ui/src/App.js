@@ -15,17 +15,17 @@ const App = () => {
   const [data, setData] = useState();
   const [member, setMember] = useState();
   const [user, setUser] = useState();
-  const [API, setAPI] = useState("http://localhost:8080");
+  const api = "http://localhost:8080"
 
   useEffect(() => {
-    fetch(`${API}/users`, {
+    fetch(`${api}/users`, {
     method: 'GET',
     })
     .then (res => res.json())
     .then (data => setData(data))
     .catch (err => console.log(err))
     
-  }, [API]);
+  }, [api]);
 
     const obj = {
       data,
@@ -34,8 +34,7 @@ const App = () => {
       setMember,
       user, 
       setUser,
-      API, 
-      setAPI,
+      api,
     }
 
   return (

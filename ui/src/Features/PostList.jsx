@@ -1,5 +1,5 @@
-import React, { useState, useContext, useEffect } from 'react';
-import PropTypes from 'prop-types';
+import React, { useState, useContext, useEffect, useMemo } from 'react';
+// import PropTypes from 'prop-types';
 import Box from '@mui/material/Box';
 import Collapse from '@mui/material/Collapse';
 import IconButton from '@mui/material/IconButton';
@@ -19,6 +19,11 @@ const Row = (props) => {
   const { row } = props;
   const [open, setOpen] = React.useState(false);
 
+  // name,
+  //     man_req,
+  //     weapons,
+  //     cert,
+
   return (
     <React.Fragment>
       <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}>
@@ -34,9 +39,9 @@ const Row = (props) => {
         <TableCell component="th" scope="row">
           {row.name}
         </TableCell>
-        <TableCell align="right">{row.manningReq}</TableCell>
-        <TableCell align="right">{row.weaponReq}</TableCell>
-        <TableCell align="right">{row.certs}</TableCell>
+        <TableCell align="right">{row.man_req}</TableCell>
+        <TableCell align="right">{row.weapons}</TableCell>
+        <TableCell align="right">{row.cert}</TableCell>
       </TableRow>
       <TableRow>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
@@ -50,8 +55,8 @@ const Row = (props) => {
                   <TableRow>
                     <TableCell>Posted</TableCell>
                     <TableCell>Members</TableCell>
-                    <TableCell align="right">Requried Weapons</TableCell>
-                    <TableCell align="right">Certifications</TableCell>
+                    <TableCell align="right"> </TableCell>
+                    <TableCell align="right"> </TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -77,14 +82,49 @@ const Row = (props) => {
 
 export default function CollapsibleTable() {
   const { data, api } = useContext(MemberContext)
-  let currentDate = new Date()
+  const [positions, setPositions] = useState({});
+  const [schedule, setSchedule] = useState({});
+  const [selectedDate, setSelectedDate] = useState('');
+  
 
+
+  let currentDate = new Date()
   currentDate = { 
     day: currentDate.getDate(),
-    month: currentDate.getMonth(),
+    month: currentDate.getMonth() + 1,
     year: currentDate.getFullYear(),
   }
-  console.log(currentDate);
+  // console.log('todays date', currentDate);
+  
+  let dateInfo = currentDate
+  if (dateInfo.day <= 9 ){
+    dateInfo.day = `0${dateInfo.day}`
+  }
+  dateInfo = `${currentDate.year}-${currentDate.month}-${currentDate.day}T00:00:00.000Z`
+  
+
+  const fetchPosts = () => {
+    console.log('fetching positions')
+    fetch(`${api}/position`, {
+      method: 'GET',
+      // credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      redirect: 'follow',
+    })
+      .then(res => {
+       // console.log(res.status);
+       return res.json();
+    })
+    .then(data => {
+      // console.log(data);
+      setPositions(data)
+    })
+    .catch(err => {
+      console.log('error: ', err);
+    });
+  }
 
   const fetchSchedule = () => {
     console.log('fetching schedule')
@@ -102,7 +142,8 @@ export default function CollapsibleTable() {
        return res.json();
     })
     .then(data => {
-      console.log(data);
+      // console.log(data);
+      setSchedule(data);
     })
     .catch(err => {
       console.log('error: ', err);
@@ -111,15 +152,22 @@ export default function CollapsibleTable() {
 
   useEffect(() => {
     fetchSchedule()
-  }, [])
+    fetchPosts()
+    setSelectedDate(dateInfo);
+  }, [dateInfo])
+
   
-  const PostList = (name, manningReq, weaponReq, certs, users) => {
+  const PostList = (name, man_req, weapon_req, cert_req, users) => {
+    let weapons = weapon_req.map(weapon => weapon.weapon )
+    weapons = weapons.join(' ')
+    let cert = cert_req[0].cert
+
     return {
       name,
-      manningReq,
-      weaponReq,
-      certs,
-      users: [
+      man_req,
+      weapons,
+      cert,
+      users: [ 
         {
           position: 'Lead',
           userName: 'john',
@@ -136,19 +184,22 @@ export default function CollapsibleTable() {
     };
   }
 
-  // generate rows with information passes to create an obj to map for subtables
-  const rows = [
-    PostList('Golf 1', 2, "M4 M18", "Entry Controller", 'users'),
-    PostList('Golf 2', 2, "M4 M18", "Entry Controller", ),
-    PostList('Golf 3', 2, "M4 M18", "Entry Controller", ),
-    PostList('Security 1', 1, "M4 M18", "Patrol", ),
-    PostList('Security 2', 1, "M4 M18", "Patrol", ),
-    PostList('Security 3', 1, "M4 M18", "Patrol", ),
-    PostList('Security 4', 1, "M4 M18", "Patrol", ),
-    PostList('BDOC', 1, "M4 M18", "Desk Certification", ),
-    PostList('Flight Sargeant', 1, "M4 M18", "Flight Sargeant Certification", ),
-  ];
-
+  const rows = useMemo(() => {
+    let row = []
+    if (positions.length > 0) {
+      row = positions.map(position => {
+        // figure out personnel position and push to postlist generation
+        console.log('selectedDate', selectedDate)
+        console.log('schedule date', schedule[0].date)
+        let filSched = schedule.filter(sched => sched.position_id === position.id && sched.date === selectedDate )
+        console.log('filSched', filSched)
+        
+        // make post table row
+        return PostList(position.name, position.man_req, position.weapon_req, position.cert_req)
+      })
+    }
+    return row
+  }, [positions])
 
   return (
     <TableContainer component={Paper}>
@@ -159,7 +210,7 @@ export default function CollapsibleTable() {
             <TableCell>Post</TableCell>
             <TableCell align="right">Manning Requirements</TableCell>
             <TableCell align="right">Weapon Requirements</TableCell>
-            <TableCell align="right">Certificates</TableCell>
+            <TableCell align="right">Certification Required</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>

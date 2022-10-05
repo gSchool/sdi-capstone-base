@@ -3,7 +3,6 @@ const knex = require("knex")(
   );
 
 const addWeapon = async users => {
-  
   let modifiedUsers = users
   for (let user of modifiedUsers) {
     let newWeapons = await knex('weapon_user').select(
@@ -17,6 +16,27 @@ const addWeapon = async users => {
     //function to empty weapons array null values
   }
   return modifiedUsers
+}
+
+const postWeapon = async posts => {
+  let modifiedPosts = posts
+  for (let post of modifiedPosts) {
+    let newWeapons = await knex('weapon_position')
+      .select('*')
+      .where('position_id', post.id)
+      .fullOuterJoin("weapon", 'weapon_id', '=', 'weapon.id')
+      post.weapon_req = newWeapons
+  }
+  return modifiedPosts;
+}
+
+const postCert = async posts => {
+  let modifiedPosts = posts
+  for (let post of modifiedPosts) {
+    let newCert = await knex('certification').select('*').where('id', post.cert_id)
+      post.cert_req = newCert
+  }
+  return modifiedPosts;
 }
 
 const addCerts = async users => {
@@ -41,14 +61,22 @@ const getAllSchedule = async () => {
 }
 
 const getScheduleByDate = async props => {
-  // convert to date object to look up //////////////////////////////////
+  // convert to date object to look up? //////////////////////////////////
   //    let dateInfo = new Date(year, monthIndex, day)
   let dateInfo = `${props.year}-${props.month}-${props.day}`
+  let dateEnd = `${props.year}-${props.month}-${props.day + 7}`
   console.log('before knex date', dateInfo)
-  let schedules = await knex('post_schedule').select('*').whereILike('date', `${dateInfo}%`);
+  let schedules = await knex('post_schedule').select('*').whereBetween('date', [dateInfo, dateEnd]);
+  console.log('after knex date')
   return schedules;
 }
 
+const getAllposition = async () => {
+  let positions = await knex('position').select('*')
+  let positionsWeapon = await postWeapon(positions)
+  let positionsCerts = await postCert(positionsWeapon)
+  return positionsCerts;
+}
 
 const individualUser = (id) => {
   return knex('user_table')
@@ -109,4 +137,5 @@ module.exports = {
   deleteWeaponUser,
   getAllSchedule,
   getScheduleByDate,
+  getAllposition,
 }

@@ -15,6 +15,7 @@ const {
     onlyWeaponUserTable,
     getAllSchedule,
     getScheduleByDate,
+    getAllposition,
 } = require('./controller.js');
 
 app.use(cors({
@@ -67,12 +68,18 @@ app.get('/allweapons', (req, res) => {
 })
 
 
-app.get('/onlyweaponusertable', (req,res) => {
+app.get('/onlyweaponusertable', (req, res) => {
     onlyWeaponUserTable()
     .then(data => res.status(200).send(data))
     .catch(err => res.status(500).send(err))
 })
 
+app.get('/position', (req, res) => {
+
+    getAllposition()
+    .then(data => res.status(200).send(data))
+    .catch(err => res.status(500).send(err))
+});
 
 app.post('/postusers', (req, res) => {
     postUsers(req.body)
