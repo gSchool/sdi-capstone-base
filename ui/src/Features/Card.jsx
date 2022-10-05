@@ -1,14 +1,23 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState} from "react";
 import { MemberContext } from "../Components/MemberContext";
-import {Stack, Box, Checkbox, Typography} from '@mui/material'
+import {Stack, Box, Checkbox, Typography, Pagination, Button, Chip} from '@mui/material'
 import '../styles/Card.css';
 import { useNavigate } from 'react-router-dom';
 import {Filter} from "../Components/Filter.js"
+import DoorFrontIcon from '@mui/icons-material/DoorFront';
 
 
 const BasicCard = () => {
-  const {data, setMember, setUser, API} = useContext(MemberContext);
+  const {data, setMember, API, usersArray, member} = useContext(MemberContext);
   const navigate = useNavigate();
+  const [page, setPage] = useState(0);
+  const [dataPage, setDataPage] = useState(0);
+  const [id, setID] = useState([]);
+
+  //console.log(id);
+  const personPerPage = 8;
+
+  const onDataPageChange = (event, page) => setDataPage(page - 1);
 
   useEffect(() => {
     fetch(`${API}/alluserdata`, {
@@ -16,10 +25,9 @@ const BasicCard = () => {
     })
     .then (res => res.json())
     .then (data => setUser(data))
+    .then(setPage(0))
     .catch (err => console.log(err))
-    
-  }, [API]);
-
+  }, [API, dataPage]);
   //console.log("allusers", user)
 
   const navigateToMember = (member) => {
@@ -28,19 +36,26 @@ const BasicCard = () => {
     navigate(`/sfmembers/${member.id}`);
   }
 
-  
+  const handleDeleteUser = (id) => {
+    fetch(`${API}/deleteuser/${id}`, {
+      method: "DELETE",
+    })
+    .then(window.location.reload(false))
+    .then((res) => res.json())
+    .catch(err => {
+        console.log('Error: ', err);
+    });
+  }
+
   return ( 
     <Box sx={{ boxShadow: 3, mx:10, my:5,  bordorRadius: 3 }}>
       <Box sx={{px:5, py:5}}>
         <Stack component="span" direction="row" alignItems="center" justifyContent="space-between" sx={{display:"flex"}}>
-          <Box justifyContent="left" sx={{display:"flex"}}>
-          <h2>All Users</h2>
+          <Box justifyContent="left" pb={2} sx={{display:"flex"}}>
+            <Typography variant="h4">All Users</Typography>
           </Box>
           
           <Box justifyContent="right" sx={{display:"flex"}}>
-            {/* <Button color ="secondary" variant="outlined" size="large">
-              Filter
-            </Button> */}
             <Filter/>
           </Box>
         </Stack>
@@ -57,8 +72,13 @@ const BasicCard = () => {
           </Box>
         </Stack>
 
+        {/* <Stack>
+          {displayPeople}
+        </Stack> */}
         <Stack container rowSpacing={8}  sx={{py:5}}>
-          {data.map((member) => (
+          {usersArray
+          // .slice(page * personPerPage, page * personPerPage + personPerPage)
+          .map((member) => (
             <>
               <Stack key={member.first_name} 
                 className="card"
@@ -67,55 +87,56 @@ const BasicCard = () => {
                 alignItems="center"
                 justifyContent="space-between"
                 sx={{
-                      boxShadow: 3,
                       borderRadius: 3,
                       display:'flex',
 
                       }}>  
                 <Box justifyContent="left" alignItems="center" sx={{display:'flex'}}>
-                            <Checkbox label="Name"/>                
-                            <Typography onClick={() => navigateToMember(member)} sx={
-                              {cursor: 'pointer',
-                                fontWeight: "bold",
-                                color: "blue"
-                              }}>
-                              {member.last_name}, {member.first_name}
-                            </Typography>
+                  <Checkbox label="Name" onChange={() => setID(member.id)}/>                
+                  <Typography onClick={() => navigateToMember(member)} sx={
+                    {cursor: 'pointer',
+                      fontWeight: "bold",
+                      color: "blue"
+                    }}>
+                    {member.last_name}, {member.first_name}
+                  </Typography>
                 </Box>
 
                 
-                
-
                 <Box justifyContent="center" sx={{display:'flex'}}>
-                {/* <a>
-                  {member.flight}
-                </a > */}
-                <Typography sx={{textAlign: 'center'}}>
-                  Cert: {member.cert_id}
-                </Typography>
-
+                  <Typography sx={{textAlign: 'center'}}>
+                    {/* Cert: {member.cert_id} */}
+                    
+                    <Chip icon={<DoorFrontIcon />} label={member.certs.map(cert => (cert.cert))} color="success"/>
+                  </Typography>
                 </Box>
 
                 <Box justifyContent="right" sx={{display:'flex'}}>
-                {/* <a>
-                  {member.flight}
-                </a > */}
-                <Typography sx={{textAlign: 'center'}}>
-                Arming status: &nbsp;{member.weapon_arming === true ? '🟢' : '🔴'}
-                </Typography>
-
+                  <Typography sx={{textAlign: 'center'}}>
+                  Arming status: &nbsp;{member.weapon_arming === true ? '🟢' : '🔴'}
+                  </Typography>
                 </Box>
 
               </Stack>
             </>
                 ))}
         </Stack>
+        
+        <Box component="span" direction="row" alignItems="center" sx={{display:"flex", justifyContent:"center"}}>
+          <Button color ="secondary" variant="contained" size="medium" sx={{borderRadius: "30px", right: "280px"}} onClick={() => handleDeleteUser(id)}>
+            Delete User
+          </Button>
+          <Pagination count={usersArray.length} page={dataPage+1} onChange={onDataPageChange} color="secondary" />
+        </Box>
+        
       </Box>
     </Box>
     
-    
       
-   
+     );
+};
+
+export default BasicCard;
         
    
 // Card sx={{ minWidth: 275 }}>
@@ -143,24 +164,6 @@ const BasicCard = () => {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-  );
-};
-
-export default BasicCard;
-    
     // {data.map((member) => (
     //         <>
     //         <Grid

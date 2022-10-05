@@ -15,6 +15,7 @@ const {
     onlyWeaponUserTable,
     getAllSchedule,
     getScheduleByDate,
+    searchUsers,
 } = require('./controller.js');
 
 app.use(cors({
@@ -50,6 +51,18 @@ app.post('/schedule/date', (req, res) => {
 
 app.get('/users', (request, response) => {
     getAllUsers()
+    .then(data => response.status(200).send(data))
+    .catch(err => response.status(500).send(err))
+});
+
+app.get('/usersearch', (request, response) => {
+    getAllUsers()
+    .then(data => response.status(200).send(data))
+    .catch(err => response.status(500).send(err))
+});
+
+app.get('/usersearch/:search', (request, response) => {
+    searchUsers(request.params.search)
     .then(data => response.status(200).send(data))
     .catch(err => response.status(500).send(err))
 });

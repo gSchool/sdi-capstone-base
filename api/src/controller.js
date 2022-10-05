@@ -29,7 +29,16 @@ const addCerts = async users => {
 }
 
 const getAllUsers = async () => {
-  let users = await knex('user_table').select('*')
+  let users = await knex('user_table').select('*').orderBy('last_name', 'asc')
+  let wepUsers = await addWeapon(users);
+  let certUsers = await addCerts(wepUsers);
+  return certUsers;
+};
+
+const searchUsers = async (searchInput) => {
+  searchInput = searchInput.toLowerCase();
+  console.log("search input: ", searchInput)
+  let users = await knex('user_table').select('*').whereILike('first_name', `%${searchInput}%`).orWhereILike('last_name', `%${searchInput}%`)
   let wepUsers = await addWeapon(users);
   let certUsers = await addCerts(wepUsers);
   return certUsers;
@@ -50,9 +59,12 @@ const getScheduleByDate = async props => {
 }
 
 
-const individualUser = (id) => {
-  return knex('user_table')
-  .where({id : id})
+const individualUser = async (id) => {
+  let users = await knex('user_table').where({id : id})
+  let wepUsers = await addWeapon(users);
+  let certUsers = await addCerts(wepUsers);
+  return certUsers;
+  
 }
 
 const postUsers = (body) => {
@@ -109,4 +121,5 @@ module.exports = {
   deleteWeaponUser,
   getAllSchedule,
   getScheduleByDate,
+  searchUsers,
 }

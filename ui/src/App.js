@@ -14,9 +14,10 @@ import InvdivdualMember from './Components/InvidualMember.js';
 const App = () => {
   const [data, setData] = useState();
   const [member, setMember] = useState();
-  const [user, setUser] = useState();
-  const [API, setAPI] = useState("http://localhost:8080");
+  const [usersArray, setUsersArray]=useState([])
+  const [triggerFetch, setTriggerFetch] = useState(false);
 
+  const API = "http://localhost:8080";
   useEffect(() => {
     fetch(`${API}/users`, {
     method: 'GET',
@@ -32,10 +33,11 @@ const App = () => {
       setData,
       member,
       setMember,
-      user, 
-      setUser,
-      API, 
-      setAPI,
+      API,
+      usersArray,
+      setUsersArray,
+      triggerFetch,
+      setTriggerFetch
     }
 
   return (

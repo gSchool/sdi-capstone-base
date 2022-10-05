@@ -76,7 +76,7 @@ const Row = (props) => {
 }
 
 export default function CollapsibleTable() {
-  const { data, api } = useContext(MemberContext)
+  const { data, API } = useContext(MemberContext)
   let currentDate = new Date()
 
   currentDate = { 
@@ -88,7 +88,7 @@ export default function CollapsibleTable() {
 
   const fetchSchedule = () => {
     console.log('fetching schedule')
-    fetch(`${api}/schedule/date`, {
+    fetch(`${API}/schedule/date`, {
       method: 'POST',
       // credentials: 'include',
       headers: {

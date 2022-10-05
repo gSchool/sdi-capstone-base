@@ -28,7 +28,7 @@ export const Filter = () => {
 
   return (
       <>
-          <Button onClick={handleOpen} variant="outlined" color="secondary">Filter</Button>
+          <Button onClick={handleOpen} variant="outlined" color="secondary" sx={{borderRadius: "30px"}}>Filter</Button>
           <Modal
               open={open}
               onClose={handleClose}

@@ -1,23 +1,23 @@
 import React, { useContext, useState, useEffect } from "react";
 import { MemberContext } from "../Components/MemberContext";
 import '../styles/Card.css';
-import {Box, LinearProgress, Avatar, Button, Typography, Modal, TextField, InputLabel, MenuItem, Select} from "@mui/material"
+import {Box, Grid, LinearProgress, Avatar, Button, Typography, Modal, TextField, InputLabel, MenuItem, Select, Stack} from "@mui/material"
 import CloseIcon from '@mui/icons-material/Close';
 import {useParams} from "react-router"
 //import {useNavigate} from "react-router-dom";
 
 const InvdivdualMember= () => {
-    const {member, API, setMember} = useContext(MemberContext);
+    const {member, API, setMember, triggerFetch} = useContext(MemberContext);
     const {memberId} = useParams();
-    console.log(member);
-    console.log(typeof(member));
-    console.log("params: ", memberId)
+    //console.log(member);
+    // console.log(typeof(member));
+    // console.log("params: ", memberId)
 
     useEffect(() => {
         fetch(`${API}/users/${memberId}`)
         .then((res) => res.json())
         .then((data) => setMember(data[0]))
-    }, []);
+    }, [triggerFetch]);
 
     if (member === undefined) {
         return (      
@@ -30,22 +30,46 @@ const InvdivdualMember= () => {
 
     return ( 
         <>
-            <div><a href="/sfmembers" style={{textDecoration: "none"}}>People&nbsp;</a>{'>'} {member.first_name} {member.last_name}</div>
-            <div><Avatar/><h3>{member.first_name} {member.last_name}</h3></div>
+            <Stack direction="row" spacing={2}>
+                <a href="/sfmembers" style={{textDecoration: "none"}}>People&nbsp;</a>{'>'} {member.first_name} {member.last_name}
+            </Stack>
+            <Stack direction="row" alignItems="center" spacing={2} mt={4}>
+                <Avatar/><h1>{member.first_name} {member.last_name}</h1>
+            </Stack>
             
-            <Box sx={{m: 20, height: 400, width: 400, boxShadow: 3}}>
-                <p>User Profile</p>
-                {/* <Button>Edit Profile</Button>*/}
-                <EditMemberModal memberObject={member} />
-                <p>Name: {member.first_name} {member.last_name}</p>
-                <p>Rank: {member.rank}</p>
-                <p>Weapons Qualifications: </p>
-                <p>User Type: {member.admin === true ? 'Admin' : 'User'}</p>
-                <p>Certifications: {member.cert_id}</p>
-                <p>Arm status: {member.weapon_arming === true ? 'Arm 🟢' : 'Do Not Arm🔴'}</p>
-                {/* <p>Admin: {member.admin === true ? '🟢' : '🔴'}</p> */}
-                <p>Notes: </p>
-                {/* {console.log(member)} */}
+            <Box sx={{m: 10, height: 500, width: 500, boxShadow: 3, p: 5}}>
+                <Stack direction="row" spacing={2} sx={{display: "flex", justifyContent: "space-between"}}>
+                    <Typography variant="h5" sx={{fontWeight:'bold'}}>User Profile</Typography>
+                    <EditMemberModal memberObject={member} />
+                </Stack>
+
+                <Grid container justifyContent="space-between" sx={{mt:5}}>
+                    <Box display="flex" flexDirection="column">
+                        <Typography sx={{fontWeight:'bold'}}>Name:</Typography>
+                        <Typography sx={{mb:5}}>{member.first_name} {member.last_name}</Typography>       
+
+                        <Typography sx={{fontWeight:'bold'}}>Rank:</Typography>
+                        <Typography sx={{mb:5}}>{member.rank}</Typography>
+
+                        <Typography sx={{fontWeight:'bold'}}>Weapons Qualifications:</Typography>
+                        <Typography sx={{mb:5}}>{member.weapons.map(item => item.weapon)}</Typography>
+
+                        <Typography sx={{fontWeight:'bold'}}>Notes:</Typography>
+                        <Typography sx={{mb:5}}>{member.notes}</Typography>
+                    </Box>
+
+                    <Box display="flex" flexDirection="column" >
+                        <Typography sx={{fontWeight:'bold'}}>User Type:</Typography>
+                        <Typography sx={{mb:5}}>{member.admin === true ? 'Admin' : 'User'}</Typography>
+
+                        <Typography sx={{fontWeight:'bold'}}>Certifications:</Typography>
+                        {/* <Typography sx={{mb:5}}>{member.cert_id}</Typography> */}
+                        <Typography sx={{mb:5}}>{member.certs.map(item => item.cert)}</Typography>
+
+                        <Typography sx={{fontWeight:'bold'}}>Arm Status:</Typography>
+                        <Typography sx={{mb:5}}>{member.weapon_arming === true ? 'Arm 🟢' : 'Do Not Arm🔴'}</Typography>
+                    </Box>
+                </Grid>
             </Box>
         </>
         )}
@@ -66,22 +90,22 @@ const style = {
 };
 
 const EditMemberModal = props => {
-    const {API, member} = useContext(MemberContext);
+    let memberObject = props;
+    memberObject = memberObject.memberObject
+    //console.log("member object, ", memberObject)
+
+    const {API, member, setTriggerFetch} = useContext(MemberContext);
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
-    const [firstName, setFirstName] = useState("");
-    const [lastName, setLastName] = useState("");
-    const [userType, setUserType] = useState();
-    const [rank, setRank] = useState("");
-    const [cert, setCert] = useState(0);
-    const [weapon, setWeapon] = useState(0);
-    const [status, setStatus] = useState();
-    const [notes, setNotes] = useState("");
-
-    let memberObject = props;
-    memberObject = memberObject.memberObject
-    console.log("member object, ", memberObject)
+    const [firstName, setFirstName] = useState(memberObject.first_name);
+    const [lastName, setLastName] = useState(memberObject.last_name);
+    const [userType, setUserType] = useState(memberObject.admin);
+    const [rank, setRank] = useState(memberObject.rank);
+    const [cert, setCert] = useState(memberObject.cert_id);
+    const [weapon, setWeapon] = useState('');
+    const [status, setStatus] = useState(memberObject.weapon_arming);
+    const [notes, setNotes] = useState(memberObject.notes);
 
     //const navigate = useNavigate();
 
@@ -108,15 +132,18 @@ const EditMemberModal = props => {
         // .then(window.location.reload(false))
         // .then(navigate(`/sfmembers/${member.id}`))
         .then((res) => res.json())
+        .then(data => {
+            setTriggerFetch(curr => !curr)
+            handleClose()
+        })
         .catch(err => {
             console.log('Error: ', err);
         });
     };
 
     return (
-
         <>
-            <Button onClick={handleOpen} variant="outlined" color="secondary">Edit Profile</Button>
+            <Button onClick={handleOpen} variant="outlined" color="secondary" sx={{borderRadius: "30px"}}>Edit Profile</Button>
             <Modal
                 open={open}
                 onClose={handleClose}
@@ -129,7 +156,7 @@ const EditMemberModal = props => {
                     <Typography id="modal-modal-title" variant="h6" component="h2" sx={{textAlign: "center"}}>
                     Profile
                     </Typography>
-                    <Typography id="modal-modal-description" variant="h4" sx={{ mt: 1 , textAlign: "center", fontWeight: "bold"}}>
+                    <Typography id="modal-modal-description" variant="h4" sx={{ mb: 2 , textAlign: "center", fontWeight: "bold"}}>
                         Edit Profile
                     </Typography>
                     
@@ -137,8 +164,9 @@ const EditMemberModal = props => {
                     id="outlined-basic" 
                     label="First Name"
                     vaue={firstName}
-                    // defaultVaue='test'
-                    // defaultVaue={memberObject.first_name}
+                    inputProps={{
+                        defaultValue: `${memberObject.first_name}`
+                 }}
                     variant="outlined" 
                     onChange={(e) => setFirstName(e.target.value)}/>
 
@@ -146,6 +174,9 @@ const EditMemberModal = props => {
                     id="outlined-basic" 
                     label="Last Name" 
                     vaue={lastName}
+                    inputProps={{
+                        defaultValue: `${memberObject.last_name}`
+                 }}
                     variant="outlined" 
                     onChange={(e) => setLastName(e.target.value)}/>
 
@@ -172,7 +203,7 @@ const EditMemberModal = props => {
                         label="Rank"
                         onChange={(e) => setRank(e.target.value)}
                         >
-                            <MenuItem value={null}></MenuItem>
+                            {/* <MenuItem value={memberObject.rank}>{memberObject.rank}</MenuItem> */}
                             <MenuItem value={'e1'}>AB</MenuItem>
                             <MenuItem value={'e2'}>AMN</MenuItem>
                             <MenuItem value={'e3'}>A1C</MenuItem>
@@ -233,6 +264,7 @@ const EditMemberModal = props => {
                         id="demo-simple-select"
                         value={status}
                         label="Arm"
+                        sx={{mb:2}}
                         onChange={(e) => setStatus(e.target.value)}
                         >
                             <MenuItem value={true}>Arm 🟢</MenuItem>
@@ -247,9 +279,14 @@ const EditMemberModal = props => {
                     fullWidth multiline
                     rows={4}
                     value={notes}
+                    sx={{mb:2}}
+                    inputProps={{
+                        defaultValue: `${memberObject.notes}`
+                 }}
+                //  defaultValue='test'
                     onChange={(e) => setNotes(e.target.value)}
                     />
-                    <Button onClick={() => handleEdit()} color="secondary" variant="contained">Save Profile</Button>
+                    <Button onClick={() => handleEdit()} color="secondary" variant="contained" sx={{borderRadius: "30px"}}>Save Profile</Button>
                 </Box>
             </Modal>
         </>

@@ -1,74 +1,89 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { MemberContext } from "./MemberContext";
 import '../styles/MembersDetail.css';
 import BasicCard from '../Features/Card';
-import {Stack} from '@mui/material'
-import {Box, LinearProgress, Button, Typography, Modal, TextField, InputLabel, MenuItem, Select, InputAdornment} from "@mui/material"
+import {Box, LinearProgress, Button, Typography, Modal, TextField, InputLabel, MenuItem, Select, InputAdornment, Stack, Pagination, Alert} from "@mui/material"
 import CloseIcon from '@mui/icons-material/Close';
 import SearchIcon from '@mui/icons-material/Search';
 
 export const MemberDetails = () => {
-    const {data} = useContext(MemberContext);
+  const {API, setUsersArray, usersArray, triggerFetch} = useContext(MemberContext);
+  const [searchText, setSearchText]= useState('')
 
-    if (!data) {
-        return (
+
+  useEffect(() => {
+    fetch(`${API}/usersearch/${searchText}`, {
+    method: 'GET',
+    })
+    .then (res => res.json())
+    .then (data => setUsersArray(data))
+    .catch (err => console.log(err))
+    
+  }, [searchText, triggerFetch]);
+
+  // useEffect(()=> {
+  //   console.log("users array: ", usersArray)
+  // },[usersArray])
+
+  if (!usersArray) {
+      return (
         <Box sx={{ width: '100%' }}>
-      <LinearProgress />
-    </Box>
-    )
-        
-    } else {
+          <LinearProgress />
+        </Box>
+  )
+      
+  } else {
 
   return (
-    <div>
+    <Box>
+      <Typography variant="h3" ml={10} pb={4} sx={{fontWeight: "bold"}}>People</Typography>
+      <Stack component="span" direction="row" alignItems="center" justifyContent="space-between" sx={{display:"flex"}}>
+        <Box
+        justifyContent="left"
+          sx={{
+            maxWidth: '100%',
+            mx: '80px',
+            display:"flex",
+          }}
+        >
+          <TextField Search People label="Search People" id="fullWidth" InputProps={{
+            startAdornment: (
+              <InputAdornment position="start">
+                <SearchIcon/>
+              </InputAdornment>
+            ),
+          }}
+          onChange={e => {setSearchText(e.target.value)}}
+          />
+        </Box>
+        <Box justifyContent="right" sx={{display:"flex", mx:'80px'}}>
+          {/* <Button color ="secondary" variant="contained" size="large">
+            Add User
+          </Button> */}
+          <AddMemberModal/>
+        </Box>
+      </Stack>
 
-    <h1>People</h1>
-    <Stack component="span" direction="row" alignItems="center" justifyContent="space-between" sx={{display:"flex"}}>
-
-      <Box
-      justifyContent="left"
-        sx={{
-          maxWidth: '100%',
-          mx: '80px',
-          display:"flex",
-        }}
-      >
-        
-        <TextField Search People label="Search People" id="fullWidth" InputProps={{
-          startAdornment: (
-            <InputAdornment position="start">
-              <SearchIcon/>
-            </InputAdornment>
-          ),
-        }}/>
+      <Box justifyContent="left" sx={{display:"flex", mx:'80px'}} pt={3}>
+        <Button color ="secondary" variant="contained" size="large" sx={{borderRadius: "30px", marginRight: "10px"}}>
+          All
+        </Button>
+        <Button color ="primary" variant="contained" size="large" sx={{borderRadius: "30px", marginRight: "10px"}}>
+          User
+        </Button>
+        <Button color ="primary" variant="contained" size="large" sx={{borderRadius: "30px"}}>
+          Admins
+        </Button>
       </Box>
-      <Box justifyContent="right" sx={{display:"flex", mx:'80px'}}>
-        {/* <Button color ="secondary" variant="contained" size="large">
-          Add User
-        </Button> */}
-        <AddMemberModal/>
-      </Box>
 
-      
-    </Stack>
+      <Stack>
+        <BasicCard/>
+      </Stack>
 
-    <Box justifyContent="left" sx={{display:"flex", mx:'80px'}}>
-      <Button color ="secondary" variant="contained" size="large">
-        All
-      </Button>
-      <Button color ="primary" variant="contained" size="large">
-        User
-      </Button>
-      <Button color ="primary" variant="contained" size="large">
-        Admins
-      </Button>
+      {/* <Stack spacing={2}>
+        <Pagination count={10} color="secondary" />
+      </Stack> */}
     </Box>
-
-    {/* <h1>Security Forces Members</h1> */}
-      <div>
-        <BasicCard key={data.id}/>
-      </div>
-    </div>
   );
 }
 };
@@ -93,17 +108,18 @@ const AddMemberModal = () => {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-  const [userType, setUserType] = useState(false);
+  const [userType, setUserType] = useState();
   const [rank, setRank] = useState("");
   const [cert, setCert] = useState(0);
   const [weapon, setWeapon] = useState(0);
-  const [status, setStatus] = useState(false);
+  const [status, setStatus] = useState();
   const [notes, setNotes] = useState("");
 
   //need to modify this so old data is persisted
-  const handleEdit = () => {
+  const handleAdd = () => {
       const newUser = {
           first_name: firstName,
           last_name: lastName,
@@ -122,6 +138,7 @@ const AddMemberModal = () => {
               "Content-Type": "application/json; charset=utf-8",
           }
       })
+      .then(<Alert severity="success">This is a success alert — check it out!</Alert>)
       .then(window.location.reload(false))
       .then((res) => res.json())
       .catch(err => {
@@ -131,7 +148,7 @@ const AddMemberModal = () => {
 
   return (
       <>
-          <Button onClick={handleOpen} variant="contained" color="secondary">Add User</Button>
+        <Button onClick={handleOpen} variant="contained" color="secondary" size="large" sx={{borderRadius: "30px"}}>Add User</Button>
           <Modal
               open={open}
               onClose={handleClose}
@@ -139,7 +156,6 @@ const AddMemberModal = () => {
               aria-describedby="modal-modal-description"
           >
               <Box sx={style}>
-                  {/* <Button onClick={handleClose} sx={{textAlign: "right"}}>Close</Button> */}
                   <CloseIcon onClick={handleClose} sx={{cursor: "pointer", right: "50%", display: "flex", justifyContent: "right"}} />
                   <Typography id="modal-modal-title" variant="h6" component="h2" sx={{textAlign: "center"}}>
                   People
@@ -244,6 +260,7 @@ const AddMemberModal = () => {
                       <Select
                       labelId="demo-simple-select-label"
                       id="demo-simple-select"
+                      marginBottom='5'
                       value={status}
                       label="Arm"
                       onChange={(e) => setStatus(e.target.value)}
@@ -262,7 +279,8 @@ const AddMemberModal = () => {
                   value={notes}
                   onChange={(e) => setNotes(e.target.value)}
                   />
-                  <Button onClick={() => handleEdit()} color="secondary" variant="contained">Save Profile</Button>
+                  
+                  <Button onClick={() => handleAdd()} color="secondary" variant="contained">Save Profile</Button>
               </Box>
           </Modal>
       </>
