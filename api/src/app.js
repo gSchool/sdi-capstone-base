@@ -15,6 +15,7 @@ const {
     onlyWeaponUserTable,
     getAllSchedule,
     getScheduleByDate,
+    getAllposition,
     searchUsers,
 } = require('./controller.js');
 
@@ -68,7 +69,8 @@ app.get('/usersearch/:search', (request, response) => {
 });
 
 app.get('/users/:id', (req, res) => {
-    individualUser(req.params.id)
+    let { id } = req.params
+    individualUser(id)
     .then(data => res.status(200).send(data))
     .catch(err => res.status(500).send(err))
 })
@@ -80,12 +82,18 @@ app.get('/allweapons', (req, res) => {
 })
 
 
-app.get('/onlyweaponusertable', (req,res) => {
+app.get('/onlyweaponusertable', (req, res) => {
     onlyWeaponUserTable()
     .then(data => res.status(200).send(data))
     .catch(err => res.status(500).send(err))
 })
 
+app.get('/position', (req, res) => {
+
+    getAllposition()
+    .then(data => res.status(200).send(data))
+    .catch(err => res.status(500).send(err))
+});
 
 app.post('/postusers', (req, res) => {
     postUsers(req.body)

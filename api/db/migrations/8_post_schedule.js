@@ -11,6 +11,7 @@ exports.up = function(knex) {
         table.foreign('user_id').references('id').inTable('user_table');
         table.date('date');
         table.time('time');
+        table.string('role');
     })
 };
 

@@ -20,7 +20,7 @@ const BasicCard = () => {
   const onDataPageChange = (event, page) => setDataPage(page - 1);
 
   useEffect(() => {
-    fetch(`${API}/alluserdata`, {
+    fetch(`${api}/alluserdata`, {
     method: 'GET',
     })
     .then (res => res.json())

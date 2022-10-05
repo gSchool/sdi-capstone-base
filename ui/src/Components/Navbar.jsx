@@ -12,6 +12,12 @@ import SignalWifiStatusbar4BarIcon from '@mui/icons-material/SignalWifiStatusbar
 import GroupsIcon from '@mui/icons-material/Groups';
 import "../styles/MembersDetail.css";
 import logo from '../logo.svg';
+import Avatar from '@mui/material/Avatar';
+import profile from '../profile.svg';
+import Grid from '@mui/material/Unstable_Grid2';
+import Badge from '@mui/material/Badge';
+import NotificationsIcon from '@mui/icons-material/Notifications';
+
 
 
 const drawerWidth = 240;
@@ -93,8 +99,18 @@ export default function PersistentDrawerLeft() {
           <div>
             <img src={logo} alt="logo" />
           </div>
+
+          <Grid xs display="flex" justifyContent="flex-end" alignItems="center" >
+          <Badge color="secondary" badgeContent={0} showZero>
+            <NotificationsIcon />
+          </Badge>
+            <Avatar alt="Security Forces Member" src="" />
+          </Grid>
+
               
         </Toolbar>
+
+
       </AppBar>
       <Drawer
         sx={{
