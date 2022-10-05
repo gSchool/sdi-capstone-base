@@ -4,7 +4,7 @@ import {Stack, Box, Checkbox, Typography, Pagination, Button, Chip} from '@mui/m
 import '../styles/Card.css';
 import { useNavigate } from 'react-router-dom';
 import {Filter} from "../Components/Filter.js"
-import DoorFrontIcon from '@mui/icons-material/DoorFront';
+import WorkspacePremiumIcon from '@mui/icons-material/WorkspacePremium';
 
 
 const BasicCard = () => {
@@ -20,7 +20,7 @@ const BasicCard = () => {
   const onDataPageChange = (event, page) => setDataPage(page - 1);
 
   useEffect(() => {
-    fetch(`${api}/alluserdata`, {
+    fetch(`${API}/alluserdata`, {
     method: 'GET',
     })
     .then (res => res.json())
@@ -107,7 +107,7 @@ const BasicCard = () => {
                   <Typography sx={{textAlign: 'center'}}>
                     {/* Cert: {member.cert_id} */}
                     
-                    <Chip icon={<DoorFrontIcon />} label={member.certs.map(cert => (cert.cert))} color="success"/>
+                    <Chip icon={<WorkspacePremiumIcon />} label={member.certs.map(cert => (cert.cert))} color="success"/>
                   </Typography>
                 </Box>
 

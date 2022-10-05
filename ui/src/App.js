@@ -12,21 +12,20 @@ import InvdivdualMember from './Components/InvidualMember.js';
 
 
 const App = () => {
-  const [data, setData] = useState();
-  const [member, setMember] = useState();
+  const [data, setData] = useState([]);
+  const [member, setMember] = useState([]);
   const [usersArray, setUsersArray]=useState([])
   const [triggerFetch, setTriggerFetch] = useState(false);
-
   const API = "http://localhost:8080";
+
   useEffect(() => {
-    fetch(`${api}/users`, {
+    fetch(`${API}/users`, {
     method: 'GET',
     })
     .then (res => res.json())
     .then (data => setData(data))
     .catch (err => console.log(err))
-    
-  }, [api]);
+  }, [API]);
 
     const obj = {
       data,

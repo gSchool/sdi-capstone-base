@@ -17,7 +17,7 @@ import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import { MemberContext } from '../Components/MemberContext';
 
 export default function CollapsibleTable() {
-  const { data, api } = useContext(MemberContext)
+  const { data, API } = useContext(MemberContext)
   const [positions, setPositions] = useState({});
   const [schedule, setSchedule] = useState([]);
   const [selectedDate, setSelectedDate] = useState('');
@@ -34,7 +34,7 @@ export default function CollapsibleTable() {
 
   const fetchPosts = () => {
     console.log('fetching positions')
-    fetch(`${api}/position`, {
+    fetch(`${API}/position`, {
       method: 'GET',
       // credentials: 'include',
       headers: {
@@ -57,7 +57,7 @@ export default function CollapsibleTable() {
 
   const fetchSchedule = () => {
     console.log('fetching schedule')
-    fetch(`${api}/schedule/date`, {
+    fetch(`${API}/schedule/date`, {
       method: 'POST',
       // credentials: 'include',
       headers: {
