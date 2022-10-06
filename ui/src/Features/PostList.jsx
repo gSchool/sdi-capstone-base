@@ -145,7 +145,7 @@ export default function CollapsibleTable() {
 
 const Row = (props) => {
   const { row } = props;
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
 
   return (
     <React.Fragment>
@@ -188,7 +188,7 @@ const Row = (props) => {
                     <TableRow key={index}>
                       <TableCell component="th" scope="row">
                       {/* {!userRow.noUser ? `${userRow.role}` : <Button onClick={() => PostMemberModal()} sx={{ backgroundColor: 'orange' }}>Add User</Button>} */}
-                    {!userRow.noUser ? `${userRow.role}` : <PostMemberModal />}
+                    {!userRow.noUser ? `${userRow.role}` : <PostMemberModal role={index} post={row.name}/>}
                       </TableCell>
                       <TableCell>
                         {!userRow.noUser ? `${userRow.user_info[0].first_name} ${userRow.user_info[0].last_name}` : `No One Posted`}
