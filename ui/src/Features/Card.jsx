@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState} from "react";
 import { MemberContext } from "../Components/MemberContext";
-import {Stack, Box, Checkbox, Typography, Pagination, Button, Chip} from '@mui/material'
+import {Stack, Box, Checkbox, Typography, Pagination, Button, Chip, TablePagination} from '@mui/material'
 import '../styles/Card.css';
 import { useNavigate } from 'react-router-dom';
 import {Filter} from "../Components/Filter.js"
@@ -9,17 +9,25 @@ import SecurityIcon from '@mui/icons-material/Security';
 
 
 const BasicCard = () => {
-  const {setMember, API, usersArray} = useContext(MemberContext);
+  const {setMember, API, usersArray, setTriggerFetch, triggerFetch} = useContext(MemberContext);
   const navigate = useNavigate();
+  const [idArray, setIdArray] = useState([]);
   const [page, setPage] = useState(0);
-  const [dataPage, setDataPage] = useState(0);
-  const [id, setID] = useState([]);
-  
-  console.log(page);
+  const [rowsPerPage, setRowsPerPage] = useState(5);
 
-  //const personPerPage = 8;
+  useEffect(() => {
+    setPage(0);
+  }, []);
 
-  const onDataPageChange = (event, page) => setDataPage(page - 1);
+  const onDataPageChange = (event, page) => setPage(page - 1);
+
+  const handleChangePage = (event, newPage) => setPage(newPage);
+
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
+
 
   useEffect(() => {
     fetch(`${API}/alluserdata`, {
@@ -28,7 +36,7 @@ const BasicCard = () => {
     .then (res => res.json())
     .then(setPage(0))
     .catch (err => console.log(err))
-  }, [API, dataPage]);
+  }, [API, triggerFetch]);
   //console.log("allusers", user)
 
   const navigateToMember = (member) => {
@@ -37,23 +45,33 @@ const BasicCard = () => {
     navigate(`/sfmembers/${member.id}`);
   }
 
-  const handleDeleteUser = (id) => {
-    fetch(`${API}/deleteuser/${id}`, {
-      method: "DELETE",
-    })
-    .then(window.location.reload(false))
-    .then((res) => res.json())
-    .catch(err => {
-        console.log('Error: ', err);
-    });
+  const handleDeleteUser = (inputArray) => {
+    for(let userId of inputArray){
+      fetch(`${API}/deleteuser/${userId}`, {
+        method: "DELETE",
+      })
+      // .then(window.location.reload(false))
+      .then((res) => res.json())
+      .then(() => {
+          setTriggerFetch(curr => !curr)
+          //navigate("/sfmembers")
+          // handleClose()
+        })
+      .then(navigate("/sfmembers"))
+      .catch(err => {
+          console.log('Error: ', err);
+      });
+    }
   }
+
+  useEffect(()=>{console.log(idArray)},[idArray])
 
   return ( 
     <Box sx={{ boxShadow: 3, mx:10, my:5,  borderRadius: 3 }}>
       <Box sx={{px:5, py:5}}>
         <Stack component="span" direction="row" alignItems="center" justifyContent="space-between" sx={{display:"flex"}}>
           <Box justifyContent="left" pb={2} sx={{display:"flex"}}>
-            <Typography variant="h4">All Users</Typography>
+            <Typography variant="h4" sx={{fontWeight: "bold"}}>All Users</Typography>
           </Box>
           
           <Box justifyContent="right" sx={{display:"flex"}}>
@@ -61,12 +79,12 @@ const BasicCard = () => {
           </Box>
         </Stack>
 
-        <Stack component="span" direction="row" alignItems="center" justifyContent="space-between" sx={{display:"flex"}}>
+        <Stack component="span" direction="row" alignItems="center" justifyContent="space-between" pt={2} sx={{display:"flex"}}>
           <Box>
             <Typography sx={{fontWeight: "bold"}}>Name</Typography>
           </Box>
           <Box>
-            <Typography sx={{fontWeight: "bold"}}>Certifications</Typography>
+            <Typography sx={{fontWeight: "bold", ml:13}}>Certifications</Typography>
           </Box>
           <Box>
             <Typography sx={{fontWeight: "bold"}}>Weapon Qualification</Typography>
@@ -75,21 +93,22 @@ const BasicCard = () => {
 
         <Stack container rowSpacing={8}  sx={{py:5}}>
           {usersArray
-          // .slice(page * personPerPage, page * personPerPage + personPerPage)
+          .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
           .map((member, index) => (
               <Stack key={index} 
                 className="card"
                 direction="row"
                 component="span"
                 alignItems="center"
-                justifyContent="space-between"
                 sx={{
                       borderRadius: 3,
                       display:'flex',
 
                       }}>  
-                <Box justifyContent="left" alignItems="center" sx={{display:'flex'}}>
-                  <Checkbox label="Name" onChange={() => setID(member.id)}/>                
+                <Box justifyContent="left" width="33%" alignItems="center" sx={{display:'flex'}}>
+                  <Checkbox label="Name" onChange={() => {
+                  setIdArray(curr => [...curr, member.id])
+                  }}/>                
                   <Typography onClick={() => navigateToMember(member)} sx={
                     {cursor: 'pointer',
                       fontWeight: "bold",
@@ -99,19 +118,16 @@ const BasicCard = () => {
                   </Typography>
                 </Box>
 
-                <Box justifyContent="center" sx={{display:'flex'}}>
+                <Box justifyContent="center" width="33%" sx={{display:'flex'}}>
                   <Typography sx={{textAlign: 'center'}}>
-                    {/* Cert: {member.cert_id} */}
-                    {member.certs === null ? <Typography>No certs</Typography> 
+                    {member.certs.length === 0 ? <Chip icon={<WorkspacePremiumIcon />} label="no certs" color="success"/>
                     : <Chip icon={<WorkspacePremiumIcon />} label={member.certs.map(cert => (cert.cert))} color="success"/>}
                   </Typography>
                 </Box>
 
-                <Box justifyContent="right" sx={{display:'flex'}}>
+                <Box justifyContent="right" width="33%" sx={{display:'flex'}}>
                   <Typography sx={{textAlign: 'center'}}>
-                  {/* Arming status: &nbsp;{member.weapon_arming === true ? '🟢' : '🔴'} */}
-                  {/* need to figure out how to break into different parts */}
-                  {member.weapons === null ? <Typography>No weapons</Typography> 
+                  {member.weapons.length === 0 ? <Chip color="secondary" icon={<SecurityIcon />} label="no weapons"/>
                   : <Chip icon={<SecurityIcon />} label={member.weapons.map(weapon => (weapon.weapon) + ",")} color="secondary"/>}
                   </Typography>
                 </Box>
@@ -121,12 +137,34 @@ const BasicCard = () => {
                 ))}
         </Stack>
         
-        <Box component="span" direction="row" alignItems="center" sx={{display:"flex", justifyContent:"center"}}>
-          <Button color ="secondary" variant="contained" size="medium" sx={{borderRadius: "30px", right: "25%"}} onClick={() => handleDeleteUser(id)}>
-            Delete User
-          </Button>
-          <Pagination count={usersArray.length} page={dataPage+1} onChange={onDataPageChange} color="secondary" />
-        </Box>
+        <Stack component="span" direction="row" alignItems="center" sx={{display:"flex", justifyContent:"center", justifyContent:"space-between"}}>
+          <Box>
+            <Button color ="secondary" variant="contained" size="medium" sx={{borderRadius: "30px"}} onClick={() => handleDeleteUser(idArray)}>
+              Delete User
+            </Button>
+          </Box>
+
+          <Box>
+            <Pagination 
+            count={Math.ceil(usersArray.length/rowsPerPage)}
+            onChange={onDataPageChange}
+            page={page+1} 
+            color="secondary" />
+          </Box>
+
+          <Box>
+            {/* <Checkbox></Checkbox> */}
+            <TablePagination
+                  rowsPerPageOptions={[5, 10]}
+                  component="div"
+                  count={usersArray.length}
+                  rowsPerPage={rowsPerPage}
+                  page={page}
+                  onPageChange={handleChangePage}
+                  onRowsPerPageChange={handleChangeRowsPerPage}
+                />
+          </Box>
+        </Stack>
         
       </Box>
     </Box>
@@ -134,58 +172,4 @@ const BasicCard = () => {
      );
 };
 
-export default BasicCard;
-        
-   
-// Card sx={{ minWidth: 275 }}>
-        
-        
-//           <CardContent>
-//             <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-//               {item.first_name} {item.last_name}: {item.rank}
-//             </Typography>
-//             <Typography variant="h5" component="div">
-//               {item.flight}
-//             </Typography>
-//             <Typography sx={{ mb: 1.5 }} color="text.secondary">
-//               {item.cert_id}
-//             </Typography>
-//             <Typography variant="body2">
-//               Arming status:{item.weapon_arming === true ? '🟢' : '🔴'}
-              
-//             </Typography>
-//           </CardContent>
-//           <CardActions>
-//             <Button size="small">Admin: {item.admin}</Button>
-//           </CardActions>
-//       </Card>   
-
-
-
-    // {data.map((member) => (
-    //         <>
-    //         <Grid
-    //           container
-    //           direction="row"
-    //           justifyContent="flex-start"
-    //           alignItems="center"
-    //         >
-    //           <Card key={member.id} sx={{ maxWidth: 200, Direction: "row"  }} >
-    //               <CardActionArea  >               
-    //                   <CardContent key={member.id} >
-    //                       <Typography  key={member.id} sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-    //                           {member.first_name} {member.last_name} {member.weapon_arming === true ? '🟢' : '🔴'}
-    //                       </Typography>
-    //                   </CardContent>
-    //               </CardActionArea>
-    //           </Card>
-    //         </Grid>
-    //         </>
-    //         ))} 
-    
-    
-   
-    
-  
-
-            
+export default BasicCard;   

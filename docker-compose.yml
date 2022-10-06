@@ -48,7 +48,7 @@ services:
     depends_on:
       - 'capstone-api'
     ports:
-      - '3000:3000'
+      - '3001:3000'
     volumes:
       - type: bind
         source: ./ui/src

@@ -131,6 +131,7 @@ const updateWeaponUser = (req) => {
   .update(req.body)
 }
 
+
 const deleteWeaponUser = (id) => {
   return knex('weapon_user')
   .where({id : id})
@@ -138,8 +139,25 @@ const deleteWeaponUser = (id) => {
   
 }
 
-const deleteUser = (id) => {
-  return knex('user_table')
+const deleteWeaponUserByUser = async (userId) => {
+  return knex('weapon_user')
+  .where({user_id : userId})
+  .delete()
+  
+}
+
+const deletePostSchedule = async (userId) => {
+  return knex('post_schedule')
+  .where({user_id : userId})
+  .delete()
+  
+}
+
+const deleteUser = async (id) => {
+
+await deleteWeaponUserByUser(id)
+await deletePostSchedule(id)
+  return await knex('user_table')
   .where({id : id})
   .delete()
   };

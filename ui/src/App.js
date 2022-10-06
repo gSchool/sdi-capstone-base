@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import Home from './Components/Home.js'
 import { MemberDetails } from './Components/MembersDetail.js';
+import {Settings} from './Components/Settings.js'
 // import {Navbar} from './Components/Navbar.js'
 import { BrowserRouter as  Router, Routes, Route } from "react-router-dom";
 import { MemberContext } from './Components/MemberContext.js';
@@ -49,6 +50,7 @@ const App = () => {
           <Route path="/flightstatus" element={<FlightStatus />} />
           <Route path="/schedule" element={<Schedule />} />
           <Route path="/sfmembers/:memberId" element={<InvdivdualMember />} />
+          <Route path="/Settings" element={<Settings />} />
         </Routes>
       </Router>
     </MemberContext.Provider>

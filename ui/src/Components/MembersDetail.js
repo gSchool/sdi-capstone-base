@@ -2,14 +2,15 @@ import React, { useContext, useState, useEffect } from "react";
 import { MemberContext } from "./MemberContext";
 import '../styles/MembersDetail.css';
 import BasicCard from '../Features/Card';
-import {Box, LinearProgress, Button, Typography, Modal, TextField, InputLabel, MenuItem, Select, InputAdornment, Stack, Alert} from "@mui/material"
+import {Box, LinearProgress, Button, Typography, Modal, TextField, InputLabel, MenuItem, Select, InputAdornment, Stack, Alert, FormControl} from "@mui/material"
 import CloseIcon from '@mui/icons-material/Close';
 import SearchIcon from '@mui/icons-material/Search';
+import {useNavigate} from "react-router-dom";
 
 export const MemberDetails = () => {
   const {API, setUsersArray, usersArray, triggerFetch} = useContext(MemberContext);
   const [searchText, setSearchText]= useState('')
-
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetch(`${API}/usersearch/${searchText}`, {
@@ -36,6 +37,7 @@ export const MemberDetails = () => {
 
   return (
     <Box>
+      <Alert severity="success">This is a success alert — check it out!</Alert>
       <Typography variant="h3" ml={10} pb={4} sx={{fontWeight: "bold"}}>People</Typography>
       <Stack component="span" direction="row" alignItems="center" justifyContent="space-between" sx={{display:"flex"}}>
         <Box
@@ -57,18 +59,19 @@ export const MemberDetails = () => {
           />
         </Box>
         <Box justifyContent="right" sx={{display:"flex", mx:'80px'}}>
-          {/* <Button color ="secondary" variant="contained" size="large">
-            Add User
-          </Button> */}
           <AddMemberModal/>
         </Box>
       </Stack>
 
       <Box justifyContent="left" sx={{display:"flex", mx:'80px'}} pt={3}>
-        <Button color ="secondary" variant="contained" size="large" sx={{borderRadius: "30px", marginRight: "10px"}}>
+        <Button color ="secondary" variant="contained" size="large" sx={{borderRadius: "30px", marginRight: "10px"}}
+        onClick={()=> navigate("/sfmembers")}
+        >
           All
         </Button>
-        <Button color ="primary" variant="contained" size="large" sx={{borderRadius: "30px", marginRight: "10px"}}>
+        <Button color ="primary" variant="contained" size="large" sx={{borderRadius: "30px", marginRight: "10px"}}
+        onClick={()=> navigate("/Settings")}
+        >
           User
         </Button>
         <Button color ="primary" variant="contained" size="large" sx={{borderRadius: "30px"}}>
@@ -80,9 +83,6 @@ export const MemberDetails = () => {
         <BasicCard/>
       </Stack>
 
-      {/* <Stack spacing={2}>
-        <Pagination count={10} color="secondary" />
-      </Stack> */}
     </Box>
   );
 }
@@ -93,8 +93,8 @@ const style = {
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  width: 600,
-  height: 800,
+  width: 800,
+  height: 600,
   bgcolor: 'background.paper',
   border: '2px solid #000',
   boxShadow: 24,
@@ -104,7 +104,7 @@ const style = {
 
 
 const AddMemberModal = () => {
-  const {API} = useContext(MemberContext);
+  const {API, setTriggerFetch} = useContext(MemberContext);
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -138,9 +138,12 @@ const AddMemberModal = () => {
               "Content-Type": "application/json; charset=utf-8",
           }
       })
-      .then(<Alert severity="success">This is a success alert — check it out!</Alert>)
-      .then(window.location.reload(false))
+      // .then(window.location.reload(false))
       .then((res) => res.json())
+      .then(() => {
+          setTriggerFetch(curr => !curr)
+          handleClose()
+        })
       .catch(err => {
           console.log('Error: ', err);
       });
@@ -161,30 +164,35 @@ const AddMemberModal = () => {
                   </Box>
                   
                   <Typography id="modal-modal-title" variant="h6" component="h2" sx={{textAlign: "center"}}>
-                    People
+                    PEOPLE
                   </Typography>
                   <Typography id="modal-modal-description" variant="h4" sx={{ mt: 1 , textAlign: "center", fontWeight: "bold"}}>
                     Add User
                   </Typography>
                   
-                  <Box>
-                    
-                  </Box>
-                  <TextField 
-                  id="outlined-basic" 
-                  label="First Name" 
-                  value={firstName}
-                  variant="outlined" 
-                  onChange={(e) => setFirstName(e.target.value)}/>
 
-                  <TextField 
-                  id="outlined-basic" 
-                  label="Last Name" 
-                  value={lastName}
-                  variant="outlined" 
-                  onChange={(e) => setLastName(e.target.value)}/>
+                  <Stack direction="row" mt={3}  sx={{display: "flex", justifyContent: "center", justifyContent:"space-between"}}>
+                    <FormControl sx={{ width: '40ch' }}>
+                      <TextField 
+                      id="outlined-basic" 
+                      label="First Name" 
+                      value={firstName}
+                      variant="outlined" 
+                      onChange={(e) => setFirstName(e.target.value)}/>
+                    </FormControl>
+                    <FormControl sx={{ width: '40ch' }}>
+                      <TextField 
+                      id="outlined-basic" 
+                      label="Last Name" 
+                      value={lastName}
+                      variant="outlined" 
+                      onChange={(e) => setLastName(e.target.value)}/>
+                    </FormControl>
+                  </Stack>
 
-                  {/* <FormControl > */}
+                  
+                  <Stack direction="row" pt={2} sx={{display: "flex", justifyContent: "center", justifyContent:"space-between"}}>
+                    <FormControl sx={{ width: '25ch' }}>
                       <InputLabel id="demo-simple-select-label">User Type</InputLabel>
                       <Select
                       htmlFor='weapon_arming'
@@ -197,7 +205,9 @@ const AddMemberModal = () => {
                           <MenuItem value={true}>Admin</MenuItem>
                           <MenuItem value={false}>User</MenuItem>
                       </Select>
+                    </FormControl>
 
+                    <FormControl sx={{ width: '25ch' }}>
                       <InputLabel id="demo-simple-select-label">Rank</InputLabel>
                       <Select
                       htmlFor="rank"
@@ -223,9 +233,27 @@ const AddMemberModal = () => {
                           <MenuItem value={'o4'}>Major</MenuItem>
                           <MenuItem value={'o5'}>Lt. Col</MenuItem>
                           <MenuItem value={'o6'}>Colonel</MenuItem>
-                          
                       </Select>
+                    </FormControl>
 
+                    <FormControl sx={{ width: '25ch' }}>
+                      <InputLabel id="demo-simple-select-label">Arm Status</InputLabel>
+                      <Select
+                      labelId="demo-simple-select-label"
+                      id="demo-simple-select"
+                      marginBottom='5'
+                      value={status}
+                      label="Arm"
+                      onChange={(e) => setStatus(e.target.value)}
+                      >
+                          <MenuItem value={true}>Arm 🟢</MenuItem>
+                          <MenuItem value={false}>Do Not Arm🔴</MenuItem>
+                      </Select>
+                    </FormControl>
+                  </Stack>
+
+                  <Stack direction="row" pt={2} sx={{display: "flex", justifyContent: "center", justifyContent:"space-between"}}>
+                    <FormControl sx={{ width: '40ch' }}>
                       <InputLabel id="demo-simple-select-label">Certifications</InputLabel>
                       <Select
                       htmlFor="cert_id"
@@ -241,7 +269,9 @@ const AddMemberModal = () => {
                           <MenuItem value={3}>Desk Sergeant</MenuItem>
                           <MenuItem value={4}>Flight Sergreant</MenuItem>
                       </Select>
+                    </FormControl>
 
+                    <FormControl sx={{ width: '40ch' }}>
                       <InputLabel id="demo-simple-select-label">Weapon Qualifications</InputLabel>
                       <Select
 
@@ -259,23 +289,11 @@ const AddMemberModal = () => {
                           <MenuItem value={5}>M240</MenuItem>
                           <MenuItem value={6}>M107</MenuItem>
                           <MenuItem value={7}>M320</MenuItem>
-                          
                       </Select>
+                    </FormControl>
+                  </Stack>
 
-                      <InputLabel id="demo-simple-select-label">Arm Status</InputLabel>
-                      <Select
-                      labelId="demo-simple-select-label"
-                      id="demo-simple-select"
-                      marginBottom='5'
-                      value={status}
-                      label="Arm"
-                      onChange={(e) => setStatus(e.target.value)}
-                      >
-                          <MenuItem value={true}>Arm 🟢</MenuItem>
-                          <MenuItem value={false}>Do Not Arm🔴</MenuItem>
-                      </Select>
-                  {/* </FormControl> */}
-
+                <Stack direction="row" pt={2} sx={{display: "flex", justifyContent: "center"}}>
                   <TextField 
                   id="outlined-textarea" 
                   label="Notes" 
@@ -285,8 +303,12 @@ const AddMemberModal = () => {
                   value={notes}
                   onChange={(e) => setNotes(e.target.value)}
                   />
-                  
+                </Stack>
+    
+                <Stack direction="row" mt={3} sx={{borderRadius: "30px", display: "flex", justifyContent: "right"}}>
                   <Button onClick={() => handleAdd()} color="secondary" variant="contained" sx={{borderRadius: "30px"}}>Save Profile</Button>
+                </Stack>
+               
               </Box>
           </Modal>
       </>
