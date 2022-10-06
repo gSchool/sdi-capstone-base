@@ -21,7 +21,7 @@ const Home = () => {
     } else {
   return (
     <>
-      <h3> {Date()} did eric shave?</h3>
+      <h3> {Date()}</h3>
       <div>Panama 12s</div>
       {/* {data.map((item, index) => (
         <div key={index}>
@@ -29,9 +29,9 @@ const Home = () => {
         </div>
       ))} */}
 
-      <div>
+      <Box sx={{ m: 2, p: 5, borderRadius: 3, boxShadow: 3  }}>
         <PostList />
-      </div>
+      </Box>
 
     </>
   )}

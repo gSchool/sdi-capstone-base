@@ -15,6 +15,7 @@ import Paper from '@mui/material/Paper';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import { MemberContext } from '../Components/MemberContext';
+import PostMemberModal from './AddMember';
 
 export default function CollapsibleTable() {
   const { API } = useContext(MemberContext)
@@ -144,7 +145,7 @@ export default function CollapsibleTable() {
 
 const Row = (props) => {
   const { row } = props;
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
 
   return (
     <React.Fragment>
@@ -158,6 +159,7 @@ const Row = (props) => {
             {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
           </IconButton>
         </TableCell>
+         {/* change color to needs edited icon */}
         <TableCell component="th" scope="row" sx={row.users.filter(user => user.noUser === true).length > 0 ? { backgroundColor: "orange"} : {}}>
           {row.name}
         </TableCell>
@@ -185,12 +187,11 @@ const Row = (props) => {
                   {row.users.map((userRow, index) => (
                     <TableRow key={index}>
                       <TableCell component="th" scope="row">
-                      {!userRow.noUser && `${userRow.role}`}
-                      {userRow.noUser && <Button sx={{ backgroundColor: 'orange' }}>Add User</Button>}
+                      {/* {!userRow.noUser ? `${userRow.role}` : <Button onClick={() => PostMemberModal()} sx={{ backgroundColor: 'orange' }}>Add User</Button>} */}
+                    {!userRow.noUser ? `${userRow.role}` : <PostMemberModal role={index} post={row.name}/>}
                       </TableCell>
                       <TableCell>
-                        {!userRow.noUser && `${userRow.user_info[0].first_name} ${userRow.user_info[0].last_name}`}
-                        {userRow.noUser && `No One Posted`}
+                        {!userRow.noUser ? `${userRow.user_info[0].first_name} ${userRow.user_info[0].last_name}` : `No One Posted`}
                       </TableCell>
                       <TableCell align="right">
                         {!userRow.noUser && `${userRow.user_info[0].weapons.map(wep => `${wep.weapon} `)}`}
