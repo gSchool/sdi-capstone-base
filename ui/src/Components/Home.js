@@ -29,9 +29,9 @@ const Home = () => {
         </div>
       ))} */}
 
-      <div>
+      <Box sx={{ m: 2, p: 5, borderRadius: 3, boxShadow: 3  }}>
         <PostList />
-      </div>
+      </Box>
 
     </>
   )}
