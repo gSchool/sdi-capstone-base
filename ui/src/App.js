@@ -8,7 +8,7 @@ import { MemberContext } from './Components/MemberContext.js';
 import  PersistentDrawerLeft from './Components/Navbar.jsx'
 import { FlightStatus } from './Components/FlightStatus.js';
 import Schedule from './Components/Schedule.js';
-import InvdivdualMember from './Components/InvidualMember.js';
+import IndividualMember from './Components/InvidualMember.js';
 // import Home from './Components/Home';
 
 
@@ -17,6 +17,7 @@ const App = () => {
   const [member, setMember] = useState([]);
   const [usersArray, setUsersArray]=useState([])
   const [triggerFetch, setTriggerFetch] = useState(false);
+  const [toggle, setToggle] = useState(false);
   const API = "http://localhost:8080";
 
   useEffect(() => {
@@ -37,8 +38,10 @@ const App = () => {
       usersArray,
       setUsersArray,
       triggerFetch,
-      setTriggerFetch
-    }
+      setTriggerFetch,
+      toggle,
+      setToggle,
+    };
 
   return (
     <MemberContext.Provider value={obj}>
@@ -49,7 +52,7 @@ const App = () => {
           <Route path="/sfmembers" element={<MemberDetails />} />
           <Route path="/flightstatus" element={<FlightStatus />} />
           <Route path="/schedule" element={<Schedule />} />
-          <Route path="/sfmembers/:memberId" element={<InvdivdualMember />} />
+          <Route path="/sfmembers/:memberId" element={<IndividualMember />} />
           <Route path="/Settings" element={<Settings />} />
         </Routes>
       </Router>

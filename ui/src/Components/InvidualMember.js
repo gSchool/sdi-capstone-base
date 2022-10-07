@@ -1,12 +1,12 @@
 import React, { useContext, useState, useEffect } from "react";
 import { MemberContext } from "../Components/MemberContext";
 import '../styles/Card.css';
-import {Box, Grid, LinearProgress, Avatar, Button, Typography, Modal, TextField, InputLabel, MenuItem, Select, Stack, FormControl} from "@mui/material"
+import {Box, Grid, LinearProgress, Avatar, Button, Typography, Modal, TextField, InputLabel, MenuItem, Select, Stack, FormControl, Chip} from "@mui/material"
 import CloseIcon from '@mui/icons-material/Close';
 import {useParams} from "react-router"
 
 
-const InvdivdualMember= () => {
+const IndividualMember= () => {
     const {member, API, setMember, triggerFetch} = useContext(MemberContext);
     const {memberId} = useParams();
     //console.log(member);
@@ -28,58 +28,101 @@ const InvdivdualMember= () => {
 
     } else {
 
-    return ( 
-        <>
-            <Stack direction="row" spacing={2} ml={3}>
-                <a href="/sfmembers" style={{textDecoration: "none"}}>People&nbsp;</a>{'>'} {member.first_name} {member.last_name}
-            </Stack>
-            <Stack direction="row" alignItems="center" spacing={2} mt={4} ml={3}>
-                <Avatar/><h1>{member.first_name} {member.last_name}</h1>
-            </Stack>
-            
-            <Box sx={{m: 10, height: 500, width: 500, boxShadow: 3, borderRadius: 3, p: 5}}>
-                <Stack direction="row" spacing={2} sx={{display: "flex", justifyContent: "space-between"}}>
-                    <Typography variant="h5" sx={{fontWeight:'bold'}}>User Profile</Typography>
-                    <EditMemberModal memberObject={member} />
-                </Stack>
+    return (
+      <>
+        <Stack direction="row" spacing={2} ml={3}>
+          <a href="/sfmembers" style={{ textDecoration: "none" }}>
+            People&nbsp;
+          </a>
+          {">"} {member.first_name} {member.last_name}
+        </Stack>
+        <Stack direction="row" alignItems="center" spacing={2} mt={4} ml={3}>
+          <Avatar />
+          <h1>
+            {member.first_name} {member.last_name}
+          </h1>
+        </Stack>
 
-                <Grid container justifyContent="space-between" sx={{mt:5}}>
-                    <Box display="flex" flexDirection="column">
-                        <Typography sx={{fontWeight:'bold'}}>Name:</Typography>
-                        <Typography sx={{mb:5}}>{member.first_name} {member.last_name}</Typography>       
+        <Box
+          sx={{
+            m: 10,
+            height: 500,
+            width: 500,
+            boxShadow: 3,
+            borderRadius: 3,
+            p: 5,
+          }}
+        >
+          <Stack
+            direction="row"
+            spacing={2}
+            sx={{ display: "flex", justifyContent: "space-between" }}
+          >
+            <Typography variant="h5" sx={{ fontWeight: "bold" }}>
+              User Profile
+            </Typography>
+            <EditMemberModal memberObject={member} />
+          </Stack>
 
-                        <Typography sx={{fontWeight:'bold'}}>Rank:</Typography>
-                        <Typography sx={{mb:5}}>{member.rank}</Typography>
+          <Grid container justifyContent="space-between" sx={{ mt: 5 }}>
+            <Box display="flex" flexDirection="column">
+              <Typography sx={{ fontWeight: "bold" }}>Name:</Typography>
+              <Typography sx={{ mb: 5 }}>
+                {member.first_name} {member.last_name}
+              </Typography>
 
-                        <Typography sx={{fontWeight:'bold'}}>Weapons Qualifications:</Typography>
-                        {member.weapons.length === 0 ? <Typography sx={{mb:5}}>No weapons</Typography> 
-                        : <Typography sx={{mb:5}}>{member.weapons.map(item => item.weapon + ",")}</Typography>}
-                        
-                        <Typography sx={{fontWeight:'bold'}}>Notes:</Typography>
-                        {member.notes === null ? <Typography sx={{mb:5}}>N/A</Typography>
-                        : <Typography sx={{mb:5}}>{member.notes}</Typography>}
-                    </Box>
+              <Typography sx={{ fontWeight: "bold" }}>Rank:</Typography>
+              <Typography sx={{ mb: 5 }}>{member.rank.toUpperCase()}</Typography>
 
-                    <Box display="flex" flexDirection="column" >
-                        <Typography sx={{fontWeight:'bold'}}>User Type:</Typography>
-                        <Typography sx={{mb:5}}>{member.admin === true ? 'Admin' : 'User'}</Typography>
+              <Typography sx={{ fontWeight: "bold" }}>
+                Weapons Qualifications:
+              </Typography>
+              {member.weapons.length === 0 ? (
+                <Typography sx={{ mb: 5 }}>No weapons</Typography>
+              ) : (
+                <Typography sx={{ mb: 5 }}>
+                  {member.weapons.map((item) => item.weapon.toUpperCase()).join(", ")}
+                </Typography>
+              )}
 
-                        <Typography sx={{fontWeight:'bold'}}>Certifications:</Typography>
-                        {member.certs.length === 0 ? <Typography sx={{mb:5}}>No certs</Typography> 
-                        : <Typography sx={{mb:5}}>{member.certs.map(item => item.cert )}</Typography>}
-                        
-                        <Typography sx={{fontWeight:'bold'}}>Arm Status:</Typography>
-                        {member.weapon_arming === true ? (
-                            <Typography sx={{mb:5, color:"green"}}>Arm</Typography>
-                        ) : (
-
-                        <Typography sx={{mb:5, color:"red"}}>Do Not Arm</Typography>
-                        )}
-                    </Box>
-                </Grid>
+              <Typography sx={{ fontWeight: "bold" }}>Notes:</Typography>
+              {member.notes === null ? (
+                <Typography sx={{ mb: 5 }}>N/A</Typography>
+              ) : (
+                <Typography sx={{ mb: 5 }}>{member.notes}</Typography>
+              )}
             </Box>
-        </>
-        )}
+
+            <Box display="flex" flexDirection="column">
+              <Typography sx={{ fontWeight: "bold" }}>User Type:</Typography>
+              <Typography sx={{ mb: 5 }}>
+                {member.admin === true ? "Admin" : "User"}
+              </Typography>
+
+              <Typography sx={{ fontWeight: "bold" }}>
+                Certifications:
+              </Typography>
+              {member.certs.length === 0 ? (
+                <Typography sx={{ mb: 5 }}>No certs</Typography>
+              ) : (
+                <Typography sx={{ mb: 5 }}>
+                  {member.certs.map((item) => item.cert)}
+                </Typography>
+              )}
+
+              <Typography sx={{ fontWeight: "bold" }}>Arm Status:</Typography>
+              {member.weapon_arming === true ? (
+                // <Typography sx={{mb:5, color:"green"}}>Arm</Typography>
+                <Chip label="Arm" color="success"/>
+              ) : (
+                // <Typography sx={{ mb: 5, color: "red" }}>Do Not Arm</Typography>
+                <Chip label="Do Not Arm" color="secondary"/>
+              )}
+            </Box>
+          </Grid>
+        </Box>
+      </>
+    );}
 };
 
 const style = {
@@ -113,8 +156,6 @@ const EditMemberModal = props => {
     const [weapon, setWeapon] = useState('');
     const [status, setStatus] = useState(memberObject.weapon_arming);
     const [notes, setNotes] = useState(memberObject.notes);
-
-    
 
     //need to modify this so old data is persisted
     const handleEdit = () => {
@@ -173,7 +214,7 @@ const EditMemberModal = props => {
                             <TextField 
                             id="outlined-basic" 
                             label="First Name"
-                            vaue={firstName}
+                            value={firstName}
                             inputProps={{
                                 defaultValue: `${memberObject.first_name}`
                             }}
@@ -184,7 +225,7 @@ const EditMemberModal = props => {
                             <TextField 
                             id="outlined-basic" 
                             label="Last Name" 
-                            vaue={lastName}
+                            value={lastName}
                             inputProps={{
                                 defaultValue: `${memberObject.last_name}`
                             }}
@@ -318,4 +359,4 @@ const EditMemberModal = props => {
     );
 }
 
-export default InvdivdualMember;
+export default IndividualMember;

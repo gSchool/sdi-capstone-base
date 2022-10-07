@@ -2,15 +2,16 @@ import React, { useContext, useState, useEffect } from "react";
 import { MemberContext } from "./MemberContext";
 import '../styles/MembersDetail.css';
 import BasicCard from '../Features/Card';
+import AdminCard from "../Features/AdminCard";
+import UserCard from "../Features/UserCard";
 import {Box, LinearProgress, Button, Typography, Modal, TextField, InputLabel, MenuItem, Select, InputAdornment, Stack, Alert, FormControl} from "@mui/material"
 import CloseIcon from '@mui/icons-material/Close';
 import SearchIcon from '@mui/icons-material/Search';
-import {useNavigate} from "react-router-dom";
 
 export const MemberDetails = () => {
-  const {API, setUsersArray, usersArray, triggerFetch} = useContext(MemberContext);
+  const {API, setUsersArray, usersArray, triggerFetch, toggle} = useContext(MemberContext);
   const [searchText, setSearchText]= useState('')
-  const navigate = useNavigate();
+  const [changeView, setChangeView] = useState(0)
 
   useEffect(() => {
     fetch(`${API}/usersearch/${searchText}`, {
@@ -19,8 +20,12 @@ export const MemberDetails = () => {
     .then (res => res.json())
     .then (data => setUsersArray(data))
     .catch (err => console.log(err))
-    
   }, [searchText, triggerFetch]);
+
+  const viewArray = [
+    <BasicCard />,
+    <AdminCard />,
+    <UserCard />];
 
   // useEffect(()=> {
   //   console.log("users array: ", usersArray)
@@ -37,52 +42,90 @@ export const MemberDetails = () => {
 
   return (
     <Box>
-      <Alert severity="success">This is a success alert — check it out!</Alert>
-      <Typography variant="h3" ml={10} pb={4} sx={{fontWeight: "bold"}}>People</Typography>
-      <Stack component="span" direction="row" alignItems="center" justifyContent="space-between" sx={{display:"flex"}}>
+      {toggle === false ? null : (
+        <Stack sx={{ width: "100%" }}>
+          <Alert severity="success" spacing={2} mb={2}>
+            Your new user, has successfully been added.
+          </Alert>
+        </Stack>
+      )}
+
+      <Typography variant="h3" ml={10} pb={4} sx={{ fontWeight: "bold" }}>
+        People
+      </Typography>
+      <Stack
+        component="span"
+        direction="row"
+        alignItems="center"
+        justifyContent="space-between"
+        sx={{ display: "flex" }}
+      >
         <Box
-        justifyContent="left"
+          justifyContent="left"
           sx={{
-            maxWidth: '100%',
-            mx: '80px',
-            display:"flex",
+            maxWidth: "100%",
+            mx: "80px",
+            display: "flex",
           }}
         >
-          <TextField label="Search People" id="fullWidth" InputProps={{
-            startAdornment: (
-              <InputAdornment position="start">
-                <SearchIcon/>
-              </InputAdornment>
-            ),
-          }}
-          onChange={e => {setSearchText(e.target.value)}}
-          />
+          <FormControl sx={{ width: "40ch" }}>
+            <TextField
+              label="Search People"
+              id="fullWidth"
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <SearchIcon />
+                  </InputAdornment>
+                ),
+              }}
+              onChange={(e) => {
+                setSearchText(e.target.value);
+              }}
+            />
+          </FormControl>
         </Box>
-        <Box justifyContent="right" sx={{display:"flex", mx:'80px'}}>
-          <AddMemberModal/>
+        <Box justifyContent="right" sx={{ display: "flex", mx: "80px" }}>
+          <AddMemberModal />
         </Box>
       </Stack>
 
-      <Box justifyContent="left" sx={{display:"flex", mx:'80px'}} pt={3}>
-        <Button color ="secondary" variant="contained" size="large" sx={{borderRadius: "30px", marginRight: "10px"}}
-        onClick={()=> navigate("/sfmembers")}
+      <Box justifyContent="left" sx={{ display: "flex", mx: "80px" }} pt={3}>
+        <Button
+          color="secondary"
+          variant="contained"
+          size="large"
+          sx={{ borderRadius: "30px", marginRight: "10px" }}
+          onClick={() => setChangeView(0)}
         >
           All
         </Button>
-        <Button color ="primary" variant="contained" size="large" sx={{borderRadius: "30px", marginRight: "10px"}}
-        onClick={()=> navigate("/Settings")}
+        <Button
+          color="primary"
+          variant="contained"
+          size="large"
+          sx={{ borderRadius: "30px", marginRight: "10px" }}
+          onClick={() => setChangeView(2)}
         >
           User
         </Button>
-        <Button color ="primary" variant="contained" size="large" sx={{borderRadius: "30px"}}>
+        <Button
+          color="primary"
+          variant="contained"
+          size="large"
+          sx={{ borderRadius: "30px" }}
+          onClick={() => setChangeView(1)}
+        >
           Admins
         </Button>
       </Box>
 
       <Stack>
-        <BasicCard/>
+        {viewArray[changeView]}
+        {/* <BasicCard />
+        <AdminCard />
+        <UserCard /> */}
       </Stack>
-
     </Box>
   );
 }
@@ -104,7 +147,7 @@ const style = {
 
 
 const AddMemberModal = () => {
-  const {API, setTriggerFetch} = useContext(MemberContext);
+  const {API, setTriggerFetch, setToggle} = useContext(MemberContext);
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -142,6 +185,7 @@ const AddMemberModal = () => {
       .then((res) => res.json())
       .then(() => {
           setTriggerFetch(curr => !curr)
+          setToggle(true)
           handleClose()
         })
       .catch(err => {

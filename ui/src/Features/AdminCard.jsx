@@ -8,7 +8,7 @@ import WorkspacePremiumIcon from '@mui/icons-material/WorkspacePremium';
 import SecurityIcon from '@mui/icons-material/Security';
 
 
-const BasicCard = () => {
+const AdminCard = () => {
   const {setMember, API, usersArray, setTriggerFetch, triggerFetch} = useContext(MemberContext);
   const navigate = useNavigate();
   const [idArray, setIdArray] = useState([]);
@@ -78,7 +78,7 @@ const BasicCard = () => {
         >
           <Box justifyContent="left" pb={2} sx={{ display: "flex" }}>
             <Typography variant="h4" sx={{ fontWeight: "bold" }}>
-              All Users
+              Admin Users
             </Typography>
           </Box>
 
@@ -120,6 +120,7 @@ const BasicCard = () => {
           {usersArray
             .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
             .map((member, index) => (
+              member.admin === true ? (
               <Stack
                 key={index}
                 className="card"
@@ -215,7 +216,7 @@ const BasicCard = () => {
                     {/* <Chip icon={<SecurityIcon />} label={member.weapons.map(weapon => (weapon.weapon))} color="secondary"/> */}
                   </Typography>
                 </Box>
-              </Stack>
+              </Stack> ) : null
             ))}
         </Stack>
 
@@ -268,4 +269,4 @@ const BasicCard = () => {
   );
 };
 
-export default BasicCard;   
+export default AdminCard;   
