@@ -5,7 +5,7 @@ const config = {
     },
 
     production: {
-        apiUrl: "https://capstone-base-api.onrender.com"
+        apiUrl: process.env.REACT_APP_API_URL
     },
     test: {
         apiUrl: ''
