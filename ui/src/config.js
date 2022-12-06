@@ -5,7 +5,7 @@ const config = {
     },
 
     production: {
-        apiUrl: process.env.API_URL
+        apiUrl: process.env.REACT_APP_API_URL
     },
     test: {
         apiUrl: ''
