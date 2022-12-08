@@ -1,12 +1,12 @@
 import '../App.css';
 import React from 'react'
-import Header1 from './Header1';
+import Header from './Header';
 
 
 function Home() {
     return (
         <>
-        <Header1/>
+        <Header/>
         <div>
             <h1>This is the requests page/checkout</h1>
         </div>
