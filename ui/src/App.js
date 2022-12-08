@@ -25,7 +25,6 @@ return (
     </div>
   );
 }
-
 export default App;
 
-//test
+import "../App.css";
