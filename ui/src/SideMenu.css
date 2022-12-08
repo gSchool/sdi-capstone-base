@@ -28,8 +28,8 @@
     -webkit-animation:spin .5s ease 1;
     -moz-animation:spin .5s ease 1;
     animation:spin .5s ease 1;
-
   }
+  
   @-moz-keyframes spin { 
     100% { -moz-transform: rotate(360deg); } 
   }

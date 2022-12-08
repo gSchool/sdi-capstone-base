@@ -20,6 +20,7 @@
   }
 
   .Header a {
+    position: fixed;
     text-decoration: none;
     font-size: 21px;
     z-index: 11;
@@ -35,6 +36,7 @@
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     background-color: #ffffff;
+    background-color: white;
   }
   
   .grid1 {

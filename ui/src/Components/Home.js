@@ -2,7 +2,7 @@
 import '../App.css';
 import React from 'react'
 import { Link } from 'react-router-dom';
-import Header1 from './Header1';
+import Header from './Header';
 import logo1 from '../img/1.jpg'
 import logo2 from '../img/2.jpg'
 import logo3 from '../img/3.jpg'
@@ -13,7 +13,7 @@ import logo6 from '../img/6.jpg'
 function Home() {
     return (
         <>
-        <Header1/>
+        <Header/>
         <div className="home">
             <Link to={`/Assets/ISR`}>
             <img src={logo1} alt="alt"/>
