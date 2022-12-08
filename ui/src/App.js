@@ -1,28 +1,27 @@
-import React, { useEffect, useState} from 'react';
-import config from './config'
-
-const ApiUrl = config[process.env.REACT_APP_NODE_ENV || "development"].apiUrl;
-
+import Home from "./components/Home";
+import "./App.css";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
+// import AssetView from './views/AssetView'
+// import Approver from './Components/Approver';
+// import LoginPage from './Components/LoginPage'
+// import Requests from './Components/Requests';
+import React, { useState, useEffect } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 function App() {
-
-  let [names, setNames] = useState([ ]);
-
-  useEffect(() => {
-    fetch(ApiUrl + "/authors")
-      .then(response => response.json())
-      .then(data => setNames(data))
-      .catch(err => console.log(err))
-  }, []);
-
-
   return (
     <div>
-      App is running - good work you who wrote this app: 
-      { names.map(author => author.firstName + " ")}
+      <Router>
+        <Header />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          {/* <Route path="/Assets/:type" element={<AssetView />}/> */}
+        </Routes>
+        <Footer />
+      </Router>
     </div>
   );
 }
-
 export default App;
 
-//test
+import "../App.css";
