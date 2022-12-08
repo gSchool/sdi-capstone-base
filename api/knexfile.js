@@ -32,7 +32,7 @@ module.exports = {
     client: 'postgresql',
     connection: {
       database: 'my_db',
-      user:     'username',
+      user: 'username',
       password: 'password'
     },
     pool: {
@@ -46,7 +46,7 @@ module.exports = {
 
   production: {
     client: 'postgresql',
-    connection: process.env.DATABASE_URL+'?ssl=no-verify',
+    connection: process.env.DATABASE_URL + '?ssl=no-verify',
     pool: {
       min: 2,
       max: 10
@@ -56,7 +56,8 @@ module.exports = {
     },
     seeds: {
       directory: './db/seeds'
-    }
+      TESTING!!!!!
   }
+}
 
 };
