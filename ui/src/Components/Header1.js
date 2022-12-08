@@ -12,7 +12,7 @@ function Header() {
             </div>
             <div className="grid2">
             <Link to={`/Home`}>
-            <h1>Fortis Bellator</h1>
+            <h1>FORTIS BELLATOR</h1>
             </Link>
             </div>
             <div className="grid3">

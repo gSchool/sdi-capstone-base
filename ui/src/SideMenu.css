@@ -6,7 +6,7 @@
     padding-right: 40px;
     text-decoration: none;
     font-size: 13px;
-    color: #000000;
+    color:black;
     display: block;
     transition: 0.3s;
   }
@@ -14,7 +14,7 @@
 /* Acutal button */
 
   .navBar button {
-    position: relative;
+    position: fixed;
     z-index: 10;
     cursor: pointer;
     padding: 0;
@@ -46,12 +46,10 @@
   /*Handles the menu styling*/
   
   .menuNav {
+    color:black;
     list-style-type:none;
     position: fixed;
-    background: linear-gradient(0deg, #460f17, #c4c4c4);
-    background-repeat: no-repeat;
-    background-size:cover;
-    background-position: 0 50%;
+    background-color: white;
     top:0;
     left:0;
     transform: translate3d(0, -300px, 0);
@@ -78,6 +76,7 @@
   }
 
   .menuOptions {
+    color:black;
     display:flex;
     justify-content: center;
     padding: 50px;

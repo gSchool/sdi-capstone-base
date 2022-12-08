@@ -1,3 +1,8 @@
+@font-face {
+    font-family: "expressway";
+    src: url(./fonts/expressway.ttf) format('truetype')
+}
+
 * {
     box-sizing: border-box;
     margin: 0;
@@ -6,11 +11,12 @@
   
   .App {
     text-align: center;
-    height: 100vh;
-    width: 100vw;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
     background-color: rgb(172, 172, 172);
     color: rgb(0, 0, 0);
-    font-family: Copperplate Gothic Light
+    font-family: 'expressway'
   }
 
   .Header a {
@@ -29,13 +35,13 @@
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     background-color: #ffffff;
-    border-bottom: 1px solid black;
   }
   
   .grid1 {
     display: flex;
     justify-content: space-around;
     padding-top: 25px;
+    padding-right: 50px;
     z-index: 9
   }
   
@@ -53,4 +59,58 @@
     padding-top: 29px;
     z-index: 8
   }
+
+    .home {
+    position: relative;;
+    }
+
+    .home a {
+    color:black
+    }
+
+    .home a:hover {
+        color:black
+        }
+
+    .home img{
+    width:100%;
+    height: 500px;
+    object-fit: cover;
+    }
+
+    .ISR {
+    position: absolute;
+    top: 75px;
+    right: 150px;
+    }
+
+    .Comms {
+    position: absolute;
+    top: 575px;
+    left: 150px;
+    }
   
+    .Mobility {
+    position: absolute;
+    top: 1075px;
+    right: 150px;
+    }
+
+    
+    .Fires {
+        position: absolute;
+        top: 2075px;
+        right: 150px;
+        }
+
+        .Medical {
+            position: absolute;
+            top: 1575px;
+            left: 150px;
+            }
+
+        .Personel {
+        position: absolute;
+        top: 2575px;
+        left: 150px;
+        }
