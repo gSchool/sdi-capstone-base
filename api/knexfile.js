@@ -6,7 +6,7 @@
 const HOST = process.env.DATABASE_HOST || '127.0.0.1';
 const USER = process.env.POSTGRES_USER || 'postgres';
 const PASSWORD = process.env.POSTGRES_PASSWORD || 'docker';
-const DATABASE = process.env.POSTGRES_DB || 'capstone';
+const DATABASE = process.env.POSTGRES_DB || 'fortis_bellator';
 const PORT = process.env.PORT || 5432;
 
 module.exports = {
@@ -32,7 +32,7 @@ module.exports = {
     client: 'postgresql',
     connection: {
       database: 'my_db',
-      user:     'username',
+      user: 'username',
       password: 'password'
     },
     pool: {
@@ -46,7 +46,7 @@ module.exports = {
 
   production: {
     client: 'postgresql',
-    connection: process.env.DATABASE_URL+'?ssl=no-verify',
+    connection: process.env.DATABASE_URL + '?ssl=no-verify',
     pool: {
       min: 2,
       max: 10

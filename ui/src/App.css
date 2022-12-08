@@ -1,0 +1,56 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .App {
+    text-align: center;
+    height: 100vh;
+    width: 100vw;
+    background-color: rgb(172, 172, 172);
+    color: rgb(0, 0, 0);
+    font-family: Copperplate Gothic Light
+  }
+
+  .Header a {
+    text-decoration: none;
+    font-size: 21px;
+    z-index: 11;
+    color: #000000;
+  }
+  
+  .Header a:hover {
+    text-decoration: underline
+  }
+  
+  .Header {
+    height: 100px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    background-color: #ffffff;
+    border-bottom: 1px solid black;
+  }
+  
+  .grid1 {
+    display: flex;
+    justify-content: space-around;
+    padding-top: 25px;
+    z-index: 9
+  }
+  
+  .grid2 {
+    display: flex;
+    justify-content: space-around;
+    padding-top: 20px;
+    z-index: 9
+  }
+  
+  .grid3 {
+    display: flex;
+    justify-content: space-around;
+    padding-left: 50px;
+    padding-top: 29px;
+    z-index: 8
+  }
+  
