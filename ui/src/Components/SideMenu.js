@@ -1,18 +1,18 @@
-import React, { useState }  from 'react';
+import React, { useState } from "react";
 import { MdClose, MdMenu } from "react-icons/md";
-import { Link } from 'react-router-dom';
-import '../SideMenu.css';
+import { Link } from "react-router-dom";
+import "../SideMenu.css";
 
 function SideMenu() {
-    const [navbarOpen, setNavbarOpen] = useState(false);
+  const [navbarOpen, setNavbarOpen] = useState(false);
 
-    const handleToggle = () => {
-        setNavbarOpen(!navbarOpen);
-    }
+  const handleToggle = () => {
+    setNavbarOpen(!navbarOpen);
+  };
 
-    const closeMenu = () => {
-        setNavbarOpen(false);
-    }
+  const closeMenu = () => {
+    setNavbarOpen(false);
+  };
 
     return (
         <nav className="navBar">
