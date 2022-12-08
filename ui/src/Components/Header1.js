@@ -1,12 +1,13 @@
 import '../App.css';
 import React from 'react'
 import { Link } from 'react-router-dom';
+import SideMenu from './SideMenu';
 
 function Header() {
     return (
         <div className="Header">
             <div className="grid1">
-            <p>sidemenu</p>
+            <SideMenu/>
             </div>
             <div className="grid2">
             <Link to={`/Home`}>
