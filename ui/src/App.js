@@ -17,7 +17,7 @@ return (
                   <Route path="/" element={<LoginPage />}/>
                   <Route path="/Home" element={<Home />}/>
                   <Route path="/Approver" element={<Approver />}/>
-                  <Route path="/Assets/1" element={<AssetView />}/>
+                  <Route path="/Assets/:type" element={<AssetView />}/>
                   <Route path="/Requests" element={<Requests />}/>
               </Routes>
           <Footer/>
