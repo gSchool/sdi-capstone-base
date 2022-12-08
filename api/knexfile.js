@@ -56,7 +56,6 @@ module.exports = {
     },
     seeds: {
       directory: './db/seeds'
-      testing the git push
     }
   }
 
