@@ -17,7 +17,7 @@ app.get('/authors', (request, response) => {
     knex('app_authors')
         .select('*')
         .then(authorRecords => {
-            let responseData = authorRecords.map(author => ({ firstName: author.first_name, lastName: author.last_name}));
+            let responseData = authorRecords.map(author => ({ firstName: author.first_name, lastName: author.last_name }));
             response.status(200).send(responseData)
         })
 
