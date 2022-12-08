@@ -3,17 +3,18 @@
  * @returns { Promise<void> }
  */
 exports.up = function (knex) {
-    return knex.schema.createTable('user', table => {
-        table.increments('id');
-        table.string('first_name', 50);
-        table.string('last_name', 50);
-        table.string('username', 50);
-        table.string('unit', 50);
-        table.string('position', 50);
-        table.string('password', 100);
-        table.string('phone_number', 20);
-        table.string('email', 50);
-    })
+    return knex.schema
+        .createTable('user', table => {
+            table.increments('id');
+            table.string('first_name', 50);
+            table.string('last_name', 50);
+            table.string('username', 50);
+            table.string('unit', 50);
+            table.string('position', 50);
+            table.string('password', 100);
+            table.string('phone_number', 20);
+            table.string('email', 50);
+        })
         .createTable('asset', table => {
             table.increments('id');
             table.string('asset_name', 150);
@@ -55,11 +56,11 @@ exports.up = function (knex) {
         })
         .createTable('request', table => {
             table.increments('id');
-            table.string('date', 25);
+            table.string('date', 100);
             table.string('location', 50);
             table.string('mission_title', 50);
             table.string('justification', 255);
-            table.string('status', 25);
+            table.string('status', 50);
             table.integer('user_id');
             table.foreign('user_id').references('user.id')
                 .onDelete('CASCADE')

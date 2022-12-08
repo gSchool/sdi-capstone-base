@@ -12,12 +12,12 @@ const createFakeUsers = () => {
     const user = {
       first_name: faker.name.firstName(),
       last_name: faker.name.lastName(),
-      username: faker.name.username,
+      username: faker.internet.userName(),
       unit: faker.helpers.arrayElement(['A Co', 'B Co', 'C Co', 'D Co']),
-      position: faker.name.jobTitle,
-      password: faker.name.password,
-      phone_number: faker.name.phone_number,
-      email: faker.name.email,
+      position: faker.name.jobTitle(),
+      password: faker.internet.password(),
+      phone_number: faker.phone.number('813-###-###'),
+      email: faker.internet.email(),
     }
     fakeUsers.push(user)
   }

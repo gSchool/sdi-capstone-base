@@ -1,6 +1,8 @@
 const express = require('express');
 const cors = require('cors');
 const app = express();
+const router = express.Router()
+module.exports = router;
 
 app.use(express.json());
 app.use(cors());
@@ -21,13 +23,14 @@ app.use('/checkout', checkout_route);
 app.use('/homepage', homepage_route);
 app.use('/login', login_route);
 
+
 app.get('/', (request, response) => {
     response.set("Access-Control-Allow-Origin", "*");
     response.status(200).send('App root route running');
 })
 
-app.get('/authors', (request, response) => {
-    knex('app_authors')
+app.get('/user', (request, response) => {
+    knex('user')
         .select('*')
         .then(authorRecords => {
             let responseData = authorRecords.map(author => ({ firstName: author.first_name, lastName: author.last_name }));
