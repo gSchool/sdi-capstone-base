@@ -8,17 +8,17 @@ function Header() {
     return (
         <div className="Header">
             <div className="grid1">
-            <SideMenu/>
+                <SideMenu />
             </div>
             <div className="grid2">
-            <Link to={`/Home`}>
-            <h1>FORTIS BELLATOR</h1>
-            </Link>
+                <Link to={`/Home`}>
+                    <h1>FORTIS BELLATOR</h1>
+                </Link>
             </div>
             <div className="grid3">
-            <Link to={`/Requests`}>
-            <p>Requests</p>
-            </Link>
+                <Link to={`/Requests`}>
+                    <p>Requests</p>
+                </Link>
             </div>
         </div>
     )

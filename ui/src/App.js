@@ -1,5 +1,6 @@
 import Home from "./Components/Home";
 import Footer from "./Components/Footer";
+import Header from "./Components/Header1"
 import AssetView from "./views/AssetView";
 import Approver from "./Components/Approver";
 import LoginPage from "./Components/LoginPage";
@@ -12,16 +13,16 @@ function App() {
     <div className="App">
       <Router>
 
-          {/* <Header/> */}
-              <Routes>
-                  <Route path="/" element={<LoginPage />}/>
-                  <Route path="/Home" element={<Home />}/>
-                  <Route path="/Approver" element={<Approver />}/>
-                  <Route path="/Assets/:type" element={<AssetView />}/>
-                  <Route path="/Requests" element={<Requests />}/>
-              </Routes>
-          <Footer/>
-      </Router>  
+        {/* <Header/> */}
+        <Routes>
+          <Route path="/" element={<LoginPage />} />
+          <Route path="/Home" element={<Home />} />
+          <Route path="/Approver" element={<Approver />} />
+          <Route path="/Assets/:type" element={<AssetView />} />
+          <Route path="/Requests" element={<Requests />} />
+        </Routes>
+        <Footer />
+      </Router>
     </div>
   );
 }

@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { alpha } from "@mui/material/styles";
 import Box from "@mui/material/Box";
@@ -21,6 +21,7 @@ import Switch from "@mui/material/Switch";
 import DeleteIcon from "@mui/icons-material/Delete";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import { visuallyHidden } from "@mui/utils";
+import axios from 'axios';
 
 function createData(name, calories, fat, carbs, protein) {
   return {
@@ -238,6 +239,18 @@ export default function Requests() {
   const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [requestData, setRequestData] = useState([])
+
+  useEffect(() => {
+    const getRequestData = async () => {
+      const response = await axios.get('http://localhost:8080/approvals')
+      const data = await response.data;
+      setRequestData(data)
+    }
+    getRequestData()
+  }, [])
+
+  console.log(requestData)
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === "asc";
