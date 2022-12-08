@@ -1,24 +1,27 @@
-import Home from "./components/Home";
-import "./App.css";
-import Header from "./components/Header";
-import Footer from "./components/Footer";
-// import AssetView from './views/AssetView'
-// import Approver from './Components/Approver';
-// import LoginPage from './Components/LoginPage'
-// import Requests from './Components/Requests';
-import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import './App.css';
+import Home from './Components/Home';
+import Footer from './Components/Footer';
+import AssetView from './views/AssetView'
+import Approver from './Components/Approver';
+import LoginPage from './Components/LoginPage'
+import Requests from './Components/Requests';
+import React from 'react';
+import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
+
 function App() {
-  return (
-    <div>
+return (
+    <div className="App">
       <Router>
-        <Header />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          {/* <Route path="/Assets/:type" element={<AssetView />}/> */}
-        </Routes>
-        <Footer />
-      </Router>
+          {/* <Header/> */}
+              <Routes>
+                  <Route path="/" element={<LoginPage />}/>
+                  <Route path="/Home" element={<Home />}/>
+                  <Route path="/Approver" element={<Approver />}/>
+                  <Route path="/Assets/1" element={<AssetView />}/>
+                  <Route path="/Requests" element={<Requests />}/>
+              </Routes>
+          <Footer/>
+      </Router>  
     </div>
   );
 }
