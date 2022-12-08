@@ -1,33 +1,56 @@
-import React from "react";
-import Card from "react-bootstrap/Card";
-import Button from "react-bootstrap/Button";
-import ButtonGroup from "react-bootstrap/ButtonGroup";
-// import axios from "axios";
+import * as React from "react";
+import { useTheme } from "@mui/material/styles";
+import Box from "@mui/material/Box";
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import CardMedia from "@mui/material/CardMedia";
+import IconButton from "@mui/material/IconButton";
+import Typography from "@mui/material/Typography";
+import AddCircleRoundedIcon from "@mui/icons-material/AddCircleRounded";
+import RemoveCircleRoundedIcon from "@mui/icons-material/RemoveCircleRounded";
+import Header from "../Components/Header1";
 
 export default function AssetView() {
-  const handleRemove = () => {};
-
-  const handleRequest = () => {};
+  const theme = useTheme();
 
   return (
     <>
-      <Card style={{ width: "18rem" }}>
-        <Card.Img
-          variant="top"
-          src="https://c.files.bbci.co.uk/AD05/production/_123139244_reaper_getty.jpg"
-        ></Card.Img>
-        <Card.Body>
-          <Card.Title>This is a title</Card.Title>
-          <Card.Text>This is a placeholder</Card.Text>
-          <ButtonGroup>
-            <Button variant="outline-danger" onClick={() => handleRemove()}>
-              Remove
-            </Button>
-            <Button variant="outline-success" onClick={() => handleRequest()}>
-              Request
-            </Button>
-          </ButtonGroup>
-        </Card.Body>
+      <Header />
+      <Card
+        alignItems="center"
+        justify="center"
+        sx={{ display: "flex", flexDirection: "row" }}
+      >
+        <CardMedia
+          component="img"
+          sx={{ width: 500 }}
+          image="https://c.files.bbci.co.uk/AD05/production/_123139244_reaper_getty.jpg"
+          alt="Live from space album cover"
+        />
+        <Box sx={{ display: "flex", flexDirection: "column" }}>
+          <CardContent sx={{ flex: "1 0 auto" }}>
+            <Typography component="div" variant="h5">
+              Title
+            </Typography>
+            <Typography
+              variant="subtitle1"
+              color="text.secondary"
+              component="div"
+            >
+              asldfjsadlkfjsadlkfjasldflj;asd;jlkfsjlak;fjsadfjasd;fljsald
+              fasdfjasdlfjas;lfjasd
+              fasjflksdjf;asldfjsadlkfjsadlkfjasldfljasdjfkasdflj;asldfjsadlkfjsadlkfjasldflj
+              ksdlfkjas;lfas;lfjs; fkldshv;dlsknvas
+            </Typography>
+
+            <IconButton aria-label="remove">
+              <RemoveCircleRoundedIcon fontSize="large" color="error" />
+            </IconButton>
+            <IconButton>
+              <AddCircleRoundedIcon fontSize="large" color="success" />
+            </IconButton>
+          </CardContent>
+        </Box>
       </Card>
     </>
   );

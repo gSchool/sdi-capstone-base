@@ -1,17 +1,17 @@
-import './App.css';
-import Home from './Components/Home';
-import Footer from './Components/Footer';
-import AssetView from './views/AssetView'
-import Approver from './Components/Approver';
-import LoginPage from './Components/LoginPage'
-import Requests from './Components/Requests';
-import React from 'react';
-import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
+import Home from "./Components/Home";
+import Footer from "./Components/Footer";
+import AssetView from "./views/AssetView";
+import Approver from "./Components/Approver";
+import LoginPage from "./Components/LoginPage";
+import Requests from "./Components/Requests";
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 function App() {
-return (
+  return (
     <div className="App">
       <Router>
+
           {/* <Header/> */}
               <Routes>
                   <Route path="/" element={<LoginPage />}/>
