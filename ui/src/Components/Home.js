@@ -9,7 +9,7 @@ function Home() {
         <Header1/>
         <div>
             <Link to={`/Assets/1`}>
-            <img src= {`/1.jpg`} alt="alt"></img>
+            <img src= "img/1.jpg" alt="alt"></img>
             <h1>This is where asset types will be displayed as images, and the image will be clickable links to assets page</h1>
             </Link>
         </div>
