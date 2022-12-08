@@ -16,14 +16,18 @@ export default function AssetView() {
   return (
     <>
       <Header />
-      <Card sx={{ display: "flex" }}>
+      <Card
+        alignItems="center"
+        justify="center"
+        sx={{ display: "flex", flexDirection: "row" }}
+      >
         <CardMedia
           component="img"
-          sx={{ width: 151 }}
+          sx={{ width: 500 }}
           image="https://c.files.bbci.co.uk/AD05/production/_123139244_reaper_getty.jpg"
           alt="Live from space album cover"
         />
-        <Box sx={{ display: "flex", flexDirection: "row" }}>
+        <Box sx={{ display: "flex", flexDirection: "column" }}>
           <CardContent sx={{ flex: "1 0 auto" }}>
             <Typography component="div" variant="h5">
               Title
@@ -33,15 +37,19 @@ export default function AssetView() {
               color="text.secondary"
               component="div"
             >
-              Description
+              asldfjsadlkfjsadlkfjasldflj;asd;jlkfsjlak;fjsadfjasd;fljsald
+              fasdfjasdlfjas;lfjasd
+              fasjflksdjf;asldfjsadlkfjsadlkfjasldfljasdjfkasdflj;asldfjsadlkfjsadlkfjasldflj
+              ksdlfkjas;lfas;lfjs; fkldshv;dlsknvas
             </Typography>
-          </CardContent>
-          <Box sx={{ display: "flex", alignItems: "center", pl: 1, pb: 1 }}>
-            <IconButton aria-label="add">
+
+            <IconButton aria-label="remove">
               <RemoveCircleRoundedIcon fontSize="large" color="error" />
+            </IconButton>
+            <IconButton>
               <AddCircleRoundedIcon fontSize="large" color="success" />
             </IconButton>
-          </Box>
+          </CardContent>
         </Box>
       </Card>
     </>
