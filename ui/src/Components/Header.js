@@ -10,7 +10,7 @@ function Header() {
     return (
         <div className="Header">
             <div className="grid1">
-            <SideMenu/>
+                <SideMenu />
             </div>
             <div className="grid2">
             <Link to={`/Home`}>
