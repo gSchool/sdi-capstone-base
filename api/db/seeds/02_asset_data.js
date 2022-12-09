@@ -7,12 +7,12 @@
 exports.seed = async function (knex) {
   // Deletes ALL existing entries
   await knex('asset').insert([
-    { id: 1, asset_name: 'Satellite', description: '', type: 'ISR', image_url: '' },
-    { id: 2, asset_name: 'Aerial', description: '', type: 'ISR', image_url: '' },
-    { id: 3, asset_name: 'Satcom', description: '', type: 'Communications', image_url: '' },
-    { id: 4, asset_name: 'Networking', description: '', type: 'Communications', image_url: '' },
-    { id: 5, asset_name: 'Mobile Device', description: '', type: 'Communications', image_url: '' },
-    { id: 6, asset_name: 'Desktop', description: '', type: 'Communications', image_url: '' },
+    { id: 1, asset_name: 'Satellite', description: 'Powered by on-board processing and resilient connectivity, this tactical ISR satellite line enables in-theater, low-latency sensor tasking, on-orbit processing of mission data, protected communications and direct downlink of situational awareness and targeting information, increasingly essential to shortening the sensor-to-shooter timeline against fleeting targets.', type: 'ISR', image_url: '../img/isr/satellite.jpg' },
+    { id: 2, asset_name: 'Aerial', description: 'ISR and EW platforms provide modern and advanced integration techniques fusing on-board and off-board collection and targeting data into customized airborne mission system solutions.', type: 'ISR', image_url: '../img/isr/aerial.jpg' },
+    { id: 3, asset_name: 'Satcom', description: '', type: 'Communications', image_url: '../img/comms/satcom.jpg' },
+    { id: 4, asset_name: 'Networking', description: '', type: 'Communications', image_url: '../img/comms/networking.jpg' },
+    { id: 5, asset_name: 'Mobile Device', description: '', type: 'Communications', image_url: '../img/comms/cellphone.jpg' },
+    { id: 6, asset_name: 'Desktop', description: '', type: 'Communications', image_url: '../img/comms/desktop.jpg' },
     { id: 7, asset_name: 'CSfC', description: '', type: 'Communications', image_url: '' },
     { id: 8, asset_name: 'Fixed Wing', description: '', type: 'Transportation', image_url: '' },
     { id: 9, asset_name: 'Rotary Wing', description: '', type: 'Transportation', image_url: '' },

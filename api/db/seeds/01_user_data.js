@@ -26,8 +26,8 @@ const createFakeUsers = () => {
 
 exports.seed = async function (knex) {
   // Deletes ALL existing entries
-  await knex('user').del()
-  await knex('user').insert(
+  await knex('all_users').del()
+  await knex('all_users').insert(
     createFakeUsers()
   );
 };

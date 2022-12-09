@@ -4,7 +4,7 @@
  */
 exports.up = function (knex) {
     return knex.schema
-        .createTable('user', table => {
+        .createTable('all_users', table => {
             table.increments('id');
             table.string('first_name', 50);
             table.string('last_name', 50);
@@ -18,7 +18,7 @@ exports.up = function (knex) {
         .createTable('asset', table => {
             table.increments('id');
             table.string('asset_name', 150);
-            table.string('description', 255);
+            table.text('description');
             table.string('type', 50);
             table.string('image_url', 255);
         })
@@ -50,7 +50,7 @@ exports.up = function (knex) {
             table.string('email', 50);
             table.string('type', 25);
             table.integer('user_id');
-            table.foreign('user_id').references('user.id')
+            table.foreign('user_id').references('all_users.id')
                 .onDelete('CASCADE')
                 .onUpdate('CASCADE');
         })
@@ -59,10 +59,10 @@ exports.up = function (knex) {
             table.string('date', 100);
             table.string('location', 50);
             table.string('mission_title', 50);
-            table.string('justification', 255);
+            table.text('justification');
             table.string('status', 50);
             table.integer('user_id');
-            table.foreign('user_id').references('user.id')
+            table.foreign('user_id').references('all_users.id')
                 .onDelete('CASCADE')
                 .onUpdate('CASCADE');
             table.integer('asset_id')
@@ -100,7 +100,7 @@ exports.down = function (knex) {
             table.dropForeign('cmd_id');
         })
         .then(function () {
-            return knex.schema.dropTableIfExists('user')
+            return knex.schema.dropTableIfExists('all_users')
         })
         .then(function () {
             return knex.schema.dropTableIfExists('asset')

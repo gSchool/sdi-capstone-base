@@ -16,7 +16,7 @@ router.get('/', async (req, res) => {
     let requestList = await knex
       .select('date', 'location', 'mission_title', 'justification', 'status', 'user.first_name as User_first', 'user.last_name as User_last', 'sme_approver.first_name as SME_first', 'sme_approver.last_name as SME_last', 'cmd_approver.first_name as CMD_first', 'cmd_approver.last_name as CMD_last')
       .from('request')
-      .innerJoin('user', 'request.user_id', 'user.id')
+      .innerJoin('all_users', 'request.user_id', 'all_users.id')
       .innerJoin('sme_approver', 'sme_approver.id', 'request.sme_id')
       .innerJoin('cmd_approver', 'cmd_approver.id', 'request.cmd_id')
     res.status(200).send(requestList)

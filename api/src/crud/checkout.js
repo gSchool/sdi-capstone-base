@@ -15,7 +15,7 @@ router.get('/', async (req, res) => {
   try {
     let assetList = await knex
       .select('date', 'location', 'mission_title', 'justification', 'status', 'user.first_name', 'user.last_name').from('request')
-      .innerJoin('user', 'user.id', 'request.user_id')
+      .innerJoin('all_users', 'all_users.id', 'request.user_id')
     res.status(200).send(assetList)
   } catch (err) {
     console.log('Error fetching checkout: '(err));

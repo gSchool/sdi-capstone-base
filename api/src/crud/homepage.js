@@ -12,6 +12,6 @@ const config = require('../../knexfile')[env]
 const knex = require('knex')(config)
 
 router.get('/', async (req, res) => {
-  let userList = await knex.select('*').from('user')
+  let userList = await knex.select('*').from('all_users')
   res.status(200).send(userList)
 })
