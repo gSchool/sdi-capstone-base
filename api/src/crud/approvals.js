@@ -14,7 +14,7 @@ const knex = require('knex')(config)
 router.get('/', async (req, res) => {
   try {
     let requestList = await knex
-      .select('date', 'location', 'mission_title', 'justification', 'status', 'user.first_name as User_first', 'user.last_name as User_last', 'sme_approver.first_name as SME_first', 'sme_approver.last_name as SME_last', 'cmd_approver.first_name as CMD_first', 'cmd_approver.last_name as CMD_last')
+      .select('date', 'location', 'mission_title', 'justification', 'status', 'all_users.first_name as User_first', 'all_users.last_name as User_last', 'sme_approver.first_name as SME_first', 'sme_approver.last_name as SME_last', 'cmd_approver.first_name as CMD_first', 'cmd_approver.last_name as CMD_last', 'sme_approver.id AS SME_ID', 'cmd_approver.id as CMD_ID', 'all_users.id as USER_ID')
       .from('request')
       .innerJoin('all_users', 'request.user_id', 'all_users.id')
       .innerJoin('sme_approver', 'sme_approver.id', 'request.sme_id')
