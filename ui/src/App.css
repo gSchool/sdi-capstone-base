@@ -23,6 +23,7 @@
     grid-template-columns: 1fr 1fr 1fr;
     background-color: #f0f0f0;
     z-index: 15;
+    
 }
 
 .grid1 {
@@ -138,4 +139,9 @@
     position: absolute;
     top: 2575px;
     left: 150px;
+}
+
+.table-container{
+    position: relative;
+        margin-top: 100px;
 }
