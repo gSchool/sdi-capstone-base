@@ -3,116 +3,139 @@
     src: url(./fonts/expressway.ttf) format('truetype')
 }
 
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-  }
-  
-  .App {
+.App {
     text-align: center;
     height: 100%;
     width: 100%;
     overflow: hidden;
-    background-color: rgb(172, 172, 172);
+    background-color: #f0f0f0;
     color: rgb(0, 0, 0);
-    font-family: 'expressway'
-  }
+    font-family: expressway
+}
 
-  .Header a {
+.Header {
     position: fixed;
-    text-decoration: none;
-    font-size: 21px;
-    z-index: 11;
-    color: #000000;
-  }
-  
-  .Header a:hover {
-    text-decoration: underline
-  }
-  
-  .Header {
+    left: 0;
+    top: 0;
+    width: 100%;
     height: 100px;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    background-color: #ffffff;
-    background-color: white;
-  }
-  
-  .grid1 {
+    background-color: #f0f0f0;
+    z-index: 15;
+}
+
+.grid1 {
     display: flex;
     justify-content: space-around;
     padding-top: 25px;
     padding-right: 50px;
-    z-index: 9
-  }
-  
-  .grid2 {
+
+}
+
+.grid2 {
+    text-decoration: none;
+    font-size: 21px;
     display: flex;
     justify-content: space-around;
-    padding-top: 20px;
-    z-index: 9
-  }
-  
-  .grid3 {
+    padding-top: 10px;
+}
+
+.grid2 img {
+    width: 750px;
+    height: auto
+
+}
+
+.grid2 a {
+    text-decoration: none;
+    color: black;
+    z-index: 11;
+}
+
+.grid2 a:hover {
+    text-decoration: underline;
+    color: black;
+}
+
+.grid3 {
     display: flex;
     justify-content: space-around;
+    padding-top: 30px;
     padding-left: 50px;
-    padding-top: 29px;
-    z-index: 8
-  }
+    z-index: 11;
+}
 
-    .home {
-    position: relative;;
-    }
+.grid3 .tooltiptext {
+    visibility: hidden;
+    width: 200px;
+    font-size: 14px;
+    background-color: rgb(37, 37, 37);
+    color: #f0f0f0;
+    text-align: center;
+    border-radius: 4px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 12;
+}
 
-    .home a {
-    color:black
-    }
+.grid3:hover .tooltiptext {
+    visibility: visible;
+}
 
-    .home a:hover {
-        color:black
-        }
+.home {
+    position: relative;
+    margin-top: 100px;
+}
 
-    .home img{
-    width:100%;
+.home a {
+    color: black
+}
+
+.home a:hover {
+    color: black
+}
+
+.home img {
+    width: 100%;
     height: 500px;
     object-fit: cover;
-    }
+}
 
-    .ISR {
+.ISR {
     position: absolute;
     top: 75px;
     right: 150px;
-    }
+}
 
-    .Comms {
+.Comms {
     position: absolute;
     top: 575px;
     left: 150px;
-    }
-  
-    .Mobility {
+}
+
+.Mobility {
     position: absolute;
     top: 1075px;
     right: 150px;
-    }
+}
 
-    
-    .Fires {
-        position: absolute;
-        top: 2075px;
-        right: 150px;
-        }
 
-        .Medical {
-            position: absolute;
-            top: 1575px;
-            left: 150px;
-            }
+.Fires {
+    position: absolute;
+    top: 2075px;
+    right: 150px;
+}
 
-        .Personel {
-        position: absolute;
-        top: 2575px;
-        left: 150px;
-        }
+.Medical {
+    position: absolute;
+    top: 1575px;
+    left: 150px;
+}
+
+.Personel {
+    position: absolute;
+    top: 2575px;
+    left: 150px;
+}
