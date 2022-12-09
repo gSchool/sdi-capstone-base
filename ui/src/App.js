@@ -1,6 +1,5 @@
 import Home from "./Components/Home";
 import Footer from "./Components/Footer";
-import Header from "./Components/Header1"
 import AssetView from "./views/AssetView";
 import Approver from "./Components/Approver";
 import LoginPage from "./Components/LoginPage";
