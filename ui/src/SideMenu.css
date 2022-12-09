@@ -29,7 +29,7 @@
     -moz-animation:spin .5s ease 1;
     animation:spin .5s ease 1;
   }
-  
+
   @-moz-keyframes spin { 
     100% { -moz-transform: rotate(360deg); } 
   }
@@ -49,13 +49,13 @@
     color:black;
     list-style-type:none;
     position: fixed;
-    background-color: white;
+    background-color: #f0f0f0;
     top:0;
     left:0;
     transform: translate3d(0, -300px, 0);
     transition-duration: 1.2s;
     width: 100%;
-    height: 200px;
+    height: 170px;
     z-index: 9;
     overflow: hidden;
     visibility: hidden; 
@@ -80,8 +80,12 @@
     display:flex;
     justify-content: center;
     padding: 50px;
-    margin-top: 90px;
+    margin-top: 70px;
     cursor: pointer
+  }
+
+  .menuOptions a:hover {
+    color: black;
   }
 
   li:not(:last-child) {

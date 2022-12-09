@@ -22,32 +22,23 @@ function SideMenu() {
             </button>
             <ul className={`menuNav ${navbarOpen ? " showMenu" : "" }`}>
                 <div className ="menuOptions">
-                    <Link to={'/Branch/0'} onClick={() => closeMenu()} >
-                        <li>All</li>
+                    <Link to={'/Assets/ISR'} onClick={() => closeMenu()} >
+                        <li>ISR</li>
                     </Link>
-                    <Link to='/Branch/1' onClick={() => closeMenu()} >
-                        <li>National Guard</li>
+                    <Link to='/Assets/Communications' onClick={() => closeMenu()} >
+                        <li>Communications</li>
                     </Link>
-                    <Link to='/Branch/2' onClick={() => closeMenu()} >
-                        <li>Army</li>
+                    <Link to='/Assets/Mobility' onClick={() => closeMenu()} >
+                        <li>Mobility</li>
                     </Link>
-                    <Link to='/Branch/3' onClick={() => closeMenu()} >
-                        <li>Navy</li>
+                    <Link to='/Assets/Medical' onClick={() => closeMenu()} >
+                        <li>Medical</li>
                     </Link>
-                    <Link to='/Branch/4' onClick={() => closeMenu()} >
-                        <li>Marines</li>
+                    <Link to='/Assets/Fires' onClick={() => closeMenu()} >
+                        <li>Fires</li>
                     </Link>
-                    <Link  to='/Branch/5' onClick={() => closeMenu()} >
-                        <li>Coast Guard</li>
-                    </Link>
-                    <Link to='/Branch/6' onClick={() => closeMenu()} >
-                        <li>Air Force</li>
-                    </Link>
-                    <Link to='/Branch/7' onClick={() => closeMenu()}>
-                        <li>Space Force</li>
-                    </Link>
-                    <Link to='/Branch/8' onClick={() => closeMenu()} >
-                        <li>Joint</li>
+                    <Link  to='/Assets/Personel' onClick={() => closeMenu()} >
+                        <li>Personel</li>
                     </Link>
                 </div>
             </ul>
