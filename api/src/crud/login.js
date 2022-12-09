@@ -15,10 +15,10 @@ router.get('/', async (req, res) => {
   let username = req.body.username;
   try {
     let login = await knex
-      .select('username').from('all_users').where('username', username)
+      .select('username').from('all_users')
     res.status(200).send(login)
   } catch (err) {
-    console.log('Error fetching assets: '(err));
+    console.log('Error fetching users: '(err));
   }
 })
 

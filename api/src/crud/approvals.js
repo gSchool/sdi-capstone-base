@@ -40,3 +40,15 @@ router.patch('/:id', async (req, res) => {
     console.log('Error in patching unit:', e);
   }
 })
+
+router.delete('/:id', async (req, res) => {
+  try {
+    knex('request')
+      .where('id', req.params.id)
+      .del()
+      .then(res.send('I deleted that request.'))
+  }
+  catch (e) {
+    console.log('Error in deleting the request:', e);
+  }
+})
