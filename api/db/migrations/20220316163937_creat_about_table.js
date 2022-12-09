@@ -20,7 +20,7 @@ exports.up = function (knex) {
             table.string('asset_name', 150);
             table.text('description');
             table.string('type', 50);
-            table.string('image_url', 255);
+            table.text('image_url');
         })
         .createTable('sme_approver', table => {
             table.increments('id');
