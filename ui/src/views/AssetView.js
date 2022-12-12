@@ -46,12 +46,8 @@ export default function AssetView() {
 
   const handleAdd = (event, asset) => {
     let assetId = asset.id
-    let newQuantity = asset.quantity
-    console.log(asset, newQuantity)
 
-    let existingItem = cartData.find(i => {
-      return i.asset.id === assetId
-    })
+    let existingItemIndex = cartData.findIndex(i => i.asset.id === asset.id)
 
     if (existingItem) {
       const cartItem = {
