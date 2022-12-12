@@ -16,12 +16,17 @@ const assets_route = require('./crud/assets');
 const checkout_route = require('./crud/checkout');
 const homepage_route = require('./crud/homepage');
 const login_route = require('./crud/login');
+const sme_route = require('./crud/sme');
+const cmd_route = require('./crud/cmd');
 
 app.use('/approval', approvals_route);
 app.use('/assets', assets_route);
 app.use('/checkout', checkout_route);
 app.use('/homepage', homepage_route);
 app.use('/login', login_route);
+app.use('/sme', sme_route);
+app.use('/cmd', cmd_route);
+
 
 
 app.get('/', (request, response) => {

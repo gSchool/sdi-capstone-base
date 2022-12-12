@@ -12,15 +12,13 @@ const config = require('../../knexfile')[env]
 const knex = require('knex')(config)
 
 router.get('/', async (req, res) => {
-  let username = req.body.username;
-  try {
-    let login = await knex
-      .select('username').from('all_users').where('username', username)
-    res.status(200).send(login)
-  } catch (err) {
-    console.log('Error fetching assets: '(err));
-  }
-})
+  await knex
+  .select('*')
+  .from('all_users')
+  .then(data => {
+     res.status(200).json(data);
+  })
+ })
 
 
 router.post('/', async (req, res) => {
@@ -42,5 +40,7 @@ router.post('/', async (req, res) => {
     console.log('Error in adding unit:', e);
   }
 })
+
+
 
 
