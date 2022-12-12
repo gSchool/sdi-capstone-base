@@ -7,7 +7,7 @@ Most USSF missions require 24/7 crew operations. Scheduling shifts is a challeng
 
 
 
-![Wireframe Outline] (./admin/wireframe.png)
+![Wireframe Outline] (/admin/wireframe.png)
 
 
 
