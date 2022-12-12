@@ -1,3 +1,5 @@
+/* application wide */
+
 @font-face {
     font-family: "expressway";
     src: url(./fonts/expressway.ttf) format('truetype')
@@ -13,6 +15,8 @@
     font-family: expressway;
     padding-top: 100px;
 }
+
+/* Header */
 
 .Header {
     position: fixed;
@@ -46,7 +50,6 @@
 .grid2 img {
     width: 750px;
     height: auto
-
 }
 
 .grid2 a {
@@ -86,6 +89,16 @@
     visibility: visible;
 }
 
+.btn-success,
+.btn-success:active,
+.btn-success:visited {
+    background-color: transparent !important;
+    border: none !important;
+    color: black !important;
+}
+
+/* Home page */
+
 .home {
     position: relative;
     margin-top: 100px;
@@ -123,7 +136,6 @@
     right: 150px;
 }
 
-
 .Fires {
     position: absolute;
     top: 2075px;
@@ -140,6 +152,86 @@
     position: absolute;
     top: 2575px;
     left: 150px;
+}
+
+.scrollIcon {
+    display: none;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    padding: 80px;
+    vertical-align: middle;
+    border: none
+}
+
+.scrollIcon p {
+    font-size: 10px;
+    margin-top: -25px;
+}
+
+.scrollIcon button {
+    border: none;
+    background-color: transparent;
+}
+
+/* Login page */
+
+.login {
+    text-align: center;
+    padding-right: 80px;
+    padding-left: 80px;
+}
+
+.select {
+    width: 200px;
+    text-align: center;
+    justify-content: center
+}
+
+.btn-primary,
+.btn-primary:active,
+.btn-primary:visited {
+    background-color: #000000 !important;
+    border-color: #000000 !important;
+}
+
+.btn-primary:hover {
+    transform: scale(1.07) !important;
+}
+
+.loginheader img {
+    width: 750px;
+    height: auto
+}
+
+.loginoverall video {
+    width: 100%;
+    height: 500px;
+    object-fit: cover;
+}
+
+.form-control:focus {
+    border-color: #000000 !important;
+    box-shadow: 0 0 0 0.05rem #000000 !important;
+}
+
+.form-select:focus {
+    border-color: #000000 !important;
+    box-shadow: 0 0 0 0.05rem #000000 !important;
+}
+
+.alert {
+    margin: auto !important;
+    width: 900px !important;
+}
+
+.loginAlert {
+    padding-left: 25%;
+    padding-right: 25%;
+}
+
+.stupidOR {
+    margin-bottom: 30px;
 }
 
 .table-container{

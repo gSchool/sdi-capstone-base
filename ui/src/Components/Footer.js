@@ -8,8 +8,6 @@ function Home() {
             <br></br>
             <br></br>
             <br></br>
-            <br></br>
-            <h1>Footer</h1>
         </div>
     )
 }
