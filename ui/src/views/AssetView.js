@@ -20,7 +20,7 @@ export default function AssetView() {
   const [assetData, setAssetData] = useState([]);
   const [cartData, setCartData] = useState([]);
 
-  console.log(location)
+  let username = location.state.user.user;
 
   const url = `http://localhost:8080/assets/${assetType}`
 
@@ -34,18 +34,42 @@ export default function AssetView() {
     getAssetData();
   }, [location.state.type]);
 
+  useEffect(() => {
+    localStorage.setItem('cartInfo', JSON.stringify(cartData))
+  }, [cartData])
+
   const handleRemove = (event, id) => {
     const newArray = cartData;
     const filtered = newArray.filter(item => item.assetId !== id);
     setCartData(filtered);
   }
 
-  const handleAdd = (event, id) => {
-    const cartItem = {
-      assetId: id
+  const handleAdd = (event, asset) => {
+    let assetId = asset.id
+    let newQuantity = asset.quantity
+    console.log(asset, newQuantity)
+
+    let existingItem = cartData.find(i => {
+      return i.asset.id === assetId
+    })
+
+    if (existingItem) {
+      const cartItem = {
+        asset: asset,
+        username: username,
+        quantity: newQuantity + 1
+      }
+      console.log(cartItem)
+      setCartData([...cartData, cartItem]);
+    } else {
+      const cartItem = {
+        asset: asset,
+        username: username,
+        quantity: 1
+      }
+      setCartData([...cartData, cartItem]);
     }
-    console.log(cartItem)
-    setCartData([...cartData, cartItem]);
+
   }
 
   console.log(cartData)
@@ -78,10 +102,10 @@ export default function AssetView() {
                 {asset.description}
               </Typography>
 
-              <IconButton onClick={(e) => { handleRemove(e, asset.id) }} size="large" color="error" aria-label="removeButton" id={asset.id} >
+              <IconButton onClick={(e) => { handleRemove(e, asset) }} size="large" color="error" aria-label="removeButton" id={asset.id} >
                 <RemoveCircleRoundedIcon fontSize="large" />
               </IconButton>
-              <IconButton size="large" color="success" aria-label="addButton" id={asset.id} onClick={(e) => { handleAdd(e, asset.id) }}>
+              <IconButton size="large" color="success" aria-label="addButton" id={asset.id} onClick={(e) => { handleAdd(e, asset) }}>
                 <AddCircleRoundedIcon fontSize="large" />
               </IconButton>
             </CardContent>

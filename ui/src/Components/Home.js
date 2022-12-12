@@ -57,7 +57,7 @@ function Home() {
                 <>
                     <Header />
                     <div className="home">
-                        <Link to={`/Assets/ISR`} state={{ type: 'ISR' }}>
+                        <Link to={`/Assets/ISR`} state={{ type: 'ISR', user: userCookies }}>
                             <img src={logo1} alt="alt" />
                             <h2 className="ISR">ISR</h2>
                         </Link>
@@ -65,19 +65,19 @@ function Home() {
                             <img src={logo2} alt="alt" />
                             <h2 className="Comms">Communications</h2>
                         </Link>
-                        <Link to={`/Assets/Mobility`} state={{ type: 'Transportation' }}>
+                        <Link to={`/Assets/Mobility`} state={{ type: 'Transportation', user: userCookies }}>
                             <img src={logo3} alt="alt" />
                             <h2 className="Mobility">Mobility</h2>
                         </Link>
-                        <Link to={`/Assets/Medical`} state={{ type: 'Medical' }}>
+                        <Link to={`/Assets/Medical`} state={{ type: 'Medical', user: userCookies }}>
                             <img src={logo4} alt="alt" />
                             <h2 className="Medical">Medical</h2>
                         </Link>
-                        <Link to={`/Assets/Fires`} state={{ type: 'Fires' }}>
+                        <Link to={`/Assets/Fires`} state={{ type: 'Fires', user: userCookies }}>
                             <img src={logo5} alt="alt" />
                             <h2 className="Fires">Fires</h2>
                         </Link>
-                        <Link to={`/Assets/Personnel`} state={{ type: 'Personnel' }}>
+                        <Link to={`/Assets/Personnel`} state={{ type: 'Personnel', user: userCookies }}>
                             <img src={logo6} alt="alt" />
                             <h2 className="Personnel">Personnel</h2>
                         </Link>
