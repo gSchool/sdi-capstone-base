@@ -25,6 +25,8 @@ import PendingActionsTwoToneIcon from "@mui/icons-material/PendingActionsTwoTone
 import GppGoodIcon from "@mui/icons-material/GppGood";
 import Header from "./Header";
 import { makeStyles } from "@material-ui/core/styles";
+import Button from "react-bootstrap/Button";
+import Modal from "react-bootstrap/Modal";
 
 const useStyles = makeStyles({
   finalRow: {
@@ -71,6 +73,12 @@ const headCells = [
     numeric: false,
     disablePadding: true,
     label: "Asset",
+  },
+  {
+    id: "type",
+    numeric: true,
+    disablePadding: false,
+    label: "Type",
   },
   {
     id: "mission_title",
@@ -225,13 +233,19 @@ export default function Requests() {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [requestData, setRequestData] = useState([]);
-  
+  const [confirmShow, setConfirmShow] = useState(false);
+  const [show, setShow] = useState(false);
 
   const classes = useStyles();
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === "asc";
     setOrder(isAsc ? "desc" : "asc");
     setOrderBy(property);
+  };
+
+  const handleClose = () => {
+    setShow(false);
+    setConfirmShow(false);
   };
 
   const handleSelectAllClick = (event) => {
@@ -243,10 +257,15 @@ export default function Requests() {
     setSelected([]);
   };
 
-  const handleDelete = (event, data) => {
-   let clicked = data.Request_ID;
-   console.log('clicked', clicked)
-    
+  const handleDeleteUser = (event, data) => {
+    let newArray = requestData;
+    let clicked = data.Request_ID;
+
+    console.log("clicked", clicked);
+    const filtered = newArray.filter((item) => item.id !== clicked);
+    axios.delete(`http://localhost:8080/approvals/${clicked}`);
+    setRequestData(filtered);
+    setConfirmShow(false);
   };
 
   const handleChangePage = (event, newPage) => {
@@ -287,8 +306,6 @@ export default function Requests() {
                   rowCount={requestData.length}
                 />
                 <TableBody>
-                  {/* if you don't need to support IE11, you can replace the `stableSort` call with:
-                 rows.sort(getComparator(order, orderBy)).slice() */}
                   {stableSort(requestData, getComparator(order, orderBy))
                     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                     .map((row, index) => {
@@ -303,9 +320,7 @@ export default function Requests() {
                           <TableCell padding="checkbox">
                             <DeleteIcon
                               color="error"
-                              onClick={(event) =>
-                                handleDelete(event, row)
-                              }
+                              onClick={(event) => handleDelete(event, row)}
                               inputProps={{
                                 "aria-labelledby": labelId,
                               }}
@@ -318,6 +333,14 @@ export default function Requests() {
                             padding="none"
                           >
                             {row.asset_name}
+                          </TableCell>
+                          <TableCell
+                            component="th"
+                            id={labelId}
+                            scope="row"
+                            padding="none"
+                          >
+                            {row.type}
                           </TableCell>
                           <TableCell align="center">
                             {row.mission_title}
@@ -363,6 +386,21 @@ export default function Requests() {
           </Paper>
         </Box>
       </div>
+      <Modal show={confirmShow} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Delete!</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Are you sure you want to delete?</Modal.Body>
+        <Button
+          variant="outline-danger"
+          onClick={() => handleDeleteUser(deleteId)}
+        >
+          Confirm
+        </Button>
+        <Button variant="outline-info" onClick={handleClose}>
+          Cancel
+        </Button>
+      </Modal>
     </>
   );
 }
