@@ -82,12 +82,13 @@ function LoginPage() {
         let isUser = false
         let isSME = false
         let isCMD = false
-        let loggedInUser = []
+        let loggedInUser = ""
+        let userHash = bcrypt.hashSync(loggedInUser, 8)
 
         for (let i = 0; i < user.length; i++) {
             if (user[i].username === subUser && bcrypt.compareSync(subPass, user[i].password)) { 
                 isUser = true
-                loggedInUser.push(user[i].id, user[i].username) 
+                loggedInUser = user[i].id + user[i].username
             }
         }
         for (let i = 0; i < sme.length; i++) {
@@ -96,10 +97,12 @@ function LoginPage() {
         for (let i = 0; i < cmd.length; i++) {
             if (cmd[i].username === subUser && bcrypt.compareSync(subPass, cmd[i].password)) { isCMD = true }
         }
+
         console.log(loggedInUser)
         if (isUser) {
-        setUserCookie("user", subUser, { path: "/" });
+        setUserCookie("userToken", userHash, { path: "/" });
         console.log(userCookie)
+        console.log(userHash)
         navigate('/Home')
         } else if (isSME) {
         setSmeCookie("sme", subUser, { path: "/" });
