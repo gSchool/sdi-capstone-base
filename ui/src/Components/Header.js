@@ -3,7 +3,8 @@ import '../App.css';
 import React from 'react'
 import { Link } from 'react-router-dom';
 import SideMenu from './SideMenu';
-import { MdOutlineShoppingCart } from 'react-icons/md'
+import {  MdOutlineShoppingCart  } from 'react-icons/md'
+import Badge from '@material-ui/core/Badge'
 import logo from '../img/logo.png'
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';

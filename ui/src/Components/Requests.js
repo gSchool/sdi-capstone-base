@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios";
 import PropTypes from "prop-types";
 import { alpha } from "@mui/material/styles";
 import Box from "@mui/material/Box";
@@ -16,38 +17,27 @@ import Paper from "@mui/material/Paper";
 import Checkbox from "@mui/material/Checkbox";
 import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Switch from "@mui/material/Switch";
 import DeleteIcon from "@mui/icons-material/Delete";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import { visuallyHidden } from "@mui/utils";
-import axios from 'axios';
+import GppBadTwoToneIcon from "@mui/icons-material/GppBadTwoTone";
+import PendingActionsTwoToneIcon from "@mui/icons-material/PendingActionsTwoTone";
+import GppGoodIcon from "@mui/icons-material/GppGood";
+import Header from "./Header";
+import { makeStyles } from "@material-ui/core/styles";
+import Button from "react-bootstrap/Button";
+import Modal from "react-bootstrap/Modal";
 
-function createData(name, calories, fat, carbs, protein) {
-  return {
-    name,
-    calories,
-    fat,
-    carbs,
-    protein,
-  };
-}
-
-const rows = [
-  createData("Cupcake", 305, 3.7, 67, 4.3),
-  createData("Donut", 452, 25.0, 51, 4.9),
-  createData("Eclair", 262, 16.0, 24, 6.0),
-  createData("Frozen yoghurt", 159, 6.0, 24, 4.0),
-  createData("Gingerbread", 356, 16.0, 49, 3.9),
-  createData("Honeycomb", 408, 3.2, 87, 6.5),
-  createData("Ice cream sandwich", 237, 9.0, 37, 4.3),
-  createData("Jelly Bean", 375, 0.0, 94, 0.0),
-  createData("KitKat", 518, 26.0, 65, 7.0),
-  createData("Lollipop", 392, 0.2, 98, 0.0),
-  createData("Marshmallow", 318, 0, 81, 2.0),
-  createData("Nougat", 360, 19.0, 9, 37.0),
-  createData("Oreo", 437, 18.0, 63, 4.0),
-];
+const useStyles = makeStyles({
+  finalRow: {
+    backgroundColor: "lightblue",
+  },
+  hover: {
+    "&:hover": {
+      backgroundColor: "lightblue",
+    },
+  },
+});
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -65,8 +55,6 @@ function getComparator(order, orderBy) {
     : (a, b) => -descendingComparator(a, b, orderBy);
 }
 
-// This method is created for cross-browser compatibility, if you don't
-// need to support IE11, you can use Array.prototype.sort() directly
 function stableSort(array, comparator) {
   const stabilizedThis = array.map((el, index) => [el, index]);
   stabilizedThis.sort((a, b) => {
@@ -81,34 +69,40 @@ function stableSort(array, comparator) {
 
 const headCells = [
   {
-    id: "name",
+    id: "asset_name",
     numeric: false,
     disablePadding: true,
-    label: "Dessert (100g serving)",
+    label: "Asset",
   },
   {
-    id: "calories",
+    id: "type",
     numeric: true,
     disablePadding: false,
-    label: "Calories",
+    label: "Type",
   },
   {
-    id: "fat",
+    id: "mission_title",
     numeric: true,
     disablePadding: false,
-    label: "Fat (g)",
+    label: "Operation",
   },
   {
-    id: "carbs",
+    id: "location",
     numeric: true,
     disablePadding: false,
-    label: "Carbs (g)",
+    label: "Location",
   },
   {
-    id: "protein",
+    id: "justification",
     numeric: true,
     disablePadding: false,
-    label: "Protein (g)",
+    label: "Justification",
+  },
+  {
+    id: "status",
+    numeric: true,
+    disablePadding: false,
+    label: "Approval Status",
   },
 ];
 
@@ -135,14 +129,14 @@ function EnhancedTableHead(props) {
             checked={rowCount > 0 && numSelected === rowCount}
             onChange={onSelectAllClick}
             inputProps={{
-              "aria-label": "select all desserts",
+              "aria-label": "select all requests",
             }}
           />
         </TableCell>
         {headCells.map((headCell) => (
           <TableCell
             key={headCell.id}
-            align={headCell.numeric ? "right" : "left"}
+            align={headCell.numeric ? "center" : "center"}
             padding={headCell.disablePadding ? "none" : "normal"}
             sortDirection={orderBy === headCell.id ? order : false}
           >
@@ -207,7 +201,7 @@ function EnhancedTableToolbar(props) {
           id="tableTitle"
           component="div"
         >
-          Nutrition
+          Requests
         </Typography>
       )}
 
@@ -233,58 +227,45 @@ EnhancedTableToolbar.propTypes = {
 };
 
 export default function Requests() {
-  const [order, setOrder] = React.useState("asc");
-  const [orderBy, setOrderBy] = React.useState("calories");
-  const [selected, setSelected] = React.useState([]);
-  const [page, setPage] = React.useState(0);
-  const [dense, setDense] = React.useState(false);
-  const [rowsPerPage, setRowsPerPage] = React.useState(5);
-  const [requestData, setRequestData] = useState([])
+  const [order, setOrder] = useState("asc");
+  const [orderBy, setOrderBy] = useState("mission_title");
+  const [selected, setSelected] = useState([]);
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [requestData, setRequestData] = useState([]);
+  const [confirmShow, setConfirmShow] = useState(false);
+  const [show, setShow] = useState(false);
 
-  useEffect(() => {
-    const getRequestData = async () => {
-      const response = await axios.get('http://localhost:8080/approvals')
-      const data = await response.data;
-      setRequestData(data)
-    }
-    getRequestData()
-  }, [])
-
-  console.log(requestData)
-
+  const classes = useStyles();
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === "asc";
     setOrder(isAsc ? "desc" : "asc");
     setOrderBy(property);
   };
 
+  const handleClose = () => {
+    setShow(false);
+    setConfirmShow(false);
+  };
+
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
-      const newSelected = rows.map((n) => n.name);
+      const newSelected = requestData.map((n) => n.name);
       setSelected(newSelected);
       return;
     }
     setSelected([]);
   };
 
-  const handleClick = (event, name) => {
-    const selectedIndex = selected.indexOf(name);
-    let newSelected = [];
+  const handleDeleteUser = (event, data) => {
+    let newArray = requestData;
+    let clicked = data.Request_ID;
 
-    if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, name);
-    } else if (selectedIndex === 0) {
-      newSelected = newSelected.concat(selected.slice(1));
-    } else if (selectedIndex === selected.length - 1) {
-      newSelected = newSelected.concat(selected.slice(0, -1));
-    } else if (selectedIndex > 0) {
-      newSelected = newSelected.concat(
-        selected.slice(0, selectedIndex),
-        selected.slice(selectedIndex + 1)
-      );
-    }
-
-    setSelected(newSelected);
+    console.log("clicked", clicked);
+    const filtered = newArray.filter((item) => item.id !== clicked);
+    axios.delete(`http://localhost:8080/approvals/${clicked}`);
+    setRequestData(filtered);
+    setConfirmShow(false);
   };
 
   const handleChangePage = (event, newPage) => {
@@ -296,103 +277,130 @@ export default function Requests() {
     setPage(0);
   };
 
-  const handleChangeDense = (event) => {
-    setDense(event.target.checked);
-  };
-
-  const isSelected = (name) => selected.indexOf(name) !== -1;
-
-  // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows =
-    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
+    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - requestData.length) : 0;
 
+  useEffect(() => {
+    const getRequestData = async () => {
+      const response = await axios.get("http://localhost:8080/approvals");
+      const data = await response.data;
+      setRequestData(data);
+    };
+    getRequestData();
+  }, []);
   return (
-    <Box sx={{ width: "100%" }}>
-      <Paper sx={{ width: "100%", mb: 2 }}>
-        <EnhancedTableToolbar numSelected={selected.length} />
-        <TableContainer>
-          <Table
-            sx={{ minWidth: 750 }}
-            aria-labelledby="tableTitle"
-            size={dense ? "small" : "medium"}
-          >
-            <EnhancedTableHead
-              numSelected={selected.length}
-              order={order}
-              orderBy={orderBy}
-              onSelectAllClick={handleSelectAllClick}
-              onRequestSort={handleRequestSort}
-              rowCount={rows.length}
-            />
-            <TableBody>
-              {/* if you don't need to support IE11, you can replace the `stableSort` call with:
-                 rows.sort(getComparator(order, orderBy)).slice() */}
-              {stableSort(rows, getComparator(order, orderBy))
-                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                .map((row, index) => {
-                  const isItemSelected = isSelected(row.name);
-                  const labelId = `enhanced-table-checkbox-${index}`;
+    <>
+      <Header></Header>
+      <div className="table-container">
+        <Box sx={{ width: "100%" }}>
+          <Paper sx={{ width: "100%", mb: 2 }}>
+            <EnhancedTableToolbar numSelected={selected.length} />
+            <TableContainer>
+              <Table sx={{ minWidth: 750 }} aria-labelledby="tableTitle">
+                <EnhancedTableHead
+                  numSelected={selected.length}
+                  order={order}
+                  orderBy={orderBy}
+                  onSelectAllClick={handleSelectAllClick}
+                  onRequestSort={handleRequestSort}
+                  rowCount={requestData.length}
+                />
+                <TableBody>
+                  {stableSort(requestData, getComparator(order, orderBy))
+                    .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                    .map((row, index) => {
+                      const labelId = `enhanced-table-checkbox-${index}`;
 
-                  return (
+                      return (
+                        <TableRow
+                          className={classes.hover}
+                          tabIndex={-1}
+                          key={row.Request_ID}
+                        >
+                          <TableCell padding="checkbox">
+                            <DeleteIcon
+                              color="error"
+                              onClick={(event) => handleDelete(event, row)}
+                              inputProps={{
+                                "aria-labelledby": labelId,
+                              }}
+                            />
+                          </TableCell>
+                          <TableCell
+                            component="th"
+                            id={labelId}
+                            scope="row"
+                            padding="none"
+                          >
+                            {row.asset_name}
+                          </TableCell>
+                          <TableCell
+                            component="th"
+                            id={labelId}
+                            scope="row"
+                            padding="none"
+                          >
+                            {row.type}
+                          </TableCell>
+                          <TableCell align="center">
+                            {row.mission_title}
+                          </TableCell>
+                          <TableCell align="center">{row.location}</TableCell>
+                          <TableCell align="center">
+                            {row.justification}
+                          </TableCell>
+                          <TableCell align="center">
+                            {row.status === "Approved" ? (
+                              <GppGoodIcon color="success" />
+                            ) : row.status === "Rejected" ? (
+                              <GppBadTwoToneIcon color="error" />
+                            ) : (
+                              <PendingActionsTwoToneIcon color="warning" />
+                            )}
+                          </TableCell>
+                        </TableRow>
+                      );
+                    })}
+                  {emptyRows > 0 && (
                     <TableRow
-                      hover
-                      onClick={(event) => handleClick(event, row.name)}
-                      role="checkbox"
-                      aria-checked={isItemSelected}
-                      tabIndex={-1}
-                      key={row.name}
-                      selected={isItemSelected}
+                      style={{
+                        height: 53 * emptyRows,
+                      }}
                     >
-                      <TableCell padding="checkbox">
-                        <Checkbox
-                          color="primary"
-                          checked={isItemSelected}
-                          inputProps={{
-                            "aria-labelledby": labelId,
-                          }}
-                        />
-                      </TableCell>
-                      <TableCell
-                        component="th"
-                        id={labelId}
-                        scope="row"
-                        padding="none"
-                      >
-                        {row.name}
-                      </TableCell>
-                      <TableCell align="right">{row.calories}</TableCell>
-                      <TableCell align="right">{row.fat}</TableCell>
-                      <TableCell align="right">{row.carbs}</TableCell>
-                      <TableCell align="right">{row.protein}</TableCell>
+                      <TableCell colSpan={6} />
                     </TableRow>
-                  );
-                })}
-              {emptyRows > 0 && (
-                <TableRow
-                  style={{
-                    height: (dense ? 33 : 53) * emptyRows,
-                  }}
-                >
-                  <TableCell colSpan={6} />
-                </TableRow>
-              )}
-            </TableBody>
-          </Table>
-        </TableContainer>
-        <TablePagination
-          rowsPerPageOptions={[5, 10, 25]}
-          component="div"
-          count={rows.length}
-          rowsPerPage={rowsPerPage}
-          page={page}
-          onPageChange={handleChangePage}
-          onRowsPerPageChange={handleChangeRowsPerPage}
-        />
-      </Paper>
-      <FormControlLabel
-        control={<Switch checked={dense} onChange={handleChangeDense} />}
-        label="Dense padding"
-      />
-    </Box>
+                  )}
+                </TableBody>
+              </Table>
+            </TableContainer>
+            <TablePagination
+              className={classes.finalRow}
+              rowsPerPageOptions={[10, 15, 20]}
+              component="div"
+              count={requestData.length}
+              rowsPerPage={rowsPerPage}
+              page={page}
+              onPageChange={handleChangePage}
+              onRowsPerPageChange={handleChangeRowsPerPage}
+            />
+          </Paper>
+        </Box>
+      </div>
+      <Modal show={confirmShow} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Delete!</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Are you sure you want to delete?</Modal.Body>
+        <Button
+          variant="outline-danger"
+          onClick={() => handleDeleteUser(deleteId)}
+        >
+          Confirm
+        </Button>
+        <Button variant="outline-info" onClick={handleClose}>
+          Cancel
+        </Button>
+      </Modal>
+    </>
   );
 }

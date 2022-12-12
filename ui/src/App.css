@@ -12,7 +12,8 @@
     overflow: hidden;
     background-color: #f0f0f0;
     color: rgb(0, 0, 0);
-    font-family: expressway
+    font-family: expressway;
+    padding-top: 100px;
 }
 
 /* Header */
@@ -27,6 +28,7 @@
     grid-template-columns: 1fr 1fr 1fr;
     background-color: #f0f0f0;
     z-index: 15;
+    
 }
 
 .grid1 {
@@ -230,4 +232,9 @@
 
 .stupidOR {
     margin-bottom: 30px;
+}
+
+.table-container{
+    position: relative;
+        margin-top: 100px;
 }
