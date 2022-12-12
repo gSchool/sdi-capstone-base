@@ -3,7 +3,7 @@ import '../App.css';
 import React from 'react'
 import { Link } from 'react-router-dom';
 import SideMenu from './SideMenu';
-import {  MdOutlineShoppingCart  } from 'react-icons/md'
+import { MdOutlineShoppingCart } from 'react-icons/md'
 import Badge from '@material-ui/core/Badge'
 import logo from '../img/logo.png'
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
@@ -29,7 +29,7 @@ function Header() {
                 </Link>
             </div>
             <div className="grid3">
-                <Link to={`/Requests`}>
+                <Link to={`/ShoppingCart`}>
                     <OverlayTrigger placement="bottom" delay={{ show: 250, hide: 400 }} overlay={renderTooltip}>
                         <Button variant="success">
                             <MdOutlineShoppingCart style={{ color: "black", width: "38px", height: "38px" }} />

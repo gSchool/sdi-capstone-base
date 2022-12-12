@@ -234,7 +234,8 @@ export default function Requests() {
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [requestData, setRequestData] = useState([]);
   const [confirmShow, setConfirmShow] = useState(false);
-  const [show, setShow] = useState(false);
+
+  const [deleteId, setDeleteId] = useState("");
 
   const classes = useStyles();
   const handleRequestSort = (event, property) => {
@@ -244,8 +245,8 @@ export default function Requests() {
   };
 
   const handleClose = () => {
-    setShow(false);
     setConfirmShow(false);
+    console.log("deleteId", deleteId);
   };
 
   const handleSelectAllClick = (event) => {
@@ -256,14 +257,17 @@ export default function Requests() {
     }
     setSelected([]);
   };
+  const handleClickDelete = (rowId) => {
+    console.log("rowid", rowId);
+    setConfirmShow(true);
+    setDeleteId(rowId);
+  };
 
-  const handleDeleteUser = (event, data) => {
+  const handleDeleteUser = (deleteId) => {
     let newArray = requestData;
-    let clicked = data.Request_ID;
-
-    console.log("clicked", clicked);
-    const filtered = newArray.filter((item) => item.id !== clicked);
-    axios.delete(`http://localhost:8080/approvals/${clicked}`);
+    console.log("clicked", deleteId);
+    const filtered = newArray.filter((item) => item.id !== deleteId);
+    axios.delete(`http://localhost:8080/approvals/${deleteId}`);
     setRequestData(filtered);
     setConfirmShow(false);
   };
@@ -285,9 +289,10 @@ export default function Requests() {
       const response = await axios.get("http://localhost:8080/approvals");
       const data = await response.data;
       setRequestData(data);
+      console.log("test");
     };
     getRequestData();
-  }, []);
+  }, [confirmShow]);
   return (
     <>
       <Header></Header>
@@ -320,7 +325,7 @@ export default function Requests() {
                           <TableCell padding="checkbox">
                             <DeleteIcon
                               color="error"
-                              onClick={(event) => handleDelete(event, row)}
+                              onClick={() => handleClickDelete(row.Request_ID)}
                               inputProps={{
                                 "aria-labelledby": labelId,
                               }}

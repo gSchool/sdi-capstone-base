@@ -12,19 +12,21 @@ const config = require('../../knexfile')[env]
 const knex = require('knex')(config)
 
 router.get('/', async (req, res) => {
-  await knex
-  .select('*')
-  .from('all_users')
-  .then(data => {
-     res.status(200).json(data);
-  })
- })
+  //let username = req.body.username;
+  try {
+    let login = await knex
+      .select('username').from('all_users')
+    res.status(200).send(login)
+  } catch (err) {
+    console.log('Error fetching users: '(err));
+  }
+})
 
 
 router.post('/', async (req, res) => {
   try {
 
-    let newUser = await knex('all_users').insert({
+    await knex('all_users').insert({
       'first_name': req.body.first_name,
       'last_name': req.body.last_name,
       'username': req.body.username,
@@ -35,12 +37,10 @@ router.post('/', async (req, res) => {
       'email': req.body.email
     })
     let responseString = 'New User Added: ' + req.body.first_name + ' ' + req.body.last_name;
-    res.status(201).send(responseString);
+    res.status(201).send(responseString).redirect('/home');
   } catch (e) {
     console.log('Error in adding unit:', e);
   }
 })
-
-
 
 
