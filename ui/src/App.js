@@ -5,12 +5,16 @@ import Approver from "./Components/Approver";
 import LoginPage from "./Components/LoginPage";
 import Requests from "./Components/Requests";
 import ShoppingCart from "./Components/ShoppingCart";
-import React from "react";
+import React, {useState} from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Context from './Context'
 
 function App() {
+  const [authentication, setAuthentication] = useState([])
+
   return (
     <div className="App">
+      <Context.Provider value={{authentication, setAuthentication}}>
       <Router>
         <Routes>
           <Route path="/" element={<LoginPage />} />
@@ -22,7 +26,9 @@ function App() {
         </Routes>
         <Footer />
       </Router>
+      </Context.Provider>
     </div>
   );
 }
+
 export default App;
