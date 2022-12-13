@@ -27,13 +27,6 @@ const createFakeRequests = () => {
         "Rejected",
       ]),
       user_id: faker.helpers.arrayElement([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]),
-<<<<<<< HEAD
-      asset_id: faker.helpers.arrayElement([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23]),
-      sme_id: faker.helpers.arrayElement([1, 2, 3, 4, 5, 6]),
-      cmd_id: 1,
-    }
-    fakeRequests.push(request)
-=======
       asset_id: faker.helpers.arrayElement([
         1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
         21, 22, 23,
@@ -42,7 +35,6 @@ const createFakeRequests = () => {
       cmd_id: faker.helpers.arrayElement([1, 2, 3, 4]),
     };
     fakeRequests.push(request);
->>>>>>> a235f5aba790967c00366122cd9c060944715053
   }
   return fakeRequests;
 };
