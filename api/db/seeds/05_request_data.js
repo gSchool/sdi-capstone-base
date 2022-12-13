@@ -32,7 +32,7 @@ const createFakeRequests = () => {
         21, 22, 23,
       ]),
       sme_id: faker.helpers.arrayElement([1, 2, 3, 4, 5, 6]),
-      cmd_id: faker.helpers.arrayElement([1, 2, 3, 4]),
+      cmd_id: 1,
     };
     fakeRequests.push(request);
   }

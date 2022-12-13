@@ -113,6 +113,24 @@ function LoginPage() {
         }
         else setShowAlert(true)
     }
+<<<<<<< HEAD
+    console.log("loggedin", loggedInUser);
+    if (isUser) {
+      setUserCookie("user", loggedInUser[0], { path: "/" });
+      console.log(userCookie);
+      navigate("/Home");
+    } else if (isSME) {
+      setSmeCookie("sme", subUser, { path: "/" });
+      console.log(smeCookie);
+      navigate(`/SME/${loggedInUser.id}`);
+    } else if (isCMD) {
+      setCmdCookie("cmd", subUser, { path: "/" });
+      console.log(cmdCookie);
+      navigate("/Approver");
+    } else setShowAlert(true);
+  }
+=======
+>>>>>>> a1cb441e125f1226f7550ee4b4908f8f98e427d9
 
     //function called when submitting a new account
     function submitUser(e) {
