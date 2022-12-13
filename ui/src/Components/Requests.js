@@ -14,7 +14,7 @@ import TableSortLabel from "@mui/material/TableSortLabel";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
-import Checkbox from "@mui/material/Checkbox";
+
 import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -99,7 +99,13 @@ const headCells = [
     label: "Justification",
   },
   {
-    id: "status",
+    id: "sme_status",
+    numeric: true,
+    disablePadding: false,
+    label: "SME Concurrence",
+  },
+  {
+    id: "cmd_status",
     numeric: true,
     disablePadding: false,
     label: "Approval Status",
@@ -108,11 +114,9 @@ const headCells = [
 
 function EnhancedTableHead(props) {
   const {
-    onSelectAllClick,
     order,
     orderBy,
-    numSelected,
-    rowCount,
+
     onRequestSort,
   } = props;
   const createSortHandler = (property) => (event) => {
@@ -122,17 +126,7 @@ function EnhancedTableHead(props) {
   return (
     <TableHead>
       <TableRow>
-        <TableCell padding="checkbox">
-          <Checkbox
-            color="primary"
-            indeterminate={numSelected > 0 && numSelected < rowCount}
-            checked={rowCount > 0 && numSelected === rowCount}
-            onChange={onSelectAllClick}
-            inputProps={{
-              "aria-label": "select all requests",
-            }}
-          />
-        </TableCell>
+        <TableCell></TableCell>
         {headCells.map((headCell) => (
           <TableCell
             key={headCell.id}
@@ -229,7 +223,7 @@ EnhancedTableToolbar.propTypes = {
 export default function Requests() {
   const [order, setOrder] = useState("asc");
   const [orderBy, setOrderBy] = useState("mission_title");
-  const [selected, setSelected] = useState([]);
+
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [requestData, setRequestData] = useState([]);
@@ -249,14 +243,6 @@ export default function Requests() {
     console.log("deleteId", deleteId);
   };
 
-  const handleSelectAllClick = (event) => {
-    if (event.target.checked) {
-      const newSelected = requestData.map((n) => n.name);
-      setSelected(newSelected);
-      return;
-    }
-    setSelected([]);
-  };
   const handleClickDelete = (rowId) => {
     console.log("rowid", rowId);
     setConfirmShow(true);
@@ -299,14 +285,12 @@ export default function Requests() {
       <div className="table-container">
         <Box sx={{ width: "100%" }}>
           <Paper sx={{ width: "100%", mb: 2 }}>
-            <EnhancedTableToolbar numSelected={selected.length} />
+            <EnhancedTableToolbar />
             <TableContainer>
               <Table sx={{ minWidth: 750 }} aria-labelledby="tableTitle">
                 <EnhancedTableHead
-                  numSelected={selected.length}
                   order={order}
                   orderBy={orderBy}
-                  onSelectAllClick={handleSelectAllClick}
                   onRequestSort={handleRequestSort}
                   rowCount={requestData.length}
                 />
@@ -322,7 +306,7 @@ export default function Requests() {
                           tabIndex={-1}
                           key={row.Request_ID}
                         >
-                          <TableCell padding="checkbox">
+                          <TableCell>
                             <DeleteIcon
                               color="error"
                               onClick={() => handleClickDelete(row.Request_ID)}
@@ -355,9 +339,18 @@ export default function Requests() {
                             {row.justification}
                           </TableCell>
                           <TableCell align="center">
-                            {row.status === "Approved" ? (
+                            {row.sme_status === "Approved" ? (
                               <GppGoodIcon color="success" />
-                            ) : row.status === "Rejected" ? (
+                            ) : row.sme_status === "Rejected" ? (
+                              <GppBadTwoToneIcon color="error" />
+                            ) : (
+                              <PendingActionsTwoToneIcon color="warning" />
+                            )}
+                          </TableCell>
+                          <TableCell align="center">
+                            {row.cmd_status === "Approved" ? (
+                              <GppGoodIcon color="success" />
+                            ) : row.cmd_status === "Rejected" ? (
                               <GppBadTwoToneIcon color="error" />
                             ) : (
                               <PendingActionsTwoToneIcon color="warning" />
