@@ -9,9 +9,7 @@ import Tooltip from 'react-bootstrap/Tooltip';
 import Button from 'react-bootstrap/Button';
 
 function Header() {
-    const cartItems = JSON.parse(localStorage.getItem('cartInfo')).length;
 
-console.log("ontheheader", cartItems)
     const renderTooltip = (props) => (
         <Tooltip id="button-tooltip" {...props}>
             Click here to complete your requests.
@@ -33,7 +31,6 @@ console.log("ontheheader", cartItems)
                     <OverlayTrigger placement="bottom" delay={{ show: 250, hide: 400 }} overlay={renderTooltip}>
                         <Button variant="success">
                             <MdOutlineShoppingCart style={{ color: "black", width: "38px", height: "38px" }} />
-                            {cartItems} {/*this number will dynamically display the number of things in your shopping cart*/}
                         </Button>
                     </OverlayTrigger>
                 </Link>

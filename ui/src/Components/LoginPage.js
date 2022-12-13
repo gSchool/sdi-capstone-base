@@ -82,30 +82,28 @@ function LoginPage() {
         let isUser = false
         let isSME = false
         let isCMD = false
-        let loggedInUser = ""
-        let userHash = bcrypt.hashSync(loggedInUser, 8)
+        let thisSme = []
 
+    
         for (let i = 0; i < user.length; i++) {
-            if (user[i].username === subUser && bcrypt.compareSync(subPass, user[i].password)) { 
-                isUser = true
-                loggedInUser = user[i].id + user[i].username
-            }
+            if (user[i].username === subUser && bcrypt.compareSync(subPass, user[i].password)) { isUser = true }
         }
         for (let i = 0; i < sme.length; i++) {
-            if (sme[i].username === subUser && bcrypt.compareSync(subPass, sme[i].password)) { isSME = true }
+            if (sme[i].username === subUser && sme[i].password === subPass) {
+                thisSme.push(sme[i].id, sme[i].username)
+                isSME = true 
+                }
         }
         for (let i = 0; i < cmd.length; i++) {
-            if (cmd[i].username === subUser && bcrypt.compareSync(subPass, cmd[i].password)) { isCMD = true }
+            if (cmd[i].username === subUser && cmd[i].password === subPass) { isCMD = true }
         }
 
-        console.log(loggedInUser)
         if (isUser) {
-        setUserCookie("userToken", userHash, { path: "/" });
+        setUserCookie("userToken", subUser, { path: "/" });
         console.log(userCookie)
-        console.log(userHash)
         navigate('/Home')
         } else if (isSME) {
-        setSmeCookie("sme", subUser, { path: "/" });
+        setSmeCookie("sme", thisSme, { path: "/" });
         console.log(smeCookie)
         navigate('/Approver')
         } else if (isCMD) {
@@ -136,7 +134,12 @@ function LoginPage() {
             let username = e.target[6].value
             let password = e.target[7].value
             let type = e.target[8].value
-            let hash = bcrypt.hashSync(password, 8);
+            let hash = ""
+            if (type === "User") {
+            hash = bcrypt.hashSync(password, 8);
+            } else {
+            hash = password
+            }
 
 
             let data = {
@@ -168,7 +171,7 @@ function LoginPage() {
                 })
                     .then(res => console.log(res));
             } else if (type === 'Commander') {
-                fetch('http://localhost:808/cmd', {
+                fetch('http://localhost:8080/cmd', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     mode: 'cors',

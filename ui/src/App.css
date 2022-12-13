@@ -236,12 +236,10 @@
     margin-bottom: 30px;
 }
 
+/* request page */
+
 .table-container{
     position: relative;
-}
-
-.Cart {
-    display: grid;
 }
 
 .requestTitle {
@@ -258,7 +256,24 @@
     border: none;
 }
 
+/* shopping cart page */
+
 .cartSubmitButton {
     margin-top: 50px;
     text-align: center;
+}
+
+.cartForm {
+text-align: center;
+}
+
+.cartForm img {
+    margin-bottom: 40px;
+    box-shadow: 0 5px 14px rgb(0 0 0 / 1);
+}
+
+.cartFormLine {
+    height: 1px;
+    background-color: black;
+    margin-top: 40px;
 }
