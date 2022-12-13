@@ -142,7 +142,7 @@ function LoginPage() {
     }
     console.log("loggedin", loggedInUser);
     if (isUser) {
-      setUserCookie("user", loggedInUser[0], { path: "/" });
+      setUserCookie("user", subUser, { path: "/" });
       console.log(userCookie);
       navigate("/Home");
     } else if (isSME) {
