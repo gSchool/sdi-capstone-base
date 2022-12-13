@@ -10,11 +10,11 @@ import Button from 'react-bootstrap/Button';
 
 function Header() {
 
-    const renderTooltip = (props) => (
-        <Tooltip id="button-tooltip" {...props}>
-            Click here to complete your requests.
-        </Tooltip>
-    );
+  const renderTooltip = (props) => (
+    <Tooltip id="button-tooltip" {...props}>
+      Click here to complete your requests.
+    </Tooltip>
+  );
 
     return (
         <div className="Header">

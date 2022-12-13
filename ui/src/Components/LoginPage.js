@@ -141,7 +141,6 @@ function LoginPage() {
             hash = password
             }
 
-
             let data = {
                 "first_name": firstName,
                 "last_name": lastName,

@@ -20,7 +20,8 @@ router.get("/", async (req, res) => {
         "location",
         "mission_title",
         "justification",
-        "status",
+        "sme_status",
+        "cmd_status",
         "asset.image_url",
         "all_users.first_name as User_first",
         "all_users.last_name as User_last",
@@ -50,11 +51,9 @@ router.patch("/:id", async (req, res) => {
   console.log("reqbody", req.body);
   try {
     let updatedRequest = {
-      status: req.body.status,
+      cmd_status: req.body.cmd_status,
     };
-    await knex("request")
-      .where("id", updatedId)
-      .update(updatedRequest);
+    await knex("request").where("id", updatedId).update(updatedRequest);
     res.status(200).send("Request Updated");
   } catch (e) {
     console.log("Error in patching unit:", e);
