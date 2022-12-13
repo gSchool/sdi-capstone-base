@@ -44,10 +44,10 @@ export default function AssetView() {
   };
 
   const handleAdd = (event, asset) => {
+    console.log(asset.id)
     const cartItem = {
-      asset: asset,
-      username: username,
-      quantity: 1,
+      asset_id: asset.id,
+      username: username
     };
     setCartData([...cartData, cartItem]);
   };
@@ -83,17 +83,6 @@ export default function AssetView() {
                 {asset.description}
               </Typography>
 
-              <IconButton
-                onClick={(e) => {
-                  handleRemove(e, asset);
-                }}
-                size="large"
-                color="error"
-                aria-label="removeButton"
-                id={asset.id}
-              >
-                <RemoveCircleRoundedIcon fontSize="large" />
-              </IconButton>
               <IconButton
                 size="large"
                 color="success"
