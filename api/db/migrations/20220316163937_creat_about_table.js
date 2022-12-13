@@ -15,13 +15,6 @@ exports.up = function (knex) {
       table.string("phone_number", 20);
       table.string("email", 50);
     })
-    .createTable("asset", (table) => {
-      table.increments("id");
-      table.string("asset_name", 150);
-      table.text("description");
-      table.string("type", 50);
-      table.text("image_url");
-    })
     .createTable("sme_approver", (table) => {
       table.increments("id");
       table.string("first_name", 50);
@@ -33,12 +26,15 @@ exports.up = function (knex) {
       table.string("phone_number", 20);
       table.string("email", 50);
       table.string("type", 25);
-      table.integer("asset_id");
-      table
-        .foreign("asset_id")
-        .references("asset.id")
-        .onDelete("CASCADE")
-        .onUpdate("CASCADE");
+    })
+    .createTable("asset", (table) => {
+      table.increments("id");
+      table.string("asset_name", 150);
+      table.text("description");
+      table.string("type", 50);
+      table.text("image_url");
+      table.integer("sme_id");
+      table.foreign("sme_id").references("sme_approver.id").onDelete("CASCADE").onUpdate("CASCADE");
     })
     .createTable("cmd_approver", (table) => {
       table.increments("id");
@@ -51,7 +47,6 @@ exports.up = function (knex) {
       table.string("phone_number", 20);
       table.string("email", 50);
       table.string("type", 25);
-
       table.integer("user_id");
       table
         .foreign("user_id")
@@ -100,8 +95,8 @@ exports.up = function (knex) {
  */
 exports.down = function (knex) {
   return knex.schema
-    .alterTable("sme_approver", (table) => {
-      table.dropForeign("asset_id");
+    .alterTable("asset", (table) => {
+      table.dropForeign("sme_id");
     })
     .alterTable("cmd_approver", (table) => {
       table.dropForeign("user_id");
