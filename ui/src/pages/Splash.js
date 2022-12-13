@@ -7,9 +7,6 @@ import SingleBar from '../components/SingleBar'
 
 const Splash = () => {
 
-    function sampleGoodBoyData() {
-
-    }
     const navigate = useNavigate();
     const [list1, setList1] = useState([]);
     const [list2, setList2] = useState([]);
