@@ -4,14 +4,14 @@ import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
-// import Button from '@mui/material/Button'
+import Button from '@mui/material/Button'
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import AddCircleRoundedIcon from "@mui/icons-material/AddCircleRounded";
 import RemoveCircleRoundedIcon from "@mui/icons-material/RemoveCircleRounded";
 import Header from "../Components/Header";
 import { useLocation } from "react-router-dom";
-import axios from "axios";
+import axios from 'axios';
 
 export default function AssetView() {
   // const theme = useTheme();
@@ -20,7 +20,10 @@ export default function AssetView() {
   const [assetData, setAssetData] = useState([]);
   const [cartData, setCartData] = useState([]);
 
-  const url = `http://localhost:8080/assets/${assetType}`;
+  let username = location.state.user.user;
+
+  const url = `http://localhost:8080/assets/${assetType}`
+
 
   useEffect(() => {
     const getAssetData = async () => {
@@ -31,28 +34,47 @@ export default function AssetView() {
     getAssetData();
   }, [location.state.type]);
 
+  useEffect(() => {
+    localStorage.setItem('cartInfo', JSON.stringify(cartData))
+  }, [cartData])
+
   const handleRemove = (event, id) => {
     const newArray = cartData;
-    const filtered = newArray.filter((item) => item.assetId !== id);
+    const filtered = newArray.filter(item => item.assetId !== id);
     setCartData(filtered);
-  };
+  }
 
-  const handleAdd = (event, id) => {
-    const cartItem = {
-      assetId: id,
-    };
-    console.log(cartItem);
-    setCartData([...cartData, cartItem]);
-  };
+  const handleAdd = (event, asset) => {
+    let assetId = asset.id
 
-  console.log(cartData);
+    let existingItemIndex = cartData.findIndex(i => i.asset.id === asset.id)
+
+    if (existingItem) {
+      const cartItem = {
+        asset: asset,
+        username: username,
+        quantity: newQuantity + 1
+      }
+      console.log(cartItem)
+      setCartData([...cartData, cartItem]);
+    } else {
+      const cartItem = {
+        asset: asset,
+        username: username,
+        quantity: 1
+      }
+      setCartData([...cartData, cartItem]);
+    }
+
+  }
+
+  console.log(cartData)
 
   return (
     <>
       <Header />
-      {assetData.map((asset) => (
-        <Card
-          alignitems="center"
+      {assetData.map(asset => (
+        <Card alignitems="center"
           justify="center"
           key={asset.id}
           sx={{ display: "flex", flexDirection: "row" }}
@@ -76,32 +98,17 @@ export default function AssetView() {
                 {asset.description}
               </Typography>
 
-              <IconButton
-                onClick={(e) => {
-                  handleRemove(e, asset.id);
-                }}
-                size="large"
-                color="error"
-                aria-label="removeButton"
-                id={asset.id}
-              >
+              <IconButton onClick={(e) => { handleRemove(e, asset) }} size="large" color="error" aria-label="removeButton" id={asset.id} >
                 <RemoveCircleRoundedIcon fontSize="large" />
               </IconButton>
-              <IconButton
-                size="large"
-                color="success"
-                aria-label="addButton"
-                id={asset.id}
-                onClick={(e) => {
-                  handleAdd(e, asset.id);
-                }}
-              >
+              <IconButton size="large" color="success" aria-label="addButton" id={asset.id} onClick={(e) => { handleAdd(e, asset) }}>
                 <AddCircleRoundedIcon fontSize="large" />
               </IconButton>
             </CardContent>
           </Box>
         </Card>
       ))}
+
     </>
   );
 }

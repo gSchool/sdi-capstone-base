@@ -52,7 +52,7 @@ router.patch("/:id", async (req, res) => {
     let updatedRequest = {
       status: req.body.status,
     };
-    let updatedRequestKnex = await knex("request")
+    await knex("request")
       .where("id", updatedId)
       .update(updatedRequest);
     res.status(200).send("Request Updated");
