@@ -17,8 +17,8 @@ import ModeEditOutlineOutlinedIcon from "@mui/icons-material/ModeEditOutlineOutl
 function Approver() {
   const [requestData, setRequestData] = useState([]);
   const [approveConfirmShow, setApproveConfirmShow] = useState(false);
-  const [rejectId, setRejectId] = useState("");
-  const [approveId, setApproveId] = useState("");
+  const [nonConcurId, setNonConcurId] = useState("");
+  const [concurId, setConcurId] = useState("");
   const [rejectConfirmShow, setRejectConfirmShow] = useState(false);
   const [confirmShow, setConfirmShow] = useState(false);
   const [countState, setCountState] = useState(0);
@@ -29,26 +29,26 @@ function Approver() {
     setRejectConfirmShow(false);
   };
 
-  const handleClickApproved = (rowId) => {
-    console.log("approveId", rowId);
+  const handClickedConcur = (rowId) => {
+    console.log("concurId", rowId);
     setApproveConfirmShow(true);
-    setApproveId(rowId);
+    setConcurId(rowId);
     setConfirmShow(true);
   };
-  const handleClickedReject = (rowId) => {
-    console.log("rejectId", rowId);
+  const handleClickednonConcurId = (rowId) => {
+    console.log("nonConcurId", rowId);
     setRejectConfirmShow(true);
-    setRejectId(rowId);
+    setNonConcurId(rowId);
     setConfirmShow(true);
   };
-  const handleConfirmApprove = async (approveId) => {
-    await axios.patch(`http://localhost:8080/approvals/${approveId}`, {
+  const handleConcurApprove = async (concurId) => {
+    await axios.patch(`http://localhost:8080/approvals/${concurId}`, {
       status: "Approved",
     });
     handleClose();
   };
-  const handleConfirmReject = async (rejectId) => {
-    await axios.patch(`http://localhost:8080/approvals/${rejectId}`, {
+  const handConfirmnonConcurId = async (nonConcurId) => {
+    await axios.patch(`http://localhost:8080/approvals/${nonConcurId}`, {
       status: "Rejected",
     });
     handleClose();
@@ -142,27 +142,29 @@ function Approver() {
                           variant="outlined"
                           size="small"
                           onClick={() => {
-                            handleClickedReject(card.Request_ID);
+                            handleClickednonConcurId(card.Request_ID);
                           }}
                         >
-                          Reject
+                          Non Concur
                         </Button>
                         <Button
                           onClick={() => {
-                            handleClickApproved(card.Request_ID);
+                            handClickedConcur(card.Request_ID);
                           }}
                           color="success"
                           variant="outlined"
                           size="small"
                         >
-                          Approve
+                          Concur
                         </Button>
                       </CardActions>
                     </div>
                   ) : card.status === "Approved" ? (
                     <h3>
                       <Badge
-                        onClick={() => handleClickedReject(card.Request_ID)}
+                        onClick={() =>
+                          handleClickednonConcurId(card.Request_ID)
+                        }
                         pill
                         bg="success"
                       >
@@ -170,13 +172,15 @@ function Approver() {
                       </Badge>
                       <ModeEditOutlineOutlinedIcon
                         color="error"
-                        onClick={() => handleClickedReject(card.Request_ID)}
+                        onClick={() =>
+                          handleClickednonConcurId(card.Request_ID)
+                        }
                       />
                     </h3>
                   ) : (
                     <h3>
                       <Badge
-                        onClick={() => handleClickApproved(card.Request_ID)}
+                        onClick={() => handClickedConcur(card.Request_ID)}
                         pill
                         bg="danger"
                       >
@@ -184,7 +188,7 @@ function Approver() {
                       </Badge>
                       <ModeEditOutlineOutlinedIcon
                         color="success"
-                        onClick={() => handleClickApproved(card.Request_ID)}
+                        onClick={() => handClickedConcur(card.Request_ID)}
                       />
                     </h3>
                   )}
@@ -194,13 +198,15 @@ function Approver() {
           })}
         <Modal show={rejectConfirmShow} onHide={handleClose}>
           <Modal.Header closeButton>
-            <Modal.Title>Reject!</Modal.Title>
+            <Modal.Title>Non Concur!</Modal.Title>
           </Modal.Header>
-          <Modal.Body>Are you sure you want to Reject this request?</Modal.Body>
+          <Modal.Body>
+            Are you sure you want to Non Concur with this request?
+          </Modal.Body>
           <Button
             color="error"
             variant="contained"
-            onClick={() => handleConfirmReject(rejectId)}
+            onClick={() => handConfirmnonConcurId(nonConcurId)}
           >
             Confirm
           </Button>
@@ -210,15 +216,15 @@ function Approver() {
         </Modal>
         <Modal show={approveConfirmShow} onHide={handleClose}>
           <Modal.Header closeButton>
-            <Modal.Title>Approve!</Modal.Title>
+            <Modal.Title>Concur!</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            Are you sure you want to Approve this request?
+            Are you sure you want to Concur with this request?
           </Modal.Body>
           <Button
             color="success"
             variant="contained"
-            onClick={() => handleConfirmApprove(approveId)}
+            onClick={() => handleConcurApprove(concurId)}
           >
             Confirm
           </Button>
