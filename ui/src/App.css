@@ -1,0 +1,28 @@
+.Splash {
+  font-family: sans-serif;
+  text-align: center;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.graphGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 7em;
+}
+
+@keyframes bounce {
+  0% {
+    transform: scaleY(0);
+  }
+
+  80% {
+    transform: scaleY(1.1);
+  }
+
+  100% {
+    transform: scaleY(1);
+  }
+}
