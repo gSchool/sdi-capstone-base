@@ -4,7 +4,7 @@
  */
 exports.up = function (knex) {
   return knex.schema
-    .createTable("all_users", (table) => {
+    .createTable("cmd_approver", (table) => {
       table.increments("id");
       table.string("first_name", 50);
       table.string("last_name", 50);
@@ -14,6 +14,7 @@ exports.up = function (knex) {
       table.string("password", 100);
       table.string("phone_number", 20);
       table.string("email", 50);
+      table.string("type", 25);
     })
     .createTable("sme_approver", (table) => {
       table.increments("id");
@@ -36,7 +37,7 @@ exports.up = function (knex) {
       table.integer("sme_id");
       table.foreign("sme_id").references("sme_approver.id").onDelete("CASCADE").onUpdate("CASCADE");
     })
-    .createTable("cmd_approver", (table) => {
+    .createTable("all_users", (table) => {
       table.increments("id");
       table.string("first_name", 50);
       table.string("last_name", 50);
@@ -46,11 +47,10 @@ exports.up = function (knex) {
       table.string("password", 100);
       table.string("phone_number", 20);
       table.string("email", 50);
-      table.string("type", 25);
-      table.integer("user_id");
+      table.integer("cmd_id");
       table
-        .foreign("user_id")
-        .references("all_users.id")
+        .foreign("cmd_id")
+        .references("cmd_approver.id")
         .onDelete("CASCADE")
         .onUpdate("CASCADE");
     })
@@ -60,7 +60,8 @@ exports.up = function (knex) {
       table.string("location", 50);
       table.string("mission_title", 50);
       table.text("justification");
-      table.string("status", 50);
+      table.string('sme_status', 50)
+      table.string("cmd_status", 50);
       table.integer("user_id");
       table
         .foreign("user_id")
@@ -98,8 +99,8 @@ exports.down = function (knex) {
     .alterTable("asset", (table) => {
       table.dropForeign("sme_id");
     })
-    .alterTable("cmd_approver", (table) => {
-      table.dropForeign("user_id");
+    .alterTable("all_users", (table) => {
+      table.dropForeign("cmd_id");
     })
     .alterTable("request", (table) => {
       table.dropForeign("user_id");

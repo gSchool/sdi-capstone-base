@@ -11,6 +11,15 @@ const env = process.env.NODE_ENV || 'development'
 const config = require('../../knexfile')[env]
 const knex = require('knex')(config)
 
+router.get('/', async (req, res) => {
+  await knex
+    .select('*')
+    .from('sme_approver')
+    .then(data => {
+      res.status(200).json(data);
+    })
+})
+
 router.get('/:id', async (req, res) => {
   const assetID = req.params.id;
   await knex
