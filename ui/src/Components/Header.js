@@ -1,14 +1,13 @@
+import "../App.css";
+import React from "react";
+import { Link } from "react-router-dom";
+import SideMenu from "./SideMenu";
+import { MdOutlineShoppingCart } from "react-icons/md";
 
-import '../App.css';
-import React from 'react'
-import { Link } from 'react-router-dom';
-import SideMenu from './SideMenu';
-import { MdOutlineShoppingCart } from 'react-icons/md'
-import Badge from '@material-ui/core/Badge'
-import logo from '../img/logo.png'
-import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
-import Tooltip from 'react-bootstrap/Tooltip';
-import Button from 'react-bootstrap/Button';
+import logo from "../img/logo.png";
+import OverlayTrigger from "react-bootstrap/OverlayTrigger";
+import Tooltip from "react-bootstrap/Tooltip";
+import Button from "react-bootstrap/Button";
 
 function Header() {
     const cartItems = JSON.parse(localStorage.getItem('cartInfo')).length;
