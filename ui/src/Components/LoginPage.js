@@ -168,7 +168,7 @@ function LoginPage() {
                 })
                     .then(res => console.log(res));
             } else if (type === 'Commander') {
-                fetch('http://localhost:8080/cmd', {
+                fetch('http://localhost:808/cmd', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     mode: 'cors',

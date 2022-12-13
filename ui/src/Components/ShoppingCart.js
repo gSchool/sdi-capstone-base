@@ -26,6 +26,7 @@ export default function ShoppingCart() {
         input = cartItems[i]
       }
     }
+    
     let date = event.target[0].value
     let missionTitle = event.target[1].value
     let location = event.target[2].value
