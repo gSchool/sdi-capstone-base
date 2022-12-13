@@ -2,9 +2,11 @@ import React, { useState } from "react";
 import { MdClose, MdMenu } from "react-icons/md";
 import { Link } from "react-router-dom";
 import "../SideMenu.css";
+import { useCookies } from 'react-cookie';
 
 function SideMenu() {
     const [navbarOpen, setNavbarOpen] = useState(false);
+    const [userCookies] = useCookies(["user"]);
 
     const handleToggle = () => {
         setNavbarOpen(!navbarOpen);
@@ -22,22 +24,25 @@ function SideMenu() {
             </button>
             <ul className={`menuNav ${navbarOpen ? " showMenu" : ""}`}>
                 <div className="menuOptions">
-                    <Link to={'/Assets/ISR'} state={{ type: 'ISR' }} onClick={() => closeMenu()} >
+                    <Link to={'/Requests'} onClick={() => closeMenu()} >
+                        <li>Your Requests</li>
+                    </Link>
+                    <Link to={'/Assets/ISR'} state={{ type: 'ISR', user: userCookies }} onClick={() => closeMenu()} >
                         <li>ISR</li>
                     </Link>
-                    <Link to='/Assets/Communications' state={{ type: 'Communications' }} onClick={() => closeMenu()} >
+                    <Link to='/Assets/Communications' state={{ type: 'Communications', user: userCookies }} onClick={() => closeMenu()} >
                         <li>Communications</li>
                     </Link>
-                    <Link to='/Assets/Mobility' state={{ type: 'Transportation' }} onClick={() => closeMenu()} >
+                    <Link to='/Assets/Mobility' state={{ type: 'Transportation', user: userCookies }} onClick={() => closeMenu()} >
                         <li>Mobility</li>
                     </Link>
-                    <Link to='/Assets/Medical' state={{ type: 'Medical' }} onClick={() => closeMenu()} >
+                    <Link to='/Assets/Medical' state={{ type: 'Medical', user: userCookies }} onClick={() => closeMenu()} >
                         <li>Medical</li>
                     </Link>
-                    <Link to='/Assets/Fires' state={{ type: 'Fires' }} onClick={() => closeMenu()} >
+                    <Link to='/Assets/Fires' state={{ type: 'Fires', user: userCookies }} onClick={() => closeMenu()} >
                         <li>Fires</li>
                     </Link>
-                    <Link to='/Assets/Personnel' state={{ type: 'Personnel' }} onClick={() => closeMenu()} >
+                    <Link to='/Assets/Personnel' state={{ type: 'Personnel', user: userCookies }} onClick={() => closeMenu()} >
                         <li>Personnel</li>
                     </Link>
                 </div>

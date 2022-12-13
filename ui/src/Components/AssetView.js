@@ -4,12 +4,11 @@ import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
-import Button from '@mui/material/Button'
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import AddCircleRoundedIcon from "@mui/icons-material/AddCircleRounded";
 import RemoveCircleRoundedIcon from "@mui/icons-material/RemoveCircleRounded";
-import Header from "../Components/Header";
+import Header from "./Header";
 import { useLocation } from "react-router-dom";
 import axios from 'axios';
 
@@ -45,30 +44,13 @@ export default function AssetView() {
   }
 
   const handleAdd = (event, asset) => {
-    let assetId = asset.id
-
-    let existingItemIndex = cartData.findIndex(i => i.asset.id === asset.id)
-
-    if (existingItem) {
-      const cartItem = {
-        asset: asset,
-        username: username,
-        quantity: newQuantity + 1
-      }
-      console.log(cartItem)
-      setCartData([...cartData, cartItem]);
-    } else {
       const cartItem = {
         asset: asset,
         username: username,
         quantity: 1
       }
       setCartData([...cartData, cartItem]);
-    }
-
   }
-
-  console.log(cartData)
 
   return (
     <>
@@ -81,7 +63,7 @@ export default function AssetView() {
         >
           <CardMedia
             component="img"
-            sx={{ width: 500 }}
+            sx={{ width: 500, height: 300 }}
             image={asset.image_url}
             alt="Live from space album cover"
           />

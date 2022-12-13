@@ -6,7 +6,6 @@
 }
 
 .App {
-    text-align: center;
     height: 100%;
     width: 100%;
     overflow: hidden;
@@ -28,7 +27,6 @@
     grid-template-columns: 1fr 1fr 1fr;
     background-color: #f0f0f0;
     z-index: 15;
-    
 }
 
 .grid1 {
@@ -101,7 +99,6 @@
 
 .home {
     position: relative;
-    margin-top: 100px;
 }
 
 .home a {
@@ -148,7 +145,7 @@
     left: 150px;
 }
 
-.Personel {
+.Personnel {
     position: absolute;
     top: 2575px;
     left: 150px;
@@ -175,6 +172,9 @@
 }
 
 /* Login page */
+.loginPage {
+    text-align: center;
+}
 
 .login {
     text-align: center;
@@ -199,9 +199,11 @@
     transform: scale(1.07) !important;
 }
 
+
 .loginheader img {
     width: 750px;
-    height: auto
+    height: auto;
+    margin-top: -100px;
 }
 
 .loginoverall video {
@@ -236,5 +238,27 @@
 
 .table-container{
     position: relative;
-        margin-top: 100px;
+}
+
+.Cart {
+    display: grid;
+}
+
+.requestTitle {
+   margin-left: 100px;
+   margin-top: 50px;
+}
+
+.requestTitle h2 {
+    font-size: 22px;
+}
+
+.requestTitle button {
+    background-color: transparent;
+    border: none;
+}
+
+.cartSubmitButton {
+    margin-top: 50px;
+    text-align: center;
 }

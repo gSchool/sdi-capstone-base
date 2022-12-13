@@ -182,7 +182,7 @@ function LoginPage() {
     }
 
     return (
-        <>
+        <div className="loginPage">
             {/* header */}
             <div className="loginheader">
                 <img src={logo} alt="alt" />
@@ -190,7 +190,7 @@ function LoginPage() {
             {/* video loop */}
             <div className="loginoverall">
                 <video autoPlay loop muted id="video">
-                    <source src="https://download-video.akamaized.net/2/playback/f51547ca-5c63-4b2d-a972-210c3068f2ed/941c0fd4-fbce8f1a?__token__=st=1670857579~exp=1670871979~acl=%2F2%2Fplayback%2Ff51547ca-5c63-4b2d-a972-210c3068f2ed%2F941c0fd4-fbce8f1a%2A~hmac=234f583285a018107f81eb52f696b890dded0199fdcf22fc41500607822f6439&r=dXMtZWFzdDE%3D" type="video/mp4" />
+                    <source src="https://download-video.akamaized.net/2/playback/f51547ca-5c63-4b2d-a972-210c3068f2ed/941c0fd4-fbce8f1a?__token__=st=1670943179~exp=1670957579~acl=%2F2%2Fplayback%2Ff51547ca-5c63-4b2d-a972-210c3068f2ed%2F941c0fd4-fbce8f1a%2A~hmac=93759901f205cc31bca72843e3c06ef434f2993a07e24effba1d2f847542cb24&r=dXMtZWFzdDE%3D" type="video/mp4" />
                 </video>
             </div>
             <br></br>
@@ -328,7 +328,7 @@ function LoginPage() {
                     }
                 </div>
             }
-        </>
+        </div>
     )
 }
 

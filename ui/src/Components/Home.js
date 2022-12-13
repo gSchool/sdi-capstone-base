@@ -22,25 +22,26 @@ function Home() {
     const navigate = useNavigate();
 
     useEffect(() => {
-            if (Object.keys(userCookies).length === 0) {
-                navigate('/')
-            } else {
-                setHasCookie(true)
-            }
-        }, [])
+        if (Object.keys(userCookies).length === 0) {
+            navigate('/')
+        } else {
+            setHasCookie(true)
+        }
+    }, [])
 
     useEffect(() => {
         window.addEventListener('scroll', () => {
-            window.scrollY > 200
-                ? scrollTop.current.style.display = 'inline-block'
-                : scrollTop.current.style.display = 'none'
+            if (window.scrollY > 50) {
+                scrollTop.current.style.display = 'inline-block'
+            } else {
+                scrollTop.current.style.display = 'none'
+            }
         })
     }, [])
 
     useEffect(() => {
         window.scroll({
-            top: position.top,
-            left: position.left,
+            top: 0,
             behavior: 'smooth'
         })
     })

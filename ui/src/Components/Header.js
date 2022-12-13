@@ -1,17 +1,18 @@
 
 import '../App.css';
-import React from 'react'
+import React from 'react';
 import { Link } from 'react-router-dom';
 import SideMenu from './SideMenu';
 import { MdOutlineShoppingCart } from 'react-icons/md'
-import Badge from '@material-ui/core/Badge'
 import logo from '../img/logo.png'
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
 import Button from 'react-bootstrap/Button';
 
 function Header() {
+const cartItems = JSON.parse(localStorage.getItem('cartInfo'));
 
+console.log("ontheheader", cartItems)
     const renderTooltip = (props) => (
         <Tooltip id="button-tooltip" {...props}>
             Click here to complete your requests.
@@ -33,7 +34,7 @@ function Header() {
                     <OverlayTrigger placement="bottom" delay={{ show: 250, hide: 400 }} overlay={renderTooltip}>
                         <Button variant="success">
                             <MdOutlineShoppingCart style={{ color: "black", width: "38px", height: "38px" }} />
-                            1 {/*this number will dynamically display the number of things in your shopping cart*/}
+                            {cartItems === null || cartItems.length === 0 ? "" : cartItems.length}
                         </Button>
                     </OverlayTrigger>
                 </Link>
