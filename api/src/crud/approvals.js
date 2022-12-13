@@ -21,6 +21,7 @@ router.get("/", async (req, res) => {
         "mission_title",
         "justification",
         "status",
+        "asset.image_url",
         "all_users.first_name as User_first",
         "all_users.last_name as User_last",
         "sme_approver.first_name as SME_first",
@@ -46,6 +47,7 @@ router.get("/", async (req, res) => {
 
 router.patch("/:id", async (req, res) => {
   const updatedId = parseInt(req.params.id);
+  console.log("reqbody", req.body);
   try {
     let updatedRequest = {
       status: req.body.status,
