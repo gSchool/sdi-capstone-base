@@ -19,6 +19,7 @@ const homepage_route = require('./crud/homepage');
 const login_route = require('./crud/login');
 const sme_route = require('./crud/sme');
 const cmd_route = require('./crud/cmd');
+const cart_route = require('./crud/shoppingCart');
 
 app.use('/approvals', approvals_route);
 app.use('/assets', assets_route);
@@ -27,6 +28,7 @@ app.use('/homepage', homepage_route);
 app.use('/login', login_route);
 app.use('/sme', sme_route);
 app.use('/cmd', cmd_route);
+app.use('/cart', cart_route);
 
 app.listen(PORT, () => {
     console.log(`Capstone application listening on ${PORT}`);

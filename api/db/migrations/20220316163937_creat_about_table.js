@@ -11,7 +11,7 @@ exports.up = function (knex) {
       table.string("username", 50);
       table.string("unit", 50);
       table.string("position", 50);
-      table.string("password", 100);
+      table.string("password", 255);
       table.string("phone_number", 20);
       table.string("email", 50);
       table.string("type", 25);
@@ -23,7 +23,7 @@ exports.up = function (knex) {
       table.string("username", 50);
       table.string("unit", 50);
       table.string("position", 50);
-      table.string("password", 100);
+      table.string("password", 255);
       table.string("phone_number", 20);
       table.string("email", 50);
       table.string("type", 25);
@@ -44,15 +44,16 @@ exports.up = function (knex) {
       table.string("username", 50);
       table.string("unit", 50);
       table.string("position", 50);
-      table.string("password", 100);
+      table.string("password", 255);
       table.string("phone_number", 20);
       table.string("email", 50);
-      table.integer("cmd_id");
-      table
-        .foreign("cmd_id")
-        .references("cmd_approver.id")
-        .onDelete("CASCADE")
-        .onUpdate("CASCADE");
+    })
+    .createTable("shopping_cart", (table) => {
+      table.increments("id");
+      table.integer("user_id");
+      table.foreign("user_id").references("all_users.id").onDelete("CASCADE").onUpdate("CASCADE");
+      table.integer("asset_id");
+      table.foreign("asset_id").references("asset.id").onDelete("CASCADE").onUpdate("CASCADE");
     })
     .createTable("request", (table) => {
       table.increments("id");
@@ -99,8 +100,9 @@ exports.down = function (knex) {
     .alterTable("asset", (table) => {
       table.dropForeign("sme_id");
     })
-    .alterTable("all_users", (table) => {
-      table.dropForeign("cmd_id");
+    .alterTable("shopping_cart", (table) => {
+      table.dropForeign("user_id");
+      table.dropForeign("asset_id");
     })
     .alterTable("request", (table) => {
       table.dropForeign("user_id");

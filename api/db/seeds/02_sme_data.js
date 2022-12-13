@@ -30,4 +30,3 @@ exports.seed = async function (knex) {
     createFakeUsers()
   );
 };
-

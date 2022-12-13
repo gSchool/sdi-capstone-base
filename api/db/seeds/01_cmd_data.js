@@ -8,7 +8,7 @@ const { faker } = require('@faker-js/faker');
 const createFakeUsers = () => {
   const fakeUsers = [];
 
-  for (let i = 0; i < 4; i++) {
+  for (let i = 0; i < 1; i++) {
     const user = {
       first_name: faker.name.firstName(),
       last_name: faker.name.lastName(),

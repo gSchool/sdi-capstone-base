@@ -18,7 +18,6 @@ const createFakeUsers = () => {
       password: faker.internet.password(),
       phone_number: faker.phone.number('813-###-###'),
       email: faker.internet.email(),
-      cmd_id: faker.helpers.arrayElement([1, 2, 3, 4])
     }
     fakeUsers.push(user)
   }

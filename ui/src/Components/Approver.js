@@ -68,6 +68,8 @@ function Approver() {
     };
     getRequestData();
   }, [confirmShow]);
+
+  console.log('REQUEST DATA ', requestData)
   return (
     <div>
       <h1>
