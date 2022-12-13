@@ -13,6 +13,7 @@ import Container from "@mui/material/Container";
 import Modal from "react-bootstrap/Modal";
 import Alert from "react-bootstrap/Alert";
 import ModeEditOutlineOutlinedIcon from "@mui/icons-material/ModeEditOutlineOutlined";
+import Toast from "react-bootstrap/Toast";
 
 function Approver() {
   const [requestData, setRequestData] = useState([]);
@@ -22,6 +23,9 @@ function Approver() {
   const [rejectConfirmShow, setRejectConfirmShow] = useState(false);
   const [confirmShow, setConfirmShow] = useState(false);
   const [countState, setCountState] = useState(0);
+  const [showA, setShowA] = useState(false);
+
+  const toggleShowA = () => setShowA(!showA);
 
   const handleClose = () => {
     setConfirmShow(false);
@@ -43,13 +47,13 @@ function Approver() {
   };
   const handleConfirmApprove = async (approveId) => {
     await axios.patch(`http://localhost:8080/approvals/${approveId}`, {
-      status: "Approved",
+      cmd_status: "Approved",
     });
     handleClose();
   };
   const handleConfirmReject = async (rejectId) => {
     await axios.patch(`http://localhost:8080/approvals/${rejectId}`, {
-      status: "Rejected",
+      cmd_status: "Rejected",
     });
     handleClose();
   };
@@ -61,7 +65,11 @@ function Approver() {
       const data = await response.data;
       //looping to show the CDR how many pending requests he has
       for (let i = 0; i < data.length; i++) {
-        if (data[i].status === "Pending") count.push(data[i]);
+        if (
+          data[i].cmd_status === "Pending" &&
+          data[i].sme_status !== "Pending"
+        )
+          count.push(data[i]);
         setCountState(count.length);
       }
       setRequestData(data);
@@ -86,15 +94,15 @@ function Approver() {
         }}
       >
         {requestData
-          .sort((a) => (a.status === "Pending" ? -1 : 1))
+          .sort((a) => (a.cmd_status === "Pending" ? -1 : 1))
           .map((card) => {
-            return (
+            return card.sme_status !== "Pending" ? (
               <div key={card.Request_ID}>
                 <Card
                   variant="outlined"
                   sx={() => ({
                     width: 375,
-                    height: 450,
+                    height: 525,
                     gridColumn: "span 3",
                     flexDirection: "row",
                     flexWrap: "wrap",
@@ -128,16 +136,33 @@ function Approver() {
                     <Typography gutterBottom variant="h5" component="div">
                       {card.asset_name}
                     </Typography>
-                    <Typography variant="body2" color="text.secondary">
-                      {card.justification}
+                    <Typography gutterBottom variant="h7" component="div">
+                      Location: {card.location}
                     </Typography>
+                    <Typography gutterBottom variant="h7" component="div">
+                      Operation {card.mission_title}
+                    </Typography>
+                    <Button onClick={toggleShowA} bg="info" variant="contained">
+                      Show <strong>Justification</strong>
+                    </Button>
+                    <Toast show={showA} onClose={toggleShowA}>
+                      <Toast.Header>
+                        <strong className="me-auto">Justification</strong>
+                        <small>
+                          Requested by {card.User_first} on {card.date}
+                        </small>
+                      </Toast.Header>
+                      <Toast.Body>{card.justification}</Toast.Body>
+                    </Toast>
                   </CardContent>
-
-                  {card.status === "Pending" ? (
+                  {card.sme_status === "Rejected" ? (
+                    <Badge bg="danger">SME Non Concurred</Badge>
+                  ) : (
+                    <Badge bg="success">SME Concurred </Badge>
+                  )}
+                  {card.cmd_status === "Pending" ? (
                     <div alignitems="center">
-                      <Badge pill bg="warning">
-                        {card.status}
-                      </Badge>
+                      <Badge bg="warning">{card.cmd_status}</Badge>
                       <CardActions>
                         <Button
                           color="error"
@@ -161,14 +186,14 @@ function Approver() {
                         </Button>
                       </CardActions>
                     </div>
-                  ) : card.status === "Approved" ? (
+                  ) : card.cmd_status === "Approved" ? (
                     <h3>
                       <Badge
                         onClick={() => handleClickedReject(card.Request_ID)}
                         pill
                         bg="success"
                       >
-                        {card.status}
+                        {card.cmd_status}
                       </Badge>
                       <ModeEditOutlineOutlinedIcon
                         color="error"
@@ -182,7 +207,7 @@ function Approver() {
                         pill
                         bg="danger"
                       >
-                        {card.status}
+                        {card.cmd_status}
                       </Badge>
                       <ModeEditOutlineOutlinedIcon
                         color="success"
@@ -192,6 +217,8 @@ function Approver() {
                   )}
                 </Card>
               </div>
+            ) : (
+              ""
             );
           })}
         <Modal show={rejectConfirmShow} onHide={handleClose}>

@@ -13,8 +13,9 @@ import Container from "@mui/material/Container";
 import Modal from "react-bootstrap/Modal";
 import Alert from "react-bootstrap/Alert";
 import ModeEditOutlineOutlinedIcon from "@mui/icons-material/ModeEditOutlineOutlined";
+import { useCookies } from "react-cookie";
 
-function Approver() {
+function SME() {
   const [requestData, setRequestData] = useState([]);
   const [approveConfirmShow, setApproveConfirmShow] = useState(false);
   const [nonConcurId, setNonConcurId] = useState("");
@@ -22,6 +23,7 @@ function Approver() {
   const [rejectConfirmShow, setRejectConfirmShow] = useState(false);
   const [confirmShow, setConfirmShow] = useState(false);
   const [countState, setCountState] = useState(0);
+  const [smeCookie, setSmeCookie] = useCookies(["sme"]);
 
   const handleClose = () => {
     setConfirmShow(false);
@@ -237,4 +239,4 @@ function Approver() {
   );
 }
 
-export default Approver;
+export default SME;
