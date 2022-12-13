@@ -4,7 +4,6 @@ import axios from "axios";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
-// import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import "@fontsource/public-sans";
@@ -13,8 +12,7 @@ import AspectRatio from "@mui/joy/AspectRatio";
 import Container from "@mui/material/Container";
 import Modal from "react-bootstrap/Modal";
 import Alert from "react-bootstrap/Alert";
-
-// import { Link } from 'react-router-dom';
+import ModeEditOutlineOutlinedIcon from "@mui/icons-material/ModeEditOutlineOutlined";
 
 function Approver() {
   const [requestData, setRequestData] = useState([]);
@@ -30,6 +28,7 @@ function Approver() {
     setApproveConfirmShow(false);
     setRejectConfirmShow(false);
   };
+
   const handleClickApproved = (rowId) => {
     console.log("approveId", rowId);
     setApproveConfirmShow(true);
@@ -60,6 +59,7 @@ function Approver() {
       let count = [];
       const response = await axios.get("http://localhost:8080/approvals");
       const data = await response.data;
+      //looping to show the CDR how many pending requests he has
       for (let i = 0; i < data.length; i++) {
         if (data[i].status === "Pending") count.push(data[i]);
         setCountState(count.length);
@@ -75,7 +75,6 @@ function Approver() {
           Welcome! You have {countState} Pending requests
         </Alert>
       </h1>
-
       <Container
         sx={{
           display: "flex",
@@ -161,13 +160,33 @@ function Approver() {
                       </CardActions>
                     </div>
                   ) : card.status === "Approved" ? (
-                    <Badge pill bg="success">
-                      {card.status}
-                    </Badge>
+                    <h3>
+                      <Badge
+                        onClick={() => handleClickedReject(card.Request_ID)}
+                        pill
+                        bg="success"
+                      >
+                        {card.status}
+                      </Badge>
+                      <ModeEditOutlineOutlinedIcon
+                        color="error"
+                        onClick={() => handleClickedReject(card.Request_ID)}
+                      />
+                    </h3>
                   ) : (
-                    <Badge pill bg="danger">
-                      {card.status}
-                    </Badge>
+                    <h3>
+                      <Badge
+                        onClick={() => handleClickApproved(card.Request_ID)}
+                        pill
+                        bg="danger"
+                      >
+                        {card.status}
+                      </Badge>
+                      <ModeEditOutlineOutlinedIcon
+                        color="success"
+                        onClick={() => handleClickApproved(card.Request_ID)}
+                      />
+                    </h3>
                   )}
                 </Card>
               </div>
@@ -180,7 +199,7 @@ function Approver() {
           <Modal.Body>Are you sure you want to Reject this request?</Modal.Body>
           <Button
             color="error"
-            variant="outlined"
+            variant="contained"
             onClick={() => handleConfirmReject(rejectId)}
           >
             Confirm
@@ -197,8 +216,8 @@ function Approver() {
             Are you sure you want to Approve this request?
           </Modal.Body>
           <Button
-            color="error"
-            variant="outlined"
+            color="success"
+            variant="contained"
             onClick={() => handleConfirmApprove(approveId)}
           >
             Confirm
