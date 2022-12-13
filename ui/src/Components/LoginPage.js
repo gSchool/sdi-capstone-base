@@ -83,10 +83,14 @@ function LoginPage() {
         let isSME = false
         let isCMD = false
         let thisSme = []
+        let thisUser = []
+        let thisCmd = []
 
-    
         for (let i = 0; i < user.length; i++) {
-            if (user[i].username === subUser && bcrypt.compareSync(subPass, user[i].password)) { isUser = true }
+            if (user[i].username === subUser && bcrypt.compareSync(subPass, user[i].password)) { 
+                thisUser.push(user[i].id, user[i].username)
+                isUser = true 
+            }
         }
         for (let i = 0; i < sme.length; i++) {
             if (sme[i].username === subUser && sme[i].password === subPass) {
@@ -95,11 +99,13 @@ function LoginPage() {
                 }
         }
         for (let i = 0; i < cmd.length; i++) {
-            if (cmd[i].username === subUser && cmd[i].password === subPass) { isCMD = true }
+            if (cmd[i].username === subUser && cmd[i].password === subPass) {
+                thisCmd.push(cmd[i].id, cmd[i].username)
+                 isCMD = true }
         }
 
         if (isUser) {
-        setUserCookie("userToken", subUser, { path: "/" });
+        setUserCookie("userToken", thisUser, { path: "/" });
         console.log(userCookie)
         navigate('/Home')
         } else if (isSME) {
@@ -107,13 +113,13 @@ function LoginPage() {
         console.log(smeCookie)
         navigate('/Approver')
         } else if (isCMD) {
-        setCmdCookie("cmd", subUser, { path: "/" });
+        setCmdCookie("cmd", thisCmd, { path: "/" });
         console.log(cmdCookie)
         navigate('/Approver')
         }
         else setShowAlert(true)
     }
-
+    console.log(user)
     //function called when submitting a new account
     function submitUser(e) {
         e.preventDefault()
