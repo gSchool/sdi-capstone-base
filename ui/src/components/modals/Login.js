@@ -1,6 +1,7 @@
 import { Paper, Container, Box, Typography, Button, Stack, Modal, TextField, Alert, FormControl } from "@mui/material";
-import { useState, useEffect } from "react"
+import { useState, useEffect, useContext } from "react"
 import axios from "axios";
+import { Context } from '../../App';
 
 
 
@@ -26,6 +27,7 @@ const handleLogin = (username, password) => {
 }
 
 const Login = ({ showLogin }) => {
+    const { authenticatedUser, setAuthenticatedUser } = useContext(Context);
 
     const handleLoginClose = () => {
         setLoginOpen(false);

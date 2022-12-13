@@ -8,6 +8,8 @@ import Blank from '../components/Blank';
 import Login from '../components/modals/Login';
 import CreateAccount from '../components/modals/CreateAccount';
 
+
+
 // import LogIn from "../components/modals/Login";
 // import axios from 'axios';
 // import {AdapterDayjs} from '@mui/x-date-pickers';
@@ -18,29 +20,7 @@ import config from '../config'
 import { Button, Paper, Typography } from '@mui/material';
 const ApiUrl = config[process.env.REACT_APP_NODE_ENV || "development"].apiUrl;
 
-// const handleLogin = () => {
 
-// }
-
-// const handleCreateAccount = () => {
-
-// }
-
-// const handleAccountSubmit = async () => {
-
-// }
-
-// const accountCreation = async() => {
-
-// }
-
-// const loginStyle = {
-//     postion: 'absolute',
-//     width: '50%',
-//     bgcolor: 'background.paper',
-//     margin: 'auto',
-
-// }
 
 const handleLogin = (show) =>{
     console.log('Log in clicked');
@@ -52,6 +32,7 @@ const handleCreate = (show) =>{
     console.log('Create Account clicked');
     show(true);
 }
+
 
 
 

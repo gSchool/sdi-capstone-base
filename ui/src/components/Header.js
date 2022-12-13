@@ -3,6 +3,7 @@ import { AppBar, Button, IconButton, Toolbar, Typography, Box } from "@mui/mater
 import {useContext, useState} from 'react';
 import { NavLink, useNavigate, Navigate, useSearchParams } from "react-router-dom";
 import SvgIcon from '@mui/material/SvgIcon';
+import { Context } from '../App';
 
 const HomeIcon = (props) => {
     return(
@@ -32,6 +33,7 @@ const handleLogIn = () => {
 }
 
 const Header = () => {
+    const { authenticatedUser, setAuthenticatedUser } = useContext(Context);
     const navigate = useNavigate();
     
     let [logInModal, setLogInModal] = useState(false);
@@ -43,7 +45,7 @@ const Header = () => {
             <Box sx={{ flexGrow:1 }}>
                 <AppBar position="static">
                     <Toolbar>
-                        <IconButton>
+                        <IconButton onClick={(e) => navigate('/')}>
                             <HomeIcon size='large' sx={{mr:2}}></HomeIcon>
                         </IconButton>
                         <Typography variant="h4" component="div" sx={{flexGrow:1}}>

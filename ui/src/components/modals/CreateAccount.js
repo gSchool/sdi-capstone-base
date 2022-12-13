@@ -1,7 +1,9 @@
-import { Paper, Container, Box, Typography, Button, Stack, Modal, TextField, Alert, FormControl, MenuItem, Select } from "@mui/material";
-import { useState, useEffect } from "react"
+import { Paper, Container, Box, Typography, Button, Stack, Modal, TextField, Alert, FormControl, MenuItem, Select, CircularProgress } from "@mui/material";
+import { useState, useEffect, useContext } from "react"
 import axios from "axios";
 import RankSelect from "../RankSelect";
+import { Context } from '../../App';
+import Blank from "../Blank";
 
 const loginStyle = {
     postion: 'absolute',
@@ -11,19 +13,27 @@ const loginStyle = {
     
 }
 
-const handleCreateAccount = (account) => {
+const handleCreateAccount = (account, setLoading) => {
     console.log('Account Information:', account);
+    setLoading(true);
+
+    setTimeout(() => {
+        setLoading(false);
+    }, 1000);
 
 }
 
 
 
 const CreateAccount = ({ showCreate }) => {
+    const { authenticatedUser, setAuthenticatedUser } = useContext(Context);
+    
     const handleAccountCLose = () => {
         setCreateAccountOpen(false);
         showCreate(false);
     }
     const [createAccountOpen, setCreateAccountOpen] = useState(true);
+    const [createLoading, setCreateLoading] = useState(false);
 
     const [account, setAccount] = useState({
         firstName:"",
@@ -75,20 +85,21 @@ const CreateAccount = ({ showCreate }) => {
                 </Typography>   
 
                 <Stack justifyContent="center" spacing={4}>
-                    <FormControl variant="filled" sx={loginStyle}>
-                        <TextField onChange={(e) => {setCreate_firstName(e.target.value)}} id="first-name" variant="outlined" label="First Name"></TextField>
-                        <TextField onChange={(e) => {setCreate_lastName(e.target.value)}} id="last-name" variant="outlined" label="Last Name"></TextField>
-                        <TextField onChange={(e) => {setCreate_phoneNum(e.target.value)}} id="phone-num" variant="outlined" label="Phone Num"></TextField>
-                        <TextField onChange={(e) => {setCreate_email(e.target.value)}} id="email" variant="outlined" label="email"></TextField>
-                        <RankSelect setRank={setCreate_rank} />
-                        <TextField onChange={(e) => {setCreate_username(e.target.value)}} id="username" variant="outlined" label="username"></TextField>
-                        <TextField onChange={(e) => {setCreate_password(e.target.value)}} id="password" variant="outlined" label="password"></TextField>
+                    <FormControl  variant="filled" sx={loginStyle}>
+                        <TextField disabled={createLoading} onChange={(e) => {setCreate_firstName(e.target.value)}} id="first-name" variant="outlined" label="First Name"></TextField>
+                        <TextField disabled={createLoading} onChange={(e) => {setCreate_lastName(e.target.value)}} id="last-name" variant="outlined" label="Last Name"></TextField>
+                        <TextField disabled={createLoading} onChange={(e) => {setCreate_phoneNum(e.target.value)}} id="phone-num" variant="outlined" label="Phone Num"></TextField>
+                        <TextField disabled={createLoading} onChange={(e) => {setCreate_email(e.target.value)}} id="email" variant="outlined" label="email"></TextField>
+                        <RankSelect disabled={createLoading} setRank={setCreate_rank} />
+                        <TextField disabled={createLoading} onChange={(e) => {setCreate_username(e.target.value)}} id="username" variant="outlined" label="username"></TextField>
+                        <TextField disabled={createLoading} onChange={(e) => {setCreate_password(e.target.value)}} id="password" variant="outlined" label="password"></TextField>
                         
-                        <Button onClick={(e) => handleCreateAccount(account)}>CREATE ACCOUNT</Button>
+                        <Button onClick={(e) => handleCreateAccount(account, setCreateLoading)}>CREATE ACCOUNT</Button>
                     </FormControl>
                     
 
                 </Stack>
+                {createLoading ? <CircularProgress /> : <Blank/>}
 
             </Box>
 

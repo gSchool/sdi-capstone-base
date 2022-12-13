@@ -1,6 +1,6 @@
 import React from "react";
 
-function SingleBar({ width, height, data, color, percentage }) {
+function SingleBar({ width, height, data, color, stat }) {
   return (
     <div
       style={{
@@ -20,7 +20,7 @@ function SingleBar({ width, height, data, color, percentage }) {
           fill={color}
         />
       </svg>
-      <p style={{ fontSize: 12 }}>{percentage}</p>
+      <p style={{ fontSize: 12 }}>{stat}</p>
     </div>
   );
 }

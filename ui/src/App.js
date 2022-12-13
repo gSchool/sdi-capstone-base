@@ -7,6 +7,7 @@ import Splash from './pages/Splash';
 // import LeaderProfile from './pages/LeaderProfile';
 import Signup from './pages/Signup';
 import Header from './components/Header';
+import Calendar from './pages/calendar';
 
 
 
@@ -29,6 +30,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/signup" element={<Signup />} />
             <Route path="/splash" element={<Splash />} />
+            <Route path="/calendar" element={<Calendar />} />
             {/* <Route path="/crewProfile" element={<CrewProfile />} />
             <Route path="/leaderProfile" element={<LeaderProfile />} /> */}
           </Routes>
