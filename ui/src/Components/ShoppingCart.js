@@ -5,16 +5,19 @@ import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import { MdArrowDropDownCircle } from "react-icons/md";
+import { useCookies } from 'react-cookie';
 
 export default function ShoppingCart() {
-    const [show, setShow] = useState([])
-    const cartItems = JSON.parse(localStorage.getItem('cartInfo'));
-    const [yourCart, setYourCart] = useState([])
-
+    const [show, setShow] = useState([]);
+    const [user, setUser] = useState([])
+    const [yourCart, setYourCart] = useState([]);
+    const [userCookies] = useCookies(["user"]);
+console.log(userCookies.userToken)
     useEffect(() => {
         fetch('http://localhost:8080/cart')
             .then((response) => response.json())
             .then((data) => { setYourCart(data) })
+            setUser(userCookies.userToken)
         }, [])
 
         console.log(yourCart)
@@ -73,8 +76,9 @@ export default function ShoppingCart() {
 
     return (
         <>
-            <Header />
-            {cartItems.length === 0 ? <div className="requestTitle"><h2>You have not yet added any requests to your cart.</h2></div> :
+             <Header />
+        <p>test</p>
+           {/* {cartItems.length === 0 ? <div className="requestTitle"><h2>You have not yet added any requests to your cart.</h2></div> :
                 <>
                     <div className="cartFormLine"></div>
                     {cartItems.map((item, idx) => (
@@ -123,7 +127,7 @@ export default function ShoppingCart() {
                     ))
                     }
                 </>
-            }
+            } */}
         </>
     )
 }
