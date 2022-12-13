@@ -17,7 +17,7 @@ Most USSF missions require 24/7 crew operations. Scheduling shifts is a challeng
 ## Setup Instructions
 
 ### To set up application, fork and clone this repository.  
-`git clone <url here>`
+`git clone https://github.com/ryanspacekirk/OnDeck`
 
 ### Docker Compose Up
 Be sure you have Docker installed.
