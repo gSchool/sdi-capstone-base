@@ -19,7 +19,6 @@ const createFakeUsers = () => {
       phone_number: faker.phone.number('813-###-###'),
       email: faker.internet.email(),
       type: 'Commander',
-      user_id: faker.helpers.arrayElement([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
     }
     fakeUsers.push(user)
   }
