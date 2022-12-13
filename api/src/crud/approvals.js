@@ -51,11 +51,9 @@ router.patch("/:id", async (req, res) => {
   console.log("reqbody", req.body);
   try {
     let updatedRequest = {
-      status: req.body.status,
+      cmd_status: req.body.cmd_status,
     };
-    await knex("request")
-      .where("id", updatedId)
-      .update(updatedRequest);
+    await knex("request").where("id", updatedId).update(updatedRequest);
     res.status(200).send("Request Updated");
   } catch (e) {
     console.log("Error in patching unit:", e);
