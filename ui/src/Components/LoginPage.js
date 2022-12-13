@@ -39,6 +39,8 @@ function LoginPage() {
             .then((data) => { setCMD(data) })
     }, [])
 
+    console.log(user)
+
     //sets a state with the create account form inputs
     function setField(field, value) {
         setForm({ ...form, [field]: value })
@@ -54,9 +56,9 @@ function LoginPage() {
         let usernamesDB = []
         let emailsDB = []
         let allUsers = user.concat(sme, cmd)
-        for (let i = 0; i < allUsers.length; i++) { 
+        for (let i = 0; i < allUsers.length; i++) {
             usernamesDB.push(allUsers[i].username)
-            emailsDB.push(allUsers[i].email) 
+            emailsDB.push(allUsers[i].email)
         }
         if (!firstName || firstName === '') newErrors.firstName = 'This is a required field.'
         if (!lastName || lastName === '') newErrors.lastName = 'This is a required field.'
@@ -85,9 +87,10 @@ function LoginPage() {
         let loggedInUser = []
 
         for (let i = 0; i < user.length; i++) {
-            if (user[i].username === subUser && bcrypt.compareSync(subPass, user[i].password)) { 
+            console.log(subPass)
+            if (user[i].username === subUser && bcrypt.compareSync(subPass, user[i].password)) {
                 isUser = true
-                loggedInUser.push(user[i].id, user[i].username) 
+                loggedInUser.push(user[i].id, user[i].username)
             }
         }
         for (let i = 0; i < sme.length; i++) {
@@ -98,17 +101,17 @@ function LoginPage() {
         }
         console.log(loggedInUser)
         if (isUser) {
-        setUserCookie("user", subUser, { path: "/" });
-        console.log(userCookie)
-        navigate('/Home')
+            setUserCookie("user", subUser, { path: "/" });
+            console.log(userCookie)
+            navigate('/Home')
         } else if (isSME) {
-        setSmeCookie("sme", subUser, { path: "/" });
-        console.log(smeCookie)
-        navigate('/Approver')
+            setSmeCookie("sme", subUser, { path: "/" });
+            console.log(smeCookie)
+            navigate('/Approver')
         } else if (isCMD) {
-        setCmdCookie("cmd", subUser, { path: "/" });
-        console.log(cmdCookie)
-        navigate('/Approver')
+            setCmdCookie("cmd", subUser, { path: "/" });
+            console.log(cmdCookie)
+            navigate('/Approver')
         }
         else setShowAlert(true)
     }

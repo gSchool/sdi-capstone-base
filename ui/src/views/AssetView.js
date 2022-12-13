@@ -45,26 +45,13 @@ export default function AssetView() {
   }
 
   const handleAdd = (event, asset) => {
-    let assetId = asset.id
 
-    let existingItemIndex = cartData.findIndex(i => i.asset.id === asset.id)
-
-    if (existingItem) {
-      const cartItem = {
-        asset: asset,
-        username: username,
-        quantity: newQuantity + 1
-      }
-      console.log(cartItem)
-      setCartData([...cartData, cartItem]);
-    } else {
-      const cartItem = {
-        asset: asset,
-        username: username,
-        quantity: 1
-      }
-      setCartData([...cartData, cartItem]);
+    const cartItem = {
+      asset: asset,
+      username: username,
+      quantity: 1
     }
+    setCartData([...cartData, cartItem]);
 
   }
 
