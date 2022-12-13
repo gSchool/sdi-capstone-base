@@ -15,10 +15,10 @@ import Button from 'react-bootstrap/Button';
 import { useCookies } from 'react-cookie';
 
 function Home() {
-    const [position, setPosition] = useState({ top: 0, left: 0 })
-    const [hasCookie, setHasCookie] = useState(false)
+    const [position, setPosition] = useState({ top: 0, left: 0 });
+    const [hasCookie, setHasCookie] = useState(false);
     const [userCookies] = useCookies(["user"]);
-    const scrollTop = React.useRef()
+    const scrollTop = React.useRef();
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -31,16 +31,17 @@ function Home() {
 
     useEffect(() => {
         window.addEventListener('scroll', () => {
-            window.scrollY > 200
-                ? scrollTop.current.style.display = 'inline-block'
-                : scrollTop.current.style.display = 'none'
+            if (window.scrollY > 50) {
+                scrollTop.current.style.display = 'inline-block'
+            } else {
+                scrollTop.current.style.display = 'none'
+            }
         })
-    })
+    }, [])
 
     useEffect(() => {
         window.scroll({
-            top: position.top,
-            left: position.left,
+            top: 0,
             behavior: 'smooth'
         })
     })
@@ -49,7 +50,7 @@ function Home() {
         <Tooltip id="button-tooltip" {...props}>
             Back to top
         </Tooltip>
-    );
+    )
 
     return (
         <>

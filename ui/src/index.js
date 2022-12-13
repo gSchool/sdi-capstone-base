@@ -6,11 +6,11 @@ import { CookiesProvider } from "react-cookie";
 import reportWebVitals from "./reportWebVitals";
 
 ReactDOM.render(
-  <React.StrictMode>
+
     <CookiesProvider>
       <App />
-    </CookiesProvider>
-  </React.StrictMode>,
+    </CookiesProvider>,
+
   document.getElementById("root")
 );
 
