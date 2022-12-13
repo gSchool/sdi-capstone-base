@@ -140,7 +140,11 @@ function Approver() {
                     <Typography gutterBottom variant="h7" component="div">
                       Operation {card.mission_title}
                     </Typography>
-                    <Button onClick={toggleShowA} bg="info" variant="contained">
+                    <Button
+                      onClick={() => toggleShowA()}
+                      bg="info"
+                      variant="contained"
+                    >
                       Show <strong>Justification</strong>
                     </Button>
                     <Toast show={showA} onClose={toggleShowA}>
