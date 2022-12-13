@@ -9,15 +9,21 @@ import { useCookies } from 'react-cookie';
 
 export default function ShoppingCart() {
     const [show, setShow] = useState([]);
-    const [user, setUser] = useState([])
     const [yourCart, setYourCart] = useState([]);
     const [userCookies] = useCookies(["user"]);
-console.log(userCookies.userToken)
+
     useEffect(() => {
         fetch('http://localhost:8080/cart')
             .then((response) => response.json())
-            .then((data) => { setYourCart(data) })
-            setUser(userCookies.userToken)
+            .then((data) => { 
+                let cart = []
+                for (let i = 0; i < data.length; i++) {
+                    if (data[i].user_id === userCookies.userToken[0]) {
+                        cart.push(data[i])
+                    }
+                }
+                setYourCart(cart)
+            })
         }, [])
 
         console.log(yourCart)

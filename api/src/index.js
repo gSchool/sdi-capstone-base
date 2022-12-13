@@ -10,7 +10,7 @@ app.use(cors());
 
 const env = process.env.NODE_ENV || 'development'
 const config = require('../knexfile')[env]
-//const knex = require('knex')(config)
+const knex = require('knex')(config)
 
 const approvals_route = require('./crud/approvals');
 const assets_route = require('./crud/assets');
