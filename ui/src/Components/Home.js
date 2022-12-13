@@ -21,6 +21,8 @@ function Home() {
     const scrollTop = React.useRef();
     const navigate = useNavigate();
 
+    console.log('USER COOKIES ', userCookies)
+
     useEffect(() => {
         if (Object.keys(userCookies).length === 0) {
             navigate('/')
@@ -31,11 +33,11 @@ function Home() {
 
     useEffect(() => {
         function scroll() {
-                if (window.scrollY > 50) {
-                    scrollTop.current.style.display = 'inline-block'
-                } else {
-                    scrollTop.current.style.display = 'none'
-                }
+            if (window.scrollY > 50) {
+                scrollTop.current.style.display = 'inline-block'
+            } else {
+                scrollTop.current.style.display = 'none'
+            }
         }
         window.addEventListener('scroll', scroll)
         return () => window.removeEventListener('scroll', scroll)

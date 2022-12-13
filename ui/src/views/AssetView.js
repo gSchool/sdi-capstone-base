@@ -20,9 +20,9 @@ export default function AssetView() {
   const [assetData, setAssetData] = useState([]);
   const [cartData, setCartData] = useState([]);
 
-  let userId = location.state.user.user;
+  let userId = parseInt(location.state.user.userToken);
 
-  console.log(location.state)
+  console.log(userId)
 
   const url = `http://localhost:8080/assets/${assetType}`;
 
@@ -48,7 +48,7 @@ export default function AssetView() {
   const handleAdd = (event, asset) => {
     const cartItem = {
       asset_id: asset.id,
-      username: userId
+      user_id: userId
     };
     axios.post('http://localhost:8080/cart', cartItem)
   };
