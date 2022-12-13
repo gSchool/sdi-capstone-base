@@ -23,8 +23,10 @@ function SME() {
   const [rejectConfirmShow, setRejectConfirmShow] = useState(false);
   const [confirmShow, setConfirmShow] = useState(false);
   const [countState, setCountState] = useState(0);
+  const [sme, setSME] = useState();
   const [smeCookie, setSmeCookie] = useCookies(["sme"]);
 
+  console.log("sme", smeCookie);
   const handleClose = () => {
     setConfirmShow(false);
     setApproveConfirmShow(false);
@@ -57,6 +59,11 @@ function SME() {
   };
 
   useEffect(() => {
+    fetch("http://localhost:8080/sme")
+      .then((response) => response.json())
+      .then((data) => {
+        setSME(data);
+      });
     const getRequestData = async () => {
       let count = [];
       const response = await axios.get("http://localhost:8080/approvals");
