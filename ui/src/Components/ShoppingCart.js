@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Header from './Header';
 import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
@@ -9,6 +9,15 @@ import { MdArrowDropDownCircle } from "react-icons/md";
 export default function ShoppingCart() {
     const [show, setShow] = useState([])
     const cartItems = JSON.parse(localStorage.getItem('cartInfo'));
+    const [yourCart, setYourCart] = useState([])
+
+    useEffect(() => {
+        fetch('http://localhost:8080/cart')
+            .then((response) => response.json())
+            .then((data) => { setYourCart(data) })
+        }, [])
+
+        console.log(yourCart)
 
     function toggleHandler(id) {
         if (show.includes(id)) {

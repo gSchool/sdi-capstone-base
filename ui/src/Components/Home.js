@@ -30,13 +30,15 @@ function Home() {
     }, [])
 
     useEffect(() => {
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 50) {
-                scrollTop.current.style.display = 'inline-block'
-            } else {
-                scrollTop.current.style.display = 'none'
-            }
-        })
+        function scroll() {
+                if (window.scrollY > 50) {
+                    scrollTop.current.style.display = 'inline-block'
+                } else {
+                    scrollTop.current.style.display = 'none'
+                }
+        }
+        window.addEventListener('scroll', scroll)
+        return () => window.removeEventListener('scroll', scroll)
     }, [])
 
     useEffect(() => {
