@@ -4,15 +4,24 @@
     font-family: "expressway";
     src: url(./fonts/expressway.ttf) format('truetype')
 }
-
+*{
+    margin:0;
+    padding:0;
+  }
+  
 .App {
-    height: 100%;
+    background-size: cover;
+    min-height: 100vh;
     width: 100%;
-    overflow: hidden;
     background-color: #f0f0f0;
     color: rgb(0, 0, 0);
     font-family: expressway;
     padding-top: 100px;
+    opacity: 1;
+	animation-name: fadeInOpacity;
+	animation-iteration-count: 1;
+	animation-timing-function: ease-in;
+	animation-duration: 1s;
 }
 
 /* Header */
@@ -172,9 +181,6 @@
 }
 
 /* Login page */
-.loginPage {
-    text-align: center;
-}
 
 .login {
     text-align: center;
@@ -243,12 +249,12 @@
 }
 
 .requestTitle {
-   margin-left: 100px;
-   margin-top: 50px;
+   /* margin-left: 100px; */
+   margin-top: 15px;
 }
 
 .requestTitle h2 {
-    font-size: 22px;
+    font-size: 20px;
 }
 
 .requestTitle button {
@@ -258,22 +264,89 @@
 
 /* shopping cart page */
 
-.cartSubmitButton {
-    margin-top: 50px;
-    text-align: center;
-}
-
 .cartForm {
 text-align: center;
+display: grid;
+grid-template-columns: 50% 50%;
+margin-bottom: 10px;
 }
 
-.cartForm img {
-    margin-bottom: 40px;
+.cartPage {
+    opacity: 1;
+	animation-name: fadeInOpacity;
+	animation-iteration-count: 1;
+	animation-timing-function: ease-in;
+	animation-duration: .5s;
+}
+
+@keyframes fadeInOpacity {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+
+.cartSubmit textarea {
+    height: 100px !important
+}
+
+.cartImg {
+    margin:auto;
+    text-align: center;
+    padding-top: 10px;
+}
+
+.cartImg img {
     box-shadow: 0 5px 14px rgb(0 0 0 / 1);
 }
 
 .cartFormLine {
-    height: 1px;
-    background-color: black;
-    margin-top: 40px;
+    height: 2px;
+    background-color: rgb(214, 214, 214);
 }
+
+.cartSubmit {
+    width: 600px;
+    padding-top: 10px;
+    margin: auto;
+}
+
+.deleteAlert {
+    padding-top: 20px !important;
+    text-align: center !important;
+}
+
+.deleteAlert button {
+    margin: 15px !important;
+    width: 100px !important
+}
+
+  .cartInfo {
+    margin-top: 15px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    text-align: center;
+  }
+
+  .requests {
+    text-align: center;
+    margin-bottom: 15px;
+    text-decoration: underline;
+  }
+
+  .cartSubmitArea {
+    text-align: center;
+  }
+
+  .text-center {
+    margin-top: 20px !important;
+  }
+
+  .noCart {
+    margin-top: 50px;
+    text-align: center;
+  }
+
+  

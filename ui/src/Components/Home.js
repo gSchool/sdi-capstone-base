@@ -1,13 +1,13 @@
 import '../App.css';
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import Header from './Header';
-import logo1 from '../img/1.jpg'
-import logo2 from '../img/2.jpg'
-import logo3 from '../img/3.jpg'
-import logo4 from '../img/4.jpg'
-import logo5 from '../img/5.jpg'
-import logo6 from '../img/6.jpg'
+import logo1 from '../img/1.jpg';
+import logo2 from '../img/2.jpg';
+import logo3 from '../img/3.jpg';
+import logo4 from '../img/4.jpg';
+import logo5 from '../img/5.jpg';
+import logo6 from '../img/6.jpg';
 import { MdKeyboardArrowUp } from "react-icons/md";
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
@@ -20,9 +20,7 @@ function Home() {
     const [userCookies] = useCookies(["user"]);
     const scrollTop = React.useRef();
     const navigate = useNavigate();
-
-    console.log('USER COOKIES ', userCookies)
-
+    
     useEffect(() => {
         if (Object.keys(userCookies).length === 0) {
             navigate('/')

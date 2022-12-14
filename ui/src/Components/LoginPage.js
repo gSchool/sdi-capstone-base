@@ -236,7 +236,7 @@ function LoginPage() {
       <div className="loginoverall">
         <video autoPlay loop muted id="video">
           <source
-            src="https://download-video.akamaized.net/2/playback/f51547ca-5c63-4b2d-a972-210c3068f2ed/941c0fd4-fbce8f1a?__token__=st=1670857579~exp=1670871979~acl=%2F2%2Fplayback%2Ff51547ca-5c63-4b2d-a972-210c3068f2ed%2F941c0fd4-fbce8f1a%2A~hmac=234f583285a018107f81eb52f696b890dded0199fdcf22fc41500607822f6439&r=dXMtZWFzdDE%3D"
+            src="https://download-video.akamaized.net/2/playback/f51547ca-5c63-4b2d-a972-210c3068f2ed/941c0fd4-fbce8f1a?__token__=st=1670989869~exp=1671004269~acl=%2F2%2Fplayback%2Ff51547ca-5c63-4b2d-a972-210c3068f2ed%2F941c0fd4-fbce8f1a%2A~hmac=d00bedaa400ff1d5e2a65956e268c52fa12c201225decd2a0878cbc356b4d8df&r=dXMtZWFzdDE%3D"
             type="video/mp4"
           />
         </video>
