@@ -33,6 +33,7 @@ background-color: #393E46 !important;
 
 .css-5jgmhe-MuiPaper-root-MuiCard-root{
   background-color: #ffecb5 !important;
+  box-shadow: 100 100px 100px rgb(0 0 0 / 1) !;
 }
 
 
@@ -57,7 +58,8 @@ background-color: #393E46 !important;
 }
 
 .css-4nuc4o-MuiPaper-root-MuiCard-root{
-  background: #EEEEEE !important;
+  background: #4b4141 !important;
+  box-shadow: 0 5px 14px rgb(0 0 0 / 1);
 }
 
 .loginheader {

@@ -1,15 +1,13 @@
 import React from "react";
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import Typography from '@mui/material/Typography';
-import { Button, CardActionArea, CardActions } from '@mui/material';
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import CardMedia from "@mui/material/CardMedia";
+import Typography from "@mui/material/Typography";
+import { Button, CardActionArea, CardActions } from "@mui/material";
 
 const AssetCard = ({ asset, handleAdd }) => {
-  console.log(asset)
-
   return (
-    <Card elevation={3} style={{ height: '100%', backgroundColor: "#bfb48f" }}>
+    <Card elevation={3} style={{ height: "100%", backgroundColor: "#bfb48f" }}>
       <CardActionArea>
         <CardMedia
           component="img"
@@ -27,8 +25,9 @@ const AssetCard = ({ asset, handleAdd }) => {
         </CardContent>
       </CardActionArea>
       <CardActions>
-        <Button size="small" color="primary"
-
+        <Button
+          size="small"
+          color="primary"
           onClick={(e) => {
             handleAdd(e, asset);
           }}
@@ -38,6 +37,6 @@ const AssetCard = ({ asset, handleAdd }) => {
       </CardActions>
     </Card>
   );
-}
+};
 
 export default AssetCard;
