@@ -103,13 +103,7 @@ function SME() {
         }}
       >
         {requestData
-          .sort((a, b) =>
-            a.sme_status === "Pending" && a.asset_name < b.asset_name
-              ? -1
-              : a.asset_name < b.asset_name
-              ? -1
-              : 1
-          )
+          .sort((a) => (a.sme_status === "Pending" ? -1 : 1))
           .map((card) => {
             return card.SME_ID === smeCookie.sme[0] ? (
               <div key={card.Request_ID}>
@@ -148,13 +142,28 @@ function SME() {
                     <img src={card.image_url} loading="lazy" alt="sdfa" />
                   </AspectRatio>
                   <CardContent>
-                    <Typography gutterBottom variant="h5" component="div">
+                    <Typography
+                      className="assetname"
+                      gutterBottom
+                      variant="h5"
+                      component="div"
+                    >
                       {card.asset_name}
                     </Typography>
-                    <Typography gutterBottom variant="h7" component="div">
+                    <Typography
+                      className="assetname"
+                      gutterBottom
+                      variant="h7"
+                      component="div"
+                    >
                       Location: {card.location}
                     </Typography>
-                    <Typography gutterBottom variant="h7" component="div">
+                    <Typography
+                      className="assetname"
+                      gutterBottom
+                      variant="h7"
+                      component="div"
+                    >
                       Operation {card.mission_title}
                     </Typography>
                     <div>
@@ -170,8 +179,8 @@ function SME() {
                             >
                               <MdArrowCircleUp
                                 style={{
-                                  width: "30px",
-                                  height: "30px",
+                                  width: "20px",
+                                  height: "20px",
                                   color: "black",
                                 }}
                               />
@@ -185,8 +194,8 @@ function SME() {
                             >
                               <MdArrowCircleDown
                                 style={{
-                                  width: "30px",
-                                  height: "30px",
+                                  width: "20px",
+                                  height: "20px",
                                   color: "black",
                                 }}
                               />
@@ -211,36 +220,44 @@ function SME() {
                   {card.sme_status === "Pending" ? (
                     <div alignitems="center">
                       <CardActions>
-                        <Button
-                          color="error"
-                          variant="outlined"
-                          size="small"
-                          onClick={() => {
-                            handleClickedNonConcur(card.Request_ID);
-                          }}
-                        >
-                          Reject
-                        </Button>
-                        <Button
-                          onClick={() => {
-                            handleClickedConcur(card.Request_ID);
-                          }}
-                          color="success"
-                          variant="outlined"
-                          size="small"
-                        >
-                          Approve
-                        </Button>
+                        <div className="buttonGroup">
+                          <Button
+                            color="error"
+                            variant="outlined"
+                            size="small"
+                            onClick={() => {
+                              handleClickedNonConcur(card.Request_ID);
+                            }}
+                          >
+                            Reject
+                          </Button>
+                          <Button
+                            onClick={() => {
+                              handleClickedConcur(card.Request_ID);
+                            }}
+                            color="success"
+                            variant="outlined"
+                            size="small"
+                          >
+                            Approve
+                          </Button>
+                        </div>
                       </CardActions>
                     </div>
                   ) : card.cmd_status === "Approved" ? (
-                    <Badge bg="success">Commander {card.cmd_status}</Badge>
+                    <h6 className="commanderStatus">
+                      <Badge bg="success">Commander {card.cmd_status}</Badge>
+                    </h6>
                   ) : card.cmd_status === "Pending" ? (
-                    <Badge bg="warning">
-                      Commander Approval is {card.cmd_status}
-                    </Badge>
+                    <h6 className="commanderStatus">
+                      <Badge bg="warning">
+                        Commander Approval is {card.cmd_status}
+                      </Badge>
+                    </h6>
                   ) : (
-                    <Badge bg="danger">Commander {card.cmd_status}</Badge>
+                    <h6 className="commanderStatus">
+                      <Badge bg="danger">Commander {card.cmd_status}</Badge>
+                    </h6>
                   )}
                 </Card>
               </div>

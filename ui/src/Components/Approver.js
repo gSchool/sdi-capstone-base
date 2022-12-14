@@ -2,7 +2,7 @@ import "../App.css";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
+import "../Approver.css";
 import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
@@ -15,7 +15,7 @@ import Alert from "react-bootstrap/Alert";
 import ModeEditOutlineOutlinedIcon from "@mui/icons-material/ModeEditOutlineOutlined";
 
 import { MdArrowCircleDown, MdArrowCircleUp } from "react-icons/md";
-import "../Approver.css"
+import "../Approver.css";
 
 function Approver() {
   const [requestData, setRequestData] = useState([]);
@@ -25,21 +25,20 @@ function Approver() {
   const [rejectConfirmShow, setRejectConfirmShow] = useState(false);
   const [confirmShow, setConfirmShow] = useState(false);
   const [countState, setCountState] = useState(0);
-  const [showA, setShowA] = useState(false);
- const [show, setShow] = useState([]);
 
- 
-  const toggleShowA = () => setShowA(!showA);
+  const [show, setShow] = useState([]);
 
   function toggleHandler(id) {
-        if (show.includes(id)) {
-            setShow(show.filter(function (newShow) {
-                return newShow !== id
-            }))
-        } else {
-            setShow(show => [...show, id])
-        }
+    if (show.includes(id)) {
+      setShow(
+        show.filter(function (newShow) {
+          return newShow !== id;
+        })
+      );
+    } else {
+      setShow((show) => [...show, id]);
     }
+  }
   const handleClose = () => {
     setConfirmShow(false);
     setApproveConfirmShow(false);
@@ -107,18 +106,12 @@ function Approver() {
         }}
       >
         {requestData
-          .sort((a, b) =>
-            a.cmd_status === "Pending" && a.asset_name < b.asset_name
-              ? -1
-              : a.asset_name < b.asset_name
-              ? -1
-              : 1
-          )
+
+          .sort((a) => (a.cmd_status === "Pending" ? -1 : 1))
           .map((card) => {
             return card.sme_status !== "Pending" ? (
               <div key={card.Request_ID}>
                 <Card
-                
                   variant="outlined"
                   sx={() => ({
                     width: 375,
@@ -128,7 +121,7 @@ function Approver() {
                     flexWrap: "wrap",
                     margin: "1px",
                     boxShadow: "5px",
-                    
+
                     resize: "horizontal",
                     overflow: "hidden",
                     gap: "clamp(3px, (100% - 360px + 32px) * 999, 16px)",
@@ -143,25 +136,38 @@ function Approver() {
                     },
                   })}
                 >
-                  <AspectRatio
-                    variant="soft"
-                    sx={{
-                      flexGrow: 3,
-                      display: "contents",
-                      "--AspectRatio-paddingBottom":
-                        "clamp(0px, (100% - 360px) * 999, min(calc(100% / (16 / 9)), 300px))",
-                    }}
-                  >
-                    <img src={card.image_url} loading="lazy" alt="sdfa" />
-                  </AspectRatio>
+                  <div className="cartImg">
+                    <img
+                      height="250"
+                      width="375"
+                      src={card.image_url}
+                      alt="where did it go?!"
+                    />
+                  </div>
+
                   <CardContent>
-                    <Typography className="assetname" gutterBottom variant="h5" component="div">
+                    <Typography
+                      className="assetname"
+                      gutterBottom
+                      variant="h5"
+                      component="div"
+                    >
                       {card.asset_name}
                     </Typography>
-                    <Typography className="assetname" gutterBottom variant="h7" component="div">
+                    <Typography
+                      className="assetname"
+                      gutterBottom
+                      variant="h7"
+                      component="div"
+                    >
                       Location: {card.location}
                     </Typography>
-                    <Typography className="assetname" gutterBottom variant="h7" component="div">
+                    <Typography
+                      className="assetname"
+                      gutterBottom
+                      variant="h7"
+                      component="div"
+                    >
                       Operation {card.mission_title}
                     </Typography>
                     <div>
@@ -177,8 +183,8 @@ function Approver() {
                             >
                               <MdArrowCircleUp
                                 style={{
-                                  width: "30px",
-                                  height: "30px",
+                                  width: "20px",
+                                  height: "20px",
                                   color: "black",
                                 }}
                               />
@@ -192,8 +198,8 @@ function Approver() {
                             >
                               <MdArrowCircleDown
                                 style={{
-                                  width: "30px",
-                                  height: "30px",
+                                  width: "20px",
+                                  height: "20px",
                                   color: "black",
                                 }}
                               />
@@ -209,11 +215,11 @@ function Approver() {
                     </div>
                   </CardContent>
                   <div className="buttonContainer">
-                  {card.sme_status === "Rejected" ? (
-                    <Badge bg="danger">SME Non Concurred</Badge>
-                  ) : (
-                    <Badge bg="success">SME Concurred </Badge>
-                  )}
+                    {card.sme_status === "Rejected" ? (
+                      <Badge bg="danger">SME Non Concurred</Badge>
+                    ) : (
+                      <Badge bg="success">SME Concurred </Badge>
+                    )}
                   </div>
                   {card.cmd_status === "Pending" ? (
                     <div alignitems="center">
@@ -242,35 +248,31 @@ function Approver() {
                       </div>
                     </div>
                   ) : card.cmd_status === "Approved" ? (
-                    <h3 className="commanderStatus">
+                    <h6 className="commanderStatus">
                       <Badge
                         onClick={() => handleClickedReject(card.Request_ID)}
-                        pill
                         bg="success"
                       >
-                        {card.cmd_status}
+                        You {card.cmd_status}
                       </Badge>
                       <ModeEditOutlineOutlinedIcon
-                        color="error"
                         onClick={() => handleClickedReject(card.Request_ID)}
                       />
-                    </h3>
+                    </h6>
                   ) : (
-                    <h3 className="commanderStatus">
+                    <h6 className="commanderStatus">
                       <Badge
                         onClick={() => handleClickApproved(card.Request_ID)}
                         pill
                         bg="danger"
                       >
-                        {card.cmd_status}
+                        You {card.cmd_status}
                       </Badge>
                       <ModeEditOutlineOutlinedIcon
-                        color="success"
                         onClick={() => handleClickApproved(card.Request_ID)}
                       />
-                    </h3>
+                    </h6>
                   )}
-                  
                 </Card>
               </div>
             ) : (
