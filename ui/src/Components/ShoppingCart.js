@@ -12,7 +12,7 @@ import Modal from 'react-bootstrap/Modal';
 export default function ShoppingCart() {
     const [show, setShow] = useState([]);
     const [showDelete, setShowDelete] = useState([]);
-    const [yourCart, setYourCart] = useState([]); 
+    const [yourCart, setYourCart] = useState([]);
     const [userCookies] = useCookies(["user"]);
     const [modalShow, setModalShow] = useState(false);
     let time = new Date().toISOString();
@@ -105,10 +105,10 @@ export default function ShoppingCart() {
         })
             .then(res => console.log(res));
     }
-    
+
     return (
         <div className='cartPage'>
-        <Header />
+            <Header />
             <div className='requests'>
                 <h2>Requests</h2>
             </div>
@@ -180,7 +180,6 @@ export default function ShoppingCart() {
                                                     <Form.Label>Dates</Form.Label>
                                                     <Form.Control type="text" />
                                                 </Form.Group>
-
                                                 <Form.Group as={Col} controlId="formTitle">
                                                     <Form.Label>Mission Title</Form.Label>
                                                     <Form.Control type="text" />
@@ -191,7 +190,6 @@ export default function ShoppingCart() {
                                                     <Form.Label>Mission Location</Form.Label>
                                                     <Form.Control as="textarea" />
                                                 </Form.Group>
-
                                                 <Form.Group as={Col} controlId="formJustification">
                                                     <Form.Label>Justification</Form.Label>
                                                     <Form.Control as="textarea" />
@@ -208,7 +206,7 @@ export default function ShoppingCart() {
                                         <img src={item.image_url} width="500" height="300" alt="alt" />
                                         : ""}
                                 </div>
-                                <MyVerticallyCenteredModal
+                                <RequestSuccessModal
                                     show={modalShow}
                                     onHide={() => setModalShow(false)}
                                 />
@@ -223,7 +221,7 @@ export default function ShoppingCart() {
     )
 }
 
-function MyVerticallyCenteredModal(props) {
+function RequestSuccessModal(props) {
     return (
         <Modal
             {...props}

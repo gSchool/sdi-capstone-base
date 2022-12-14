@@ -46,6 +46,7 @@ router.post("/", async (req, res) => {
       phone_number: req.body.phone_number,
       email: req.body.email,
       type: req.body.type,
+      sme_asset: req.body.sme_asset
     });
 
     let responseString =
