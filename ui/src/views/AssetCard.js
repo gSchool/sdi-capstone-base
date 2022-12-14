@@ -3,13 +3,13 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
-import { Button, CardActionArea, CardActions } from '@mui/material';
+import { IconButton, CardActionArea, CardActions } from '@mui/material';
+import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 
 const AssetCard = ({ asset, handleAdd }) => {
-  console.log(asset)
 
   return (
-    <Card elevation={3} style={{ height: '100%', backgroundColor: "#bfb48f" }}>
+    <Card elevation={3} style={{ height: '100%', backgroundColor: "#bfb48f", marginTop: 10 }}>
       <CardActionArea>
         <CardMedia
           component="img"
@@ -27,14 +27,11 @@ const AssetCard = ({ asset, handleAdd }) => {
         </CardContent>
       </CardActionArea>
       <CardActions>
-        <Button size="small" color="primary"
+        <IconButton size="large" style={{ color: "#904E55" }}
+          onClick={(e) => { handleAdd(e, asset); }}>
+          <AddShoppingCartIcon />
 
-          onClick={(e) => {
-            handleAdd(e, asset);
-          }}
-        >
-          Add to Cart
-        </Button>
+        </IconButton>
       </CardActions>
     </Card>
   );

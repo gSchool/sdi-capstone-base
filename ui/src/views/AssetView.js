@@ -5,12 +5,16 @@ import Header from "../Components/Header";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
 import AssetCard from "./AssetCard";
+import Snackbar from '@mui/material/Snackbar';
+import Alert from '@mui/material/Alert'
 
 export default function AssetView() {
   const location = useLocation();
   const assetType = location.state.type;
   const [assetData, setAssetData] = useState([]);
   const [cartData, setCartData] = useState([]);
+  const [open, setOpen] = useState(false);
+  const [existsInCart, setExistsInCart] = useState(false)
 
   let userId = parseInt(location.state.user.userToken);
 
@@ -34,6 +38,7 @@ export default function AssetView() {
     const data = await inCart.data;
 
     if (data.length > 0) {
+      setExistsInCart(true)
       return console.log("This item has already been added to your cart")
     }
 
@@ -42,10 +47,16 @@ export default function AssetView() {
       user_id: userId
     };
     axios.post('http://localhost:8080/cart', cartItem)
-    window.location.reload()
+    //window.location.reload()
+
+    setOpen(true);
   };
 
-  console.log(cartData);
+
+  const handleClose = () => {
+    setOpen(false)
+    setExistsInCart(false)
+  }
 
   return (
     <>
@@ -53,11 +64,24 @@ export default function AssetView() {
       <Container>
         <Grid container spacing={3} >
           {assetData.map((asset) => (
-            <Grid item key={asset.id} xs={2} md={6} >
+            <Grid item key={asset.id} xs={6} sm={4} >
               <AssetCard asset={asset} handleAdd={handleAdd} />
             </Grid>
           ))}
         </Grid>
+
+        <Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>
+          <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
+            Added to Cart!
+          </Alert>
+        </Snackbar>
+
+        <Snackbar open={existsInCart} autoHideDuration={3000} onClose={handleClose}>
+          <Alert onClose={handleClose} severity="error" sx={{ width: '100%' }}>
+            This item is already in your cart.
+          </Alert>
+        </Snackbar>
+
       </Container>
 
     </>
