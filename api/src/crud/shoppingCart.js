@@ -42,7 +42,7 @@ router.delete('/:id', async (req, res) => {
   const userId = req.params.id;
   try {
     await knex('shopping_cart')
-      .where('user_id', userId)
+      .where('id', userId)
       .del()
     let responseString = "Deleted from cart.";
     res.status(201).send(responseString);
