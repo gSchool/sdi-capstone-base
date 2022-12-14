@@ -13,7 +13,8 @@ import Container from "@mui/material/Container";
 import Modal from "react-bootstrap/Modal";
 import Alert from "react-bootstrap/Alert";
 import ModeEditOutlineOutlinedIcon from "@mui/icons-material/ModeEditOutlineOutlined";
-import Toast from "react-bootstrap/Toast";
+
+import { MdArrowCircleDown, MdArrowCircleUp } from "react-icons/md";
 
 function Approver() {
   const [requestData, setRequestData] = useState([]);
@@ -23,10 +24,20 @@ function Approver() {
   const [rejectConfirmShow, setRejectConfirmShow] = useState(false);
   const [confirmShow, setConfirmShow] = useState(false);
   const [countState, setCountState] = useState(0);
-  const [showA, setShowA] = useState(false);
 
-  const toggleShowA = () => setShowA(!showA);
+  const [show, setShow] = useState([]);
 
+  function toggleHandler(id) {
+    if (show.includes(id)) {
+      setShow(
+        show.filter(function (newShow) {
+          return newShow !== id;
+        })
+      );
+    } else {
+      setShow((show) => [...show, id]);
+    }
+  }
   const handleClose = () => {
     setConfirmShow(false);
     setApproveConfirmShow(false);
@@ -77,7 +88,7 @@ function Approver() {
     getRequestData();
   }, [confirmShow]);
 
-  console.log('REQUEST DATA ', requestData)
+  console.log("REQUEST DATA ", requestData);
   return (
     <div>
       <h1>
@@ -94,7 +105,13 @@ function Approver() {
         }}
       >
         {requestData
-          .sort((a) => (a.cmd_status === "Pending" ? -1 : 1))
+          .sort((a, b) =>
+            a.cmd_status === "Pending" && a.asset_name < b.asset_name
+              ? -1
+              : a.asset_name < b.asset_name
+              ? -1
+              : 1
+          )
           .map((card) => {
             return card.sme_status !== "Pending" ? (
               <div key={card.Request_ID}>
@@ -142,22 +159,49 @@ function Approver() {
                     <Typography gutterBottom variant="h7" component="div">
                       Operation {card.mission_title}
                     </Typography>
-                    <Button
-                      onClick={() => toggleShowA()}
-                      bg="info"
-                      variant="contained"
-                    >
-                      Show <strong>Justification</strong>
-                    </Button>
-                    <Toast show={showA} onClose={toggleShowA}>
-                      <Toast.Header>
-                        <strong className="me-auto">Justification</strong>
-                        <small>
-                          Requested by {card.User_first} on {card.date}
-                        </small>
-                      </Toast.Header>
-                      <Toast.Body>{card.justification}</Toast.Body>
-                    </Toast>
+                    <div>
+                      <div className="requestTitle">
+                        <h2>
+                          Justification
+                          {show.includes(card.Request_ID) ? (
+                            <button
+                              type="submit"
+                              onClick={() => {
+                                toggleHandler(card.Request_ID);
+                              }}
+                            >
+                              <MdArrowCircleUp
+                                style={{
+                                  width: "30px",
+                                  height: "30px",
+                                  color: "black",
+                                }}
+                              />
+                            </button>
+                          ) : (
+                            <button
+                              type="submit"
+                              onClick={() => {
+                                toggleHandler(card.Request_ID);
+                              }}
+                            >
+                              <MdArrowCircleDown
+                                style={{
+                                  width: "30px",
+                                  height: "30px",
+                                  color: "black",
+                                }}
+                              />
+                            </button>
+                          )}
+                        </h2>
+                      </div>
+                      {show.includes(card.Request_ID) ? (
+                        <Typography>{card.justification}</Typography>
+                      ) : (
+                        ""
+                      )}
+                    </div>
                   </CardContent>
                   {card.sme_status === "Rejected" ? (
                     <Badge bg="danger">SME Non Concurred</Badge>
