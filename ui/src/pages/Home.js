@@ -1,14 +1,11 @@
 import '../App.css'
 import { Box, Container, Stack } from '@mui/material';
-import  { useEffect, useState, useContext } from "react";
-import { NavLink, useNavigate, Navigate } from "react-router-dom";
-import { Context } from '../App.js';
+import  { useState } from "react";
 import Blank from '../components/Blank';
 import Login from '../components/modals/Login';
 import CreateAccount from '../components/modals/CreateAccount';
-import config from '../config'
 import { Button, Paper, Typography } from '@mui/material';
-const ApiUrl = config[process.env.REACT_APP_NODE_ENV || "development"].apiUrl;
+import DeckIcon from '@mui/icons-material/Deck';
 
 const handleLogin = (show) =>{
   console.log('Log in clicked');
@@ -21,31 +18,32 @@ const handleCreate = (show) =>{
 }
 
 const Home = () => {
-  // const { loggedInUser, setLoggedInUser } = useContext(Context);
   let [showLogin, setShowLogin] = useState(false);
   let [showCreateAccount, setShowCreateAccount] = useState(false);
-  let navigate = useNavigate();
-  let userbox = "";
-  let passwordbox = "";
 
   return (
     <div className='Home'>
       <Container>
-        <Paper elevation={3}>
-          <Box sx={{width:'100%'}} >
-            <Typography variant='h2'>
-                
+        <Box sx={{width:'100%', textAlign: 'center', paddingTop: '50px'}} >
+          <Typography variant='h4'>
+            Welcome to
+          </Typography>
+          <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'center'}}> 
+            <Typography variant="h1" fontWeight="bold">
+              OnDeck
             </Typography>
-            <Typography variant='h4'>
-              Welcome to OnDeck. Assisting with the USSF's 24/7 365 Mission
+            <Typography variant="h1" fontWeight="bold">
+              <DeckIcon fontSize='inherit'/>
             </Typography>
-            <Typography variant='h4'> _</Typography>
-          </Box>
-          <Stack justifyContent="center" direction="row" spacing={2}>
-            <Button onClick={(e) => handleLogin(setShowLogin)} variant='contained'> LOG IN</Button>
-            <Button onClick={(e) => handleCreate(setShowCreateAccount)} variant='contained'> Create Account</Button>
-          </Stack>
-        </Paper>
+          </div>
+          <Typography variant='h4'>
+            Assisting with the USSF's 24/7 365 Mission
+          </Typography>
+        </Box>
+        <Stack justifyContent="center" direction="row" spacing={2} sx={{paddingTop: '50px'}}>
+          <Button onClick={(e) => handleLogin(setShowLogin)} variant='contained' size='large'> LOG IN</Button>
+          <Button onClick={(e) => handleCreate(setShowCreateAccount)} variant='contained' size='large'> Create Account</Button>
+        </Stack>
         {showLogin ? <Login showLogin={setShowLogin} /> : <Blank/>}
         {showCreateAccount ? <CreateAccount showCreate={setShowCreateAccount} /> : <Blank/>}
       </Container>
