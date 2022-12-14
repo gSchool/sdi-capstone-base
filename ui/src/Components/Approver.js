@@ -28,7 +28,6 @@ function Approver() {
   const [showA, setShowA] = useState(false);
  const [show, setShow] = useState([]);
 
- 
   const toggleShowA = () => setShowA(!showA);
 
   function toggleHandler(id) {

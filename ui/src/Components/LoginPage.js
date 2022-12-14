@@ -23,6 +23,7 @@ function LoginPage() {
   const [userCookie, setUserCookie] = useCookies(["user"]); //user cookie
   const [smeCookie, setSmeCookie] = useCookies(["sme"]); //sme cookie
   const [cmdCookie, setCmdCookie] = useCookies(["cmd"]); //cmd cookie
+  const [pickedSME, setPickedSME] = useState(false)
   const navigate = useNavigate(); //user -> Home      sme & cmd -> Approver
   const bcrypt = require("bcryptjs"); //gives access to the bcrypt algorithm
 
@@ -102,7 +103,7 @@ function LoginPage() {
     else if (!password.match(strongPassword))
       newErrors.password =
         "Must be at least 8 characters, contain at least one uppercase, one lowercase, one digit, and one special character.";
-    return newErrors;
+        return newErrors;
   }
 
   //function called when attempting to login
@@ -163,6 +164,9 @@ function LoginPage() {
   function submitUser(e) {
     e.preventDefault();
     const newErrors = findFormErrors();
+    if (e.target[8].value === "SME") {
+        setPickedSME(true)
+    }
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
       setValidated(false);
@@ -184,7 +188,6 @@ function LoginPage() {
         hash = bcrypt.hashSync(password, 8);
       } else {
         hash = password;
-
       }
 
       let data = {
@@ -225,6 +228,8 @@ function LoginPage() {
       setDisableButton(true);
     }
   }
+
+  console.log(pickedSME)
 
   return (
     <div className="loginPage">
@@ -421,6 +426,30 @@ function LoginPage() {
                 </Form.Select>
               </Form.Group>
             </Row>
+            {pickedSME &&
+            <Row className="mb-3">
+            <Alert
+            className="text-center"
+            variant="danger"
+          >
+            <Alert.Heading>
+              You Have select your account type as SME. Please select which type of SME that you are.
+            </Alert.Heading>
+          </Alert>
+              <Form.Group as={Col} controlId="formGridtypeSME">
+                <Form.Label>Type of SME</Form.Label>
+                <Form.Select defaultValue="Choose..." >
+                  <option></option>
+                  <option>ISR</option>
+                  <option>Communications</option>
+                  <option>Mobility</option>
+                  <option>Medical</option>
+                  <option>Fires</option>
+                  <option>Personnel</option>
+                </Form.Select>
+              </Form.Group>
+            </Row>
+             }
             <Button disabled={disableButton} variant="primary" type="submit">
               Create Account
             </Button>

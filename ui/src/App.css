@@ -260,6 +260,7 @@
 
 .requestTitle h2 {
     font-size: 20px;
+    cursor: default;
 }
 
 .requestTitle button {
@@ -281,6 +282,7 @@
 
 .requests h2{
     color: #BFB48F;
+    cursor: default
 }
 
 
@@ -351,6 +353,7 @@ margin-bottom: 10px;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     text-align: center;
+    cursor:default
   }
 
   .requests {
