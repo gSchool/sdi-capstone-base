@@ -136,7 +136,8 @@ app.get("/users", validSession, async (req, res) => {
 // --------------------- CREW POSITION ENDPOINTS ----------------------------
 
 // GET crew_positions: gets all crew_positions
-app.get("/crew_positions", validSession, async (req, res) => {
+//app.get("/crew_positions", validSession, async (req, res) => {
+app.get("/crew_positions", async (req, res) => {
   try {
       const crew_positions = await knex('crew_positions');
       res.status(200).send(crew_positions);

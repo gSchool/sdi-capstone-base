@@ -14,16 +14,16 @@
   "dependencies": {
     "bcrypt": "^5.1.0",
     "cors": "^2.8.5",
-    "express": "^4.17.3",
+    "express": "^4.18.2",
     "express-session": "^1.17.3",
-    "knex": "^1.0.4",
+    "knex": "^1.0.7",
     "morgan": "^1.10.0",
-    "pg": "^8.7.3"
+    "pg": "^8.8.0"
   },
   "devDependencies": {
     "eslint": "^8.13.0",
     "eslint-plugin-jest": "^26.1.4",
     "jest": "^27.5.1",
-    "nodemon": "^2.0.15"
+    "nodemon": "^2.0.20"
   }
 }
