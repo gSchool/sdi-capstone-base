@@ -26,6 +26,7 @@ function Approver() {
   const [rejectConfirmShow, setRejectConfirmShow] = useState(false);
   const [confirmShow, setConfirmShow] = useState(false);
   const [countState, setCountState] = useState(0);
+
   const [show, setShow] = useState([]);
 
   function toggleHandler(id) {
