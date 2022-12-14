@@ -2,6 +2,9 @@ import { Paper, Container, Box, Typography, Button, Stack, Modal, TextField, Ale
 import { useState, useEffect, useContext } from "react"
 import axios from "axios";
 import { Context } from '../../App';
+import config from '../../config'
+import { ConstructionOutlined } from "@mui/icons-material";
+const ApiUrl = config[process.env.REACT_APP_NODE_ENV || "development"].apiUrl;
 
 
 
@@ -19,10 +22,32 @@ const loginStyle = {
     
 }
 
-const handleLogin = (username, password) => {
+const handleLogin = async(username, password, setUser) => {
     
     console.log('Account Username: ', username);
     console.log('Account Password: ', password);
+
+    // let user = await axios.post(ApiUrl+'/login',{
+    //     username:username,
+    //     password:password
+    // }, {withCredentials:true});
+
+    let res = await fetch(ApiUrl + '/login', {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({username:username, password:password}),
+      });
+
+      res = await res.json();
+
+
+
+    console.log('Authenticated user:', res);
+    // setUser(res.data.user);
+
 
 }
 
@@ -57,7 +82,7 @@ const Login = ({ showLogin }) => {
                     <FormControl variant="filled" sx={loginStyle}>
                         <TextField onChange={(e) => {setAccountUsername(e.target.value)}} id="username" variant="outlined" label="username"></TextField>
                         <TextField onChange={(e) => {setAccountPassword(e.target.value)}} id="password" variant="outlined" label="password"></TextField>
-                        <Button onClick={(e) => handleLogin(accountUsername, accountPassword)}>LOG IN</Button>
+                        <Button onClick={(e) => handleLogin(accountUsername, accountPassword, setAuthenticatedUser)}>LOG IN</Button>
                     </FormControl>
                     {/* <TextField onChange={(e) => {setAccount(e.target.value)}} id="username" variant="outlined" label="Username" />
                     <TextField onChange={(e) => {setPassword(e.target.value)}} id="password" variant="outlined" label="Password" />
