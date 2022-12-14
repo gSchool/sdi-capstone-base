@@ -36,7 +36,7 @@ exports.up = function (knex) {
       table.string("type", 50);
       table.text("image_url");
       table.integer("sme_id");
-      table.foreign("sme_id").references("sme_approver.id").onDelete("CASCADE").onUpdate("CASCADE");
+      table.foreign("sme_id").references("sme_approver.sme_asset").onDelete("CASCADE").onUpdate("CASCADE");
     })
     .createTable("all_users", (table) => {
       table.increments("id");

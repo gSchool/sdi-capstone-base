@@ -48,7 +48,6 @@ export default function AssetView() {
     };
     axios.post('http://localhost:8080/cart', cartItem)
     //window.location.reload()
-
     setOpen(true);
   };
 
