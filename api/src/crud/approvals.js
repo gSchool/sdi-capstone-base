@@ -48,7 +48,6 @@ router.get("/", async (req, res) => {
 
 router.patch("/:id", async (req, res) => {
   const updatedId = parseInt(req.params.id);
-  console.log("reqbody", req.body);
   try {
     let updatedRequest = {
       cmd_status: req.body.cmd_status,
@@ -60,19 +59,6 @@ router.patch("/:id", async (req, res) => {
   }
 });
 
-router.patch("/SME/:id", async (req, res) => {
-  const updatedId = parseInt(req.params.id);
-  console.log("reqbody", req.body);
-  try {
-    let updatedRequest = {
-      sme_status: req.body.sme_status,
-    };
-    await knex("request").where("id", updatedId).update(updatedRequest);
-    res.status(200).send("Request Updated");
-  } catch (e) {
-    console.log("Error in patching unit:", e);
-  }
-});
 router.delete("/:id", async (req, res) => {
   try {
     knex("request")

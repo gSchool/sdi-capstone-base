@@ -7,7 +7,7 @@ const { faker } = require('@faker-js/faker');
 const createFakeUsers = () => {
   const fakeUsers = [];
 
-  for (let i = 0; i < 6; i++) {
+  for (let i = 1; i < 7; i++) {
     const user = {
       first_name: faker.name.firstName(),
       last_name: faker.name.lastName(),
@@ -18,6 +18,7 @@ const createFakeUsers = () => {
       phone_number: faker.phone.number('813-###-###'),
       email: faker.internet.email(),
       type: 'SME',
+      sme_asset: i
     }
     fakeUsers.push(user)
   }

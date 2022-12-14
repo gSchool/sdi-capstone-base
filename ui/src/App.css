@@ -181,6 +181,9 @@
 }
 
 /* Login page */
+.loginPage {
+    text-align: center;
+}
 
 .login {
     text-align: center;

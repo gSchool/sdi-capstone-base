@@ -27,6 +27,7 @@ exports.up = function (knex) {
       table.string("phone_number", 20);
       table.string("email", 50);
       table.string("type", 25);
+      table.integer("sme_asset")
     })
     .createTable("asset", (table) => {
       table.increments("id");
