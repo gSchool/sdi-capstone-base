@@ -2,12 +2,13 @@ import React, { useEffect, useState } from 'react';
 import config from './config'
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
-import Splash from './pages/Splash';
+import Splash2 from './pages/Splash2';
 // import CrewProfile from './pages/CrewProfile';
 // import LeaderProfile from './pages/LeaderProfile';
 import Signup from './pages/Signup';
 import Header from './components/Header';
 import Calendar from './pages/calendar';
+import Member from './pages/Member';
 
 
 
@@ -29,7 +30,8 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/signup" element={<Signup />} />
-            <Route path="/splash" element={<Splash />} />
+            <Route path="/member" element={<Member />} />
+            <Route path="/splash" element={<Splash2 />} />
             <Route path="/calendar" element={<Calendar />} />
             {/* <Route path="/crewProfile" element={<CrewProfile />} />
             <Route path="/leaderProfile" element={<LeaderProfile />} /> */}

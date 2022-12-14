@@ -7,13 +7,13 @@
   align-items: center;
 }
 
-.graphGrid {
+/* .graphGrid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   column-gap: 7em;
-}
+} */
 
-@keyframes bounce {
+/* @keyframes bounce {
   0% {
     transform: scaleY(0);
   }
@@ -25,4 +25,4 @@
   100% {
     transform: scaleY(1);
   }
-}
+} */
