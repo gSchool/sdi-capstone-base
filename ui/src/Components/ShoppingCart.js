@@ -12,7 +12,7 @@ import Modal from 'react-bootstrap/Modal';
 export default function ShoppingCart() {
     const [show, setShow] = useState([]);
     const [showDelete, setShowDelete] = useState([]);
-    const [yourCart, setYourCart] = useState([]); 
+    const [yourCart, setYourCart] = useState([]);
     const [userCookies] = useCookies(["user"]);
     const [modalShow, setModalShow] = useState(false);
     let time = new Date().toISOString();
@@ -105,10 +105,10 @@ export default function ShoppingCart() {
         })
             .then(res => console.log(res));
     }
-    
+
     return (
         <div className='cartPage'>
-        <Header />
+            <Header />
             <div className='requests'>
                 <h2>Requests</h2>
             </div>

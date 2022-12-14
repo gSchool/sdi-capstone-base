@@ -63,6 +63,7 @@ function LoginPage() {
       phoneNumber,
       username,
       password,
+      typeofSME
     } = form;
     let strongPassword = new RegExp(
       "(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{8,})"
@@ -159,13 +160,18 @@ function LoginPage() {
       navigate("/Approver");
     } else setShowAlert(true);
   }
-  console.log(user);
+
   //function called when submitting a new account
   function submitUser(e) {
     e.preventDefault();
     const newErrors = findFormErrors();
-    if (e.target[8].value === "SME") {
-        setPickedSME(true)
+    console.log("target value", e)
+    let sme_asset = e.target[9].value;
+    console.log(/\d/.test(sme_asset))
+    if (e.target[8].value === "SME" && !(/\d/.test(sme_asset))) {
+        return setPickedSME(true)  
+    } else {
+        setPickedSME(false)
     }
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
@@ -183,6 +189,7 @@ function LoginPage() {
       let username = e.target[6].value;
       let password = e.target[7].value;
       let type = e.target[8].value;
+      let sme_asset = e.target[9].value;
       let hash = "";
       if (type === "User") {
         hash = bcrypt.hashSync(password, 8);
@@ -200,6 +207,7 @@ function LoginPage() {
         phone_number: phoneNumber,
         email: eMail,
         type: type,
+        sme_asset: sme_asset
       };
 
       if (type === "User") {
@@ -209,7 +217,7 @@ function LoginPage() {
           mode: "cors",
           body: JSON.stringify(data),
         }).then((res) => console.log(res));
-      } else if (type === "SME") {
+      } else if (type === "SME" && /\d/.test(sme_asset)) {
         fetch("http://localhost:8080/sme", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -228,8 +236,6 @@ function LoginPage() {
       setDisableButton(true);
     }
   }
-
-  console.log(pickedSME)
 
   return (
     <div className="loginPage">
@@ -433,19 +439,19 @@ function LoginPage() {
             variant="danger"
           >
             <Alert.Heading>
-              You Have select your account type as SME. Please select which type of SME that you are.
+              You Have selected your account type as SME. Please select which type of SME that you are.
             </Alert.Heading>
           </Alert>
               <Form.Group as={Col} controlId="formGridtypeSME">
                 <Form.Label>Type of SME</Form.Label>
                 <Form.Select defaultValue="Choose..." >
                   <option></option>
-                  <option>ISR</option>
-                  <option>Communications</option>
-                  <option>Mobility</option>
-                  <option>Medical</option>
-                  <option>Fires</option>
-                  <option>Personnel</option>
+                  <option value="1">ISR</option>
+                  <option value="2">Communications</option>
+                  <option value="3">Mobility</option>
+                  <option value="4">Medical</option>
+                  <option value="5">Fires</option>
+                  <option value="6">Personnel</option>
                 </Form.Select>
               </Form.Group>
             </Row>
