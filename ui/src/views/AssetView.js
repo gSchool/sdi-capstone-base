@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
+import Container from "@mui/material/Container"
 import CardMedia from "@mui/material/CardMedia";
 // import Button from '@mui/material/Button'
 import IconButton from "@mui/material/IconButton";
@@ -21,8 +22,6 @@ export default function AssetView() {
   const [cartData, setCartData] = useState([]);
 
   let userId = parseInt(location.state.user.userToken);
-
-  console.log(userId)
 
   const url = `http://localhost:8080/assets/${assetType}`;
 
@@ -51,6 +50,7 @@ export default function AssetView() {
       user_id: userId
     };
     axios.post('http://localhost:8080/cart', cartItem)
+    window.location.reload()
   };
 
   console.log(cartData);
@@ -58,47 +58,55 @@ export default function AssetView() {
   return (
     <>
       <Header />
-      {assetData.map((asset) => (
-        <Card
-          alignitems="center"
-          justify="center"
-          key={asset.id}
-          sx={{ display: "flex", flexDirection: "row" }}
-        >
-          <CardMedia
-            component="img"
-            sx={{ width: 500 }}
-            image={asset.image_url}
-            alt="Live from space album cover"
-          />
-          <Box sx={{ display: "flex", flexDirection: "column" }}>
-            <CardContent sx={{ flex: "1 0 auto" }}>
-              <Typography component="div" variant="h5">
-                {asset.asset_name}
-              </Typography>
-              <Typography
-                variant="subtitle1"
-                color="text.secondary"
-                component="div"
-              >
-                {asset.description}
-              </Typography>
+      
+        {assetData.map((asset) => (
+          <Card
+            sx={{ 
+              margin: 1, 
+              flexWrap: "wrap", 
+              width: 600, 
+              height: "auto",
+              flexDirection: "row"
+            }}
+            key={asset.id}
 
-              <IconButton
-                size="large"
-                color="success"
-                aria-label="addButton"
-                id={asset.id}
-                onClick={(e) => {
-                  handleAdd(e, asset);
-                }}
-              >
-                <AddCircleRoundedIcon fontSize="large" />
-              </IconButton>
-            </CardContent>
-          </Box>
-        </Card>
-      ))}
+          >
+            <CardMedia
+              component="img"
+              sx={{ width: 500, height: 500, margin: 1, justifySelf: "center" }}
+              image={asset.image_url}
+              alt="Live from space album cover"
+            />
+            <Box sx={{}}>
+              <CardContent sx={{ flex: "1 0 auto" }}>
+                <Typography component="div" variant="h5">
+                  {asset.asset_name}
+                </Typography>
+                <Typography
+                  variant="subtitle1"
+                  color="text.secondary"
+                  component="div"
+                >
+                  {asset.description}
+                </Typography>
+
+                <IconButton
+                  size="large"
+                  color="success"
+                  aria-label="addButton"
+                  id={asset.id}
+                  onClick={(e) => {
+                    handleAdd(e, asset);
+                  }}
+                >
+                  <AddCircleRoundedIcon fontSize="large" />
+                </IconButton>
+              </CardContent>
+            </Box>
+          </Card>
+        ))}
+      
+
     </>
   );
 }

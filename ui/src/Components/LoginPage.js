@@ -107,76 +107,84 @@ function LoginPage() {
 
   //function called when attempting to login
   function loginFunction(e) {
-    e.preventDefault()
-    let subUser = e.target.form[0].value
-    let subPass = e.target.form[1].value
-    let isUser = false
-    let isSME = false
-    let isCMD = false
-    let thisSme = []
-    let thisUser = []
-    let thisCmd = []
+
+    e.preventDefault();
+    let subUser = e.target.form[0].value;
+    let subPass = e.target.form[1].value;
+    let isUser = false;
+    let isSME = false;
+    let isCMD = false;
+    let thisSme = [];
+    let thisUser = [];
+    let thisCmd = [];
 
     for (let i = 0; i < user.length; i++) {
-      if (user[i].username === subUser && bcrypt.compareSync(subPass, user[i].password)) {
-        thisUser.push(user[i].id, user[i].username)
-        isUser = true
+      if (
+        user[i].username === subUser &&
+        bcrypt.compareSync(subPass, user[i].password)
+      ) {
+        thisUser.push(user[i].id, user[i].username);
+        isUser = true;
+
       }
     }
     for (let i = 0; i < sme.length; i++) {
       if (sme[i].username === subUser && sme[i].password === subPass) {
-        thisSme.push(sme[i].id, sme[i].username)
-        isSME = true
+
+        thisSme.push(sme[i].id, sme[i].username);
+        isSME = true;
+
       }
     }
     for (let i = 0; i < cmd.length; i++) {
       if (cmd[i].username === subUser && cmd[i].password === subPass) {
-        thisCmd.push(cmd[i].id, cmd[i].username)
-        isCMD = true
+
+        thisCmd.push(cmd[i].id, cmd[i].username);
+        isCMD = true;
       }
     }
 
     if (isUser) {
       setUserCookie("userToken", thisUser, { path: "/" });
-      console.log(userCookie)
-      navigate('/Home')
+      console.log(userCookie);
+      navigate("/Home");
     } else if (isSME) {
       setSmeCookie("sme", thisSme, { path: "/" });
-      console.log(smeCookie)
-      navigate('/Approver')
+      console.log(smeCookie);
+      navigate("/SME");
     } else if (isCMD) {
       setCmdCookie("cmd", thisCmd, { path: "/" });
-      console.log(cmdCookie)
-      navigate('/Approver')
-    }
-    else setShowAlert(true)
+      console.log(cmdCookie);
+      navigate("/Approver");
+    } else setShowAlert(true);
   }
-  console.log(user)
+  console.log(user);
   //function called when submitting a new account
   function submitUser(e) {
-    e.preventDefault()
-    const newErrors = findFormErrors()
+    e.preventDefault();
+    const newErrors = findFormErrors();
     if (Object.keys(newErrors).length > 0) {
-      setErrors(newErrors)
-      setValidated(false)
+      setErrors(newErrors);
+      setValidated(false);
     } else {
-      setValidated(true)
-      e.preventDefault()
+      setValidated(true);
+      e.preventDefault();
       e.currentTarget.disabled = true;
-      let firstName = e.target[0].value
-      let lastName = e.target[1].value
-      let eMail = e.target[2].value
-      let unit = e.target[3].value
-      let position = e.target[4].value
-      let phoneNumber = e.target[5].value
-      let username = e.target[6].value
-      let password = e.target[7].value
-      let type = e.target[8].value
-      let hash = ""
+      let firstName = e.target[0].value;
+      let lastName = e.target[1].value;
+      let eMail = e.target[2].value;
+      let unit = e.target[3].value;
+      let position = e.target[4].value;
+      let phoneNumber = e.target[5].value;
+      let username = e.target[6].value;
+      let password = e.target[7].value;
+      let type = e.target[8].value;
+      let hash = "";
       if (type === "User") {
         hash = bcrypt.hashSync(password, 8);
       } else {
-        hash = password
+        hash = password;
+
       }
 
       let data = {
@@ -228,7 +236,7 @@ function LoginPage() {
       <div className="loginoverall">
         <video autoPlay loop muted id="video">
           <source
-            src="https://download-video.akamaized.net/2/playback/f51547ca-5c63-4b2d-a972-210c3068f2ed/941c0fd4-fbce8f1a?__token__=st=1670989869~exp=1671004269~acl=%2F2%2Fplayback%2Ff51547ca-5c63-4b2d-a972-210c3068f2ed%2F941c0fd4-fbce8f1a%2A~hmac=d00bedaa400ff1d5e2a65956e268c52fa12c201225decd2a0878cbc356b4d8df&r=dXMtZWFzdDE%3D"
+            src="https://download-video.akamaized.net/2/playback/f51547ca-5c63-4b2d-a972-210c3068f2ed/941c0fd4-fbce8f1a?__token__=st=1671031168~exp=1671045568~acl=%2F2%2Fplayback%2Ff51547ca-5c63-4b2d-a972-210c3068f2ed%2F941c0fd4-fbce8f1a%2A~hmac=2819d15e7213a5412fb0ed01a07921d0d94f512d18989048046784a9435b2535&r=dXMtZWFzdDE%3D"
             type="video/mp4"
           />
         </video>

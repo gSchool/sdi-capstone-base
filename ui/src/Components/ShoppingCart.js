@@ -5,7 +5,6 @@ import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import Alert from "react-bootstrap/Alert";
-import Fade from 'react-bootstrap/Fade';
 import { MdArrowCircleDown, MdArrowCircleUp, MdDeleteOutline } from "react-icons/md";
 import { useCookies } from 'react-cookie';
 import Modal from 'react-bootstrap/Modal';
@@ -13,7 +12,7 @@ import Modal from 'react-bootstrap/Modal';
 export default function ShoppingCart() {
     const [show, setShow] = useState([]);
     const [showDelete, setShowDelete] = useState([]);
-    const [yourCart, setYourCart] = useState([]); //fetch and match user id with cart id items
+    const [yourCart, setYourCart] = useState([]); 
     const [userCookies] = useCookies(["user"]);
     const [modalShow, setModalShow] = useState(false);
     let time = new Date().toISOString();
@@ -27,7 +26,7 @@ export default function ShoppingCart() {
                 for (let i = 0; i < data.length; i++) {
                     if (data[i].user_id === userCookies.userToken[0]) {
                         cartFetch.push(data[i])
-                        showIndex.push(data[0].id)
+                        showIndex.push(data[i].id)
                     }
                 }
                 const isDuplicate = Array.from(new Set(cartFetch.map(a => a.id)))
@@ -159,17 +158,17 @@ export default function ShoppingCart() {
                                 <div>
                                     <div className="requestTitle">
                                         <h2>{item.type}/ {item.asset_name}  |
-                                            <button type="submit" onClick={() => { toggleDeleteHandler(item.id) }}>
-                                                <MdDeleteOutline style={{ width: '30px', height: '30px', color: 'black' }} />
+                                            <button className="cartIcon" type="submit" onClick={() => { toggleDeleteHandler(item.id) }}>
+                                                <MdDeleteOutline style={{ width: '30px', height: '30px' }} />
                                             </button>
                                             |
                                             {show.includes(item.id) ?
-                                                <button type="submit" onClick={() => { toggleHandler(item.id) }}>
-                                                    <MdArrowCircleUp style={{ width: '30px', height: '30px', color: 'black' }} />
+                                                <button className="cartIcon" type="submit" onClick={() => { toggleHandler(item.id) }}>
+                                                    <MdArrowCircleUp style={{ width: '30px', height: '30px' }} />
                                                 </button>
                                                 :
-                                                <button type="submit" onClick={() => { toggleHandler(item.id) }}>
-                                                    <MdArrowCircleDown style={{ width: '30px', height: '30px', color: 'black' }} />
+                                                <button className="cartIcon" type="submit" onClick={() => { toggleHandler(item.id) }}>
+                                                    <MdArrowCircleDown style={{ width: '30px', height: '30px' }} />
                                                 </button>
                                             }
                                         </h2>
