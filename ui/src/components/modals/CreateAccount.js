@@ -1,133 +1,109 @@
-import { Paper, Container, Box, Typography, Button, Stack, Modal, TextField, Alert, FormControl, MenuItem, Select, CircularProgress } from "@mui/material";
-import { useState, useEffect, useContext } from "react"
-import axios from "axios";
+import { Box, Typography, Button, Stack, Modal, TextField,  FormControl} from "@mui/material";
+import { useState } from "react"
 import RankSelect from "../RankSelect";
 import PositonSelector from "../PositionSelector";
-import { Context } from '../../App';
-import Blank from "../Blank";
 import config from '../../config'
 const ApiUrl = config[process.env.REACT_APP_NODE_ENV || "development"].apiUrl;
 
-const loginStyle = {
-    postion: 'absolute',
-    width: '50%',
-    bgcolor: 'background.paper',
-    margin: 'auto',
-    
-}
-
-const handleCreateAccount = async(account, setLoading) => {
-    console.log('Account Information:', account);
-    setLoading(true);
-    let createdAccount = await axios.post(ApiUrl+'/register', account );
-    console.log('Response from server', createdAccount);
-    
-
-
-    setTimeout(() => {
-        setLoading(false);
-    }, 1000);
-
-}
-
-
+const style = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 400,
+  bgcolor: 'background.paper',
+  border: '2px solid #000',
+  boxShadow: 24,
+  p: 4,
+  display: 'flex',
+  flexDirection: 'row',
+  justifyContent: 'space-evenly'
+};
 
 const CreateAccount = ({ showCreate }) => {
-    const { authenticatedUser, setAuthenticatedUser } = useContext(Context);
-    
-    const handleAccountCLose = () => {
-        setCreateAccountOpen(false);
-        showCreate(false);
+  const [createAccountOpen, setCreateAccountOpen] = useState(true);
+  const [valid, setValid] = useState(true);
+  const [account, setAccount] = useState({
+    first_name:"",
+    last_name:"",
+    phone_number:"",
+    email:"",
+    rank:"E1",
+    username:"",
+    password:"",
+    role:"member",
+    crew_position_id: 1,
+  });
+
+  const handleChange = (event) => {
+    let newData = { ...account, [event.target.name]: event.target.value };
+    setAccount(newData);
+  }
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const form = event.currentTarget;
+    if (form.checkValidity() === false) {
+      event.stopPropagation();
+      setValid(false);
+    } else {
+      try {
+        let res = await fetch(ApiUrl + '/register', {
+          method: "POST",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(account),
+        });
+  
+        let resJson = await res.json();
+  
+        if (res.status !== 201) {
+          alert(resJson);
+          return;
+        }
+  
+        handleAccountClose();
+      } catch(err) {
+        console.log(err);
+      }
     }
-    const [createAccountOpen, setCreateAccountOpen] = useState(true);
-    const [createLoading, setCreateLoading] = useState(false);
+  }
 
-    const [account, setAccount] = useState({
-        first_name:"",
-        last_name:"",
-        phone_number:"",
-        email:"",
-        rank:"",
-        username:"",
-        password:"",
-        role:"member",
-        crew_position_id:1,
+  const handleAccountClose = () => {
+    setCreateAccountOpen(false);
+    showCreate(false);
+  }
 
-    });
- 
-    const [create_firstName, setCreate_firstName] = useState("");
-    const [create_lastName, setCreate_lastName] = useState("");
-    const [create_phoneNum, setCreate_phoneNum] = useState("");
-    const [create_email, setCreate_email] = useState("");
-    const [create_rank, setCreate_rank] = useState("");
-    const [create_username, setCreate_username] = useState("");
-    const [create_password, setCreate_password] = useState("");
-    const [create_crewPosition, setCreate_crewPosition] = useState("");
-
-
-
-    useEffect(() => {//component did mount
-        setCreateAccountOpen(true);
-
-    }, [])
-
-    useEffect(() => {
-        setAccount({
-            first_name:create_firstName,
-            last_name:create_lastName,
-            phone_number:create_phoneNum,
-            email:create_email,
-            rank:create_rank,
-            username:create_username,
-            password:create_password,   
-            crew_position_id:create_crewPosition,
-            role:'member'
-        })
-
-    }, [create_firstName, create_lastName, create_phoneNum, create_email, create_rank, create_username, create_password, create_crewPosition])
-
-    return(
-        <Modal
-        open={createAccountOpen}
-        onClose={handleAccountCLose}
-        >
-            <Box>
-                <Typography>
-                    Log in to account below
-                </Typography>   
-
-                <Stack justifyContent="center" spacing={4}>
-                    <FormControl  variant="filled" sx={loginStyle}>
-                        <TextField disabled={createLoading} onChange={(e) => {setCreate_firstName(e.target.value)}} id="first-name" variant="outlined" label="First Name"></TextField>
-                        <TextField disabled={createLoading} onChange={(e) => {setCreate_lastName(e.target.value)}} id="last-name" variant="outlined" label="Last Name"></TextField>
-                        <TextField disabled={createLoading} onChange={(e) => {setCreate_phoneNum(e.target.value)}} id="phone-num" variant="outlined" label="Phone Num"></TextField>
-                        <TextField disabled={createLoading} onChange={(e) => {setCreate_email(e.target.value)}} id="email" variant="outlined" label="email"></TextField>
-                        <FormControl>
-                            <RankSelect disabled={createLoading} setRank={setCreate_rank} />
-                        </FormControl>
-                        
-                        
-                        <FormControl>
-                            <PositonSelector disabled={createLoading} setPosition={setCreate_crewPosition} />
-                        </FormControl>
-                        
-                        <TextField disabled={createLoading} onChange={(e) => {setCreate_username(e.target.value)}} id="username" variant="outlined" label="username"></TextField>
-                        <TextField disabled={createLoading} onChange={(e) => {setCreate_password(e.target.value)}} id="password" variant="outlined" label="password"></TextField>
-                        
-                        <Button onClick={(e) => handleCreateAccount(account, setCreateLoading)}>CREATE ACCOUNT</Button>
-                    </FormControl>
-                    
-
-                </Stack>
-                {createLoading ? <CircularProgress /> : <Blank/>}
-
-            </Box>
-
-
-
-        </Modal>
-
-    );
+  return(
+    <Modal
+    open={createAccountOpen}
+    onClose={handleAccountClose}
+    >
+      <Box sx={style}> 
+        <Stack justifyContent="center" spacing={4}>
+          <form onSubmit={handleSubmit}>
+            <FormControl  variant="filled">
+              <TextField onChange={handleChange} id="first-name" variant="outlined" label="First Name" name='first_name' required error={!valid}></TextField>
+              <TextField onChange={handleChange} id="last-name" variant="outlined" label="Last Name" name='last_name' required error={!valid}></TextField>
+              <TextField onChange={handleChange} id="phone-num" variant="outlined" label="Phone Num" name='phone_number' type='number' required error={!valid}></TextField>
+              <TextField onChange={handleChange} id="email" variant="outlined" label="email" name='email' required type='email' error={!valid}></TextField>
+              <FormControl>
+                <RankSelect handleChange={handleChange} account={account}/>
+              </FormControl>
+              <FormControl>
+                <PositonSelector handleChange={handleChange} account={account}/>
+              </FormControl>
+              <TextField onChange={handleChange} id="username" variant="outlined" label="username" name='username' required error={!valid}></TextField>
+              <TextField onChange={handleChange} id="password" type='password' variant="outlined" label="password" name='password' required error={!valid}></TextField>
+              <Button type='submit'>CREATE ACCOUNT</Button>
+            </FormControl>
+          </form>
+        </Stack>
+      </Box>
+    </Modal>
+  );
 
 
 }

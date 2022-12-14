@@ -2,7 +2,7 @@ import '../App.css'
 // import { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom";
 
-import { Grid } from "@material-ui/core";
+import { Grid } from "@mui/material";
 import BarChart from "../components/BarChart";
 import CardBar from "../components/CardBar";
 

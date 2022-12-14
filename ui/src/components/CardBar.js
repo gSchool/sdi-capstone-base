@@ -1,5 +1,5 @@
-import { makeStyles } from "@material-ui/core/styles";
-import { Card, CardContent, Typography, Divider } from "@material-ui/core";
+import { makeStyles } from "@mui/material";
+import { Card, CardContent, Typography, Divider } from "@mui/material";
 
 //note: cannot create variables outside of functions in jsx if importing to js 
 
