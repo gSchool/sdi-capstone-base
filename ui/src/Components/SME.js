@@ -14,6 +14,7 @@ import Modal from "react-bootstrap/Modal";
 import Alert from "react-bootstrap/Alert";
 import ModeEditOutlineOutlinedIcon from "@mui/icons-material/ModeEditOutlineOutlined";
 import { useCookies } from "react-cookie";
+import Toast from "react-bootstrap/Toast";
 
 function SME() {
   const [requestData, setRequestData] = useState([]);
@@ -23,54 +24,56 @@ function SME() {
   const [rejectConfirmShow, setRejectConfirmShow] = useState(false);
   const [confirmShow, setConfirmShow] = useState(false);
   const [countState, setCountState] = useState(0);
-  const [sme, setSME] = useState();
+  const [showA, setShowA] = useState(false);
   const [smeCookie, setSmeCookie] = useCookies(["sme"]);
 
-  console.log("sme", smeCookie);
+  const toggleShowA = () => setShowA(!showA);
+  console.log("cookie", smeCookie);
+  console.log("requestData", requestData);
+
   const handleClose = () => {
     setConfirmShow(false);
     setApproveConfirmShow(false);
     setRejectConfirmShow(false);
   };
 
-  const handClickedConcur = (rowId) => {
+  const handleClickedConcur = (rowId) => {
     console.log("concurId", rowId);
     setApproveConfirmShow(true);
     setConcurId(rowId);
     setConfirmShow(true);
   };
-  const handleClickednonConcurId = (rowId) => {
+  const handleClickedNonConcur = (rowId) => {
     console.log("nonConcurId", rowId);
     setRejectConfirmShow(true);
     setNonConcurId(rowId);
     setConfirmShow(true);
   };
-  const handleConcurApprove = async (concurId) => {
-    await axios.patch(`http://localhost:8080/approvals/${concurId}`, {
-      status: "Approved",
+  const handleConfirmConcur = async (concurId) => {
+    await axios.patch(`http://localhost:8080/approvals/SME/${concurId}`, {
+      sme_status: "Approved",
     });
     handleClose();
   };
-  const handConfirmnonConcurId = async (nonConcurId) => {
-    await axios.patch(`http://localhost:8080/approvals/${nonConcurId}`, {
-      status: "Rejected",
+  const handleConfirmNonConcur = async (nonConcurId) => {
+    await axios.patch(`http://localhost:8080/approvals/SME/${nonConcurId}`, {
+      sme_status: "Rejected",
     });
     handleClose();
   };
 
   useEffect(() => {
-    fetch("http://localhost:8080/sme")
-      .then((response) => response.json())
-      .then((data) => {
-        setSME(data);
-      });
     const getRequestData = async () => {
       let count = [];
       const response = await axios.get("http://localhost:8080/approvals");
       const data = await response.data;
       //looping to show the CDR how many pending requests he has
       for (let i = 0; i < data.length; i++) {
-        if (data[i].status === "Pending") count.push(data[i]);
+        if (
+          data[i].sme_status === "Pending" &&
+          smeCookie.sme[0] === data[i].SME_ID
+        )
+          count.push(data[i]);
         setCountState(count.length);
       }
       setRequestData(data);
@@ -93,15 +96,15 @@ function SME() {
         }}
       >
         {requestData
-          .sort((a) => (a.status === "Pending" ? -1 : 1))
+          .sort((a) => (a.sme_status === "Pending" ? -1 : 1))
           .map((card) => {
-            return (
+            return card.SME_ID === smeCookie.sme[0] ? (
               <div key={card.Request_ID}>
                 <Card
                   variant="outlined"
                   sx={() => ({
                     width: 375,
-                    height: 450,
+                    height: 525,
                     gridColumn: "span 3",
                     flexDirection: "row",
                     flexWrap: "wrap",
@@ -135,87 +138,85 @@ function SME() {
                     <Typography gutterBottom variant="h5" component="div">
                       {card.asset_name}
                     </Typography>
-                    <Typography variant="body2" color="text.secondary">
-                      {card.justification}
+                    <Typography gutterBottom variant="h7" component="div">
+                      Location: {card.location}
                     </Typography>
+                    <Typography gutterBottom variant="h7" component="div">
+                      Operation {card.mission_title}
+                    </Typography>
+                    <Button
+                      onClick={() => toggleShowA()}
+                      bg="info"
+                      variant="contained"
+                    >
+                      Show <strong>Justification</strong>
+                    </Button>
+                    <Toast show={showA} onClose={toggleShowA}>
+                      <Toast.Header>
+                        <strong className="me-auto">Justification</strong>
+                        <small>
+                          Requested by {card.User_first} on {card.date}
+                        </small>
+                      </Toast.Header>
+                      <Toast.Body>{card.justification}</Toast.Body>
+                    </Toast>
                   </CardContent>
-
-                  {card.status === "Pending" ? (
+                  {card.sme_status === "Rejected" ? (
+                    <Badge bg="danger">SME Non Concurred</Badge>
+                  ) : card.sme_status === "Pending" ? (
+                    <Badge bg="warning">Pending SME Concurence </Badge>
+                  ) : (
+                    <Badge bg="success">SME Concurred </Badge>
+                  )}
+                  {card.sme_status === "Pending" ? (
                     <div alignitems="center">
-                      <Badge pill bg="warning">
-                        {card.status}
-                      </Badge>
                       <CardActions>
                         <Button
                           color="error"
                           variant="outlined"
                           size="small"
                           onClick={() => {
-                            handleClickednonConcurId(card.Request_ID);
+                            handleClickedNonConcur(card.Request_ID);
                           }}
                         >
-                          Non Concur
+                          Reject
                         </Button>
                         <Button
                           onClick={() => {
-                            handClickedConcur(card.Request_ID);
+                            handleClickedConcur(card.Request_ID);
                           }}
                           color="success"
                           variant="outlined"
                           size="small"
                         >
-                          Concur
+                          Approve
                         </Button>
                       </CardActions>
                     </div>
-                  ) : card.status === "Approved" ? (
-                    <h3>
-                      <Badge
-                        onClick={() =>
-                          handleClickednonConcurId(card.Request_ID)
-                        }
-                        pill
-                        bg="success"
-                      >
-                        {card.status}
-                      </Badge>
-                      <ModeEditOutlineOutlinedIcon
-                        color="error"
-                        onClick={() =>
-                          handleClickednonConcurId(card.Request_ID)
-                        }
-                      />
-                    </h3>
+                  ) : card.cmd_status === "Approved" ? (
+                    <Badge bg="success">Commander {card.cmd_status}</Badge>
+                  ) : card.cmd_status === "Pending" ? (
+                    <Badge bg="warning">
+                      Commander Approval is {card.cmd_status}
+                    </Badge>
                   ) : (
-                    <h3>
-                      <Badge
-                        onClick={() => handClickedConcur(card.Request_ID)}
-                        pill
-                        bg="danger"
-                      >
-                        {card.status}
-                      </Badge>
-                      <ModeEditOutlineOutlinedIcon
-                        color="success"
-                        onClick={() => handClickedConcur(card.Request_ID)}
-                      />
-                    </h3>
+                    <Badge bg="danger">Commander {card.cmd_status}</Badge>
                   )}
                 </Card>
               </div>
+            ) : (
+              ""
             );
           })}
         <Modal show={rejectConfirmShow} onHide={handleClose}>
           <Modal.Header closeButton>
-            <Modal.Title>Non Concur!</Modal.Title>
+            <Modal.Title>Reject!</Modal.Title>
           </Modal.Header>
-          <Modal.Body>
-            Are you sure you want to Non Concur with this request?
-          </Modal.Body>
+          <Modal.Body>Are you sure you want to Reject this request?</Modal.Body>
           <Button
             color="error"
             variant="contained"
-            onClick={() => handConfirmnonConcurId(nonConcurId)}
+            onClick={() => handleConfirmNonConcur(nonConcurId)}
           >
             Confirm
           </Button>
@@ -225,15 +226,15 @@ function SME() {
         </Modal>
         <Modal show={approveConfirmShow} onHide={handleClose}>
           <Modal.Header closeButton>
-            <Modal.Title>Concur!</Modal.Title>
+            <Modal.Title>Approve!</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            Are you sure you want to Concur with this request?
+            Are you sure you want to Approve this request?
           </Modal.Body>
           <Button
             color="success"
             variant="contained"
-            onClick={() => handleConcurApprove(concurId)}
+            onClick={() => handleConfirmConcur(concurId)}
           >
             Confirm
           </Button>
