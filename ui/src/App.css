@@ -13,7 +13,7 @@
   column-gap: 7em;
 } */
 
-@keyframes bounce {
+/* @keyframes bounce {
   0% {
     transform: scaleY(0);
   }
@@ -25,4 +25,4 @@
   100% {
     transform: scaleY(1);
   }
-}
+} */

@@ -1,13 +1,14 @@
 import { makeStyles } from "@material-ui/core/styles";
 import { Card, CardContent, Typography, Divider } from "@material-ui/core";
 
-const useStyles = makeStyles(() => ({
-    header: {
-        textTransform: "uppercase"
-    }
-}));
+//note: cannot create variables outside of functions in jsx if importing to js
 
-function CardBar({ title, chart }) {
+export default function CardBar({ title, chart }) {
+    const useStyles = makeStyles(() => ({
+        header: {
+            textTransform: "uppercase"
+        }
+    }));
     const classes = useStyles();
     return (
         <>
@@ -23,5 +24,3 @@ function CardBar({ title, chart }) {
         </>
     );
 }
-
-export { CardBar };

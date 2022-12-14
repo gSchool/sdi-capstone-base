@@ -8,6 +8,7 @@ import Splash2 from './pages/Splash2';
 import Signup from './pages/Signup';
 import Header from './components/Header';
 import Calendar from './pages/calendar';
+import Member from './pages/Member';
 
 
 
@@ -29,6 +30,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/signup" element={<Signup />} />
+            <Route path="/member" element={<Member />} />
             <Route path="/splash" element={<Splash2 />} />
             <Route path="/calendar" element={<Calendar />} />
             {/* <Route path="/crewProfile" element={<CrewProfile />} />

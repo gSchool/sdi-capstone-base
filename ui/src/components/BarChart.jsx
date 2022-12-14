@@ -3,7 +3,7 @@ import { Chart, BarSeries, ArgumentAxis, ValueAxis, Tooltip } from "@devexpress/
 // import { Animation } from "@devexpress/dx-react-chart";
 import { EventTracker } from "@devexpress/dx-react-chart";
 
-function BarChart( {input} ) {
+export default function BarChart( {input} ) {
   return (
     <Paper>
       <Chart data={input}>
@@ -17,5 +17,3 @@ function BarChart( {input} ) {
     </Paper>
   );
 }
-
-export { BarChart };

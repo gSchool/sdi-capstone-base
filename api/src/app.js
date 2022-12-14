@@ -24,7 +24,7 @@ app.use(session({
     secure: false,
     httpOnly: true, 
     maxAge: 1000 * 60 * 30, 
-    sameSite: false,
+    sameSite: 'lax',
     // sameSite: process.env.NODE_ENV === 'development' ? 'lax' : 'none',
   }
 }));

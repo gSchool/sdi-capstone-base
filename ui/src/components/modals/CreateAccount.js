@@ -21,6 +21,7 @@ const handleCreateAccount = async(account, setLoading) => {
     setLoading(true);
     let createdAccount = await axios.post(ApiUrl+'/register', account );
     console.log('Response from server', createdAccount);
+    
 
 
     setTimeout(() => {
@@ -49,7 +50,8 @@ const CreateAccount = ({ showCreate }) => {
         rank:"",
         username:"",
         password:"",
-        role:"member"
+        role:"member",
+        crew_position_id:1,
 
     });
  

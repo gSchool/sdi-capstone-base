@@ -21,6 +21,7 @@ const PositonSelector = ({ setPosition} ) => {
             try {
                 let fetchedList = await axios.get(ApiUrl + '/crew_positions');
                 setPositionList(fetchedList.data);
+                setPosition(1);
             } catch (err) {
                 console.log(err);
             }

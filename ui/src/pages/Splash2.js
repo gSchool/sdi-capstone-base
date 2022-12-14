@@ -3,8 +3,8 @@ import '../App.css'
 import { useNavigate } from "react-router-dom";
 
 import { Grid } from "@material-ui/core";
-import { BarChart } from "../components/BarChart";
-import { CardBar } from "../components/CardBar";
+import BarChart from "../components/BarChart";
+import CardBar from "../components/CardBar";
 
 const Splash2 = () => {
     const navigate = useNavigate();
@@ -30,16 +30,19 @@ const Splash2 = () => {
     return (
         <div className='Splash'>
             <br />
-            <Grid container spacing={3}>
-                <Grid item xs={4}>
+            <Grid container spacing={5} justifyContent="center">
+                <Grid item xl={5} lg={5} md={12} sm={12}>
                     <CardBar title="Top Performers" chart={<BarChart input={goodBoyData} />} />
                 </Grid>
-                <Grid item xs={4}>
+                <Grid item xl={5} lg={5} md={12} sm={12}>
                     <CardBar title="Slackers do not promote" chart={<BarChart input={slackerData} />} />
+                </Grid>
+                <Grid>
+                <button onClick={() => navigate('/')}>Continue to Profile</button>
                 </Grid>
             </Grid>
             <br />
-            <button onClick={() => navigate('/')}>Continue to Profile</button>
+            
         </div>
     )
 }
