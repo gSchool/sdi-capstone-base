@@ -14,6 +14,7 @@ const loginStyle = {
 
 const CreateAccount = ({ showCreate }) => {
   const [createAccountOpen, setCreateAccountOpen] = useState(true);
+  const [valid, setValid] = useState(true);
   const [account, setAccount] = useState({
     first_name:"",
     last_name:"",
@@ -33,23 +34,33 @@ const CreateAccount = ({ showCreate }) => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    let res = await fetch(ApiUrl + '/register', {
-      method: "POST",
-      credentials: "include",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(account),
-    });
-
-    let resJson = await res.json();
-
-    if (res.status !== 201) {
-      alert(resJson);
-      return;
+    const form = event.currentTarget;
+    if (form.checkValidity() === false) {
+      event.stopPropagation();
+      setValid(false);
+    } else {
+      try {
+        let res = await fetch(ApiUrl + '/register', {
+          method: "POST",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(account),
+        });
+  
+        let resJson = await res.json();
+  
+        if (res.status !== 201) {
+          alert(resJson);
+          return;
+        }
+  
+        handleAccountClose();
+      } catch(err) {
+        console.log(err);
+      }
     }
-
-    handleAccountClose();
   }
 
   const handleAccountClose = () => {
@@ -69,18 +80,18 @@ const CreateAccount = ({ showCreate }) => {
         <Stack justifyContent="center" spacing={4}>
           <form onSubmit={handleSubmit}>
             <FormControl  variant="filled" sx={loginStyle}>
-              <TextField onChange={handleChange} id="first-name" variant="outlined" label="First Name" name='first_name'></TextField>
-              <TextField onChange={handleChange} id="last-name" variant="outlined" label="Last Name" name='last_name'></TextField>
-              <TextField onChange={handleChange} id="phone-num" variant="outlined" label="Phone Num" name='phone_number'></TextField>
-              <TextField onChange={handleChange} id="email" variant="outlined" label="email" name='email'></TextField>
+              <TextField onChange={handleChange} id="first-name" variant="outlined" label="First Name" name='first_name' required error={!valid}></TextField>
+              <TextField onChange={handleChange} id="last-name" variant="outlined" label="Last Name" name='last_name' required error={!valid}></TextField>
+              <TextField onChange={handleChange} id="phone-num" variant="outlined" label="Phone Num" name='phone_number' type='number' required error={!valid}></TextField>
+              <TextField onChange={handleChange} id="email" variant="outlined" label="email" name='email' required type='email' error={!valid}></TextField>
               <FormControl>
                 <RankSelect handleChange={handleChange} account={account}/>
               </FormControl>
               <FormControl>
                 <PositonSelector handleChange={handleChange} account={account}/>
               </FormControl>
-              <TextField onChange={handleChange} id="username" variant="outlined" label="username" name='username'></TextField>
-              <TextField onChange={handleChange} id="password" type='password' variant="outlined" label="password" name='password'></TextField>
+              <TextField onChange={handleChange} id="username" variant="outlined" label="username" name='username' required error={!valid}></TextField>
+              <TextField onChange={handleChange} id="password" type='password' variant="outlined" label="password" name='password' required error={!valid}></TextField>
               <Button type='submit'>CREATE ACCOUNT</Button>
             </FormControl>
           </form>
