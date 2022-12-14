@@ -8,7 +8,7 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import "@fontsource/public-sans";
 import Badge from "react-bootstrap/Badge";
-import AspectRatio from "@mui/joy/AspectRatio";
+import logo from "../img/logo.png";
 import Container from "@mui/material/Container";
 import Modal from "react-bootstrap/Modal";
 import Alert from "react-bootstrap/Alert";
@@ -23,7 +23,7 @@ function SME() {
   const [rejectConfirmShow, setRejectConfirmShow] = useState(false);
   const [confirmShow, setConfirmShow] = useState(false);
   const [countState, setCountState] = useState(0);
-  const [smeCookie, setSmeCookie] = useCookies(["sme"]);
+  const [smeCookie] = useCookies(["sme"]);
   const [show, setShow] = useState([]);
 
   function toggleHandler(id) {
@@ -89,6 +89,9 @@ function SME() {
   }, [confirmShow]);
   return (
     <div>
+      <div className="loginheader">
+        <img src={logo} alt="alt" />
+      </div>
       <h1>
         <Alert variant="warning">
           Welcome! You have {countState} Pending requests
@@ -103,7 +106,9 @@ function SME() {
         }}
       >
         {requestData
-          .sort((a) => (a.sme_status === "Pending" ? -1 : 1))
+          .sort((a, b) =>
+            a.sme_status === "Pending" && a.asset_name < b.asset_name ? -1 : 1
+          )
           .map((card) => {
             return card.SME_ID === smeCookie.sme[0] ? (
               <div key={card.Request_ID}>
@@ -130,17 +135,15 @@ function SME() {
                     },
                   })}
                 >
-                  <AspectRatio
-                    variant="soft"
-                    sx={{
-                      flexGrow: 3,
-                      display: "contents",
-                      "--AspectRatio-paddingBottom":
-                        "clamp(0px, (100% - 360px) * 999, min(calc(100% / (16 / 9)), 300px))",
-                    }}
-                  >
-                    <img src={card.image_url} loading="lazy" alt="sdfa" />
-                  </AspectRatio>
+                  <div className="cartImg">
+                    <img
+                      height="250"
+                      width="375"
+                      src={card.image_url}
+                      alt="where did it go?!"
+                    />
+                  </div>
+
                   <CardContent>
                     <Typography
                       className="assetname"

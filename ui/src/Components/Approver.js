@@ -8,7 +8,7 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import "@fontsource/public-sans";
 import Badge from "react-bootstrap/Badge";
-import AspectRatio from "@mui/joy/AspectRatio";
+import logo from "../img/logo.png";
 import Container from "@mui/material/Container";
 import Modal from "react-bootstrap/Modal";
 import Alert from "react-bootstrap/Alert";
@@ -25,7 +25,6 @@ function Approver() {
   const [rejectConfirmShow, setRejectConfirmShow] = useState(false);
   const [confirmShow, setConfirmShow] = useState(false);
   const [countState, setCountState] = useState(0);
-
   const [show, setShow] = useState([]);
 
   function toggleHandler(id) {
@@ -92,6 +91,9 @@ function Approver() {
   console.log("REQUEST DATA ", requestData);
   return (
     <div>
+      <div className="loginheader">
+        <img src={logo} alt="alt" />
+      </div>
       <h1>
         <Alert variant="warning">
           Welcome! You have {countState} Pending requests
@@ -107,7 +109,9 @@ function Approver() {
       >
         {requestData
 
-          .sort((a) => (a.cmd_status === "Pending" ? -1 : 1))
+          .sort((a, b) =>
+            a.cmd_status === "Pending" && a.Request_ID > b.Request_ID ? -1 : 1
+          )
           .map((card) => {
             return card.sme_status !== "Pending" ? (
               <div key={card.Request_ID}>
@@ -115,7 +119,7 @@ function Approver() {
                   variant="outlined"
                   sx={() => ({
                     width: 375,
-                    height: 525,
+                    height: 550,
                     gridColumn: "span 3",
                     flexDirection: "row",
                     flexWrap: "wrap",
@@ -154,6 +158,7 @@ function Approver() {
                     >
                       {card.asset_name}
                     </Typography>
+
                     <Typography
                       className="assetname"
                       gutterBottom
@@ -208,7 +213,16 @@ function Approver() {
                         </h2>
                       </div>
                       {show.includes(card.Request_ID) ? (
-                        <Typography>{card.justification}</Typography>
+                        <div>
+                          <Typography
+                            className="assetname"
+                            gutterBottom
+                            component="div"
+                          >
+                            Requested by: {card.User_first}
+                          </Typography>
+                          <Typography>{card.justification}</Typography>{" "}
+                        </div>
                       ) : (
                         ""
                       )}

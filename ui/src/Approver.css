@@ -58,3 +58,15 @@ background-color: #393E46 !important;
 .css-4nuc4o-MuiPaper-root-MuiCard-root{
   background: #EEEEEE !important;
 }
+
+.loginheader {
+    height: 100px;
+    width: 100%;
+    background-color: #F2EFE9;
+    
+    margin-top: -100px !important;
+    margin: 10px;
+}
+.loginheader img {
+margin-left: 300px;
+}
