@@ -24,7 +24,7 @@ function App() {
             <Route path="/Approver" element={<Approver />} />
             <Route path="/Assets/:id" element={<AssetView />} />
             <Route path="/Requests" element={<Requests />} />
-            <Route path="/SME/:id" element={<SME />} />
+            <Route path="/SME" element={<SME />} />
           </Routes>
           <Footer />
         </Router>
