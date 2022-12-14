@@ -107,6 +107,7 @@ function LoginPage() {
 
   //function called when attempting to login
   function loginFunction(e) {
+
     e.preventDefault();
     let subUser = e.target.form[0].value;
     let subPass = e.target.form[1].value;
@@ -124,16 +125,20 @@ function LoginPage() {
       ) {
         thisUser.push(user[i].id, user[i].username);
         isUser = true;
+
       }
     }
     for (let i = 0; i < sme.length; i++) {
       if (sme[i].username === subUser && sme[i].password === subPass) {
+
         thisSme.push(sme[i].id, sme[i].username);
         isSME = true;
+
       }
     }
     for (let i = 0; i < cmd.length; i++) {
       if (cmd[i].username === subUser && cmd[i].password === subPass) {
+
         thisCmd.push(cmd[i].id, cmd[i].username);
         isCMD = true;
       }
@@ -179,6 +184,7 @@ function LoginPage() {
         hash = bcrypt.hashSync(password, 8);
       } else {
         hash = password;
+
       }
 
       let data = {
