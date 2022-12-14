@@ -50,6 +50,7 @@ export default function AssetView() {
       user_id: userId
     };
     axios.post('http://localhost:8080/cart', cartItem)
+    window.location.reload()
   };
 
   console.log(cartData);
@@ -57,16 +58,16 @@ export default function AssetView() {
   return (
     <>
       <Header />
-      <Box sx={{
-        display: "flex",
-        gridColumn: "span 3",
-        margin: 1,
-        justifyContent: "space-between",
-        flexWrap: "wrap",
-      }}>
+      
         {assetData.map((asset) => (
           <Card
-            sx={{ margin: 1, flexWrap: "wrap" }}
+            sx={{ 
+              margin: 1, 
+              flexWrap: "wrap", 
+              width: 600, 
+              height: "auto",
+              flexDirection: "row"
+            }}
             key={asset.id}
 
           >
@@ -104,7 +105,7 @@ export default function AssetView() {
             </Box>
           </Card>
         ))}
-      </Box>
+      
 
     </>
   );

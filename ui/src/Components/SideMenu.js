@@ -18,8 +18,8 @@ function SideMenu() {
 
     return (
         <nav className="navBar">
-            <button onClick={handleToggle}>{navbarOpen ? (<MdClose className="rotate" style={{ color: "black", width: "50px", height: "50px" }} />) : (
-                <MdMenu className="rotate" style={{ color: "black", width: "45px", height: "45px" }} />
+            <button onClick={handleToggle}>{navbarOpen ? (<MdClose className="rotate" style={{ color: "#904E55", width: "50px", height: "50px" }} />) : (
+                <MdMenu className="rotate" style={{ color: "#904E55", width: "45px", height: "45px" }} />
             )}
             </button>
             <ul className={`menuNav ${navbarOpen ? " showMenu" : ""}`}>
