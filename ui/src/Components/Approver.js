@@ -13,7 +13,8 @@ import Container from "@mui/material/Container";
 import Modal from "react-bootstrap/Modal";
 import Alert from "react-bootstrap/Alert";
 import ModeEditOutlineOutlinedIcon from "@mui/icons-material/ModeEditOutlineOutlined";
-import Toast from "react-bootstrap/Toast";
+
+import { MdArrowCircleDown, MdArrowCircleUp } from "react-icons/md";
 import "../Approver.css"
 
 function Approver() {
@@ -89,7 +90,7 @@ function Approver() {
     getRequestData();
   }, [confirmShow]);
 
-  console.log('REQUEST DATA ', requestData)
+  console.log("REQUEST DATA ", requestData);
   return (
     <div>
       <h1>
@@ -106,7 +107,13 @@ function Approver() {
         }}
       >
         {requestData
-          .sort((a) => (a.cmd_status === "Pending" ? -1 : 1))
+          .sort((a, b) =>
+            a.cmd_status === "Pending" && a.asset_name < b.asset_name
+              ? -1
+              : a.asset_name < b.asset_name
+              ? -1
+              : 1
+          )
           .map((card) => {
             return card.sme_status !== "Pending" ? (
               <div key={card.Request_ID}>
@@ -157,10 +164,49 @@ function Approver() {
                     <Typography className="assetname" gutterBottom variant="h7" component="div">
                       Operation {card.mission_title}
                     </Typography>
-                     <Typography className="assetname1" gutterBottom variant="h7" component="div">
-                          <h6>Justification</h6>
-                      {card.justification}
-                    </Typography>
+                    <div>
+                      <div className="requestTitle">
+                        <h2>
+                          Justification
+                          {show.includes(card.Request_ID) ? (
+                            <button
+                              type="submit"
+                              onClick={() => {
+                                toggleHandler(card.Request_ID);
+                              }}
+                            >
+                              <MdArrowCircleUp
+                                style={{
+                                  width: "30px",
+                                  height: "30px",
+                                  color: "black",
+                                }}
+                              />
+                            </button>
+                          ) : (
+                            <button
+                              type="submit"
+                              onClick={() => {
+                                toggleHandler(card.Request_ID);
+                              }}
+                            >
+                              <MdArrowCircleDown
+                                style={{
+                                  width: "30px",
+                                  height: "30px",
+                                  color: "black",
+                                }}
+                              />
+                            </button>
+                          )}
+                        </h2>
+                      </div>
+                      {show.includes(card.Request_ID) ? (
+                        <Typography>{card.justification}</Typography>
+                      ) : (
+                        ""
+                      )}
+                    </div>
                   </CardContent>
                   <div className="buttonContainer">
                   {card.sme_status === "Rejected" ? (
