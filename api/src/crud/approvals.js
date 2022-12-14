@@ -30,6 +30,7 @@ router.get("/", async (req, res) => {
         "cmd_approver.first_name as CMD_first",
         "cmd_approver.last_name as CMD_last",
         "sme_approver.id AS SME_ID",
+        "sme_approver.sme_asset as SME TO ASSET ID",
         "cmd_approver.id as CMD_ID",
         "all_users.id as USER_ID",
         "asset.type",
