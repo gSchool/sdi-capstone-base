@@ -21,6 +21,18 @@ background-color: #393E46 !important;
   
 }
 
+.cartImg img {
+    box-shadow: 0 5px 14px rgb(0 0 0 / 1);
+}
+
+.css-anmq6p-MuiTypography-root {
+  background-color: #ffecb5 !important;
+  color: #664d03;
+}
+
+.css-5jgmhe-MuiPaper-root-MuiCard-root{
+  background-color: #ffecb5 !important;
+}
 
 
 .justification{
@@ -30,7 +42,7 @@ background-color: #393E46 !important;
 }
 
 .commanderStatus{
-  margin-left: 125px !important;
+  margin-left: 0px !important;
 }
 
 .assetname{ 

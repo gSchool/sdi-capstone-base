@@ -30,6 +30,7 @@ router.get("/", async (req, res) => {
         "cmd_approver.first_name as CMD_first",
         "cmd_approver.last_name as CMD_last",
         "sme_approver.id AS SME_ID",
+        "sme_approver.sme_asset as SME TO ASSET ID",
         "cmd_approver.id as CMD_ID",
         "all_users.id as USER_ID",
         "asset.type",
@@ -48,7 +49,6 @@ router.get("/", async (req, res) => {
 
 router.patch("/:id", async (req, res) => {
   const updatedId = parseInt(req.params.id);
-  console.log("reqbody", req.body);
   try {
     let updatedRequest = {
       cmd_status: req.body.cmd_status,
@@ -60,19 +60,6 @@ router.patch("/:id", async (req, res) => {
   }
 });
 
-router.patch("/SME/:id", async (req, res) => {
-  const updatedId = parseInt(req.params.id);
-  console.log("reqbody", req.body);
-  try {
-    let updatedRequest = {
-      sme_status: req.body.sme_status,
-    };
-    await knex("request").where("id", updatedId).update(updatedRequest);
-    res.status(200).send("Request Updated");
-  } catch (e) {
-    console.log("Error in patching unit:", e);
-  }
-});
 router.delete("/:id", async (req, res) => {
   try {
     knex("request")

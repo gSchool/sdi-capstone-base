@@ -178,8 +178,10 @@
 /* Login page */
 .loginPage {
     text-align: center;
+
     margin-top: -100px;
     background-color: #F2EFE9;
+
 }
 
 .login {

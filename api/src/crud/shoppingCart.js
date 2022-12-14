@@ -24,6 +24,17 @@ router.get("/", async (req, res) => {
   }
 });
 
+router.get('/:id', async (req, res) => {
+  const userId = req.params.id;
+  const assetId = req.query.asset_id;
+  const inCart = await knex.select('*')
+    .from('shopping_cart')
+    .where('shopping_cart.user_id', userId)
+    .where('shopping_cart.asset_id', assetId)
+
+  res.status(201).send(inCart)
+})
+
 router.post('/', async (req, res) => {
   try {
     await knex('shopping_cart').insert({
