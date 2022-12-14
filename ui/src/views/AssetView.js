@@ -64,7 +64,7 @@ export default function AssetView() {
       <Container>
         <Grid container spacing={3} >
           {assetData.map((asset) => (
-            <Grid item key={asset.id} xs={2} md={6} >
+            <Grid item key={asset.id} xs={6} sm={4} >
               <AssetCard asset={asset} handleAdd={handleAdd} />
             </Grid>
           ))}
