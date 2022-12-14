@@ -14,6 +14,7 @@ import Modal from "react-bootstrap/Modal";
 import Alert from "react-bootstrap/Alert";
 import { MdArrowCircleDown, MdArrowCircleUp } from "react-icons/md";
 import { useCookies } from "react-cookie";
+import Header from "./Header";
 
 function SME() {
   const [requestData, setRequestData] = useState([]);
@@ -92,6 +93,7 @@ function SME() {
       <div className="loginheader">
         <img src={logo} alt="alt" />
       </div>
+      <Header></Header>
       <h1>
         <Alert variant="warning">
           Welcome! You have {countState} Pending requests

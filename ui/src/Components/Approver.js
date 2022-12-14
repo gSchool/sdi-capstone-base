@@ -13,6 +13,7 @@ import Container from "@mui/material/Container";
 import Modal from "react-bootstrap/Modal";
 import Alert from "react-bootstrap/Alert";
 import ModeEditOutlineOutlinedIcon from "@mui/icons-material/ModeEditOutlineOutlined";
+import Header from "./Header";
 
 import { MdArrowCircleDown, MdArrowCircleUp } from "react-icons/md";
 import "../Approver.css";
@@ -94,6 +95,7 @@ function Approver() {
       <div className="loginheader">
         <img src={logo} alt="alt" />
       </div>
+      <Header></Header>
       <h1>
         <Alert variant="warning">
           Welcome! You have {countState} Pending requests
@@ -131,8 +133,7 @@ function Approver() {
                     gap: "clamp(3px, (100% - 360px + 32px) * 999, 16px)",
                     transition: "transform 0.3s, border 0.3s",
                     "&:hover": {
-                      borderColor: "lightBlue",
-                      border: "10px",
+                      border: "3px solid rgb(7, 188, 200)",
                       transform: "translateY(-10px)",
                     },
                     "& > *": {
