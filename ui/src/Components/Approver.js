@@ -13,7 +13,9 @@ import Container from "@mui/material/Container";
 import Modal from "react-bootstrap/Modal";
 import Alert from "react-bootstrap/Alert";
 import ModeEditOutlineOutlinedIcon from "@mui/icons-material/ModeEditOutlineOutlined";
-import Toast from "react-bootstrap/Toast";
+
+import { MdArrowCircleDown, MdArrowCircleUp } from "react-icons/md";
+import "../Approver.css"
 
 function Approver() {
   const [requestData, setRequestData] = useState([]);
@@ -24,9 +26,20 @@ function Approver() {
   const [confirmShow, setConfirmShow] = useState(false);
   const [countState, setCountState] = useState(0);
   const [showA, setShowA] = useState(false);
+ const [show, setShow] = useState([]);
 
+ 
   const toggleShowA = () => setShowA(!showA);
 
+  function toggleHandler(id) {
+        if (show.includes(id)) {
+            setShow(show.filter(function (newShow) {
+                return newShow !== id
+            }))
+        } else {
+            setShow(show => [...show, id])
+        }
+    }
   const handleClose = () => {
     setConfirmShow(false);
     setApproveConfirmShow(false);
@@ -77,7 +90,7 @@ function Approver() {
     getRequestData();
   }, [confirmShow]);
 
-  console.log('REQUEST DATA ', requestData)
+  console.log("REQUEST DATA ", requestData);
   return (
     <div>
       <h1>
@@ -94,11 +107,18 @@ function Approver() {
         }}
       >
         {requestData
-          .sort((a) => (a.cmd_status === "Pending" ? -1 : 1))
+          .sort((a, b) =>
+            a.cmd_status === "Pending" && a.asset_name < b.asset_name
+              ? -1
+              : a.asset_name < b.asset_name
+              ? -1
+              : 1
+          )
           .map((card) => {
             return card.sme_status !== "Pending" ? (
               <div key={card.Request_ID}>
                 <Card
+                
                   variant="outlined"
                   sx={() => ({
                     width: 375,
@@ -107,13 +127,15 @@ function Approver() {
                     flexDirection: "row",
                     flexWrap: "wrap",
                     margin: "1px",
+                    boxShadow: "5px",
+                    
                     resize: "horizontal",
                     overflow: "hidden",
                     gap: "clamp(3px, (100% - 360px + 32px) * 999, 16px)",
                     transition: "transform 0.3s, border 0.3s",
                     "&:hover": {
                       borderColor: "lightBlue",
-                      border: "5px",
+                      border: "10px",
                       transform: "translateY(-10px)",
                     },
                     "& > *": {
@@ -133,41 +155,70 @@ function Approver() {
                     <img src={card.image_url} loading="lazy" alt="sdfa" />
                   </AspectRatio>
                   <CardContent>
-                    <Typography gutterBottom variant="h5" component="div">
+                    <Typography className="assetname" gutterBottom variant="h5" component="div">
                       {card.asset_name}
                     </Typography>
-                    <Typography gutterBottom variant="h7" component="div">
+                    <Typography className="assetname" gutterBottom variant="h7" component="div">
                       Location: {card.location}
                     </Typography>
-                    <Typography gutterBottom variant="h7" component="div">
+                    <Typography className="assetname" gutterBottom variant="h7" component="div">
                       Operation {card.mission_title}
                     </Typography>
-                    <Button
-                      onClick={() => toggleShowA()}
-                      bg="info"
-                      variant="contained"
-                    >
-                      Show <strong>Justification</strong>
-                    </Button>
-                    <Toast show={showA} onClose={toggleShowA}>
-                      <Toast.Header>
-                        <strong className="me-auto">Justification</strong>
-                        <small>
-                          Requested by {card.User_first} on {card.date}
-                        </small>
-                      </Toast.Header>
-                      <Toast.Body>{card.justification}</Toast.Body>
-                    </Toast>
+                    <div>
+                      <div className="requestTitle">
+                        <h2>
+                          Justification
+                          {show.includes(card.Request_ID) ? (
+                            <button
+                              type="submit"
+                              onClick={() => {
+                                toggleHandler(card.Request_ID);
+                              }}
+                            >
+                              <MdArrowCircleUp
+                                style={{
+                                  width: "30px",
+                                  height: "30px",
+                                  color: "black",
+                                }}
+                              />
+                            </button>
+                          ) : (
+                            <button
+                              type="submit"
+                              onClick={() => {
+                                toggleHandler(card.Request_ID);
+                              }}
+                            >
+                              <MdArrowCircleDown
+                                style={{
+                                  width: "30px",
+                                  height: "30px",
+                                  color: "black",
+                                }}
+                              />
+                            </button>
+                          )}
+                        </h2>
+                      </div>
+                      {show.includes(card.Request_ID) ? (
+                        <Typography>{card.justification}</Typography>
+                      ) : (
+                        ""
+                      )}
+                    </div>
                   </CardContent>
+                  <div className="buttonContainer">
                   {card.sme_status === "Rejected" ? (
                     <Badge bg="danger">SME Non Concurred</Badge>
                   ) : (
                     <Badge bg="success">SME Concurred </Badge>
                   )}
+                  </div>
                   {card.cmd_status === "Pending" ? (
                     <div alignitems="center">
-                      <Badge bg="warning">{card.cmd_status}</Badge>
-                      <CardActions>
+                      <Badge bg="warning">{card.cmd_status} Approval</Badge>
+                      <div className="buttonGroup">
                         <Button
                           color="error"
                           variant="outlined"
@@ -188,10 +239,10 @@ function Approver() {
                         >
                           Approve
                         </Button>
-                      </CardActions>
+                      </div>
                     </div>
                   ) : card.cmd_status === "Approved" ? (
-                    <h3>
+                    <h3 className="commanderStatus">
                       <Badge
                         onClick={() => handleClickedReject(card.Request_ID)}
                         pill
@@ -205,7 +256,7 @@ function Approver() {
                       />
                     </h3>
                   ) : (
-                    <h3>
+                    <h3 className="commanderStatus">
                       <Badge
                         onClick={() => handleClickApproved(card.Request_ID)}
                         pill
@@ -219,6 +270,7 @@ function Approver() {
                       />
                     </h3>
                   )}
+                  
                 </Card>
               </div>
             ) : (

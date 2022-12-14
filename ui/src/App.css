@@ -13,15 +13,10 @@
     background-size: cover;
     min-height: 100vh;
     width: 100%;
-    background-color: #f0f0f0;
-    color: rgb(0, 0, 0);
+    background-color: #564E58;
+    color: #252627;
     font-family: expressway;
     padding-top: 100px;
-    opacity: 1;
-	animation-name: fadeInOpacity;
-	animation-iteration-count: 1;
-	animation-timing-function: ease-in;
-	animation-duration: 1s;
 }
 
 /* Header */
@@ -34,7 +29,7 @@
     height: 100px;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    background-color: #f0f0f0;
+    background-color: #F2EFE9;
     z-index: 15;
 }
 
@@ -61,13 +56,13 @@
 
 .grid2 a {
     text-decoration: none;
-    color: black;
+    color: #252627;
     z-index: 11;
 }
 
 .grid2 a:hover {
     text-decoration: underline;
-    color: black;
+    color: #252627;
 }
 
 .grid3 {
@@ -101,7 +96,7 @@
 .btn-success:visited {
     background-color: transparent !important;
     border: none !important;
-    color: black !important;
+    color: #252627 !important;
 }
 
 /* Home page */
@@ -111,11 +106,11 @@
 }
 
 .home a {
-    color: black
+    color: #252627
 }
 
 .home a:hover {
-    color: black
+    color: #252627
 }
 
 .home img {
@@ -183,6 +178,11 @@
 /* Login page */
 .loginPage {
     text-align: center;
+<<<<<<< HEAD
+=======
+    margin-top: -100px;
+    background-color: #F2EFE9;
+>>>>>>> abb633a236061dc8ec602be5ad99067bad97cf9b
 }
 
 .login {
@@ -200,19 +200,25 @@
 .btn-primary,
 .btn-primary:active,
 .btn-primary:visited {
-    background-color: #000000 !important;
-    border-color: #000000 !important;
+    background-color: #904E55 !important;
+    border-color: #252627 !important;
+    transition: all .2s ease-in-out !important; 
 }
 
 .btn-primary:hover {
-    transform: scale(1.07) !important;
+    transform: scale(1.2) !important;
 }
 
+.loginheader {
+    height: 100px;
+    width: 100%;
+    background-color: #F2EFE9;
+}
 
 .loginheader img {
     width: 750px;
     height: auto;
-    margin-top: -100px;
+    padding-top: 10px;
 }
 
 .loginoverall video {
@@ -222,13 +228,13 @@
 }
 
 .form-control:focus {
-    border-color: #000000 !important;
-    box-shadow: 0 0 0 0.05rem #000000 !important;
+    border-color: #252627 !important;
+    box-shadow: 0 0 0 0.05rem #252627 !important;
 }
 
 .form-select:focus {
-    border-color: #000000 !important;
-    box-shadow: 0 0 0 0.05rem #000000 !important;
+    border-color: #252627 !important;
+    box-shadow: 0 0 0 0.05rem #252627 !important;
 }
 
 .alert {
@@ -252,7 +258,6 @@
 }
 
 .requestTitle {
-   /* margin-left: 100px; */
    margin-top: 15px;
 }
 
@@ -265,6 +270,23 @@
     border: none;
 }
 
+.cartIcon svg {
+    color: #BFB48F
+}
+
+.cartIcon svg:hover {
+    color: #904E55;
+    transition: 200ms;
+    transition-timing-function: ease-in-out;
+    -webkit-transition: 200ms;
+    -webkit-transition-timing-function: ease-in-out;
+}
+
+.requests h2{
+    color: #BFB48F;
+}
+
+
 /* shopping cart page */
 
 .cartForm {
@@ -276,6 +298,7 @@ margin-bottom: 10px;
 
 .cartPage {
     opacity: 1;
+    color:#F2EFE9;
 	animation-name: fadeInOpacity;
 	animation-iteration-count: 1;
 	animation-timing-function: ease-in;
@@ -307,7 +330,7 @@ margin-bottom: 10px;
 
 .cartFormLine {
     height: 2px;
-    background-color: rgb(214, 214, 214);
+    background-color: #252627;
 }
 
 .cartSubmit {
