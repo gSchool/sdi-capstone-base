@@ -44,7 +44,7 @@ exports.seed = async function(knex) {
 
 
   
-  const createMember = async(crewType) => {
+  const createMember = async(crewType, isLeader) => {
     let member = {
       first_name: '',
       last_name: '',
@@ -73,24 +73,17 @@ exports.seed = async function(knex) {
      }
      
      member.username = await faker.internet.userName(member.first_name, member.last_name);
+
+     if(isLeader){
+      member.role = 'leader'
+     }
      
 
     return(member);
   
   }
 
-  // const createCrew = async() =>{
-  //   // let tempCrew = [];
-  //   let tempMember;
-  //   for(let i = 0; i < crewPositionsList.length; i++){
-  //     tempMember = await createMember(i);
-  //     return(tempMember);
-       
-      
-  //   }
-  //   // console.log('Temp Crew:',tempCrew);
-  //   // return tempCrew;
-  // }
+
 
   
 
@@ -106,38 +99,39 @@ exports.seed = async function(knex) {
   await knex('users').insert([
     // { first_name: '', last_name: '', email: '', phone_number: '', role:'', rank: '', username: '', passwordHash: '', crew_position_id: '', created_at:knex.fn.now() , updated_at:knex.fn.now()  },
     
-    
+    //Leadership
+    await createMember(0, true),
    
     //One crew is a collection of three create members, one with 0 passed in, one with 1 passed in, and one with 2 passed in
     //ALPHA Crew
-    await createMember(0),
-    await createMember(1),
-    await createMember(2),
+    await createMember(0, false),
+    await createMember(1, false),
+    await createMember(2, false),
 
     //Bravo Crew
-    await createMember(0),
-    await createMember(1),
-    await createMember(2),
+    await createMember(0, false),
+    await createMember(1, false),
+    await createMember(2, false),
 
     //Charlie Crew
-    await createMember(0),
-    await createMember(1),
-    await createMember(2),
+    await createMember(0, false),
+    await createMember(1, false),
+    await createMember(2, false),
 
     //Delta Crew
-    await createMember(0),
-    await createMember(1),
-    await createMember(2),
+    await createMember(0, false),
+    await createMember(1, false),
+    await createMember(2, false),
 
     //Echo Crew
-    await createMember(0),
-    await createMember(1),
-    await createMember(2),
+    await createMember(0, false),
+    await createMember(1, false),
+    await createMember(2, false),
 
     //Foxtrot Crew
-    await createMember(0),
-    await createMember(1),
-    await createMember(2)
+    await createMember(0, false),
+    await createMember(1, false),
+    await createMember(2, false)
 
 
     

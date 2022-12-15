@@ -8,6 +8,7 @@ import Signup from './pages/Signup';
 import Header from './components/Header';
 import Calendar from './pages/calendar';
 import Member from './pages/Member';
+import LeaderProfile from './pages/LeaderProfile';
 import './App.css'
 
 function App() {
@@ -15,21 +16,23 @@ function App() {
 
   return (
 
-    <Context.Provider value={{ user, setUser }}>
-      <BrowserRouter>
-        <Header />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/signup" element={<Signup />} />
-          <Route path="/member" element={<Member />} />
-          <Route path="/splash" element={<Splash2 />} />
-          <Route path="/calendar" element={<Calendar />} />
-          {/* <Route path="/crewProfile" element={<CrewProfile />} />
-          <Route path="/leaderProfile" element={<LeaderProfile />} /> */}
-        </Routes>
-      </BrowserRouter>
-    </Context.Provider>
-
+    <div className='App'>
+      <Context.Provider value={{ user, setUser }}>
+        <BrowserRouter>
+          <Header />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/signup" element={<Signup />} />
+            <Route path="/member" element={<Member />} />
+            <Route path="/leader" element={<LeaderProfile />} />
+            <Route path="/splash" element={<Splash2 />} />
+            <Route path="/calendar" element={<Calendar />} />
+            {/* <Route path="/crewProfile" element={<CrewProfile />} />
+            <Route path="/leaderProfile" element={<LeaderProfile />} /> */}
+          </Routes>
+        </BrowserRouter>
+      </Context.Provider>
+    </div>
 
   );
 }
