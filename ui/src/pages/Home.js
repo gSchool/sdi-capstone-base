@@ -40,7 +40,7 @@ const Home = () => {
             <Typography variant="h1" fontWeight="bold">
               OnDeck
             </Typography>
-            <Typography variant="h1" fontWeight="bold" fontSize={110} sx={{}}>
+            <Typography variant="h1" fontWeight="bold" fontSize={110}>
               <EventIcon fontSize='inherit'/>
             </Typography>
           </div>
