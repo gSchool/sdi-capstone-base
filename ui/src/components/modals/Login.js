@@ -79,6 +79,7 @@ const Login = ({ showLogin }) => {
 
         if (res.status !== 202) {
           alert(resJson);
+          return;
         }
         console.log('User:', resJson);
 

@@ -15,6 +15,7 @@ function App() {
   let [user, setUser] = useState(null);
 
   return (
+
     <div className='App'>
       <Context.Provider value={{ user, setUser }}>
         <BrowserRouter>
