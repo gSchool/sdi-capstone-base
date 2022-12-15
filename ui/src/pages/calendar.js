@@ -4,16 +4,19 @@ import interactionPlugin from "@fullcalendar/interaction"
 import dayGridPlugin from '@fullcalendar/daygrid'
 
 
-
-
-
 export default class Calendar extends React.Component {
   render() {
     return (
       <FullCalendar
         plugins={[ dayGridPlugin, interactionPlugin]}
-        //initialView="dayGridMonth"
-        dateClick={this.handleDateClick}
+        initialView='dayGridMonth'
+
+        //dateClick={this.handleDateClick}
+
+        headerToolbar= {
+          center= 'addEventButton'
+        }
+       
       />
     )
   }
