@@ -108,7 +108,33 @@ exports.seed = async function(knex) {
     
     
    
-    
+    //One crew is a collection of three create members, one with 0 passed in, one with 1 passed in, and one with 2 passed in
+    //ALPHA Crew
+    await createMember(0),
+    await createMember(1),
+    await createMember(2),
+
+    //Bravo Crew
+    await createMember(0),
+    await createMember(1),
+    await createMember(2),
+
+    //Charlie Crew
+    await createMember(0),
+    await createMember(1),
+    await createMember(2),
+
+    //Delta Crew
+    await createMember(0),
+    await createMember(1),
+    await createMember(2),
+
+    //Echo Crew
+    await createMember(0),
+    await createMember(1),
+    await createMember(2),
+
+    //Foxtrot Crew
     await createMember(0),
     await createMember(1),
     await createMember(2)
