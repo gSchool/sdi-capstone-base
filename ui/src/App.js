@@ -14,22 +14,22 @@ function App() {
   let [user, setUser] = useState(null);
 
   return (
-    <div className='App'>
-      <Context.Provider value={{ user, setUser }}>
-        <BrowserRouter>
-          <Header />
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/signup" element={<Signup />} />
-            <Route path="/member" element={<Member />} />
-            <Route path="/splash" element={<Splash2 />} />
-            <Route path="/calendar" element={<Calendar />} />
-            {/* <Route path="/crewProfile" element={<CrewProfile />} />
-            <Route path="/leaderProfile" element={<LeaderProfile />} /> */}
-          </Routes>
-        </BrowserRouter>
-      </Context.Provider>
-    </div>
+
+    <Context.Provider value={{ user, setUser }}>
+      <BrowserRouter>
+        <Header />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/member" element={<Member />} />
+          <Route path="/splash" element={<Splash2 />} />
+          <Route path="/calendar" element={<Calendar />} />
+          {/* <Route path="/crewProfile" element={<CrewProfile />} />
+          <Route path="/leaderProfile" element={<LeaderProfile />} /> */}
+        </Routes>
+      </BrowserRouter>
+    </Context.Provider>
+
 
   );
 }

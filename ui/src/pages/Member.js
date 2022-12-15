@@ -1,27 +1,70 @@
 import { Context } from '../App';
-import { useContext } from "react"
-import MyShifts from '../components/MyShifts';
-import { Container, Grid } from "@mui/material";
+import { useContext, useEffect, useState } from "react"
+import { Box, Container, Grid, Typography } from "@mui/material";
+import config from '../config'
+import { TimeSlot } from '../components/TimeSlot';
+const ApiUrl = config[process.env.REACT_APP_NODE_ENV || "development"].apiUrl;
 
 const Member = () => {
     const { user } = useContext(Context);
+    const [timeSlots, setTimeSlots] = useState([]);
+    const [replacementTimeSlots, setReplacementTimeSlots] = useState([]);
+    const [refresh, setRefresh] = useState(false);
+
+    const toggleRefresh = () => {
+      setRefresh(!refresh);
+    }
+
+    useEffect(() => {
+      const getTimeSlots = async () => {
+        try {
+          let res = await fetch(ApiUrl + '/time_slots', {
+            credentials: 'include'
+          });
+          let resJson = await res.json();
+
+          if (res.status !== 200) {
+            alert(resJson);
+          }
+
+          resJson = resJson.filter(slot => slot.type === 'shift')
+
+          setTimeSlots(resJson);
+
+          res = await fetch(ApiUrl + '/time_slots?need_replacement=true', {
+            credentials: 'include'
+          });
+          resJson = await res.json();
+
+          if (res.status !== 200) {
+            alert(resJson);
+          }
+
+          setReplacementTimeSlots(resJson);
+
+        } catch(err) {
+          console.log(err);
+        }
+      }
+      if(user !== null) {
+        getTimeSlots();
+      }
+    }, [user, refresh])
     
     return(
-        <Container>
-            <Grid container spacing={2}>
-                <Grid item xs={12} lg={6}>
-                    <MyShifts />
-
-                </Grid>
-                <Grid item xs={12} lg={6}>
-                    <MyShifts />
-
-                </Grid>
-
-
-            </Grid>
-
-            <p>welcome {user.first_name}</p>
+        <Container sx={{display: 'flex', flexDirection: "row", justifyContent: 'space-around', marginTop: '20px', textAlign: 'center'}}>
+            <Box width={400}>
+              <Typography variant='h4' fontWeight='bold' sx={{marginBottom: '20px'}}>
+                My Shifts
+              </Typography>
+              {timeSlots.map(slot => <TimeSlot key={slot.id} slot={slot} toggleRefresh={toggleRefresh}/>)}
+            </Box>
+            <Box width={400}>
+            <Typography variant='h4' fontWeight='bold' sx={{marginBottom: '20px'}}>
+                Available Shifts
+              </Typography>
+              {replacementTimeSlots.map(slot => <TimeSlot key={slot.id} slot={slot} type={"replacement"} toggleRefresh={toggleRefresh}/>)}
+            </Box>
         </Container>
     )
 }
