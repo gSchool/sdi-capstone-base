@@ -1,130 +1,115 @@
-import { Paper, Container, Box, Typography, Button, Stack, Modal, TextField, Alert, FormControl } from "@mui/material";
-import { useState, useEffect, useContext } from "react"
-import { NavLink, useNavigate, Navigate } from "react-router-dom";
-import axios from "axios";
+import {  Box, Typography, Button, Modal, TextField, FormHelperText, FormControl } from "@mui/material";
+import { useState, useContext } from "react"
+import {  useNavigate } from "react-router-dom";
 import { Context } from '../../App';
 import config from '../../config'
-import { ConstructionOutlined } from "@mui/icons-material";
-import Blank from "../Blank";
 const ApiUrl = config[process.env.REACT_APP_NODE_ENV || "development"].apiUrl;
 
-
-
-
-// const handleLoginClose = (setLoginOpen) => {
-//     setLoginOpen(false);
-
-// }
-
-const loginStyle = {
-    postion: 'absolute',
-    width: '50%',
-    bgcolor: 'background.paper',
-    margin: 'auto',
-    
-}
-
-const handleLogin = async(username, password, setUser, setLoading) => {
-    setLoading(true);
-    console.log('Account Username: ', username);
-    console.log('Account Password: ', password);
-
-    // let user = await axios.post(ApiUrl+'/login',{
-    //     username:username,
-    //     password:password
-    // }, {withCredentials:true});
-
-    let res = await fetch(ApiUrl + '/login', {
-        method: "POST",
-        credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({username:username, password:password}),
-      });
-      
-      res = await res.json();
-      console.log('Authenticated user:', res);
-
-      setTimeout(() => {
-        setLoading(false);
-        setUser(res.user);
-        
-
-        }, 1000);
-      
-
-      
-
-
-    
-    
-
-    // setUser(res.data.user);
-
-
-}
+const style = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 450,
+  bgcolor: 'background.paper',
+  borderRadius: '5px',
+  boxShadow: 24,
+  p: 4,
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'space-evenly',
+};
 
 const Login = ({ showLogin }) => {
-    const { authenticatedUser, setAuthenticatedUser } = useContext(Context);
-    const navigate = useNavigate();
+  const { setUser } = useContext(Context);
+  const navigate = useNavigate();
+  const [loginOpen, setLoginOpen] = useState(true);
+  const [formData, setFormData] = useState({
+    username: "",
+    password: ""
+  });
+  const [error, setError] = useState({
+    username: false,
+    password: false
+  });
 
-    const handleLoginClose = () => {
-        setLoginOpen(false);
-        showLogin(false);
+  const validate = () => {
+    let output = true;
+    let newError = {
+      username: false,
+      password: false,
     }
-    const [loginOpen, setLoginOpen] = useState(true);
-    const [loginLoading, setLoginLoading] = useState(false);
-    const [approvedUser, setApprovedUser] = useState(false);
+    if (formData.username.length === 0) {
+      newError.username = true;
+      output = false;
+    }
+    if (formData.password.length === 0) {
+      newError.password = true;
+      output = false;
+    }
+    setError(newError);
+    return output;
+  }
 
- 
-    const [accountUsername, setAccountUsername] = useState("");
-    const [accountPassword, setAccountPassword] = useState("");
+  const handleLoginClose = () => {
+      setLoginOpen(false);
+      showLogin(false);
+  }
 
-    useEffect(() => {//component did mount
-        setLoginOpen(true);
-        console.log('Authenticated user before log in:', authenticatedUser);
+  const handleChange = (event) => {
+    let newData = { ...formData, [event.target.name]: event.target.value };
+    setFormData(newData);
+  }
 
-    }, [])
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    if (!validate()) {
+      event.stopPropagation();
+    } else {
+      try {
+        const res = await fetch(ApiUrl + '/login', {
+          method: "POST",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        });
+        const resJson = await res.json();
 
-    useEffect(() => {
-        if(authenticatedUser.id){
-            setApprovedUser(true);
-            navigate('/member');
+        if (res.status !== 202) {
+          alert(resJson);
         }
 
-    }, [authenticatedUser])
+        setUser(resJson.user);
+        navigate('/member');
+      } catch(err) {
+        console.log(err);
+      }
+    }
+  }
 
-    return(
-        <Modal
-        open={loginOpen}
-        onClose={handleLoginClose}
-        >
-            <Box>
-                <Typography>
-                    Log in to account below
-                </Typography>
-
-                <Stack justifyContent="center" spacing={4}>
-                    <FormControl variant="filled" sx={loginStyle}>
-                        <TextField disabled={loginLoading} onChange={(e) => {setAccountUsername(e.target.value)}} id="username" variant="outlined" label="username"></TextField>
-                        <TextField disabled={loginLoading} onChange={(e) => {setAccountPassword(e.target.value)}} id="password" variant="outlined" label="password"></TextField>
-                        <Button onClick={(e) => handleLogin(accountUsername, accountPassword, setAuthenticatedUser, setLoginLoading)}>LOG IN</Button>
-                    </FormControl>
-                    
-
-                </Stack>
-
-                {approvedUser ? (<Alert severity="success">Log in succesful!</Alert>) : (<Blank/>)}
-
-            </Box>
-
-
-
-        </Modal>
-
-    );
-
+  return (
+    <Modal
+      open={loginOpen}
+      onClose={handleLoginClose}
+    >
+      <Box sx={style} component="form" onSubmit={handleSubmit}>
+        <Typography sx={{textAlign: 'center', marginBottom: '20px'}} variant="h4" fontWeight='bold'>
+          Login
+        </Typography>
+          <FormControl sx={{marginBottom: '10px'}}>
+            <TextField onChange={handleChange}  id="username" variant="outlined" label="Username" name="username" error={error.username}></TextField>
+            <FormHelperText error={error.username} sx={{visibility: !error.username ? 'hidden':'visible'}}>Username is Required</FormHelperText>
+          </FormControl>
+          <FormControl sx={{marginBottom: '10px'}}>
+            <TextField onChange={handleChange}  id="password" variant="outlined" label="Password" name="password" error={error.password}></TextField>
+            <FormHelperText error={error.password} sx={{visibility: !error.password ? 'hidden':'visible'}}>Password is Required</FormHelperText>
+          </FormControl>
+          <Button type='submit' variant="contained" sx={{padding: '15px'}}>LOG IN</Button>
+      </Box>
+    </Modal>
+  )
 }
 
 export default Login;

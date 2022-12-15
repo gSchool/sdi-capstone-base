@@ -1,25 +1,33 @@
 import '../App.css'
 import { Box, Container, Stack } from '@mui/material';
-import  { useState } from "react";
+import  { useContext, useEffect, useState } from "react";
 import Blank from '../components/Blank';
 import Login from '../components/modals/Login';
 import CreateAccount from '../components/modals/CreateAccount';
-import { Button, Paper, Typography } from '@mui/material';
-import DeckIcon from '@mui/icons-material/Deck';
-
-const handleLogin = (show) =>{
-  console.log('Log in clicked');
-  show(true);
-}
-
-const handleCreate = (show) =>{
-  console.log('Create Account clicked');
-  show(true);
-}
+import { Button, Typography } from '@mui/material';
+import EventIcon from '@mui/icons-material/Event';
+import { Context } from '../App';
+import { useNavigate } from 'react-router';
 
 const Home = () => {
-  let [showLogin, setShowLogin] = useState(false);
-  let [showCreateAccount, setShowCreateAccount] = useState(false);
+  const [showLogin, setShowLogin] = useState(false);
+  const [showCreateAccount, setShowCreateAccount] = useState(false);
+  const { user } = useContext(Context);
+  const navigate = useNavigate();
+
+  const handleLogin = () =>{
+    setShowLogin(true);
+  }
+  
+  const handleCreate = () =>{
+    setShowCreateAccount(true);
+  }
+
+  useEffect(() => {
+    if (user !== null) {
+      navigate('/member')
+    }
+  }, [user, navigate])
 
   return (
     <div className='Home'>
@@ -28,12 +36,12 @@ const Home = () => {
           <Typography variant='h4'>
             Welcome to
           </Typography>
-          <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'center'}}> 
+          <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'flex-start'}}> 
             <Typography variant="h1" fontWeight="bold">
               OnDeck
             </Typography>
-            <Typography variant="h1" fontWeight="bold">
-              <DeckIcon fontSize='inherit'/>
+            <Typography variant="h1" fontWeight="bold" fontSize={110}>
+              <EventIcon fontSize='inherit'/>
             </Typography>
           </div>
           <Typography variant='h4'>

@@ -1,14 +1,10 @@
 import { Context } from '../App';
-import { Paper, Container, Box, Typography, Button, Stack, Modal, TextField, Alert, FormControl, Grid, Card } from "@mui/material";
-import { useState, useEffect, useContext } from "react"
-
-
+import { useContext } from "react"
 import MyShifts from '../components/MyShifts';
 
 const Member = () => {
-    const { authenticatedUser, setAuthenticatedUser } = useContext(Context);
-
-
+    const { user } = useContext(Context);
+    
     return(
         <Container>
             <Grid container spacing={2}>
@@ -24,12 +20,9 @@ const Member = () => {
 
             </Grid>
 
-            <p>welcome {authenticatedUser.first_name}</p>
+            <p>welcome {user.first_name}</p>
         </Container>
-        
     )
-
-
 }
 
 export default Member;

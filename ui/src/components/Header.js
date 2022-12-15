@@ -1,75 +1,67 @@
 import '../App.css'
-import { AppBar, Button, IconButton, Toolbar, Typography, Box } from "@mui/material";
-import {useContext, useState} from 'react';
-import { NavLink, useNavigate, Navigate, useSearchParams } from "react-router-dom";
-import SvgIcon from '@mui/material/SvgIcon';
+import { AppBar, Button, Toolbar, Typography, Box } from "@mui/material";
+import {useContext} from 'react';
+import { useNavigate } from "react-router-dom";
 import { Context } from '../App';
-
-const HomeIcon = (props) => {
-    return(
-        <Box>
-            <SvgIcon {...props}>
-                <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
-            </SvgIcon>
-
-        </Box>
-    
-    )
-}
-
-const handleReturnHome = () => {
-
-}
-
-const handleLogOut = () => {
-    
-
-}
-
-const handleLogIn = () => {
-    
-    
-
-}
+import AccountCircle from '@mui/icons-material/AccountCircle';
+import EventIcon from '@mui/icons-material/Event';
+import config from '../config'
+const ApiUrl = config[process.env.REACT_APP_NODE_ENV || "development"].apiUrl;
 
 const Header = () => {
-    const { authenticatedUser, setAuthenticatedUser } = useContext(Context);
-    const navigate = useNavigate();
-    
-    let [logInModal, setLogInModal] = useState(false);
+  const { user, setUser } = useContext(Context);
+  const navigate = useNavigate();
 
-    return (
-        
+  const handleLogout = async () => {
+    let res = await fetch(ApiUrl + '/logout', {
+      method: "DELETE",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
 
-        <Box>
-            <Box sx={{ flexGrow:1 }}>
-                <AppBar position="static">
-                    <Toolbar>
-                        <IconButton onClick={(e) => navigate('/')}>
-                            <HomeIcon size='large' sx={{mr:2}}></HomeIcon>
-                        </IconButton>
-                        <Typography variant="h4" component="div" sx={{flexGrow:1}}>
-                                OnDeck
-                        </Typography>
-                        <Box>
-                            <Typography>
-                                User:
-                            </Typography>
-                        </Box>
+    let resJson = await res.json();
 
+    if (res.status !== 202) {
+      alert(resJson);
+      return;
+    }
 
-
-
-                    </Toolbar>
-
-                </AppBar>
-
-            </Box>
-
-        </Box>
-
-
-    );
+    setUser(null);
+    navigate('/');
+  }
+  
+  return (
+    <Box>
+      <Box>
+        <AppBar position="static">
+          <Toolbar sx={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between', paddingTop: "10px"}}>
+            <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'flex-start'}}> 
+              <Typography variant="h4" fontWeight="bold">
+                OnDeck
+              </Typography>
+              <Typography variant="h4" fontWeight="bold" fontSize={40}>
+                <EventIcon fontSize='inherit'/>
+              </Typography>
+            </div>
+            { user ?
+            (<Box sx={{display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'flex-start'}}>
+              <Typography sx={{paddingRight: '5px'}} variant="h6">
+                {user.first_name} {user.last_name}
+              </Typography>
+              <Typography fontSize={25} sx={{paddingRight: '20px'}}>
+                <AccountCircle fontSize='inherit'/>
+              </Typography>
+              <Button color="secondary" variant="contained" onClick={handleLogout}>
+                Logout
+              </Button>
+            </Box>) : null }
+          </Toolbar>
+        </AppBar>
+      </Box>
+    </Box>
+  );
 
 }
 
