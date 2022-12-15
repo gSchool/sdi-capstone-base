@@ -16,16 +16,11 @@ import './App.css'
 const ApiUrl = config[process.env.REACT_APP_NODE_ENV || "development"].apiUrl;
 
 function App() {
-  let [authenticatedUser, setAuthenticatedUser] = useState({});
-
-  useEffect(() => {
-
-  }, [])
-
+  let [user, setUser] = useState({});
 
   return (
     <div className='App'>
-      <Context.Provider value={{ authenticatedUser, setAuthenticatedUser }}>
+      <Context.Provider value={{ user, setUser }}>
         <BrowserRouter>
           <Header />
           <Routes>
