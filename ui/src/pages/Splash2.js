@@ -5,6 +5,8 @@ import { useNavigate } from "react-router-dom";
 import { Grid } from "@mui/material";
 import BarChart from "../components/BarChart";
 import CardBar from "../components/CardBar";
+// import { makeStyles } from "@mui/material";
+// import { Card, CardContent, Typography, Divider } from "@mui/material";
 
 const Splash2 = () => {
     const navigate = useNavigate();
