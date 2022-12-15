@@ -1,4 +1,4 @@
-import { makeStyles } from "@mui/material";
+import { makeStyles } from "@mui/styles";
 import { Card, CardContent, Typography, Divider } from "@mui/material";
 
 //note: cannot create variables outside of functions in jsx if importing to js 
