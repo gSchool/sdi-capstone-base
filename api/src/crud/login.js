@@ -41,4 +41,17 @@ router.post('/', async (req, res) => {
   }
 })
 
+router.delete('/:id', async (req, res) => {
+    const id = req.params.id;
+    try {
+      await knex('all_users')
+        .where('id', id)
+        .del()
+      let responseString = "Deleted from cart.";
+      res.status(201).send(responseString);
+    } catch (error) {
+      console.log('Error deleting item from cart:', error)
+    }
+  });
+
 
