@@ -10,14 +10,14 @@ const style = {
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  width: 400,
+  width: 450,
   bgcolor: 'background.paper',
-  border: '2px solid #000',
+  borderRadius: '5px',
   boxShadow: 24,
   p: 4,
   display: 'flex',
-  flexDirection: 'row',
-  justifyContent: 'space-evenly'
+  flexDirection: 'column',
+  justifyContent: 'space-evenly',
 };
 
 const CreateAccount = ({ showCreate }) => {
@@ -81,26 +81,27 @@ const CreateAccount = ({ showCreate }) => {
     open={createAccountOpen}
     onClose={handleAccountClose}
     >
-      <Box sx={style}> 
-        <Stack justifyContent="center" spacing={4}>
-          <form onSubmit={handleSubmit}>
-            <FormControl  variant="filled">
-              <TextField onChange={handleChange} id="first-name" variant="outlined" label="First Name" name='first_name' required error={!valid}></TextField>
-              <TextField onChange={handleChange} id="last-name" variant="outlined" label="Last Name" name='last_name' required error={!valid}></TextField>
-              <TextField onChange={handleChange} id="phone-num" variant="outlined" label="Phone Num" name='phone_number' type='number' required error={!valid}></TextField>
-              <TextField onChange={handleChange} id="email" variant="outlined" label="email" name='email' required type='email' error={!valid}></TextField>
-              <FormControl>
-                <RankSelect handleChange={handleChange} account={account}/>
-              </FormControl>
-              <FormControl>
-                <PositonSelector handleChange={handleChange} account={account}/>
-              </FormControl>
-              <TextField onChange={handleChange} id="username" variant="outlined" label="username" name='username' required error={!valid}></TextField>
-              <TextField onChange={handleChange} id="password" type='password' variant="outlined" label="password" name='password' required error={!valid}></TextField>
-              <Button type='submit'>CREATE ACCOUNT</Button>
+      <Box sx={style} component="form" onSubmit={handleSubmit}> 
+        <Typography sx={{textAlign: 'center', marginBottom: '20px'}} variant="h4" fontWeight='bold'>
+          Register
+        </Typography>
+        <Box sx={{display: 'flex', flexDirection: "row", justifyContent: 'space-between', marginBottom: '20px'}}>
+          <TextField onChange={handleChange} id="first-name" variant="outlined" label="First Name" name='first_name' required error={!valid}></TextField>
+          <TextField onChange={handleChange} id="last-name" variant="outlined" label="Last Name" name='last_name' required error={!valid}></TextField>
+        </Box>
+          <TextField onChange={handleChange} sx={{marginBottom: '20px'}} id="phone-num" variant="outlined" label="Phone Number" name='phone_number' type='number' required error={!valid}></TextField>
+          <TextField onChange={handleChange} sx={{marginBottom: '20px'}} id="email" variant="outlined" label="Email" name='email' required type='email' error={!valid}></TextField>
+          <Box sx={{display: 'flex', flexDirection: "row", marginBottom: '20px', justifyContent: 'space-between'}}>
+            <FormControl >
+              <PositonSelector handleChange={handleChange} account={account} sx={{width: '100%'}}/>
             </FormControl>
-          </form>
-        </Stack>
+            <FormControl sx={{width: '60%'}}>
+              <RankSelect handleChange={handleChange} account={account}/>
+            </FormControl>
+          </Box>
+          <TextField onChange={handleChange} sx={{marginBottom: '20px'}} id="username" variant="outlined" label="Username" name='username' required error={!valid}></TextField>
+          <TextField onChange={handleChange} sx={{marginBottom: '20px'}} id="password" type='password' variant="outlined" label="Password" name='password' required error={!valid}></TextField>
+          <Button type='submit' variant="contained" sx={{padding: '15px'}}>CREATE ACCOUNT</Button>
       </Box>
     </Modal>
   );

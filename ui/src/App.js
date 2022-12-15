@@ -9,6 +9,7 @@ import Signup from './pages/Signup';
 import Header from './components/Header';
 import Calendar from './pages/calendar';
 import Member from './pages/Member';
+import './App.css'
 
 
 
