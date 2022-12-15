@@ -149,17 +149,13 @@ app.get("/crew_positions", async (req, res) => {
 })
 
 // POST crew_positions: creates a new crew position if role is leader
-app.post("/crew_positions", validSession, async (req, res) => {
+app.post("/crew_positions", async (req, res) => {
     try {
-      if (req.session.user.role === "leader") {
-        const maxIdQuery = await knex('crew_positions').max('id as maxId').first();
-        let id = maxIdQuery.maxId + 1;
-        let { body } = req;
-        await knex('crew_positions').insert({ ...body, id });
-        res.status(201).json("CREW POSITION CREATED");
-      } else {
-        throw new Error("Only users of type leader can create a new crew_position")
-      }
+      const maxIdQuery = await knex('crew_positions').max('id as maxId').first();
+      let id = maxIdQuery.maxId + 1;
+      let { body } = req;
+      await knex('crew_positions').insert({ ...body, id });
+      res.status(201).json("CREW POSITION CREATED");
     } catch(err) {
         console.log(err);
         res.status(500).json(err.message);
