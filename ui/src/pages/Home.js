@@ -8,12 +8,10 @@ import { Button, Typography } from '@mui/material';
 import EventIcon from '@mui/icons-material/Event';
 
 const handleLogin = (show) =>{
-  console.log('Log in clicked');
   show(true);
 }
 
 const handleCreate = (show) =>{
-  console.log('Create Account clicked');
   show(true);
 }
 

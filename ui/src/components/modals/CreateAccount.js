@@ -94,7 +94,6 @@ const CreateAccount = ({ showCreate }) => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (!validate()) {
-      console.log(error)
       event.stopPropagation();
     } else {
       try {

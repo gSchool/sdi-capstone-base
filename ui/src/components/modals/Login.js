@@ -1,13 +1,9 @@
-import { Paper, Container, Box, Typography, Button, Stack, Modal, TextField, Alert, FormControl } from "@mui/material";
-import { useState, useEffect, useContext } from "react"
-import { NavLink, useNavigate, Navigate } from "react-router-dom";
-import axios from "axios";
+import {  Box, Typography, Button, Modal, TextField, FormHelperText, FormControl } from "@mui/material";
+import { useState, useContext } from "react"
+import {  useNavigate, Navigate } from "react-router-dom";
 import { Context } from '../../App';
 import config from '../../config'
-import { ConstructionOutlined } from "@mui/icons-material";
-import Blank from "../Blank";
 const ApiUrl = config[process.env.REACT_APP_NODE_ENV || "development"].apiUrl;
-
 
 const style = {
   position: 'absolute',
@@ -24,8 +20,6 @@ const style = {
   justifyContent: 'space-evenly',
 };
 
-
-
 const Login = ({ showLogin }) => {
   const { user, setUser } = useContext(Context);
   const navigate = useNavigate();
@@ -34,6 +28,28 @@ const Login = ({ showLogin }) => {
     username: "",
     password: ""
   });
+  const [error, setError] = useState({
+    username: false,
+    password: false
+  });
+
+  const validate = () => {
+    let output = true;
+    let newError = {
+      username: false,
+      password: false,
+    }
+    if (formData.username.length === 0) {
+      newError.username = true;
+      output = false;
+    }
+    if (formData.password.length === 0) {
+      newError.password = true;
+      output = false;
+    }
+    setError(newError);
+    return output;
+  }
 
   const handleLoginClose = () => {
       setLoginOpen(false);
@@ -47,16 +63,30 @@ const Login = ({ showLogin }) => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    let res = await fetch(ApiUrl + '/login', {
-      method: "POST",
-      credentials: "include",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(formData),
-    });
-      
-    res = await res.json();
+    if (!validate()) {
+      event.stopPropagation();
+    } else {
+      try {
+        let res = await fetch(ApiUrl + '/login', {
+          method: "POST",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        });
+        res = await res.json();
+
+        if (res.status !== 202) {
+          alert(res);
+        }
+
+        setUser(res.user);
+        navigate('/member');
+      } catch(err) {
+        console.log(err);
+      }
+    }
   }
 
   return (
@@ -68,11 +98,15 @@ const Login = ({ showLogin }) => {
         <Typography sx={{textAlign: 'center', marginBottom: '20px'}} variant="h4" fontWeight='bold'>
           Login
         </Typography>
-        <FormControl variant='filled'>
-          <TextField onChange={handleChange} sx={{marginBottom: '20px'}} id="username" variant="outlined" label="Username" name="username" required></TextField>
-          <TextField onChange={handleChange} sx={{marginBottom: '20px'}} id="password" variant="outlined" label="Password" name="password" required></TextField>
+          <FormControl sx={{marginBottom: '10px'}}>
+            <TextField onChange={handleChange}  id="username" variant="outlined" label="Username" name="username" error={error.username}></TextField>
+            <FormHelperText error={error.username} sx={{visibility: !error.username ? 'hidden':'visible'}}>Username is Required</FormHelperText>
+          </FormControl>
+          <FormControl sx={{marginBottom: '10px'}}>
+            <TextField onChange={handleChange}  id="password" variant="outlined" label="Password" name="password" error={error.password}></TextField>
+            <FormHelperText error={error.password} sx={{visibility: !error.password ? 'hidden':'visible'}}>Password is Required</FormHelperText>
+          </FormControl>
           <Button type='submit' variant="contained" sx={{padding: '15px'}}>LOG IN</Button>
-        </FormControl>
       </Box>
     </Modal>
   )
