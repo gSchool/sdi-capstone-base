@@ -87,16 +87,16 @@
     color: #904E55
   }
 
-  li:not(:last-child) {
+ .navBar li:not(:last-child) {
     margin-bottom: 50px;
 }
 
-li {
+.navBar li {
     cursor:pointer;
     transition: all .2s ease-in-out; 
 }
 
-li:hover {
-  text-decoration: underline;
+.navBar li:hover {
+  /* text-decoration: underline; */
   transform: scale(1.3); 
 }

@@ -56,3 +56,16 @@ router.post("/", async (req, res) => {
     console.log("Error in adding unit:", e);
   }
 });
+
+router.delete('/:id', async (req, res) => {
+    const id = req.params.id;
+    try {
+      await knex('sme_approver')
+        .where('id', id)
+        .del()
+      let responseString = "Deleted from cart.";
+      res.status(201).send(responseString);
+    } catch (error) {
+      console.log('Error deleting item from cart:', error)
+    }
+  });

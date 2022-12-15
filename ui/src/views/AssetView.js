@@ -47,7 +47,11 @@ export default function AssetView() {
       user_id: userId
     };
     axios.post('http://localhost:8080/cart', cartItem)
-    //window.location.reload()
+    
+    setTimeout(() => {
+        window.location.reload()
+      }, 1000)
+    
     setOpen(true);
   };
 
@@ -69,13 +73,13 @@ export default function AssetView() {
           ))}
         </Grid>
 
-        <Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>
+        <Snackbar open={open} autoHideDuration={1000} onClose={handleClose}>
           <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
             Added to Cart!
           </Alert>
         </Snackbar>
 
-        <Snackbar open={existsInCart} autoHideDuration={3000} onClose={handleClose}>
+        <Snackbar open={existsInCart} autoHideDuration={1000} onClose={handleClose}>
           <Alert onClose={handleClose} severity="error" sx={{ width: '100%' }}>
             This item is already in your cart.
           </Alert>
