@@ -4,8 +4,8 @@ import  { useState } from "react";
 import Blank from '../components/Blank';
 import Login from '../components/modals/Login';
 import CreateAccount from '../components/modals/CreateAccount';
-import { Button, Paper, Typography } from '@mui/material';
-import DeckIcon from '@mui/icons-material/Deck';
+import { Button, Typography } from '@mui/material';
+import EventIcon from '@mui/icons-material/Event';
 
 const handleLogin = (show) =>{
   console.log('Log in clicked');
@@ -28,12 +28,12 @@ const Home = () => {
           <Typography variant='h4'>
             Welcome to
           </Typography>
-          <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'center'}}> 
+          <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'flex-start'}}> 
             <Typography variant="h1" fontWeight="bold">
               OnDeck
             </Typography>
-            <Typography variant="h1" fontWeight="bold">
-              <DeckIcon fontSize='inherit'/>
+            <Typography variant="h1" fontWeight="bold" fontSize={110} sx={{}}>
+              <EventIcon fontSize='inherit'/>
             </Typography>
           </div>
           <Typography variant='h4'>
