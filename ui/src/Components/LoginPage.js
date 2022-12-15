@@ -23,7 +23,7 @@ function LoginPage() {
   const [userCookie, setUserCookie] = useCookies(["user"]); //user cookie
   const [smeCookie, setSmeCookie] = useCookies(["sme"]); //sme cookie
   const [cmdCookie, setCmdCookie] = useCookies(["cmd"]); //cmd cookie
-  const [pickedSME, setPickedSME] = useState(false)
+  const [pickedSME, setPickedSME] = useState(false);
   const navigate = useNavigate(); //user -> Home      sme & cmd -> Approver
   const bcrypt = require("bcryptjs"); //gives access to the bcrypt algorithm
 
@@ -103,12 +103,11 @@ function LoginPage() {
     else if (!password.match(strongPassword))
       newErrors.password =
         "Must be at least 8 characters, contain at least one uppercase, one lowercase, one digit, and one special character.";
-        return newErrors;
+    return newErrors;
   }
 
   //function called when attempting to login
   function loginFunction(e) {
-
     e.preventDefault();
     let subUser = e.target.form[0].value;
     let subPass = e.target.form[1].value;
@@ -126,7 +125,6 @@ function LoginPage() {
       ) {
         thisUser.push(user[i].id, user[i].username);
         isUser = true;
-
       }
     }
     for (let i = 0; i < sme.length; i++) {
@@ -134,12 +132,10 @@ function LoginPage() {
 
         thisSme.push(sme[i].sme_asset, sme[i].username);
         isSME = true;
-
       }
     }
     for (let i = 0; i < cmd.length; i++) {
       if (cmd[i].username === subUser && cmd[i].password === subPass) {
-
         thisCmd.push(cmd[i].id, cmd[i].username);
         isCMD = true;
       }
@@ -147,15 +143,15 @@ function LoginPage() {
 
     if (isUser) {
       setUserCookie("userToken", thisUser, { path: "/" });
-      console.log(userCookie);
+
       navigate("/Home");
     } else if (isSME) {
       setSmeCookie("sme", thisSme, { path: "/" });
-      console.log(smeCookie);
+
       navigate("/SME");
     } else if (isCMD) {
       setCmdCookie("cmd", thisCmd, { path: "/" });
-      console.log(cmdCookie);
+
       navigate("/Approver");
     } else setShowAlert(true);
   }
@@ -164,13 +160,13 @@ function LoginPage() {
   function submitUser(e) {
     e.preventDefault();
     const newErrors = findFormErrors();
-    console.log("target value", e)
+
     let sme_asset = e.target[9].value;
-    console.log(/\d/.test(sme_asset))
-    if (e.target[8].value === "SME" && !(/\d/.test(sme_asset))) {
-        return setPickedSME(true)  
+
+    if (e.target[8].value === "SME" && !/\d/.test(sme_asset)) {
+      return setPickedSME(true);
     } else {
-        setPickedSME(false)
+      setPickedSME(false);
     }
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
@@ -206,7 +202,7 @@ function LoginPage() {
         phone_number: phoneNumber,
         email: eMail,
         type: type,
-        sme_asset: sme_asset
+        sme_asset: sme_asset,
       };
 
       if (type === "User") {
@@ -215,21 +211,21 @@ function LoginPage() {
           headers: { "Content-Type": "application/json" },
           mode: "cors",
           body: JSON.stringify(data),
-        }).then((res) => console.log(res));
+        });
       } else if (type === "SME" && /\d/.test(sme_asset)) {
         fetch("http://localhost:8080/sme", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           mode: "cors",
           body: JSON.stringify(data),
-        }).then((res) => console.log(res));
+        });
       } else if (type === "Commander") {
         fetch("http://localhost:8080/cmd", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           mode: "cors",
           body: JSON.stringify(data),
-        }).then((res) => console.log(res));
+        });
       }
       setShowSuccess(true);
       setDisableButton(true);
@@ -431,30 +427,28 @@ function LoginPage() {
                 </Form.Select>
               </Form.Group>
             </Row>
-            {pickedSME &&
-            <Row className="mb-3">
-            <Alert
-            className="text-center"
-            variant="danger"
-          >
-            <Alert.Heading>
-              You Have selected your account type as SME. Please select which type of SME that you are.
-            </Alert.Heading>
-          </Alert>
-              <Form.Group as={Col} controlId="formGridtypeSME">
-                <Form.Label>Type of SME</Form.Label>
-                <Form.Select defaultValue="Choose..." >
-                  <option></option>
-                  <option value="1">ISR</option>
-                  <option value="2">Communications</option>
-                  <option value="3">Mobility</option>
-                  <option value="4">Medical</option>
-                  <option value="5">Fires</option>
-                  <option value="6">Personnel</option>
-                </Form.Select>
-              </Form.Group>
-            </Row>
-             }
+            {pickedSME && (
+              <Row className="mb-3">
+                <Alert className="text-center" variant="danger">
+                  <Alert.Heading>
+                    You Have selected your account type as SME. Please select
+                    which type of SME that you are.
+                  </Alert.Heading>
+                </Alert>
+                <Form.Group as={Col} controlId="formGridtypeSME">
+                  <Form.Label>Type of SME</Form.Label>
+                  <Form.Select defaultValue="Choose...">
+                    <option></option>
+                    <option value="1">ISR</option>
+                    <option value="2">Communications</option>
+                    <option value="3">Mobility</option>
+                    <option value="4">Medical</option>
+                    <option value="5">Fires</option>
+                    <option value="6">Personnel</option>
+                  </Form.Select>
+                </Form.Group>
+              </Row>
+            )}
             <Button disabled={disableButton} variant="primary" type="submit">
               Create Account
             </Button>

@@ -1,4 +1,5 @@
 import React from "react";
+
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
@@ -27,14 +28,16 @@ const AssetCard = ({ asset, handleAdd }) => {
         </CardContent>
       </CardActionArea>
       <CardActions>
+
         <IconButton size="large" style={{ color: "#904E55" }}
           onClick={(e) => { handleAdd(e, asset); }}>
           <AddShoppingCartIcon />
 
         </IconButton>
+
       </CardActions>
     </Card>
   );
-}
+};
 
 export default AssetCard;

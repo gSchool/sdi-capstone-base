@@ -47,13 +47,11 @@ function Approver() {
   };
 
   const handleClickApproved = (rowId) => {
-    console.log("approveId", rowId);
     setApproveConfirmShow(true);
     setApproveId(rowId);
     setConfirmShow(true);
   };
   const handleClickedReject = (rowId) => {
-    console.log("rejectId", rowId);
     setRejectConfirmShow(true);
     setRejectId(rowId);
     setConfirmShow(true);
@@ -90,7 +88,6 @@ function Approver() {
     getRequestData();
   }, [confirmShow]);
 
-  console.log("REQUEST DATA ", requestData);
   return (
     <div>
       <div className="loginheader">
@@ -123,16 +120,17 @@ function Approver() {
                   sx={() => ({
                     width: 375,
                     height: 550,
-                    gridColumn: "span 3",
+                    gridColumn: "4",
                     flexDirection: "row",
                     flexWrap: "wrap",
-                    margin: "1px",
-                    boxShadow: "5px",
-
+                    boxShadow: 30,
+                    margin: "3px",
+                    padding: 0,
+                    border: "3px solid black",
                     resize: "horizontal",
                     overflow: "hidden",
                     gap: "clamp(3px, (100% - 360px + 32px) * 999, 16px)",
-                    transition: "transform 0.3s, border 0.3s",
+                    transition: "transform 1s, border 0.3s",
                     "&:hover": {
                       border: "3px solid rgb(7, 188, 200)",
                       transform: "translateY(-10px)",

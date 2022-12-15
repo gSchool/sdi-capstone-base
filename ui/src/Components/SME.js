@@ -46,13 +46,11 @@ function SME() {
   };
 
   const handleClickedConcur = (rowId) => {
-    console.log("concurId", rowId);
     setApproveConfirmShow(true);
     setConcurId(rowId);
     setConfirmShow(true);
   };
   const handleClickedNonConcur = (rowId) => {
-    console.log("nonConcurId", rowId);
     setRejectConfirmShow(true);
     setNonConcurId(rowId);
     setConfirmShow(true);

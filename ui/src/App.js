@@ -12,6 +12,7 @@ import React, { useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Context from "./Context";
 import './App.css';
+import Map from "./Components/Map";
 
 function App() {
   const [authentication, setAuthentication] = useState([]);
@@ -30,6 +31,7 @@ function App() {
             <Route path="/SME" element={<SME />} />
             <Route path="/FAQ" element={<FAQ />} />
             <Route path="/Admin" element={<Admin />} />
+            <Route path="/map" element={<Map />} />
           </Routes>
           <Footer />
         </Router>
