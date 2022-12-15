@@ -79,19 +79,19 @@ exports.seed = async function(knex) {
     await createTime_Slot(0, 3, 0),
 
     //Bravo crew Saturnday Morning
-    await createTime_Slot(1, 4, 0),
+    await createTime_Slot(1, 4, 1),
     await createTime_Slot(1, 4, 0),
     await createTime_Slot(1, 4, 0),
 
     //Charlie crew Saturday Afternoon
     await createTime_Slot(2, 5, 0),
-    await createTime_Slot(2, 5, 0),
+    await createTime_Slot(2, 5, 1),
     await createTime_Slot(2, 5, 0),
 
      //Alpha crew Saturday Night
      await createTime_Slot(0, 6, 0),
      await createTime_Slot(0, 6, 0),
-     await createTime_Slot(0, 6, 0),
+     await createTime_Slot(0, 6, 1),
 
      //Bravo crew Sunday Morning
     await createTime_Slot(1, 7, 0),

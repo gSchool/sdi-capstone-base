@@ -80,9 +80,14 @@ const Login = ({ showLogin }) => {
         if (res.status !== 202) {
           alert(resJson);
         }
+        console.log('User:', resJson);
 
         setUser(resJson.user);
-        navigate('/member');
+        //need logic to handle if user is a member or a leader
+        resJson.user.role === 'leader' ? navigate('/leader') : navigate('/member');
+        
+
+        // navigate('/member');
       } catch(err) {
         console.log(err);
       }
