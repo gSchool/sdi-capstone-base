@@ -101,6 +101,7 @@ app.delete('/logout', (req, res) => {
 
 // Custom Middleware to validate session
 const validSession = (req, res, next) => {
+  console.log(req.session);
   if (!req.session || !req.session.user) {
       res.status(401).json("You shall not pass")
   } else {
@@ -167,13 +168,21 @@ app.post("/crew_positions", async (req, res) => {
 /* GET time_slots: if role is leader, returns all timeslots. If role is member, 
    only returns time_slots with a user_id that matches the user_id in the session */
 app.get("/time_slots", validSession, async (req, res) => {
+  const { need_replacement } = req.query;
   const user = req.session.user;
   try {
-    if(user.role === "leader") {
+    if (need_replacement === 'true') {
+      const time_slots = await knex('time_slots').where('type', 'replacement_needed');
+      res.status(200).send(time_slots);
+    }
+    else if(user.role === "leader") {
       const time_slots = await knex('time_slots');
       res.status(200).send(time_slots);
     } else {
-      const time_slots = await knex('time_slots').where('user_id', user.id);
+      const time_slots = await knex('time_slots')
+                                .join('crew_positions', 'time_slots.crew_position_id', 'crew_positions.id')
+                                .select('time_slots.id', 'time_slots.description', 'start_datetime', 'end_datetime', 'type', 'crew_positions.name')
+                                .where('user_id', user.id);
       res.status(200).send(time_slots);
     }
   } catch(err) {
@@ -203,35 +212,16 @@ app.post("/time_slots", validSession, async (req, res) => {
     }
 })
 
-/* PUT time_slots: if role is leader, updates the given time_slot with the 
+/* PATCH time_slots: if role is leader, updates the given time_slot with the 
    information in the body of the request. If role is member, only updates the
    time_slot if the session user_id matches the user_id of the time slot
    AND they are not trying to update the type or start/end time */
-app.put("/time_slots/:id", validSession, async (req, res) => {
+app.patch("/time_slots/:id", validSession, async (req, res) => {
     try {
       const id = parseInt(req.params.id);
       let { body } = req;
-      if (req.session.user.role === "leader") {
-        await knex('time_slots').where('id', id).update(body);
-        res.status(201).json("TIME SLOT UPDATED");
-      } else {
-        let curr_time_slot = await knex('time_slots').where('id', id);
-        curr_time_slot = curr_time_slot[0];
-        
-        if (curr_time_slot.user_id !== req.session.user.id || body.user_id !== req.session.user.id) {
-          throw new Error("Members can only update their own time slots");
-        }
-
-        if ((curr_time_slot.start_datetime !== body.start_datetime || 
-             curr_time_slot.end_datetime !== body.end_datetime ||
-             curr_time_slot.type !== body.type) && 
-             curr_time_slot.type === "shift") {
-          throw new Error("Only users in the leader role can edit start time, end time, and type of shift");
-        }
-
-        await knex('time_slots').where('id', id).update(body);
-        res.status(201).json("TIME SLOT UPDATED");
-      } 
+      await knex('time_slots').where('id', id).update(body);
+      res.status(201).json("TIME SLOT UPDATED");
     } catch(err) {
         console.log(err);
         res.status(500).json(err.message);
