@@ -11,7 +11,7 @@ import Member from './pages/Member';
 import './App.css'
 
 function App() {
-  let [user, setUser] = useState({});
+  let [user, setUser] = useState(null);
 
   return (
     <div className='App'>

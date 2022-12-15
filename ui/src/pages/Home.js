@@ -1,23 +1,33 @@
 import '../App.css'
 import { Box, Container, Stack } from '@mui/material';
-import  { useState } from "react";
+import  { useContext, useEffect, useState } from "react";
 import Blank from '../components/Blank';
 import Login from '../components/modals/Login';
 import CreateAccount from '../components/modals/CreateAccount';
 import { Button, Typography } from '@mui/material';
 import EventIcon from '@mui/icons-material/Event';
-
-const handleLogin = (show) =>{
-  show(true);
-}
-
-const handleCreate = (show) =>{
-  show(true);
-}
+import { Context } from '../App';
+import { useNavigate } from 'react-router';
 
 const Home = () => {
-  let [showLogin, setShowLogin] = useState(false);
-  let [showCreateAccount, setShowCreateAccount] = useState(false);
+  const [showLogin, setShowLogin] = useState(false);
+  const [showCreateAccount, setShowCreateAccount] = useState(false);
+  const { user } = useContext(Context);
+  const navigate = useNavigate();
+
+  const handleLogin = () =>{
+    setShowLogin(true);
+  }
+  
+  const handleCreate = () =>{
+    setShowCreateAccount(true);
+  }
+
+  useEffect(() => {
+    if (user !== null) {
+      navigate('/member')
+    }
+  }, [user, navigate])
 
   return (
     <div className='Home'>
