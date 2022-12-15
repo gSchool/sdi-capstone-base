@@ -38,7 +38,7 @@ exports.up = function (knex) {
       table.integer("sme_id");
       table
         .foreign("sme_id")
-        .references("sme_approver.sme_asset")
+        .references("sme_approver.id")
         .onDelete("CASCADE")
         .onUpdate("CASCADE");
     })
