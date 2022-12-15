@@ -9,122 +9,73 @@ import Blank from "../Blank";
 const ApiUrl = config[process.env.REACT_APP_NODE_ENV || "development"].apiUrl;
 
 
+const style = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 450,
+  bgcolor: 'background.paper',
+  borderRadius: '5px',
+  boxShadow: 24,
+  p: 4,
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'space-evenly',
+};
 
 
-// const handleLoginClose = (setLoginOpen) => {
-//     setLoginOpen(false);
-
-// }
-
-const loginStyle = {
-    postion: 'absolute',
-    width: '50%',
-    bgcolor: 'background.paper',
-    margin: 'auto',
-    
-}
-
-const handleLogin = async(username, password, setUser, setLoading) => {
-    setLoading(true);
-    console.log('Account Username: ', username);
-    console.log('Account Password: ', password);
-
-    // let user = await axios.post(ApiUrl+'/login',{
-    //     username:username,
-    //     password:password
-    // }, {withCredentials:true});
-
-    let res = await fetch(ApiUrl + '/login', {
-        method: "POST",
-        credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({username:username, password:password}),
-      });
-      
-      res = await res.json();
-      console.log('Authenticated user:', res);
-
-      setTimeout(() => {
-        setLoading(false);
-        setUser(res.user);
-        
-
-        }, 1000);
-      
-
-      
-
-
-    
-    
-
-    // setUser(res.data.user);
-
-
-}
 
 const Login = ({ showLogin }) => {
-    const { authenticatedUser, setAuthenticatedUser } = useContext(Context);
-    const navigate = useNavigate();
+  const { user, setUser } = useContext(Context);
+  const navigate = useNavigate();
+  const [loginOpen, setLoginOpen] = useState(true);
+  const [formData, setFormData] = useState({
+    username: "",
+    password: ""
+  });
 
-    const handleLoginClose = () => {
-        setLoginOpen(false);
-        showLogin(false);
-    }
-    const [loginOpen, setLoginOpen] = useState(true);
-    const [loginLoading, setLoginLoading] = useState(false);
-    const [approvedUser, setApprovedUser] = useState(false);
+  const handleLoginClose = () => {
+      setLoginOpen(false);
+      showLogin(false);
+  }
 
- 
-    const [accountUsername, setAccountUsername] = useState("");
-    const [accountPassword, setAccountPassword] = useState("");
+  const handleChange = (event) => {
+    let newData = { ...formData, [event.target.name]: event.target.value };
+    setFormData(newData);
+  }
 
-    useEffect(() => {//component did mount
-        setLoginOpen(true);
-        console.log('Authenticated user before log in:', authenticatedUser);
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    let res = await fetch(ApiUrl + '/login', {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
+    });
+      
+    res = await res.json();
+  }
 
-    }, [])
-
-    useEffect(() => {
-        if(authenticatedUser.id){
-            setApprovedUser(true);
-            navigate('/member');
-        }
-
-    }, [authenticatedUser])
-
-    return(
-        <Modal
-        open={loginOpen}
-        onClose={handleLoginClose}
-        >
-            <Box>
-                <Typography>
-                    Log in to account below
-                </Typography>
-
-                <Stack justifyContent="center" spacing={4}>
-                    <FormControl variant="filled" sx={loginStyle}>
-                        <TextField disabled={loginLoading} onChange={(e) => {setAccountUsername(e.target.value)}} id="username" variant="outlined" label="username"></TextField>
-                        <TextField disabled={loginLoading} onChange={(e) => {setAccountPassword(e.target.value)}} id="password" variant="outlined" label="password"></TextField>
-                        <Button onClick={(e) => handleLogin(accountUsername, accountPassword, setAuthenticatedUser, setLoginLoading)}>LOG IN</Button>
-                    </FormControl>
-                    
-
-                </Stack>
-
-                {approvedUser ? (<Alert severity="success">Log in succesful!</Alert>) : (<Blank/>)}
-
-            </Box>
-
-
-
-        </Modal>
-
-    );
-
+  return (
+    <Modal
+      open={loginOpen}
+      onClose={handleLoginClose}
+    >
+      <Box sx={style} component="form" onSubmit={handleSubmit}>
+        <Typography sx={{textAlign: 'center', marginBottom: '20px'}} variant="h4" fontWeight='bold'>
+          Login
+        </Typography>
+        <FormControl variant='filled'>
+          <TextField onChange={handleChange} sx={{marginBottom: '20px'}} id="username" variant="outlined" label="Username" name="username" required></TextField>
+          <TextField onChange={handleChange} sx={{marginBottom: '20px'}} id="password" variant="outlined" label="Password" name="password" required></TextField>
+          <Button type='submit' variant="contained" sx={{padding: '15px'}}>LOG IN</Button>
+        </FormControl>
+      </Box>
+    </Modal>
+  )
 }
 
 export default Login;
