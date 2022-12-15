@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from 'react';
-import config from './config'
+import React, { useState } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import Splash2 from './pages/Splash2';
@@ -10,10 +9,6 @@ import Header from './components/Header';
 import Calendar from './pages/calendar';
 import Member from './pages/Member';
 import './App.css'
-
-
-
-const ApiUrl = config[process.env.REACT_APP_NODE_ENV || "development"].apiUrl;
 
 function App() {
   let [user, setUser] = useState({});

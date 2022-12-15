@@ -1,6 +1,6 @@
 import {  Box, Typography, Button, Modal, TextField, FormHelperText, FormControl } from "@mui/material";
 import { useState, useContext } from "react"
-import {  useNavigate, Navigate } from "react-router-dom";
+import {  useNavigate } from "react-router-dom";
 import { Context } from '../../App';
 import config from '../../config'
 const ApiUrl = config[process.env.REACT_APP_NODE_ENV || "development"].apiUrl;
@@ -21,7 +21,7 @@ const style = {
 };
 
 const Login = ({ showLogin }) => {
-  const { user, setUser } = useContext(Context);
+  const { setUser } = useContext(Context);
   const navigate = useNavigate();
   const [loginOpen, setLoginOpen] = useState(true);
   const [formData, setFormData] = useState({
