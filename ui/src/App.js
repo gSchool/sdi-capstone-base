@@ -9,6 +9,7 @@ import SME from "./Components/SME";
 import React, { useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Context from "./Context";
+import Map from "./Components/Map";
 
 function App() {
   const [authentication, setAuthentication] = useState([]);
@@ -25,6 +26,7 @@ function App() {
             <Route path="/Assets/:id" element={<AssetView />} />
             <Route path="/Requests" element={<Requests />} />
             <Route path="/SME" element={<SME />} />
+            <Route path="/map" element={<Map />} />
           </Routes>
           <Footer />
         </Router>
