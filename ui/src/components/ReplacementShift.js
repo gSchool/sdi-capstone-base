@@ -1,4 +1,4 @@
-import { Card, CardContent, Typography } from "@mui/material";
+import { Card, CardActionArea, CardContent, Typography } from "@mui/material";
 import  { useContext, useEffect, useState } from "react";
 import axios from "axios";
 
@@ -7,22 +7,29 @@ const months = ["January", "February", "March", "April", "May", "June", "July", 
 
 const dateInfo = (isoDate) => {
   let tempDate = new Date(isoDate);
-  let returnInfo;
-  //tempDate.getDay() + ', ' + tempDate.getDate() + ', ' + tempDate.getMonth();
-
+  let returnInfo = days[tempDate.getDay()] + ', ' + tempDate.getDate() + ', ' + months[tempDate.getMonth()];
   
-
-  
-
-  returnInfo = days[tempDate.getDay()] + ', ' + tempDate.getDate() + ', ' + months[tempDate.getMonth()];
-
   return returnInfo;
-  
 }
 
-const ReplacementShift = ({ replacementRequest, crewPositions }) => {
+const returnMemberDetail = (memberID, memberList) => {
+  let tempMember = memberList.filter((member) => member.id === memberID);
+  if(tempMember[0] === undefined){
+    return '_';
+  }
+  else{
+    return(tempMember[0].last_name + ', ' + tempMember[0].first_name + ` (${tempMember[0].rank})` );
+  }
+
+
+  
+
+}
+
+const ReplacementShift = ({ replacementRequest, crewPositions, membersRequesting, memberList, setShift }) => {
   let test = new Date(replacementRequest.start_datetime);
-  console.log('Test Date:', test.getDay());
+  
+
   
 
   useEffect(() => {
@@ -39,17 +46,26 @@ const ReplacementShift = ({ replacementRequest, crewPositions }) => {
 
   return(
     <Card>
-      <CardContent>
+      <CardActionArea onClick={(e) => setShift(replacementRequest)}>
+      <CardContent >
         <Typography>
           Shift Date: {dateInfo(replacementRequest.start_datetime)}
         </Typography>
         <Typography>
-          Shift Crew Position: {crewPositions[replacementRequest.crew_position_id -1].name}
+          {crewPositions[0] === undefined ?
+          <Typography>Shift Crew Position:</Typography>
+          :
+          <Typography> Shift Crew Position: {crewPositions[replacementRequest.crew_position_id -1].name} </Typography>
+          }
+          
         </Typography>
         <Typography>
-          Member needing replacement: {}
+          Member needing replacement: {returnMemberDetail(replacementRequest.user_id, memberList)}
         </Typography>
       </CardContent>
+
+      </CardActionArea>
+      
     </Card>
 
   )
