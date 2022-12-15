@@ -1,12 +1,12 @@
 import { Context } from '../App';
-import { useState, useEffect, useContext } from "react"
+import { useContext } from "react"
 
 const Member = () => {
-    const { authenticatedUser, setAuthenticatedUser } = useContext(Context);
+    const { user } = useContext(Context);
 
 
     return(
-        <p>welcome {authenticatedUser.first_name}</p>
+        <p>welcome {user.first_name}</p>
     )
 
 
