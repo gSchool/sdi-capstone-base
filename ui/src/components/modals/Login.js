@@ -67,7 +67,7 @@ const Login = ({ showLogin }) => {
       event.stopPropagation();
     } else {
       try {
-        let res = await fetch(ApiUrl + '/login', {
+        const res = await fetch(ApiUrl + '/login', {
           method: "POST",
           credentials: "include",
           headers: {
@@ -75,13 +75,13 @@ const Login = ({ showLogin }) => {
           },
           body: JSON.stringify(formData),
         });
-        res = await res.json();
+        const resJson = await res.json();
 
         if (res.status !== 202) {
-          alert(res);
+          alert(resJson);
         }
 
-        setUser(res.user);
+        setUser(resJson.user);
         navigate('/member');
       } catch(err) {
         console.log(err);
