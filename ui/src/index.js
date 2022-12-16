@@ -4,12 +4,12 @@ import App from "./App";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { CookiesProvider } from "react-cookie";
 import reportWebVitals from "./reportWebVitals";
+import "mapbox-gl/dist/mapbox-gl.css";
 
 ReactDOM.render(
-
-    <CookiesProvider>
-      <App />
-    </CookiesProvider>,
+  <CookiesProvider>
+    <App />
+  </CookiesProvider>,
 
   document.getElementById("root")
 );

@@ -10,7 +10,14 @@ const createFakeRequests = () => {
   for (let i = 0; i < 25; i++) {
     const request = {
       date: faker.date.soon(90, "2022-12-10T00:00:00:.000Z"),
-      location: faker.address.country(),
+      location: faker.helpers.arrayElement([
+        "Afghanistan",
+        "Mexico City",
+        "Greece",
+        "Virgin Islands",
+        "Cancun",
+        "Spain",
+      ]),
       mission_title:
         faker.commerce.productMaterial() +
         " " +
@@ -27,8 +34,11 @@ const createFakeRequests = () => {
         "Rejected",
       ]),
       user_id: faker.helpers.arrayElement([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]),
-    
-      asset_id: faker.helpers.arrayElement([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23]),
+
+      asset_id: faker.helpers.arrayElement([
+        1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+        21, 22, 23,
+      ]),
       sme_id: faker.helpers.arrayElement([1, 2, 3, 4, 5, 6]),
       cmd_id: 1,
     };
