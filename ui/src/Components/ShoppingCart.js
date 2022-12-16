@@ -10,13 +10,14 @@ import { useCookies } from 'react-cookie';
 import Modal from 'react-bootstrap/Modal';
 
 export default function ShoppingCart() {
-    const [show, setShow] = useState([]);
-    const [showDelete, setShowDelete] = useState([]);
-    const [yourCart, setYourCart] = useState([]);
-    const [userCookies] = useCookies(["user"]);
-    const [modalShow, setModalShow] = useState(false);
-    let time = new Date().toISOString();
+    const [show, setShow] = useState([]); //toggle open and closing each item in cart
+    const [showDelete, setShowDelete] = useState([]); //toggle delete notification
+    const [yourCart, setYourCart] = useState([]);  //fetch and filter for logged in users cart
+    const [modalShow, setModalShow] = useState(false); //toggles the modal indicating successful submission
+    const [userCookies] = useCookies(["user"]); //users cookie
+    let time = new Date().toISOString(); //current utc time
 
+    //fetch for cart, then filter for users cart items
     useEffect(() => {
         fetch('http://localhost:8080/cart')
             .then((response) => response.json())
@@ -29,15 +30,12 @@ export default function ShoppingCart() {
                         showIndex.push(data[i].id)
                     }
                 }
-                const isDuplicate = Array.from(new Set(cartFetch.map(a => a.id)))
-                    .map(id => {
-                        return cartFetch.find(a => a.id === id)
-                    })
                 setShow(showIndex)
-                setYourCart(isDuplicate)
+                setYourCart(cartFetch)
             })
     }, [])
 
+    //function to toggle individual cart items
     function toggleHandler(id) {
         if (show.includes(id)) {
             setShow(show.filter(function (newShow) {
@@ -48,6 +46,7 @@ export default function ShoppingCart() {
         }
     }
 
+    //function to toggle visibilty of delete pop up
     function toggleDeleteHandler(id) {
         if (showDelete.includes(id)) {
             setShowDelete(showDelete.filter(function (newShow) {
@@ -58,6 +57,7 @@ export default function ShoppingCart() {
         }
     }
 
+    //function to delete cart item
     function deleteHandler(item) {
         console.log(item.asset_id)
         fetch(`http://localhost:8080/cart/${item.asset_id}`, {
@@ -70,6 +70,7 @@ export default function ShoppingCart() {
             .then(res => console.log(res));
     }
 
+    //function to post request
     function submitRequest(event, item) {
         event.preventDefault()
         event.stopPropagation()
@@ -109,6 +110,7 @@ export default function ShoppingCart() {
     return (
         <div className='cartPage'>
             <Header />
+            {/* request page banner */}
             <div className='requests'>
                 <h2>Requests</h2>
             </div>
@@ -118,11 +120,14 @@ export default function ShoppingCart() {
                 <h4>Username: {userCookies.userToken[1]}</h4>
             </div>
             <div className="cartFormLine"></div>
+            {/* handler for when nothing is in the cart */}
             {yourCart.length === 0 ? <div className="noCart"><h2>You have not added any requests to your cart</h2></div> :
                 <>
+                {/* begining on map statement */}
                     {yourCart.map((item, idx) => (
                         <div className="Cart" key={idx}>
                             <>
+                            {/* delete pop up notifiction */}
                                 {showDelete.includes(item.id) ?
                                     <Alert
                                         className="text-center"
@@ -156,6 +161,7 @@ export default function ShoppingCart() {
                             </>
                             <div className="cartForm">
                                 <div>
+                                    {/* cart item head */}
                                     <div className="requestTitle">
                                         <h2>{item.type}/ {item.asset_name}  |
                                             <button className="cartIcon" type="submit" onClick={() => { toggleDeleteHandler(item.id) }}>
@@ -173,6 +179,7 @@ export default function ShoppingCart() {
                                             }
                                         </h2>
                                     </div>
+                                    {/* cart submit form */}
                                     {show.includes(item.id) ?
                                         <Form className="cartSubmit" onSubmit={() => submitRequest(event, item)}>
                                             <Row className="mb-3">
@@ -201,11 +208,13 @@ export default function ShoppingCart() {
                                         </Form>
                                         : ""}
                                 </div>
+                                {/* cart image */}
                                 <div className="cartImg">
                                     {show.includes(item.id) ?
-                                        <img src={item.image_url} width="500" height="300" alt="alt" />
+                                        <img src={item.image_url} alt="alt" />
                                         : ""}
                                 </div>
+                                {/* modal that pops up when cart success */}
                                 <RequestSuccessModal
                                     show={modalShow}
                                     onHide={() => setModalShow(false)}
@@ -221,6 +230,7 @@ export default function ShoppingCart() {
     )
 }
 
+//request submitted modal
 function RequestSuccessModal(props) {
     return (
         <Modal

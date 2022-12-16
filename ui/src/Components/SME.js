@@ -87,11 +87,10 @@ function SME() {
     getRequestData();
   }, [confirmShow]);
   return (
-    <div>
+    <div className="smePage">
       <div className="loginheader">
         <img src={logo} alt="alt" />
       </div>
-      <Header></Header>
       <h1>
         <Alert variant="warning">
           Welcome! You have {countState} Pending requests

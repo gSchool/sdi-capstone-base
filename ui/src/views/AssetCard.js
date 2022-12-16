@@ -10,8 +10,7 @@ import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 const AssetCard = ({ asset, handleAdd }) => {
 
   return (
-    <Card elevation={3} style={{ height: '100%', backgroundColor: "#bfb48f", marginTop: 10 }}>
-
+    <Card elevation={3} style={{ height: '100%', backgroundColor: "#bfb48f", marginTop: 25 }}>
       <CardActionArea>
         <CardMedia
           component="img"
