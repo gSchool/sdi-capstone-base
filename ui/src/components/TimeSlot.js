@@ -61,7 +61,7 @@ export const TimeSlot = ({ slot, type, toggleRefresh }) => {
   }
 
   return (
-    <Card sx={{display: 'flex', flexDirection: 'column', justifyContent: 'space-between', marginBottom: '20px', bgcolor: 'lightgrey', borderRadius: '5px', boxShadow: 24, padding: '20px'}}>
+    <Card sx={{display: 'flex', flexDirection: 'column', justifyContent: 'space-between', marginBottom: '30px', bgcolor: '#eeeeee', borderRadius: '5px',  padding: '20px', width: '340px'}}>
       <CardContent>
         <Typography variant="h6" sx={{marginBottom: '20px'}} fontWeight='bold'>{start.toDateString().slice(4, 10)}: {start.toTimeString().slice(0,5)} - {end.toTimeString().slice(0,5)}</Typography>
         <Box sx={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between'}}>

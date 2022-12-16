@@ -35,7 +35,7 @@ const Header = () => {
   return (
     <Box>
       <Box>
-        <AppBar position="static">
+        <AppBar position="static" sx={{backgroundColor: '#393e46'}}>
           <Toolbar sx={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between', paddingTop: "10px"}}>
             <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'flex-start'}}> 
               <Typography variant="h4" fontWeight="bold">
