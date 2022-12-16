@@ -16,6 +16,9 @@ function App() {
 
   return (
 
+
+
+
     <div className='App'>
       <Context.Provider value={{ user, setUser }}>
         <BrowserRouter>
@@ -33,6 +36,7 @@ function App() {
         </BrowserRouter>
       </Context.Provider>
     </div>
+
 
   );
 }

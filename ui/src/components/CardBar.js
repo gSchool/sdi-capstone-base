@@ -1,5 +1,4 @@
 
-
 import React from 'react'
 
 export const CardBar = () => {
@@ -9,3 +8,4 @@ export const CardBar = () => {
 }
 
 export default CardBar;
+
