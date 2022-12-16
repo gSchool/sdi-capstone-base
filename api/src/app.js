@@ -174,7 +174,7 @@ app.get("/time_slots", validSession, async (req, res) => {
     if (need_replacement === 'true') {
       const time_slots = await knex('time_slots')
                                  .join('crew_positions', 'time_slots.crew_position_id', 'crew_positions.id')
-                                 .select('*', 'crew_positions.name')
+                                 .select('*', 'crew_positions.name', 'time_slots.description')
                                  .where('type', 'replacement_needed');
       res.status(200).send(time_slots);
     }
@@ -184,7 +184,7 @@ app.get("/time_slots", validSession, async (req, res) => {
     } else {
       const time_slots = await knex('time_slots')
                                 .join('crew_positions', 'time_slots.crew_position_id', 'crew_positions.id')
-                                .select('*', 'crew_positions.name')
+                                .select('*', 'crew_positions.name', 'time_slots.description')
                                 .where('user_id', user.id);
       res.status(200).send(time_slots);
     }
