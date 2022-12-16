@@ -71,11 +71,11 @@ exports.up = function (knex) {
     .createTable("request", (table) => {
       table.increments("id");
       table.string("date", 100);
-      table.string("location", 50);
-      table.string("mission_title", 50);
+      table.string("location", 255);
+      table.string("mission_title", 255);
       table.text("justification");
-      table.string("sme_status", 50);
-      table.string("cmd_status", 50);
+      table.string("sme_status", 255);
+      table.string("cmd_status", 255);
       table.integer("user_id");
       table
         .foreign("user_id")
