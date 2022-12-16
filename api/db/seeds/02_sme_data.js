@@ -9,6 +9,7 @@ const createFakeUsers = () => {
 
   for (let i = 1; i < 7; i++) {
     const user = {
+
       first_name: faker.name.firstName(),
       last_name: faker.name.lastName(),
       username: faker.internet.userName(),
