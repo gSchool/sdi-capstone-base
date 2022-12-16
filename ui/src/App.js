@@ -6,7 +6,7 @@ import Splash2 from './pages/Splash2';
 // import LeaderProfile from './pages/LeaderProfile';
 import Signup from './pages/Signup';
 import Header from './components/Header';
-import Calendar from './pages/calendar';
+import Calendar from './pages/Calendar';
 import Member from './pages/Member';
 import LeaderProfile from './pages/LeaderProfile';
 import './App.css'

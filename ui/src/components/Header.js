@@ -1,7 +1,7 @@
 import '../App.css'
-import { AppBar, Button, Toolbar, Typography, Box } from "@mui/material";
+import { AppBar, Button, Toolbar, Typography, Box} from "@mui/material";
 import {useContext} from 'react';
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Context } from '../App';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import EventIcon from '@mui/icons-material/Event';
@@ -37,14 +37,16 @@ const Header = () => {
       <Box>
         <AppBar position="static" sx={{backgroundColor: '#393e46'}}>
           <Toolbar sx={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between', paddingTop: "10px"}}>
-            <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'flex-start'}}> 
-              <Typography variant="h4" fontWeight="bold">
-                OnDeck
-              </Typography>
-              <Typography variant="h4" fontWeight="bold" fontSize={40}>
-                <EventIcon fontSize='inherit'/>
-              </Typography>
-            </div>
+            <Link to={user && user.role === 'member' ? '/member' : '/leader'} style={{ textDecoration: 'none', color: 'white' }}>
+              <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'flex-start'}}> 
+                <Typography variant="h4" fontWeight="bold">
+                  OnDeck
+                </Typography>
+                <Typography variant="h4" fontWeight="bold" fontSize={40}>
+                  <EventIcon fontSize='inherit'/>
+                </Typography>
+              </div>
+            </Link>
             { user ?
             (<Box sx={{display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'flex-start'}}>
               <Typography sx={{paddingRight: '5px'}} variant="h6">

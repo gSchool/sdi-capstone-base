@@ -12,6 +12,7 @@
     "@fullcalendar/daygrid": "^5.11.3",
     "@fullcalendar/interaction": "^5.11.3",
     "@fullcalendar/react": "^5.11.3",
+    "@fullcalendar/timegrid": "^6.0.0",
     "@mui/icons-material": "^5.11.0",
     "@mui/material": "^5.11.0",
     "@mui/styled-engine-sc": "^5.11.0",
