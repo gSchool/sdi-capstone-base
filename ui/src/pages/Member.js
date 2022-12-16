@@ -26,8 +26,9 @@ const Member = () => {
           if (res.status !== 200) {
             alert(resJson);
           }
-          console.log(resJson);
-          resJson = resJson.filter(slot => slot.type === 'shift')
+
+          resJson = resJson.filter(slot => slot.type === 'shift').sort((a,b) => new Date(a.start_datetime) - new Date(b.start_datetime));
+          console.log(resJson)
 
           setTimeSlots(resJson);
 
@@ -35,7 +36,7 @@ const Member = () => {
             credentials: 'include'
           });
           resJson = await res.json();
-
+          console.log(resJson)
           if (res.status !== 200) {
             alert(resJson);
           }
