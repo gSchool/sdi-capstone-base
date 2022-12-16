@@ -26,7 +26,7 @@ const Member = () => {
           if (res.status !== 200) {
             alert(resJson);
           }
-
+          console.log(resJson);
           resJson = resJson.filter(slot => slot.type === 'shift')
 
           setTimeSlots(resJson);

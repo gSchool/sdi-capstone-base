@@ -172,7 +172,10 @@ app.get("/time_slots", validSession, async (req, res) => {
   const user = req.session.user;
   try {
     if (need_replacement === 'true') {
-      const time_slots = await knex('time_slots').where('type', 'replacement_needed');
+      const time_slots = await knex('time_slots')
+                                 .join('crew_positions', 'time_slots.crew_position_id', 'crew_positions.id')
+                                 .select('*', 'crew_positions.name')
+                                 .where('type', 'replacement_needed');
       res.status(200).send(time_slots);
     }
     else if(user.role === "leader") {
@@ -181,7 +184,7 @@ app.get("/time_slots", validSession, async (req, res) => {
     } else {
       const time_slots = await knex('time_slots')
                                 .join('crew_positions', 'time_slots.crew_position_id', 'crew_positions.id')
-                                .select('time_slots.id', 'time_slots.description', 'start_datetime', 'end_datetime', 'type', 'crew_positions.name')
+                                .select('*', 'crew_positions.name')
                                 .where('user_id', user.id);
       res.status(200).send(time_slots);
     }
