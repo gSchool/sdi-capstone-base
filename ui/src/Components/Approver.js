@@ -13,6 +13,9 @@ import Container from "@mui/material/Container";
 import Modal from "react-bootstrap/Modal";
 import Alert from "react-bootstrap/Alert";
 import ModeEditOutlineOutlinedIcon from "@mui/icons-material/ModeEditOutlineOutlined";
+import { Link } from "react-router-dom";
+import PublicIcon from "@mui/icons-material/Public";
+
 import { MdArrowCircleDown, MdArrowCircleUp } from "react-icons/md";
 
 function Approver() {
@@ -89,6 +92,12 @@ function Approver() {
     <div className="ApproverPage">
       <div className="loginheader">
         <img src={logo} alt="alt" />
+        <Link to={`/map`}>
+          {" "}
+          <PublicIcon
+            style={{ marginLeft: "100px", fontSize: 50, color: "maroon" }}
+          />
+        </Link>
       </div>
       <h1>
         <Alert variant="warning">
@@ -106,7 +115,7 @@ function Approver() {
         {requestData
 
           .sort((a, b) =>
-            a.cmd_status === "Pending" && a.Request_ID > b.Request_ID ? -1 : 1
+            a.cmd_status === "Pending" && a.Request_ID > b.Request_ID ? -1 : ""
           )
           .map((card) => {
             return card.sme_status !== "Pending" ? (

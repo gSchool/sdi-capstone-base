@@ -1,0 +1,534 @@
+/* application wide */
+
+@font-face {
+    font-family: "expressway";
+    src: url(./fonts/expressway.ttf) format('truetype')
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.App {
+    background-size: cover;
+    min-height: 100vh;
+    width: 100%;
+    background-color: #564E58;
+    color: #252627;
+    font-family: expressway;
+    padding-top: 0px;
+    animation-name: fadeInOpacity;
+    animation-iteration-count: 1;
+    animation-timing-function: ease-in;
+    animation-duration: .2s;
+    position: relative;
+    padding-bottom: 100px;
+    
+
+
+}
+
+/* Header */
+
+.Header {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    background-color: #F2EFE9;
+    z-index: 15;
+}
+
+.grid1 {
+    display: flex;
+    justify-content: space-around;
+    padding-top: 25px;
+    padding-right: 50px;
+
+}
+
+.grid2 {
+    text-decoration: none;
+    font-size: 21px;
+    display: flex;
+    justify-content: space-around;
+    padding-top: 10px;
+}
+
+.grid2 img {
+    width: 750px;
+    height: auto
+}
+
+.grid2 a {
+    text-decoration: none;
+    color: #252627;
+    z-index: 11;
+}
+
+.grid2 a:hover {
+    text-decoration: underline;
+    color: #252627;
+}
+
+.grid3 {
+    display: flex;
+    justify-content: space-around;
+    padding-top: 30px;
+    padding-left: 50px;
+    z-index: 11;
+}
+
+.grid3 .tooltiptext {
+    visibility: hidden;
+    width: 200px;
+    font-size: 14px;
+    background-color: rgb(37, 37, 37);
+    color: #f0f0f0;
+    text-align: center;
+    border-radius: 4px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 12;
+}
+
+.grid3:hover .tooltiptext {
+    visibility: visible;
+}
+
+.btn-success,
+.btn-success:active,
+.btn-success:visited {
+    background-color: transparent !important;
+    border: none !important;
+    color: #252627 !important;
+}
+
+/* Home page */
+
+.home {
+    position: relative;
+}
+
+.home a {
+    color: #252627
+}
+
+.home a:hover {
+    color: #252627
+}
+
+.home img {
+    width: 100%;
+    height: 500px;
+    object-fit: cover;
+}
+
+.ISR {
+    position: absolute;
+    top: 75px;
+    right: 150px;
+}
+
+.Comms {
+    position: absolute;
+    top: 575px;
+    left: 150px;
+}
+
+.Mobility {
+    position: absolute;
+    top: 1075px;
+    right: 150px;
+}
+
+.Fires {
+    position: absolute;
+    top: 2075px;
+    right: 150px;
+}
+
+.Medical {
+    position: absolute;
+    top: 1575px;
+    left: 150px;
+}
+
+.Personnel {
+    position: absolute;
+    top: 2575px;
+    left: 150px;
+}
+
+.scrollIcon {
+    display: none;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    padding: 80px;
+    vertical-align: middle;
+    border: none
+}
+
+.scrollIcon p {
+    font-size: 10px;
+    margin-top: -25px;
+}
+
+.scrollIcon button {
+    border: none;
+    background-color: transparent;
+}
+
+/* Login page */
+.loginPage {
+    text-align: center;
+    padding-bottom: 20px;
+    margin-top: -100px;
+    background-color: #F2EFE9;
+
+}
+
+.login {
+    text-align: center;
+    padding-right: 80px;
+    padding-left: 80px;
+}
+
+.select {
+    width: 200px;
+    text-align: center;
+    justify-content: center
+}
+
+.btn-primary,
+.btn-primary:active,
+.btn-primary:visited {
+    background-color: #904E55 !important;
+    border-color: #252627 !important;
+    transition: all .2s ease-in-out !important;
+}
+
+.btn-primary:hover {
+    transform: scale(1.2) !important;
+}
+
+.loginheader {
+    height: 100px;
+    width: 100%;
+    background-color: #F2EFE9;
+    text-align: center;
+    z-index: 2;
+}
+
+.loginheader img {
+    width: 750px;
+    height: auto;
+    padding-top: 10px;
+}
+
+.loginoverall video {
+    width: 100%;
+    height: 500px;
+    object-fit: cover;
+}
+
+.form-control:focus {
+    border-color: #252627 !important;
+    box-shadow: 0 0 0 0.05rem #252627 !important;
+}
+
+.form-select:focus {
+    border-color: #252627 !important;
+    box-shadow: 0 0 0 0.05rem #252627 !important;
+}
+
+.alert {
+    margin: auto !important;
+    width: 900px !important;
+}
+
+.loginAlert {
+    padding-left: 25%;
+    padding-right: 25%;
+}
+
+.stupidOR {
+    margin-bottom: 30px;
+}
+
+/* request page */
+
+.table-container {
+    position: relative;
+}
+
+.requestTitle {
+    margin-top: 15px;
+}
+
+.requestTitle h2 {
+    font-size: 20px;
+    cursor: default;
+}
+
+.requestTitle button {
+    background-color: transparent;
+    border: none;
+}
+
+.cartIcon svg {
+    color: #BFB48F
+}
+
+.cartIcon svg:hover {
+    color: #904E55;
+    transition: 200ms;
+    transition-timing-function: ease-in-out;
+    -webkit-transition: 200ms;
+    -webkit-transition-timing-function: ease-in-out;
+}
+
+.requests h2 {
+    color: #BFB48F;
+    cursor: default
+}
+
+
+/* shopping cart page */
+
+.cartForm {
+    text-align: center;
+    display: grid;
+    grid-template-columns: 50% 50%;
+    margin-bottom: 10px;
+}
+
+.cartPage {
+    opacity: 1;
+    color: #F2EFE9;
+    animation-name: fadeInOpacity;
+    animation-iteration-count: 1;
+    animation-timing-function: ease-in;
+    animation-duration: 1s;
+}
+
+@keyframes fadeInOpacity {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+.cartSubmit textarea {
+    height: 100px !important
+}
+
+.cartImg {
+    margin: auto;
+    text-align: center;
+    padding-top: 10px;
+}
+
+.cartImg img {
+    box-shadow: 0 5px 14px rgb(0 0 0 / 1);
+    width: 500px;
+    height: 300px;
+
+}
+.mapcartimg img {
+    box-shadow: 0 5px 14px rgb(0 0 0 / 1);
+    
+
+}
+
+
+.cartFormLine {
+    height: 1px;
+    background-color: #252627;
+}
+
+.cartSubmit {
+    width: 600px;
+    padding-top: 10px;
+    margin: auto;
+}
+
+.deleteAlert {
+    padding-top: 20px !important;
+    text-align: center !important;
+}
+
+.deleteAlert button {
+    margin: 15px !important;
+    width: 100px !important
+}
+
+.cartInfo {
+    margin-top: 15px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    text-align: center;
+    cursor: default
+}
+
+.requests {
+    text-align: center;
+    margin-bottom: 15px;
+    text-decoration: underline;
+}
+
+.cartSubmitArea {
+    text-align: center;
+}
+
+.text-center {
+    margin-top: 20px !important;
+}
+
+.noCart {
+    margin-top: 50px;
+    text-align: center;
+}
+
+/* Footer styling */
+
+.Footer {
+    position: absolute;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    height: 100px;
+    width: 100%;
+    bottom: 0;
+    text-align: center;
+    padding-top: 37px;
+    color: #F2EFE9;
+    border-top: 1px #252627;
+}
+
+.FooterIcons {
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.FooterIcons svg {
+    color: #F2EFE9;
+    width: 20px;
+    height: 20px
+}
+
+.FooterIcons svg:hover {
+    color: #904E55;
+    -webkit-transform: scale(1.2);
+    -moz-transform: scale(1.2);
+    -o-transform: scale(1.2);
+    transform: scale(1.2);
+    transition: 200ms;
+    transition-timing-function: ease-in-out;
+    -webkit-transition: 200ms;
+    -webkit-transition-timing-function: ease-in-out;
+}
+
+.Footer a {
+    color: #F2EFE9;
+    text-decoration: none;
+}
+
+.Footer p:hover {
+    cursor: pointer;
+    color: #904E55;
+    transition: 200ms;
+    transition-timing-function: ease-in-out;
+    -webkit-transition: 200ms;
+    -webkit-transition-timing-function: ease-in-out;
+}
+
+.FAQ {
+    color: #F2EFE9;
+    padding-left: 50px;
+    width: 800px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.FAQ h1 {
+    text-decoration: underline;
+}
+
+/* Admin page */
+
+.adminPage {
+    display: grid;
+    text-align: center;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    padding-top: 20px;
+}
+
+.adminPage h1 {
+    text-decoration: underline;
+}
+
+.adminWholePage {
+    background-color: #F2EFE9;
+    padding-bottom: 20px;
+    margin-top: -100px;
+    cursor: default;
+}
+
+.adminGrid {
+    border-left: 1px solid #252627;
+    border-right: 1px solid #252627;
+}
+
+.adminPage h3 {
+    font-size: 22px;
+}
+
+.adminGrid button {
+    border: none
+}
+
+.individual {
+    padding-top: 10px;
+}
+
+.adminHeader {
+    text-align: center;
+}
+
+.adminGrid h1 {
+    font-size: 28px;
+}
+
+.smePage {
+    margin-top: -100px;
+}
+
+.map-Container{
+    position: absolute;
+    z-index: 2;
+}
+
+.sidebar {
+background-color: rgba(35, 55, 75, 0.9);
+color: #fff;
+margin-top: -500px;
+padding: 6px 12px;
+font-family: monospace;
+z-index: 2;
+position: absolute;
+top: 0;
+left: 0;
+margin: 12px;
+border-radius: 4px;
+width: 150px;
+
+}

@@ -71,11 +71,11 @@ exports.up = function (knex) {
     .createTable("request", (table) => {
       table.increments("id");
       table.string("date", 100);
-      table.string("location", 50);
-      table.string("mission_title", 50);
+      table.string("location", 255);
+      table.string("mission_title", 255);
       table.text("justification");
-      table.string("sme_status", 50);
-      table.string("cmd_status", 50);
+      table.string("sme_status", 255);
+      table.string("cmd_status", 255);
       table.integer("user_id");
       table
         .foreign("user_id")
@@ -124,18 +124,21 @@ exports.down = function (knex) {
       table.dropForeign("cmd_id");
     })
     .then(function () {
-      return knex.schema.dropTableIfExists("all_users");
+      return knex.schema.raw('alter sequence all_users_id_seq restart with 1;').dropTableIfExists("all_users");
     })
     .then(function () {
-      return knex.schema.dropTableIfExists("asset");
+      return knex.schema.raw('alter sequence asset_id_seq restart with 1;').dropTableIfExists("asset");
     })
     .then(function () {
-      return knex.schema.dropTableIfExists("sme_approver");
+      return knex.schema.raw('alter sequence sme_approver_id_seq restart with 1;').dropTableIfExists("sme_approver");
     })
     .then(function () {
-      return knex.schema.dropTableIfExists("cmd_approver");
+      return knex.schema.raw('alter sequence cmd_approver_id_seq restart with 1;').dropTableIfExists("cmd_approver");
     })
     .then(function () {
-      return knex.schema.dropTableIfExists("request");
+      return knex.schema.raw('alter sequence shopping_cart_id_seq restart with 1;').dropTableIfExists("shopping_cart")
+    })
+    .then(function () {
+      return knex.schema.raw('alter sequence request_id_seq restart with 1;').dropTableIfExists("request");
     });
 };

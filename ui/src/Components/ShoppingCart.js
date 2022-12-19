@@ -36,6 +36,8 @@ export default function ShoppingCart() {
             })
     }, [])
 
+    console.log("test", yourCart)
+
     //function to toggle individual cart items
     function toggleHandler(id) {
         if (show.includes(id)) {
@@ -68,7 +70,7 @@ export default function ShoppingCart() {
             },
             body: JSON.stringify(item)
         })
-            .then(res => console.log(res));
+            .then(res => console.log("deleter", res));
     }
 
     //function to post request
@@ -105,7 +107,7 @@ export default function ShoppingCart() {
             mode: 'cors',
             body: JSON.stringify(data)
         })
-            .then(res => console.log(res));
+            .then(res => console.log("success", res));
     }
 
     return (
