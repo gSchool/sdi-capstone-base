@@ -8,7 +8,7 @@ import Typography from "@mui/material/Typography";
 import CardContent from "@mui/material/CardContent";
 import Card from "@mui/material/Card";
 import BlurCircularSharpIcon from "@mui/icons-material/BlurCircularSharp";
-import Header from "./Header";
+
 import { Link } from "react-router-dom";
 import logo from "../img/logo.png";
 import PublicIcon from "@mui/icons-material/Public";
@@ -16,8 +16,6 @@ import PublicIcon from "@mui/icons-material/Public";
 function Map() {
   const [currentPlaceId, setCurrentPlaceId] = useState(null);
   const [requestData, setRequestData] = useState([]);
-  const [newPlace, setNewPlace] = useState(null);
-  const [show, setShow] = useState(true);
 
   const [viewState, setViewState] = useState({
     latitude: 50.196,
@@ -174,12 +172,35 @@ function Map() {
               console.log("2", p);
               return (
                 <div key={p._id}>
-                  Operation:{p.Operation}|
-                  <BlurCircularSharpIcon
-                    onClick={() => {
-                      handleCoordClick(p._id, p.lat, p.long);
-                    }}
-                  />
+                  Operation:{" "}
+                  {p.ApprovalStatus === "Approved" ? (
+                    <div>
+                      <div style={{ color: "green" }}>{p.Operation}</div>
+                      <BlurCircularSharpIcon
+                        onClick={() => {
+                          handleCoordClick(p._id, p.lat, p.long);
+                        }}
+                      />{" "}
+                    </div>
+                  ) : p.ApprovalStatus === "Pending" ? (
+                    <div>
+                      <div style={{ color: "yellow" }}>{p.Operation}</div>
+                      <BlurCircularSharpIcon
+                        onClick={() => {
+                          handleCoordClick(p._id, p.lat, p.long);
+                        }}
+                      />{" "}
+                    </div>
+                  ) : (
+                    <div>
+                      <div style={{ color: "red" }}>{p.Operation}</div>
+                      <BlurCircularSharpIcon
+                        onClick={() => {
+                          handleCoordClick(p._id, p.lat, p.long);
+                        }}
+                      />{" "}
+                    </div>
+                  )}
                 </div>
               );
             })}{" "}
