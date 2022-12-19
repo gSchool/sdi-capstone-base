@@ -11,6 +11,7 @@ import BlurCircularSharpIcon from "@mui/icons-material/BlurCircularSharp";
 import { Link } from "react-router-dom";
 import logo from "../img/logo.png";
 import PublicIcon from "@mui/icons-material/Public";
+import ZoomInMapIcon from "@mui/icons-material/ZoomInMap";
 
 function Map() {
   const [currentPlaceId, setCurrentPlaceId] = useState(null);
@@ -91,8 +92,8 @@ function Map() {
           ApprovalStatus: requestData[i].cmd_status,
           image: requestData[i].image_url,
           location: requestData[i].location,
-          long: 64.8963,
-          lat: 18.3358,
+          long: -64,
+          lat: 18.297878,
         });
       } else if (requestData[i].location === "Cancun") {
         pins.push({
@@ -175,7 +176,10 @@ function Map() {
                   {p.ApprovalStatus === "Approved" ? (
                     <div>
                       <div style={{ color: "green" }}>{p.Operation}</div>
-                      <BlurCircularSharpIcon
+                      <ZoomInMapIcon
+                        style={{
+                          cursor: "pointer",
+                        }}
                         onClick={() => {
                           handleCoordClick(p._id, p.lat, p.long);
                         }}
@@ -184,7 +188,10 @@ function Map() {
                   ) : p.ApprovalStatus === "Pending" ? (
                     <div>
                       <div style={{ color: "yellow" }}>{p.Operation}</div>
-                      <BlurCircularSharpIcon
+                      <ZoomInMapIcon
+                        style={{
+                          cursor: "pointer",
+                        }}
                         onClick={() => {
                           handleCoordClick(p._id, p.lat, p.long);
                         }}
@@ -193,7 +200,10 @@ function Map() {
                   ) : (
                     <div>
                       <div style={{ color: "red" }}>{p.Operation}</div>
-                      <BlurCircularSharpIcon
+                      <ZoomInMapIcon
+                        style={{
+                          cursor: "pointer",
+                        }}
                         onClick={() => {
                           handleCoordClick(p._id, p.lat, p.long);
                         }}
