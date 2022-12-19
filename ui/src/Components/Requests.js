@@ -14,11 +14,8 @@ import TableSortLabel from "@mui/material/TableSortLabel";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
-import './Requests.css';
-import IconButton from "@mui/material/IconButton";
-import Tooltip from "@mui/material/Tooltip";
+import "./Requests.css";
 import DeleteIcon from "@mui/icons-material/Delete";
-import FilterListIcon from "@mui/icons-material/FilterList";
 import { visuallyHidden } from "@mui/utils";
 import GppBadTwoToneIcon from "@mui/icons-material/GppBadTwoTone";
 import PendingActionsTwoToneIcon from "@mui/icons-material/PendingActionsTwoTone";
@@ -30,11 +27,11 @@ import Modal from "react-bootstrap/Modal";
 
 const useStyles = makeStyles({
   finalRow: {
-    backgroundColor: "lightblue",
+    backgroundColor: "rgba(35, 55, 75, 0.9)",
   },
   hover: {
     "&:hover": {
-      backgroundColor: "lightblue",
+      backgroundColor: "rgba(35, 55, 75, 0.9)",
     },
   },
 });
@@ -126,9 +123,10 @@ function EnhancedTableHead(props) {
   return (
     <TableHead>
       <TableRow>
-        <TableCell></TableCell>
+        <TableCell className="finalrow"></TableCell>
         {headCells.map((headCell) => (
           <TableCell
+            className="headcells"
             key={headCell.id}
             align={headCell.numeric ? "center" : "center"}
             padding={headCell.disablePadding ? "none" : "normal"}
@@ -190,27 +188,14 @@ function EnhancedTableToolbar(props) {
         </Typography>
       ) : (
         <Typography
+          className="request-title"
           sx={{ flex: "1 1 100%" }}
-          variant="h6"
+          variant="h3"
           id="tableTitle"
           component="div"
         >
           Requests
         </Typography>
-      )}
-
-      {numSelected > 0 ? (
-        <Tooltip title="Delete">
-          <IconButton>
-            <DeleteIcon />
-          </IconButton>
-        </Tooltip>
-      ) : (
-        <Tooltip title="Filter list">
-          <IconButton>
-            <FilterListIcon />
-          </IconButton>
-        </Tooltip>
       )}
     </Toolbar>
   );
@@ -280,7 +265,7 @@ export default function Requests() {
     getRequestData();
   }, [confirmShow]);
   return (
-    <>
+    <div className="wrapper">
       <Header></Header>
       <div className="table-container">
         <Box sx={{ width: "100%" }}>
@@ -302,7 +287,7 @@ export default function Requests() {
 
                       return (
                         <TableRow
-                          className={classes.hover}
+                          className="tablerows"
                           tabIndex={-1}
                           key={row.Request_ID}
                         >
@@ -399,6 +384,6 @@ export default function Requests() {
           Cancel
         </Button>
       </Modal>
-    </>
+    </div>
   );
 }
