@@ -1,4 +1,4 @@
-import '../App.css';
+import './Footer.css';
 import React from 'react'
 import { FaFacebook, FaTwitter, FaInstagram, FaYoutube } from "react-icons/fa"
 import { MdEmail } from "react-icons/md";

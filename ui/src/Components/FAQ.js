@@ -1,4 +1,4 @@
-import '../App.css';
+import './FAQ.css';
 import React from 'react'
 import Header from './Header';
 

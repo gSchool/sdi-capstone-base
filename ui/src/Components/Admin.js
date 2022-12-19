@@ -1,4 +1,4 @@
-import '../App.css';
+import './Admin.css';
 import React, { useState, useEffect } from 'react'
 import logo from "../img/logo.png";
 import { MdArrowCircleDown, MdArrowCircleUp } from "react-icons/md";

@@ -1,0 +1,51 @@
+.Footer {
+    position: absolute;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    height: 100px;
+    width: 100%;
+    bottom: 0;
+    text-align: center;
+    padding-top: 37px;
+    color: #F2EFE9;
+    border-top: 1px #252627;
+}
+
+.FooterIcons {
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.FooterIcons svg {
+    color: #F2EFE9;
+    width: 20px;
+    height: 20px
+}
+
+.FooterIcons svg:hover {
+    color: #904E55;
+    -webkit-transform: scale(1.2);
+    -moz-transform: scale(1.2);
+    -o-transform: scale(1.2);
+    transform: scale(1.2);
+    transition: 200ms;
+    transition-timing-function: ease-in-out;
+    -webkit-transition: 200ms;
+    -webkit-transition-timing-function: ease-in-out;
+}
+
+.Footer a {
+    color: #F2EFE9;
+    text-decoration: none;
+}
+
+.Footer p:hover {
+    cursor: pointer;
+    color: #904E55;
+    transition: 200ms;
+    transition-timing-function: ease-in-out;
+    -webkit-transition: 200ms;
+    -webkit-transition-timing-function: ease-in-out;
+}
+
+

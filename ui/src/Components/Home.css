@@ -1,0 +1,73 @@
+.home {
+    position: relative;
+}
+
+.home a {
+    color: #252627
+}
+
+.home a:hover {
+    color: #252627
+}
+
+.home img {
+    width: 100%;
+    height: 500px;
+    object-fit: cover;
+}
+
+.ISR {
+    position: absolute;
+    top: 75px;
+    right: 150px;
+}
+
+.Comms {
+    position: absolute;
+    top: 575px;
+    left: 150px;
+}
+
+.Mobility {
+    position: absolute;
+    top: 1075px;
+    right: 150px;
+}
+
+.Fires {
+    position: absolute;
+    top: 2075px;
+    right: 150px;
+}
+
+.Medical {
+    position: absolute;
+    top: 1575px;
+    left: 150px;
+}
+
+.Personnel {
+    position: absolute;
+    top: 2575px;
+    left: 150px;
+}
+
+.scrollIcon {
+    display: none;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    padding: 80px;
+    vertical-align: middle;
+    border: none
+}
+
+.scrollIcon p {
+    font-size: 10px;
+    margin-top: -25px;
+}
+
+.scrollIcon button {
+    border: none;
+    background-color: transparent;
+}

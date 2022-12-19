@@ -1,4 +1,4 @@
-import "../App.css";
+import "./Header.css";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import SideMenu from "./SideMenu";

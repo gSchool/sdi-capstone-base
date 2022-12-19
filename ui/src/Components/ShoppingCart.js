@@ -8,6 +8,7 @@ import Alert from "react-bootstrap/Alert";
 import { MdArrowCircleDown, MdArrowCircleUp, MdDeleteOutline } from "react-icons/md";
 import { useCookies } from 'react-cookie';
 import Modal from 'react-bootstrap/Modal';
+import './ShoppingCart.css';
 
 export default function ShoppingCart() {
     const [show, setShow] = useState([]); //toggle open and closing each item in cart
@@ -34,6 +35,8 @@ export default function ShoppingCart() {
                 setYourCart(cartFetch)
             })
     }, [])
+
+    console.log("test", yourCart)
 
     //function to toggle individual cart items
     function toggleHandler(id) {
@@ -67,7 +70,7 @@ export default function ShoppingCart() {
             },
             body: JSON.stringify(item)
         })
-            .then(res => console.log(res));
+            .then(res => console.log("deleter", res));
     }
 
     //function to post request
@@ -104,7 +107,7 @@ export default function ShoppingCart() {
             mode: 'cors',
             body: JSON.stringify(data)
         })
-            .then(res => console.log(res));
+            .then(res => console.log("success", res));
     }
 
     return (

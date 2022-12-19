@@ -2,7 +2,7 @@ import "../App.css";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Card from "@mui/material/Card";
-import "../Approver.css";
+import "./Approver.css";
 import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
@@ -17,7 +17,6 @@ import { Link } from "react-router-dom";
 import PublicIcon from "@mui/icons-material/Public";
 
 import { MdArrowCircleDown, MdArrowCircleUp } from "react-icons/md";
-import "../Approver.css";
 
 function Approver() {
   const [requestData, setRequestData] = useState([]);

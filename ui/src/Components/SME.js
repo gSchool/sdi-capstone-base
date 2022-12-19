@@ -1,309 +1,274 @@
-import "../App.css";
+import "./SME.css";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
-import CardContent from "@mui/material/CardContent";
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
 import "@fontsource/public-sans";
-import Badge from "react-bootstrap/Badge";
 import logo from "../img/logo.png";
 import Container from "@mui/material/Container";
 import Modal from "react-bootstrap/Modal";
-import Alert from "react-bootstrap/Alert";
 import { MdArrowCircleDown, MdArrowCircleUp } from "react-icons/md";
 import { useCookies } from "react-cookie";
-import Header from "./Header";
+import GppBadTwoToneIcon from "@mui/icons-material/GppBadTwoTone";
+import GppGoodIcon from "@mui/icons-material/GppGood";
+import Button from 'react-bootstrap/Button';
+import OverlayTrigger from "react-bootstrap/OverlayTrigger";
+import Tooltip from "react-bootstrap/Tooltip";
 
 function SME() {
-  const [requestData, setRequestData] = useState([]);
-  const [approveConfirmShow, setApproveConfirmShow] = useState(false);
-  const [nonConcurId, setNonConcurId] = useState("");
-  const [concurId, setConcurId] = useState("");
-  const [rejectConfirmShow, setRejectConfirmShow] = useState(false);
-  const [confirmShow, setConfirmShow] = useState(false);
-  const [countState, setCountState] = useState(0);
-  const [smeCookie] = useCookies(["sme"]);
-  const [show, setShow] = useState([]);
+    const [requestData, setRequestData] = useState([]);
+    const [rejected, setRejected] = useState([])
+    const [approved, setApproved] = useState([])
+    const [rejectConfirmShow, setRejectConfirmShow] = useState(false);
+    const [approveConfirmShow, setApproveConfirmShow] = useState(false);
+    const [showRejected, setShowRejected] = useState(false);
+    const [showApproved, setShowApproved] = useState(false);
+    const [nonConcurId, setNonConcurId] = useState([]);
+    const [concurId, setConcurId] = useState([]);
+    const [confirmShow, setConfirmShow] = useState(false);
+    const [show, setShow] = useState([]);
+    const [countState, setCountState] = useState(0);
+    const [smeCookie] = useCookies(["sme"]);
 
-  function toggleHandler(id) {
-    if (show.includes(id)) {
-      setShow(
-        show.filter(function (newShow) {
-          return newShow !== id;
-        })
-      );
-    } else {
-      setShow((show) => [...show, id]);
-    }
-  }
-
-  const handleClose = () => {
-    setConfirmShow(false);
-    setApproveConfirmShow(false);
-    setRejectConfirmShow(false);
-  };
-
-  const handleClickedConcur = (rowId) => {
-    setApproveConfirmShow(true);
-    setConcurId(rowId);
-    setConfirmShow(true);
-  };
-  const handleClickedNonConcur = (rowId) => {
-    setRejectConfirmShow(true);
-    setNonConcurId(rowId);
-    setConfirmShow(true);
-  };
-  const handleConfirmConcur = async (concurId) => {
-    await axios.patch(`http://localhost:8080/approvals/SME/${concurId}`, {
-      sme_status: "Approved",
-    });
-    handleClose();
-  };
-  const handleConfirmNonConcur = async (nonConcurId) => {
-    await axios.patch(`http://localhost:8080/approvals/SME/${nonConcurId}`, {
-      sme_status: "Rejected",
-    });
-    handleClose();
-  };
-
-  useEffect(() => {
-    const getRequestData = async () => {
-      let count = [];
-      const response = await axios.get("http://localhost:8080/approvals");
-      const data = await response.data;
-      //looping to show the CDR how many pending requests he has
-      for (let i = 0; i < data.length; i++) {
-        if (
-          data[i].sme_status === "Pending" &&
-          smeCookie.sme[0] === data[i].SME_ID
-        )
-          count.push(data[i]);
-        setCountState(count.length);
-      }
-      setRequestData(data);
+    const handleShowRejected = () => {
+        setShowRejected(!showRejected);
     };
-    getRequestData();
-  }, [confirmShow]);
-  return (
-    <div className="smePage">
-      <div className="loginheader">
-        <img src={logo} alt="alt" />
-      </div>
-      <h1>
-        <Alert variant="warning">
-          Welcome! You have {countState} Pending requests
-        </Alert>
-      </h1>
-      <Container
-        sx={{
-          display: "flex",
-          gridColumn: "span 2",
-          flexDirection: "row",
-          flexWrap: "wrap",
-        }}
-      >
-        {requestData
-          .sort((a, b) =>
-            a.sme_status === "Pending" && a.asset_name < b.asset_name ? -1 : 1
-          )
-          .map((card) => {
-            return card.SME_ID === smeCookie.sme[0] ? (
-              <div key={card.Request_ID}>
-                <Card
-                  variant="outlined"
-                  sx={() => ({
-                    width: 375,
-                    height: 525,
-                    gridColumn: "span 3",
-                    flexDirection: "row",
-                    flexWrap: "wrap",
-                    margin: "1px",
-                    resize: "horizontal",
-                    overflow: "hidden",
-                    gap: "clamp(3px, (100% - 360px + 32px) * 999, 16px)",
-                    transition: "transform 0.3s, border 0.3s",
-                    "&:hover": {
-                      borderColor: "lightBlue",
-                      border: "5px",
-                      transform: "translateY(-10px)",
-                    },
-                    "& > *": {
-                      minWidth: "clamp(0px, (360px - 100%) * 999,100%)",
-                    },
-                  })}
-                >
-                  <div className="cartImg">
-                    <img
-                      height="250"
-                      width="375"
-                      src={card.image_url}
-                      alt="where did it go?!"
-                    />
-                  </div>
 
-                  <CardContent>
-                    <Typography
-                      className="assetname"
-                      gutterBottom
-                      variant="h5"
-                      component="div"
-                    >
-                      {card.asset_name}
-                    </Typography>
-                    <Typography
-                      className="assetname"
-                      gutterBottom
-                      variant="h7"
-                      component="div"
-                    >
-                      Location: {card.location}
-                    </Typography>
-                    <Typography
-                      className="assetname"
-                      gutterBottom
-                      variant="h7"
-                      component="div"
-                    >
-                      Operation {card.mission_title}
-                    </Typography>
-                    <div>
-                      <div className="requestTitle">
-                        <h2>
-                          Justification
-                          {show.includes(card.Request_ID) ? (
-                            <button
-                              type="submit"
-                              onClick={() => {
-                                toggleHandler(card.Request_ID);
-                              }}
-                            >
-                              <MdArrowCircleUp
-                                style={{
-                                  width: "20px",
-                                  height: "20px",
-                                  color: "black",
-                                }}
-                              />
-                            </button>
-                          ) : (
-                            <button
-                              type="submit"
-                              onClick={() => {
-                                toggleHandler(card.Request_ID);
-                              }}
-                            >
-                              <MdArrowCircleDown
-                                style={{
-                                  width: "20px",
-                                  height: "20px",
-                                  color: "black",
-                                }}
-                              />
-                            </button>
-                          )}
-                        </h2>
-                      </div>
-                      {show.includes(card.Request_ID) ? (
-                        <Typography>{card.justification}</Typography>
-                      ) : (
-                        ""
-                      )}
-                    </div>
-                  </CardContent>
-                  {card.sme_status === "Rejected" ? (
-                    <Badge bg="danger">SME Non Concurred</Badge>
-                  ) : card.sme_status === "Pending" ? (
-                    <Badge bg="warning">Pending SME Concurence </Badge>
-                  ) : (
-                    <Badge bg="success">SME Concurred </Badge>
-                  )}
-                  {card.sme_status === "Pending" ? (
-                    <div alignitems="center">
-                      <CardActions>
-                        <div className="buttonGroup">
-                          <Button
-                            color="error"
-                            variant="outlined"
-                            size="small"
-                            onClick={() => {
-                              handleClickedNonConcur(card.Request_ID);
-                            }}
-                          >
-                            Reject
-                          </Button>
-                          <Button
-                            onClick={() => {
-                              handleClickedConcur(card.Request_ID);
-                            }}
-                            color="success"
-                            variant="outlined"
-                            size="small"
-                          >
-                            Approve
-                          </Button>
-                        </div>
-                      </CardActions>
-                    </div>
-                  ) : card.cmd_status === "Approved" ? (
-                    <h6 className="commanderStatus">
-                      <Badge bg="success">Commander {card.cmd_status}</Badge>
-                    </h6>
-                  ) : card.cmd_status === "Pending" ? (
-                    <h6 className="commanderStatus">
-                      <Badge bg="warning">
-                        Commander Approval is {card.cmd_status}
-                      </Badge>
-                    </h6>
-                  ) : (
-                    <h6 className="commanderStatus">
-                      <Badge bg="danger">Commander {card.cmd_status}</Badge>
-                    </h6>
-                  )}
-                </Card>
-              </div>
-            ) : (
-              ""
+    const handleShowApproved = () => {
+        setShowApproved(!showApproved);
+    };
+
+    function toggleHandler(id) {
+        if (show.includes(id)) {
+            setShow(
+                show.filter(function (newShow) {
+                    return newShow !== id;
+                })
             );
-          })}
-        <Modal show={rejectConfirmShow} onHide={handleClose}>
-          <Modal.Header closeButton>
-            <Modal.Title>Reject!</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>Are you sure you want to Reject this request?</Modal.Body>
-          <Button
-            color="error"
-            variant="contained"
-            onClick={() => handleConfirmNonConcur(nonConcurId)}
+        } else {
+            setShow((show) => [...show, id]);
+        }
+    }
+
+    const handleClose = () => {
+        setConfirmShow(false);
+        setApproveConfirmShow(false);
+        setRejectConfirmShow(false);
+    };
+
+    const handleClickedConcur = (card) => {
+        setApproveConfirmShow(true);
+        setConcurId(card);
+        setConfirmShow(true);
+    };
+
+    const handleClickedNonConcur = (card) => {
+        setRejectConfirmShow(true);
+        setNonConcurId(card);
+        setConfirmShow(true);
+    };
+
+    const handleConfirmConcur = async (concurId) => {
+        await axios.patch(`http://localhost:8080/approvals/sme/${concurId.Request_ID}`, {
+            sme_status: "Approved",
+        });
+        handleClose();
+    };
+
+    const handleConfirmNonConcur = async (nonConcurId) => {
+        await axios.patch(`http://localhost:8080/approvals/sme/${nonConcurId.Request_ID}`, {
+            sme_status: "Rejected",
+        });
+        handleClose();
+    };
+
+    useEffect(() => {
+        fetch("http://localhost:8080/approvals")
+            .then((response) => response.json())
+            .then((data) => {
+                let count = [];
+                let thesePendings = []
+                let theseRejected = []
+                let theseApproved = []
+                for (let i = 0; i < data.length; i++) {
+                    if (data[i].sme_status === "Pending" && smeCookie.sme[0] === data[i].sme_asset && data[i].SME_ID === data[i].sme_asset) {
+                        count.push(data[i]);
+                        thesePendings.push(data[i])
+                    }
+                    if (data[i].sme_status === "Rejected" && smeCookie.sme[0] === data[i].sme_asset && data[i].SME_ID === data[i].sme_asset) {
+                        theseRejected.push(data[i])
+                    }
+                    if (data[i].sme_status === "Approved" && smeCookie.sme[0] === data[i].sme_asset && data[i].SME_ID === data[i].sme_asset) {
+                        theseApproved.push(data[i])
+                    }
+                }
+                setCountState(count.length);
+                setRequestData(thesePendings);
+                setRejected(theseRejected)
+                setApproved(theseApproved)
+            });
+    }, [confirmShow]);
+
+    const renderRejectedTooltip = (props) => (
+        <Tooltip id="button-tooltip" {...props}>
+          Your Rejections
+        </Tooltip>
+      );
+
+      const renderApprovedTooltip = (props) => (
+        <Tooltip id="button-tooltip" {...props}>
+          Your Approvals
+        </Tooltip>
+      );
+
+      console.log(requestData)
+
+    return (
+        <div className="smePage">
+            <div className="smeheader">
+                <nav className="rejectedNav">
+                <OverlayTrigger
+            placement="right"
+            delay={{ show: 300, hide: 400 }}
+            overlay={renderRejectedTooltip}
           >
-            Confirm
-          </Button>
-          <Button color="error" variant="outlined" onClick={handleClose}>
-            Cancel
-          </Button>
-        </Modal>
-        <Modal show={approveConfirmShow} onHide={handleClose}>
-          <Modal.Header closeButton>
-            <Modal.Title>Approve!</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            Are you sure you want to Approve this request?
-          </Modal.Body>
-          <Button
-            color="success"
-            variant="contained"
-            onClick={() => handleConfirmConcur(concurId)}
+                    <button onClick={handleShowRejected}>
+                        <GppBadTwoToneIcon style={{ height: "40px", width: "40px", color: "#904E55" }} />
+                    </button>
+                    </OverlayTrigger>
+                    <ul className={`rejectedMenuNav ${showRejected ? "RejectedshowMenu" : ""}`}>
+                        {rejected.map((rejects) => {
+                            return (
+                                <div className="rejectedList">
+                                    <div className="rejectedListLine"></div>
+                                    <li>Operation: {rejects.mission_title}</li>
+                                    <li>Submitted by: {rejects.User_first} {rejects.User_last}</li>
+                                </div>
+                            )
+                        })}
+                    </ul>
+                </nav>
+                <img src={logo} alt="alt" />
+                <nav className="approvedNav">
+                <OverlayTrigger
+            placement="left"
+            delay={{ show: 300, hide: 400 }}
+            overlay={renderApprovedTooltip}
           >
-            Confirm
-          </Button>
-          <Button color="error" variant="outlined" onClick={handleClose}>
-            Cancel
-          </Button>
-        </Modal>
-      </Container>
-    </div>
-  );
+                    <button onClick={handleShowApproved}>
+                        <GppGoodIcon style={{ height: "40px", width: "40px", color: "#904E55" }} />
+                    </button>
+                    </OverlayTrigger>
+                    <ul className={`approvedMenuNav ${showApproved ? "approvedShowMenu" : ""}`}>
+                        {approved.map((approvals) => {
+                            return (
+                                <div className="approvedList">
+                                    <div className="approvedListLine"></div>
+                                    <li>Operation: {approvals.mission_title}</li>
+                                    <li>Submitted by: {approvals.User_first} {approvals.User_last}</li>
+                                </div>
+                            )
+                        })}
+                    </ul>
+                </nav>
+            </div>
+            <h1>
+                Welcome! You have {countState} Pending requests
+            </h1>
+           <div className="smeCardContainer">
+                {requestData.map((card) => {
+                    return (
+                        <div className="smecard" key={card.Request_ID}>
+                            <div>
+                                <div className="smeImg">
+                                    <img
+                                        src={card.image_url}
+                                        alt="where did it go?!"
+                                    />
+                                </div>
+                                <h2>{card.asset_name}</h2>
+                                <h4>Mission: {card.mission_title}</h4>
+                                <h4>Location: {card.location}</h4>
+                                <h4>Dates: {card.date}</h4>
+                                <h5>Submitted by: {card.User_first} {card.User_last}</h5>
+                                <div>
+                                    <div className="smejustification">
+                                        <h5>
+                                            Justification
+                                            {show.includes(card.Request_ID) ? (
+                                                <button
+                                                    type="submit"
+                                                    onClick={() => {
+                                                        toggleHandler(card.Request_ID);
+                                                    }}
+                                                >
+                                                    <MdArrowCircleUp
+                                                        style={{
+                                                            width: "20px",
+                                                            height: "20px",
+                                                            color: "#252627",
+                                                        }}
+                                                    />
+                                                </button>
+                                            ) : (
+                                                <button
+                                                    type="submit"
+                                                    onClick={() => {
+                                                        toggleHandler(card.Request_ID);
+                                                    }}
+                                                >
+                                                    <MdArrowCircleDown
+                                                        style={{
+                                                            width: "20px",
+                                                            height: "20px",
+                                                            color: "#252627",
+                                                        }}
+                                                    />
+                                                </button>
+                                            )}
+                                        </h5>
+                                    </div>
+                                    {show.includes(card.Request_ID) ? (
+                                        <p>{card.justification}</p>
+                                    ) : (
+                                        ""
+                                    )}
+                                </div>
+                                <div className="concurButtons">
+                                    <button className="reject" onClick={() => { handleClickedNonConcur(card) }}>
+                                        Reject
+                                    </button>
+                                    <button className="approve" onClick={() => { handleClickedConcur(card) }}>
+                                        Approve
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    )
+                })}
+                <Modal className="text-center" centered show={rejectConfirmShow} onHide={handleClose}>
+                    <Modal.Body>Are you sure you want to REJECT this request?</Modal.Body>
+                    <div className="smeAlert">
+                        <Button onClick={() => handleConfirmNonConcur(nonConcurId)} variant="outline-success">
+                            Yes
+                        </Button>
+                        <Button onClick={handleClose} variant="outline-danger">
+                            No
+                        </Button>
+                    </div>
+                </Modal>
+                <Modal className="text-center" centered show={approveConfirmShow} onHide={handleClose}>
+                    <Modal.Body>Are you sure you want to APPROVE this request?</Modal.Body>
+                    <div className="smeAlert">
+                        <Button onClick={() => handleConfirmConcur(concurId)} variant="outline-success">
+                            Yes
+                        </Button>
+                        <Button onClick={handleClose} variant="outline-danger">
+                            No
+                        </Button>
+                    </div>
+                </Modal>
+            </div>
+        </div>
+    );
 }
 
 export default SME;
