@@ -1,4 +1,4 @@
-import "../map.css";
+import "./map.css";
 import ReactMapGL, { Marker, Popup } from "react-map-gl";
 import { useEffect, useState } from "react";
 import axios from "axios";
@@ -8,7 +8,6 @@ import Typography from "@mui/material/Typography";
 import CardContent from "@mui/material/CardContent";
 import Card from "@mui/material/Card";
 import BlurCircularSharpIcon from "@mui/icons-material/BlurCircularSharp";
-
 import { Link } from "react-router-dom";
 import logo from "../img/logo.png";
 import PublicIcon from "@mui/icons-material/Public";
@@ -134,8 +133,8 @@ function Map() {
   }, []);
   assignPins(requestData);
   return (
-    <>
-      <div className="loginheader">
+    <div className="mapStyle">
+      <div className="mapheader">
         {" "}
         <Link to={"/approver"}>
           <img src={logo} alt="alt"></img>
@@ -311,7 +310,7 @@ function Map() {
           })}
         </ReactMapGL>
       </div>
-    </>
+    </div>
   );
 }
 
