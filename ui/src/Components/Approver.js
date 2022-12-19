@@ -13,7 +13,8 @@ import Container from "@mui/material/Container";
 import Modal from "react-bootstrap/Modal";
 import Alert from "react-bootstrap/Alert";
 import ModeEditOutlineOutlinedIcon from "@mui/icons-material/ModeEditOutlineOutlined";
-import Header from "./Header";
+import { Link } from "react-router-dom";
+import PublicIcon from "@mui/icons-material/Public";
 
 import { MdArrowCircleDown, MdArrowCircleUp } from "react-icons/md";
 import "../Approver.css";
@@ -92,6 +93,12 @@ function Approver() {
     <div className="ApproverPage">
       <div className="loginheader">
         <img src={logo} alt="alt" />
+        <Link to={`/map`}>
+          {" "}
+          <PublicIcon
+            style={{ marginLeft: "100px", fontSize: 50, color: "maroon" }}
+          />
+        </Link>
       </div>
       <h1>
         <Alert variant="warning">

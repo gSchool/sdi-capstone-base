@@ -8,6 +8,7 @@ import Typography from "@mui/material/Typography";
 import CardContent from "@mui/material/CardContent";
 import Card from "@mui/material/Card";
 import BlurCircularSharpIcon from "@mui/icons-material/BlurCircularSharp";
+import Header from "./Header";
 
 function Map() {
   const [currentPlaceId, setCurrentPlaceId] = useState(null);
@@ -118,121 +119,130 @@ function Map() {
   }, []);
   assignPins(requestData);
   return (
-    <div className="map-Container" style={{ height: "100vh", width: "100vw" }}>
-      <ReactMapGL
-        initialViewState={{
-          longitude: 30,
-          latitude: 30,
-          zoom: 2,
-        }}
-        mapboxAccessToken="pk.eyJ1Ijoicm9tbWF0dDQiLCJhIjoiY2xicDk1N296MDV1cjNvbndrb2E1ZG52dCJ9.gRKG6MbVOmJ-hw2a421DSQ"
-        width="100%"
-        height="100%"
-        projection="globe"
-        mapStyle="mapbox://styles/rommatt4/clbqziswh000114oa65bu1hws"
+    <>
+      <Header />
+      <div
+        className="map-Container"
+        style={{ height: "100vh", width: "100vw" }}
       >
-        {pins.map((p, i) => {
-          console.log("p", p);
-          return (
-            <div className="class" key={i}>
-              <Marker
-                latitude={p.lat}
-                longitude={p.long}
-                offsetLeft={-3.5 * viewport.zoom}
-                offsetTop={-7 * viewport.zoom}
-              >
-                <BlurCircularSharpIcon
-                  style={{
-                    fontSize: 2 * viewport.zoom,
-                    color:
-                      p.ApprovalStatus === "Rejected"
-                        ? "red"
-                        : p.ApprovalStatus === "Pending"
-                        ? "yellow"
-                        : "green",
-                    cursor: "pointer",
-                  }}
-                  onClick={() => handleMarkerClick(p._id, p.lat, p.long)}
-                />
-              </Marker>
-              {p._id === currentPlaceId && (
-                <Popup
-                  key={p._id}
+        <ReactMapGL
+          initialViewState={{
+            longitude: 30,
+            latitude: 30,
+            zoom: 2,
+          }}
+          mapboxAccessToken="pk.eyJ1Ijoicm9tbWF0dDQiLCJhIjoiY2xicDk1N296MDV1cjNvbndrb2E1ZG52dCJ9.gRKG6MbVOmJ-hw2a421DSQ"
+          width="100%"
+          height="100%"
+          projection="globe"
+          mapStyle="mapbox://styles/rommatt4/clbqziswh000114oa65bu1hws"
+        >
+          {pins.map((p, i) => {
+            console.log("p", p);
+            return (
+              <div className="class" key={i}>
+                <Marker
                   latitude={p.lat}
                   longitude={p.long}
-                  closeButton={true}
-                  closeOnClick={false}
-                  onClose={() => setCurrentPlaceId(null)}
-                  anchor="left"
-                  style={{
-                    background:
-                      p.ApprovalStatus === "Approved"
-                        ? "green"
-                        : p.ApprovalStatus === "Pending"
-                        ? "yellow"
-                        : "red",
-                  }}
+                  offsetLeft={-3.5 * viewport.zoom}
+                  offsetTop={-7 * viewport.zoom}
                 >
-                  <Card
-                    variant="contained"
-                    sx={() => ({
-                      width: 140,
-                      height: 140,
-                      background: "whitesmoke",
-                      gridColumn: "4",
-                      flexDirection: "row",
-                      flexWrap: "wrap",
-                      boxShadow: 30,
-                      margin: "3px",
-                      padding: 0,
-                      border: "3px solid black",
-                      resize: "horizontal",
-                      overflow: "hidden",
-                      gap: "clamp(3px, (100% - 360px + 32px) * 999, 16px)",
-                      transition: "transform 1s, border 0.3s",
-                      "&:hover": {
-                        border: "3px solid rgb(7, 188, 200)",
-                      },
-                      "& > *": {
-                        minWidth: "clamp(0px, (360px - 100%) * 999,100%)",
-                      },
-                    })}
+                  <BlurCircularSharpIcon
+                    style={{
+                      fontSize: 2 * viewport.zoom,
+                      color:
+                        p.ApprovalStatus === "Rejected"
+                          ? "red"
+                          : p.ApprovalStatus === "Pending"
+                          ? "yellow"
+                          : "green",
+                      cursor: "pointer",
+                    }}
+                    onClick={() => handleMarkerClick(p._id, p.lat, p.long)}
+                  />
+                </Marker>
+                {p._id === currentPlaceId && (
+                  <Popup
+                    key={p._id}
+                    latitude={p.lat}
+                    longitude={p.long}
+                    closeButton={true}
+                    closeOnClick={false}
+                    onClose={() => setCurrentPlaceId(null)}
+                    anchor="left"
+                    style={{
+                      background:
+                        p.ApprovalStatus === "Approved"
+                          ? "green"
+                          : p.ApprovalStatus === "Pending"
+                          ? "yellow"
+                          : "red",
+                    }}
                   >
-                    <div className="mapcartimg" style={{ marginLeft: "20px" }}>
-                      <img
-                        height="50"
-                        width="100"
-                        src={p.image}
-                        alt="where did it go?!"
-                      />
-                    </div>
+                    <Card
+                      variant="contained"
+                      sx={() => ({
+                        width: 140,
+                        height: 140,
+                        background: "whitesmoke",
+                        gridColumn: "4",
+                        flexDirection: "row",
+                        flexWrap: "wrap",
+                        boxShadow: 30,
+                        margin: "3px",
+                        padding: 0,
+                        border: "3px solid black",
+                        resize: "horizontal",
+                        overflow: "hidden",
+                        gap: "clamp(3px, (100% - 360px + 32px) * 999, 16px)",
+                        transition: "transform 1s, border 0.3s",
+                        "&:hover": {
+                          border: "3px solid rgb(7, 188, 200)",
+                        },
+                        "& > *": {
+                          minWidth: "clamp(0px, (360px - 100%) * 999,100%)",
+                        },
+                      })}
+                    >
+                      <div
+                        className="mapcartimg"
+                        style={{ marginLeft: "20px" }}
+                      >
+                        <img
+                          height="50"
+                          width="100"
+                          src={p.image}
+                          alt="where did it go?!"
+                        />
+                      </div>
 
-                    <CardContent>
-                      <Typography
-                        className="assetname"
-                        gutterBottom
-                        variant="h10"
-                        component="div"
-                      >
-                        Location: {p.location}
-                      </Typography>
-                      <Typography
-                        className="assetname"
-                        gutterBottom
-                        variant="h10"
-                        component="div"
-                      >
-                        Operation {p.Operation}
-                      </Typography>
-                    </CardContent>
-                  </Card>
-                </Popup>
-              )}
-            </div>
-          );
-        })}
-      </ReactMapGL>
-    </div>
+                      <CardContent>
+                        <Typography
+                          className="assetname"
+                          gutterBottom
+                          variant="h10"
+                          component="div"
+                        >
+                          Location: {p.location}
+                        </Typography>
+                        <Typography
+                          className="assetname"
+                          gutterBottom
+                          variant="h10"
+                          component="div"
+                        >
+                          Operation {p.Operation}
+                        </Typography>
+                      </CardContent>
+                    </Card>
+                  </Popup>
+                )}
+              </div>
+            );
+          })}
+        </ReactMapGL>
+      </div>
+    </>
   );
 }
 
