@@ -1,4 +1,4 @@
-import "../App.css";
+import "../map.css";
 import ReactMapGL, { Marker, Popup } from "react-map-gl";
 import { useEffect, useState } from "react";
 import axios from "axios";
@@ -9,21 +9,38 @@ import CardContent from "@mui/material/CardContent";
 import Card from "@mui/material/Card";
 import BlurCircularSharpIcon from "@mui/icons-material/BlurCircularSharp";
 import Header from "./Header";
+import { Link } from "react-router-dom";
+import logo from "../img/logo.png";
+import PublicIcon from "@mui/icons-material/Public";
 
 function Map() {
   const [currentPlaceId, setCurrentPlaceId] = useState(null);
   const [requestData, setRequestData] = useState([]);
   const [newPlace, setNewPlace] = useState(null);
+  const [show, setShow] = useState(true);
 
-  const [viewport, setViewport] = useState({
-    latitude: 47.040182,
-    longitude: 17.071727,
-    zoom: -5,
+  const [viewState, setViewState] = useState({
+    latitude: 50.196,
+    longitude: 6.8712,
+    zoom: 2,
   });
 
   const handleMarkerClick = (id, lat, long) => {
     setCurrentPlaceId(id);
-    setViewport({ ...viewport, latitude: lat, longitude: long });
+    setViewState({ ...viewState, latitude: lat, longitude: long, zoom: 5 });
+  };
+
+  const handleCoordClick = (id, lat, long) => {
+    setCurrentPlaceId(id);
+    setViewState({ ...viewState, latitude: lat, longitude: long, zoom: 5 });
+  };
+  const handleZoomOut = () => {
+    setViewState({
+      ...viewState,
+      latitude: 50.196,
+      longitude: 6.8712,
+      zoom: 2,
+    });
   };
 
   let pins = [];
@@ -120,23 +137,54 @@ function Map() {
   assignPins(requestData);
   return (
     <>
-      <Header />
+      <div className="loginheader">
+        {" "}
+        <Link to={"/approver"}>
+          <img src={logo} alt="alt"></img>
+        </Link>
+        <Link to={`/map`}>
+          {" "}
+          <PublicIcon
+            style={{ marginLeft: "100px", fontSize: 50, color: "maroon" }}
+            onClick={() => handleZoomOut()}
+          />
+        </Link>
+      </div>
       <div
         className="map-Container"
         style={{ height: "100vh", width: "100vw" }}
       >
         <ReactMapGL
-          initialViewState={{
-            longitude: 30,
-            latitude: 30,
-            zoom: 2,
-          }}
+          // initialViewState={{
+          //   longitude: 30,
+          //   latitude: 30,
+          //   zoom: 2,
+          // }}
+
           mapboxAccessToken="pk.eyJ1Ijoicm9tbWF0dDQiLCJhIjoiY2xicDk1N296MDV1cjNvbndrb2E1ZG52dCJ9.gRKG6MbVOmJ-hw2a421DSQ"
+          {...viewState}
+          onMove={(newview) => setViewState(newview.viewState)}
           width="100%"
           height="100%"
           projection="globe"
           mapStyle="mapbox://styles/rommatt4/clbqziswh000114oa65bu1hws"
         >
+          <div className="sidebar">
+            {pins.map((p, i) => {
+              console.log("2", p);
+              return (
+                <div key={p._id}>
+                  Operation:{p.Operation}|
+                  <BlurCircularSharpIcon
+                    onClick={() => {
+                      handleCoordClick(p._id, p.lat, p.long);
+                    }}
+                  />
+                </div>
+              );
+            })}{" "}
+          </div>
+
           {pins.map((p, i) => {
             console.log("p", p);
             return (
@@ -144,12 +192,12 @@ function Map() {
                 <Marker
                   latitude={p.lat}
                   longitude={p.long}
-                  offsetLeft={-3.5 * viewport.zoom}
-                  offsetTop={-7 * viewport.zoom}
+                  offsetLeft={-3.5 * viewState.zoom}
+                  offsetTop={-7 * viewState.zoom}
                 >
                   <BlurCircularSharpIcon
                     style={{
-                      fontSize: 2 * viewport.zoom,
+                      fontSize: 10 * viewState.zoom,
                       color:
                         p.ApprovalStatus === "Rejected"
                           ? "red"
