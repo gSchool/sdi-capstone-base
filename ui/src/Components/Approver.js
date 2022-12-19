@@ -116,7 +116,7 @@ function Approver() {
         {requestData
 
           .sort((a, b) =>
-            a.cmd_status === "Pending" && a.Request_ID > b.Request_ID ? -1 : 1
+            a.cmd_status === "Pending" && a.Request_ID > b.Request_ID ? -1 : ""
           )
           .map((card) => {
             return card.sme_status !== "Pending" ? (
