@@ -167,7 +167,7 @@ function Map() {
           mapStyle="mapbox://styles/rommatt4/clbqziswh000114oa65bu1hws"
         >
           <div className="sidebar">
-            {pins.map((p, i) => {
+            {pins.map((p) => {
               console.log("2", p);
               return (
                 <div key={p._id}>

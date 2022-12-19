@@ -7,7 +7,7 @@ const { faker } = require("@faker-js/faker");
 const createFakeRequests = () => {
   const fakeRequests = [];
 
-  for (let i = 0; i < 6; i++) {
+  for (let i = 0; i < 10; i++) {
     const request = {
       id: i,
       date: faker.date.soon(90, "2022-12-10T00:00:00:.000Z"),
