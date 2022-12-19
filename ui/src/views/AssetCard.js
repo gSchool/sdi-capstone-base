@@ -1,5 +1,4 @@
 import React from "react";
-
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
@@ -10,7 +9,7 @@ import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 const AssetCard = ({ asset, handleAdd }) => {
 
   return (
-    <Card elevation={3} style={{ height: '100%', backgroundColor: "#bfb48f", marginTop: 25 }}>
+    <Card elevation={3} style={{ height: '100%', backgroundColor: "#BAAC9Dff", marginTop: 25 }}>
       <CardActionArea>
         <CardMedia
           component="img"
@@ -28,13 +27,10 @@ const AssetCard = ({ asset, handleAdd }) => {
         </CardContent>
       </CardActionArea>
       <CardActions>
-
         <IconButton size="large" style={{ color: "#904E55" }}
           onClick={(e) => { handleAdd(e, asset); }}>
-          <AddShoppingCartIcon />
-
+          <AddShoppingCartIcon style={{ height: "35px", width: "35px"}}/>
         </IconButton>
-
       </CardActions>
     </Card>
   );

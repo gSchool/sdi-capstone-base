@@ -8,6 +8,7 @@ import Alert from "react-bootstrap/Alert";
 import { MdArrowCircleDown, MdArrowCircleUp, MdDeleteOutline } from "react-icons/md";
 import { useCookies } from 'react-cookie';
 import Modal from 'react-bootstrap/Modal';
+import './ShoppingCart.css';
 
 export default function ShoppingCart() {
     const [show, setShow] = useState([]); //toggle open and closing each item in cart

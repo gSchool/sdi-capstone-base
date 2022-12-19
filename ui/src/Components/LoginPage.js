@@ -1,4 +1,4 @@
-import "../App.css";
+import "./LoginPage.css";
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "react-bootstrap/Button";
@@ -143,15 +143,15 @@ function LoginPage() {
 
     if (isUser) {
       setUserCookie("userToken", thisUser, { path: "/" });
-
+      console.log(userCookie)
       navigate("/Home");
     } else if (isSME) {
       setSmeCookie("sme", thisSme, { path: "/" });
-
+      console.log(smeCookie)
       navigate("/SME");
     } else if (isCMD) {
       setCmdCookie("cmd", thisCmd, { path: "/" });
-
+      console.log(cmdCookie)
       navigate("/Approver");
     } else setShowAlert(true);
   }
@@ -242,7 +242,7 @@ function LoginPage() {
       <div className="loginoverall">
         <video autoPlay loop muted id="video">
           <source
-            src="https://download-video.akamaized.net/2/playback/f51547ca-5c63-4b2d-a972-210c3068f2ed/941c0fd4-fbce8f1a?__token__=st=1671117300~exp=1671131700~acl=%2F2%2Fplayback%2Ff51547ca-5c63-4b2d-a972-210c3068f2ed%2F941c0fd4-fbce8f1a%2A~hmac=481ce5db41ea3059a4402e268b504b7904eefc08e3283ecdf21b8fdd9440526c&r=dXMtZWFzdDE%3D"
+            src="https://download-video.akamaized.net/2/playback/f51547ca-5c63-4b2d-a972-210c3068f2ed/941c0fd4-fbce8f1a?__token__=st=1671222804~exp=1671237204~acl=%2F2%2Fplayback%2Ff51547ca-5c63-4b2d-a972-210c3068f2ed%2F941c0fd4-fbce8f1a%2A~hmac=bcf3cb4133124ce8e243bdad940572f6ab147521617a40cf4cc01fb3af5f46a9&r=dXMtZWFzdDE%3D"
             type="video/mp4"
           />
         </video>

@@ -1,0 +1,42 @@
+.adminPage {
+    display: grid;
+    text-align: center;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    padding-top: 20px;
+}
+
+.adminPage h1 {
+    text-decoration: underline;
+}
+
+.adminWholePage {
+    background-color: #F2EFE9;
+    padding-bottom: 20px;
+    margin-top: -100px;
+    cursor: default;
+}
+
+.adminGrid {
+    border-left: 1px solid #252627;
+    border-right: 1px solid #252627;
+}
+
+.adminPage h3 {
+    font-size: 22px;
+}
+
+.adminGrid button {
+    border: none
+}
+
+.individual {
+    padding-top: 10px;
+}
+
+.adminHeader {
+    text-align: center;
+}
+
+.adminGrid h1 {
+    font-size: 28px;
+}

@@ -1,4 +1,4 @@
-import '../App.css';
+import './Home.css';
 import React, { useEffect, useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import Header from './Header';

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { MdClose, MdMenu } from "react-icons/md";
 import { Link } from "react-router-dom";
-import "../SideMenu.css";
+import "./SideMenu.css";
 import { useCookies } from 'react-cookie';
 
 function SideMenu() {

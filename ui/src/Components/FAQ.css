@@ -1,0 +1,11 @@
+.FAQ {
+    color: #F2EFE9;
+    padding-left: 50px;
+    width: 800px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.FAQ h1 {
+    text-decoration: underline;
+}
