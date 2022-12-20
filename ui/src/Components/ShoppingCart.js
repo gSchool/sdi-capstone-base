@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Header from "./Header";
 import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
@@ -13,9 +13,6 @@ import {
 import { useCookies } from "react-cookie";
 import Modal from "react-bootstrap/Modal";
 import "./ShoppingCart.css";
-import Dropdown from "react-bootstrap/Dropdown";
-import DropdownButton from "react-bootstrap/DropdownButton";
-import InputGroup from "react-bootstrap/InputGroup";
 
 export default function ShoppingCart() {
   const [show, setShow] = useState([]); //toggle open and closing each item in cart
@@ -244,26 +241,7 @@ export default function ShoppingCart() {
                       <Row className="mb-3">
                         <Form.Group as={Col} controlId="formLocation">
                           <Form.Label>Mission Location</Form.Label>
-                          <InputGroup className="mb-3">
-                            <DropdownButton
-                              variant="outline-secondary"
-                              title="Dropdown"
-                              id="input-group-dropdown-1"
-                            >
-                              <Dropdown.Item href="#">Greece</Dropdown.Item>
-                              <Dropdown.Item href="#">
-                                Virgin Islands
-                              </Dropdown.Item>
-                              <Dropdown.Item href="#">
-                                Mexico City
-                              </Dropdown.Item>
-                              <Dropdown.Item href="#">Cancun</Dropdown.Item>
-                              <Dropdown.Item href="#">
-                                Afghanistan
-                              </Dropdown.Item>
-                              <Dropdown.Item>Spain</Dropdown.Item>
-                            </DropdownButton>
-                          </InputGroup>
+                          <Form.Control as="textarea" />
                         </Form.Group>
                         <Form.Group as={Col} controlId="formJustification">
                           <Form.Label>Justification</Form.Label>
