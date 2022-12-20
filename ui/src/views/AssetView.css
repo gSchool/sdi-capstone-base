@@ -1,5 +1,5 @@
-.assetCard:hover,
-.assetCard:focus {
-  box-shadow: 1 1em 1em -1em var(--hover);
-  transform: translateY(-0.45em);
+
+.assetCard:hover {
+  box-shadow: 0 8px 20px rgb(0 0 0 / 1);
+  transform: scale(1.02);
 }
