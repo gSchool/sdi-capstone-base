@@ -70,7 +70,7 @@ export default function ShoppingCart() {
             },
             body: JSON.stringify(item)
         })
-            .then(res => console.log("deleter", res));
+            .then(res => console.log("deleted", res));
     }
 
     //function to post request
@@ -107,7 +107,7 @@ export default function ShoppingCart() {
             mode: 'cors',
             body: JSON.stringify(data)
         })
-            .then(res => console.log("success", res));
+            .then(res => console.log("posted", res));
     }
 
     return (

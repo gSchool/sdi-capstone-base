@@ -10,46 +10,30 @@
     color: #252627
 }
 
-.home img {
-    width: 100%;
-    height: 500px;
-    object-fit: cover;
+.leftText {
+    position: absolute;
+    top: 20%;
+    right: 100%;
+    font-size: 100px;
+    background-color: rgba(37, 38, 39, 0.6);
+    color: #F2EFE9;
+    border-radius: 12px;
+    padding-left: 30px;
+    padding-right: 30px;
+    height: 130px;
 }
 
-.ISR {
+.rightText {
     position: absolute;
-    top: 75px;
-    right: 150px;
-}
-
-.Comms {
-    position: absolute;
-    top: 575px;
-    left: 150px;
-}
-
-.Mobility {
-    position: absolute;
-    top: 1075px;
-    right: 150px;
-}
-
-.Fires {
-    position: absolute;
-    top: 2075px;
-    right: 150px;
-}
-
-.Medical {
-    position: absolute;
-    top: 1575px;
-    left: 150px;
-}
-
-.Personnel {
-    position: absolute;
-    top: 2575px;
-    left: 150px;
+    top: 20%;
+    left: 100%;
+    font-size: 100px;
+    background-color: rgba(37, 38, 39, 0.6);
+    color: #F2EFE9;
+    border-radius: 12px;
+    padding-left: 30px;
+    padding-right: 30px;
+    height: 130px;
 }
 
 .scrollIcon {
@@ -70,4 +54,14 @@
 .scrollIcon button {
     border: none;
     background-color: transparent;
+}
+
+.ParallaxContent {
+    width: 100%;
+    height: 100vh;
+    object-fit: cover;
+}
+
+.react-parallax-content {
+    transform: scale(.3);
 }

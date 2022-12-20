@@ -308,6 +308,7 @@ export default function Requests() {
                         >
                           <TableCell>
                             <DeleteIcon
+                              cursor="pointer"
                               color="error"
                               onClick={() => handleClickDelete(row.Request_ID)}
                               inputProps={{
