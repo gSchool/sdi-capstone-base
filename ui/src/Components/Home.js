@@ -13,6 +13,7 @@ import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
 import Button from 'react-bootstrap/Button';
 import { useCookies } from 'react-cookie';
+import { Parallax } from 'react-parallax';
 
 function Home() {
     const [position, setPosition] = useState({ top: 0, left: 0 });
@@ -20,7 +21,7 @@ function Home() {
     const [userCookies] = useCookies(["user"]);
     const scrollTop = React.useRef();
     const navigate = useNavigate();
-    
+
     useEffect(() => {
         if (Object.keys(userCookies).length === 0) {
             navigate('/')
@@ -60,29 +61,47 @@ function Home() {
                 <>
                     <Header />
                     <div className="home">
-                        <Link to={`/Assets/ISR`} state={{ type: 'ISR', user: userCookies }}>
-                            <img src={logo1} alt="alt" />
-                            <h2 className="ISR">ISR</h2>
+                    <Link to={`/Assets/Communications`} state={{ type: 'Communications', user: userCookies }}>
+                            <Parallax strength={400} bgImage={logo2}>
+                                <div className="ParallaxContent">
+                                    <h2 className="leftText">Communications</h2>
+                                </div>
+                            </Parallax>
                         </Link>
-                        <Link to={`/Assets/Communications`} state={{ type: 'Communications', user: userCookies }}>
-                            <img src={logo2} alt="alt" />
-                            <h2 className="Comms">Communications</h2>
+                        <Link to={`/Assets/ISR`} state={{ type: 'ISR', user: userCookies }}>
+                            <Parallax strength={400} bgImage={logo1}>
+                                <div className="ParallaxContent">
+                                </div>
+                                    <h2 className="rightText">ISR</h2>
+                            </Parallax>
                         </Link>
                         <Link to={`/Assets/Mobility`} state={{ type: 'Transportation', user: userCookies }}>
-                            <img src={logo3} alt="alt" />
-                            <h2 className="Mobility">Mobility</h2>
+                            <Parallax strength={400} bgImage={logo3}>
+                                <div className="ParallaxContent">
+                                    <h2 className="leftText">Mobility</h2>
+                                </div>
+                            </Parallax>
                         </Link>
                         <Link to={`/Assets/Medical`} state={{ type: 'Medical', user: userCookies }}>
-                            <img src={logo4} alt="alt" />
-                            <h2 className="Medical">Medical</h2>
+                            <Parallax strength={400} bgImage={logo4}>
+                                <div className="ParallaxContent">
+                                    <h2 className="rightText">Medical</h2>
+                                </div>
+                            </Parallax>
                         </Link>
                         <Link to={`/Assets/Fires`} state={{ type: 'Fires', user: userCookies }}>
-                            <img src={logo5} alt="alt" />
-                            <h2 className="Fires">Fires</h2>
+                            <Parallax strength={400} bgImage={logo5}>
+                                <div className="ParallaxContent">
+                                    <h2 className="leftText">Fires</h2>
+                                </div>
+                            </Parallax>
                         </Link>
                         <Link to={`/Assets/Personnel`} state={{ type: 'Personnel', user: userCookies }}>
-                            <img src={logo6} alt="alt" />
-                            <h2 className="Personnel">Personnel</h2>
+                            <Parallax strength={400} bgImage={logo6}>
+                                <div className="ParallaxContent">
+                                    <h2 className="rightText">Personnel</h2>
+                                </div>
+                            </Parallax>
                         </Link>
                     </div>
                     <div className="scrollIcon" ref={scrollTop}>

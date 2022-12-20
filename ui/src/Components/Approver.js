@@ -95,7 +95,7 @@ function Approver() {
         <Link to={`/map`}>
           {" "}
           <PublicIcon
-            style={{ marginLeft: "100px", fontSize: 50, color: "maroon" }}
+            style={{ marginLeft: "100px", fontSize: 50, color: "#904E55" }}
           />
         </Link>
       </div>

@@ -73,7 +73,7 @@ export default function ShoppingCart() {
             },
             body: JSON.stringify(item)
         })
-            .then(res => console.log("deleter", res));
+            .then(res => console.log("deleted", res));
     }
 
     //Set uploaded file to state
@@ -113,6 +113,8 @@ export default function ShoppingCart() {
         const res = await axios.post('http://localhost:8080/checkout', formData);
 
         const { fileName, filePath } = res.data;
+
+
 
     }
 
