@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React, { useState, useEffect, useRef } from 'react';
 import Header from './Header';
 import Button from 'react-bootstrap/Button';
@@ -10,6 +11,23 @@ import { useCookies } from 'react-cookie';
 import Modal from 'react-bootstrap/Modal';
 import './ShoppingCart.css';
 import axios from 'axios';
+=======
+import React, { useState, useEffect, useRef } from "react";
+import Header from "./Header";
+import Button from "react-bootstrap/Button";
+import Col from "react-bootstrap/Col";
+import Form from "react-bootstrap/Form";
+import Row from "react-bootstrap/Row";
+import Alert from "react-bootstrap/Alert";
+import {
+  MdArrowCircleDown,
+  MdArrowCircleUp,
+  MdDeleteOutline,
+} from "react-icons/md";
+import { useCookies } from "react-cookie";
+import Modal from "react-bootstrap/Modal";
+import "./ShoppingCart.css";
+>>>>>>> 4f1c0d9a1df86db2c8ac6fc45c2b06633111bb04
 
 export default function ShoppingCart() {
     const [show, setShow] = useState([]); //toggle open and closing each item in cart
@@ -114,6 +132,7 @@ export default function ShoppingCart() {
 
         const { fileName, filePath } = res.data;
 
+<<<<<<< HEAD
     }
 
     return (
@@ -127,6 +146,167 @@ export default function ShoppingCart() {
                 <h4>Total Requests: {yourCart.length}</h4>
                 <h4>UTC: {time}</h4>
                 <h4>Username: {userCookies.userToken[1]}</h4>
+=======
+  return (
+    <div className="cartPage">
+      <Header />
+      {/* request page banner */}
+      <div className="requests">
+        <h2>Requests</h2>
+      </div>
+      <div className="cartInfo">
+        <h4>Total Requests: {yourCart.length}</h4>
+        <h4>UTC: {time}</h4>
+        <h4>Username: {userCookies.userToken[1]}</h4>
+      </div>
+      <div className="cartFormLine"></div>
+      {/* handler for when nothing is in the cart */}
+      {yourCart.length === 0 ? (
+        <div className="noCart">
+          <h2>You have not added any requests to your cart</h2>
+        </div>
+      ) : (
+        <>
+          {/* begining on map statement */}
+          {yourCart.map((item, idx) => (
+            <div className="Cart" key={idx}>
+              <>
+                {/* delete pop up notifiction */}
+                {showDelete.includes(item.id) ? (
+                  <Alert
+                    className="text-center"
+                    variant="dark"
+                    onClose={() => setShowAlert(false)}
+                  >
+                    <Alert.Heading>
+                      Are you sure you would like to remove {item.type}/{" "}
+                      {item.asset_name} from your cart?
+                    </Alert.Heading>
+                    <div className="deleteAlert">
+                      <Button
+                        onClick={() => {
+                          deleteHandler(item);
+                          setTimeout(() => {
+                            window.location.reload();
+                          }, 100);
+                        }}
+                        variant="outline-success"
+                      >
+                        Yes
+                      </Button>
+                      <Button
+                        onClick={() => {
+                          toggleDeleteHandler(item.id);
+                        }}
+                        variant="outline-danger"
+                      >
+                        No
+                      </Button>
+                    </div>
+                  </Alert>
+                ) : (
+                  ""
+                )}
+              </>
+              <div className="cartForm">
+                <div>
+                  {/* cart item head */}
+                  <div className="requestTitle">
+                    <h2>
+                      {item.type}/ {item.asset_name} |
+                      <button
+                        className="cartIcon"
+                        type="submit"
+                        onClick={() => {
+                          toggleDeleteHandler(item.id);
+                        }}
+                      >
+                        <MdDeleteOutline
+                          style={{ width: "30px", height: "30px" }}
+                        />
+                      </button>
+                      |
+                      {show.includes(item.id) ? (
+                        <button
+                          className="cartIcon"
+                          type="submit"
+                          onClick={() => {
+                            toggleHandler(item.id);
+                          }}
+                        >
+                          <MdArrowCircleUp
+                            style={{ width: "30px", height: "30px" }}
+                          />
+                        </button>
+                      ) : (
+                        <button
+                          className="cartIcon"
+                          type="submit"
+                          onClick={() => {
+                            toggleHandler(item.id);
+                          }}
+                        >
+                          <MdArrowCircleDown
+                            style={{ width: "30px", height: "30px" }}
+                          />
+                        </button>
+                      )}
+                    </h2>
+                  </div>
+                  {/* cart submit form */}
+                  {show.includes(item.id) ? (
+                    <Form
+                      className="cartSubmit"
+                      onSubmit={() => submitRequest(event, item)}
+                    >
+                      <Row className="mb-3">
+                        <Form.Group as={Col} controlId="formDate">
+                          <Form.Label>Dates</Form.Label>
+                          <Form.Control type="text" />
+                        </Form.Group>
+                        <Form.Group as={Col} controlId="formTitle">
+                          <Form.Label>Mission Title</Form.Label>
+                          <Form.Control type="text" />
+                        </Form.Group>
+                      </Row>
+                      <Row className="mb-3">
+                        <Form.Group as={Col} controlId="formLocation">
+                          <Form.Label>Mission Location</Form.Label>
+                          <Form.Control as="textarea" />
+                        </Form.Group>
+                        <Form.Group as={Col} controlId="formJustification">
+                          <Form.Label>Justification</Form.Label>
+                          <Form.Control as="textarea" />
+                        </Form.Group>
+                      </Row>
+                      <Button
+                        variant="primary"
+                        type="submit"
+                        onClick={() => setModalShow(true)}
+                      >
+                        Submit
+                      </Button>
+                    </Form>
+                  ) : (
+                    ""
+                  )}
+                </div>
+                {/* cart image */}
+                <div className="cartImg">
+                  {show.includes(item.id) ? (
+                    <img src={item.image_url} alt="alt" />
+                  ) : (
+                    ""
+                  )}
+                </div>
+                {/* modal that pops up when cart success */}
+                <RequestSuccessModal
+                  show={modalShow}
+                  onHide={() => setModalShow(false)}
+                />
+              </div>
+              <div className="cartFormLine"></div>
+>>>>>>> 4f1c0d9a1df86db2c8ac6fc45c2b06633111bb04
             </div>
             <div className="cartFormLine"></div>
             {/* handler for when nothing is in the cart */}

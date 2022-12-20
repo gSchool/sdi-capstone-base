@@ -120,6 +120,32 @@ function Map() {
           long: 3.7492,
           lat: 40.4637,
         });
+      } else if (requestData[i].location === "Hawaii") {
+        pins.push({
+          _id: requestData[i].Request_ID,
+          Operation: requestData[i].mission_title,
+          Country: requestData[i].location,
+          SMECONC: requestData[i].sme_status,
+          User_first: requestData[i].User_first,
+          ApprovalStatus: requestData[i].cmd_status,
+          image: requestData[i].image_url,
+          location: requestData[i].location,
+          long: 95.7129,
+          lat: 37.0902,
+        });
+      } else if (requestData[i].location === "Greenland") {
+        pins.push({
+          _id: requestData[i].Request_ID,
+          Operation: requestData[i].mission_title,
+          Country: requestData[i].location,
+          SMECONC: requestData[i].sme_status,
+          User_first: requestData[i].User_first,
+          ApprovalStatus: requestData[i].cmd_status,
+          image: requestData[i].image_url,
+          location: requestData[i].location,
+          long: 42.6043,
+          lat: 71.7069,
+        });
       }
     }
   };
