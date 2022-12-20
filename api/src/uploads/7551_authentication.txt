@@ -1,0 +1,28 @@
+
+    // useEffect(() => {
+    //     fetch('http://localhost:8080/login')
+    //     .then((response) => response.json())
+    //     .then((data) => {
+    //     let bool = false
+    //     for (let i = 0; i < data.length; i++) {
+    //         let testThis = data[i].id + data[i].username
+    //         console.log(testThis)
+    //         if (userCookies.userToken === undefined) {
+    //             navigate('/')
+    //         } else if (bcrypt.compareSync(testThis, userCookies.userToken)) {
+    //             setUser({id: data[i].id, username: data[i].username})
+    //             setHasCookie(true)
+    //             bool = true
+    //             break
+    //         }
+    //         if (bool) {
+    //         navigate('/')
+    //         }
+    //     }
+    // })
+    // }, [])
+ 
+    // async function isCookie() {
+    //     let res = await hasCookie
+    //     return res
+    // }
