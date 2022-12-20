@@ -76,6 +76,7 @@ exports.up = function (knex) {
       table.text("justification");
       table.string("sme_status", 255);
       table.string("cmd_status", 255);
+      table.string("file", 255);
       table.integer("user_id");
       table
         .foreign("user_id")

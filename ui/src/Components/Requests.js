@@ -264,6 +264,8 @@ export default function Requests() {
     };
     getRequestData();
   }, [confirmShow]);
+
+  console.log(requestData)
   return (
     <div className="wrapper">
       <Header></Header>

@@ -9,6 +9,7 @@ import { MdArrowCircleDown, MdArrowCircleUp, MdDeleteOutline } from "react-icons
 import { useCookies } from 'react-cookie';
 import Modal from 'react-bootstrap/Modal';
 import './ShoppingCart.css';
+import axios from 'axios';
 
 export default function ShoppingCart() {
     const [show, setShow] = useState([]); //toggle open and closing each item in cart
@@ -17,6 +18,8 @@ export default function ShoppingCart() {
     const [modalShow, setModalShow] = useState(false); //toggles the modal indicating successful submission
     const [userCookies] = useCookies(["user"]); //users cookie
     let time = new Date().toISOString(); //current utc time
+    const [file, setFile] = useState('');//Uploaded File
+    const [filename, setFilename] = useState('Choose File');//File name
 
     //fetch for cart, then filter for users cart items
     useEffect(() => {
@@ -73,8 +76,15 @@ export default function ShoppingCart() {
             .then(res => console.log("deleter", res));
     }
 
+    //Set uploaded file to state
+    const onChange = e => {
+        setFile(e.target.files[0]);
+        setFilename(e.target.files[0].name);
+    };
+    console.log(file)
+
     //function to post request
-    function submitRequest(event, item) {
+    async function submitRequest(event, item) {
         event.preventDefault()
         event.stopPropagation()
         deleteHandler(item)
@@ -87,27 +97,23 @@ export default function ShoppingCart() {
         let asset_id = item.id
         let sme_id = item.sme_id
         let user_id = item.user_id
+        let cmd_id = 1
+        const formData = new FormData();
+        formData.append('date', date);
+        formData.append('missionTitle', missionTitle);
+        formData.append('location', location);
+        formData.append('justification', justification);
+        formData.append('status', status);
+        formData.append('asset_id', asset_id);
+        formData.append('sme_id', sme_id);
+        formData.append('user_id', user_id);
+        formData.append("cmd_id", cmd_id);
+        formData.append('file', file);
 
-        let data = {
-            "date": date,
-            "location": location,
-            "mission_title": missionTitle,
-            "justification": justification,
-            "sme_status": status,
-            "cmd_status": status,
-            "user_id": user_id,
-            "asset_id": asset_id,
-            "sme_id": sme_id,
-            "cmd_id": "1"
-        }
+        const res = await axios.post('http://localhost:8080/checkout', formData);
 
-        fetch('http://localhost:8080/checkout', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            mode: 'cors',
-            body: JSON.stringify(data)
-        })
-            .then(res => console.log("success", res));
+        const { fileName, filePath } = res.data;
+
     }
 
     return (
@@ -126,11 +132,11 @@ export default function ShoppingCart() {
             {/* handler for when nothing is in the cart */}
             {yourCart.length === 0 ? <div className="noCart"><h2>You have not added any requests to your cart</h2></div> :
                 <>
-                {/* begining on map statement */}
+                    {/* begining on map statement */}
                     {yourCart.map((item, idx) => (
                         <div className="Cart" key={idx}>
                             <>
-                            {/* delete pop up notifiction */}
+                                {/* delete pop up notifiction */}
                                 {showDelete.includes(item.id) ?
                                     <Alert
                                         className="text-center"
@@ -203,6 +209,10 @@ export default function ShoppingCart() {
                                                 <Form.Group as={Col} controlId="formJustification">
                                                     <Form.Label>Justification</Form.Label>
                                                     <Form.Control as="textarea" />
+                                                </Form.Group>
+                                                <Form.Group controlId="formFile" className="mb-3" onChange={onChange} type="file">
+                                                    <Form.Label>Attach Supporting Documnents</Form.Label>
+                                                    <Form.Control type="file" />
                                                 </Form.Group>
                                             </Row>
                                             <Button variant="primary" type="submit" onClick={() => setModalShow(true)}>
