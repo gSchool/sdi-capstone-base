@@ -109,30 +109,30 @@ function SME() {
 
     const renderRejectedTooltip = (props) => (
         <Tooltip id="button-tooltip" {...props}>
-          Your Rejections
+            Your Rejections
         </Tooltip>
-      );
+    );
 
-      const renderApprovedTooltip = (props) => (
+    const renderApprovedTooltip = (props) => (
         <Tooltip id="button-tooltip" {...props}>
-          Your Approvals
+            Your Approvals
         </Tooltip>
-      );
+    );
 
-      console.log(requestData)
+    console.log(requestData)
 
     return (
         <div className="smePage">
             <div className="smeheader">
                 <nav className="rejectedNav">
-                <OverlayTrigger
-            placement="right"
-            delay={{ show: 300, hide: 400 }}
-            overlay={renderRejectedTooltip}
-          >
-                    <button onClick={handleShowRejected}>
-                        <GppBadTwoToneIcon style={{ height: "40px", width: "40px", color: "#904E55" }} />
-                    </button>
+                    <OverlayTrigger
+                        placement="right"
+                        delay={{ show: 300, hide: 400 }}
+                        overlay={renderRejectedTooltip}
+                    >
+                        <button onClick={handleShowRejected}>
+                            <GppBadTwoToneIcon style={{ height: "40px", width: "40px", color: "#904E55" }} />
+                        </button>
                     </OverlayTrigger>
                     <ul className={`rejectedMenuNav ${showRejected ? "RejectedshowMenu" : ""}`}>
                         {rejected.map((rejects) => {
@@ -148,14 +148,14 @@ function SME() {
                 </nav>
                 <img src={logo} alt="alt" />
                 <nav className="approvedNav">
-                <OverlayTrigger
-            placement="left"
-            delay={{ show: 300, hide: 400 }}
-            overlay={renderApprovedTooltip}
-          >
-                    <button onClick={handleShowApproved}>
-                        <GppGoodIcon style={{ height: "40px", width: "40px", color: "#904E55" }} />
-                    </button>
+                    <OverlayTrigger
+                        placement="left"
+                        delay={{ show: 300, hide: 400 }}
+                        overlay={renderApprovedTooltip}
+                    >
+                        <button onClick={handleShowApproved}>
+                            <GppGoodIcon style={{ height: "40px", width: "40px", color: "#904E55" }} />
+                        </button>
                     </OverlayTrigger>
                     <ul className={`approvedMenuNav ${showApproved ? "approvedShowMenu" : ""}`}>
                         {approved.map((approvals) => {
@@ -173,7 +173,7 @@ function SME() {
             <h1>
                 Welcome! You have {countState} Pending requests
             </h1>
-           <div className="smeCardContainer">
+            <div className="smeCardContainer">
                 {requestData.map((card) => {
                     return (
                         <div className="smecard" key={card.Request_ID}>
@@ -227,7 +227,10 @@ function SME() {
                                         </h5>
                                     </div>
                                     {show.includes(card.Request_ID) ? (
-                                        <p>{card.justification}</p>
+                                        <>
+                                            <p>{card.justification}</p>
+                                            <a href={`http://localhost:8080/uploads/${card.file}`}>Supporting Docs</a>
+                                        </>
                                     ) : (
                                         ""
                                     )}

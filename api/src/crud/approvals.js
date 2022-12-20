@@ -19,9 +19,10 @@ router.get("/", async (req, res) => {
         "date",
         "location",
         "mission_title",
-        "justification", 
+        "justification",
         "sme_status",
         "cmd_status",
+        "file",
         "asset.image_url",
         "all_users.first_name as User_first",
         "all_users.last_name as User_last",
@@ -61,17 +62,17 @@ router.patch("/cmd/:id", async (req, res) => {
 });
 
 router.patch("/sme/:id", async (req, res) => {
-    const updatedId = parseInt(req.params.id);
-    try {
-      let updatedRequest = {
-        sme_status: req.body.sme_status,
-      };
-      await knex("request").where("id", updatedId).update(updatedRequest);
-      res.status(200).send("Request Updated");
-    } catch (e) {
-      console.log("Error in patching unit:", e);
-    }
-  });
+  const updatedId = parseInt(req.params.id);
+  try {
+    let updatedRequest = {
+      sme_status: req.body.sme_status,
+    };
+    await knex("request").where("id", updatedId).update(updatedRequest);
+    res.status(200).send("Request Updated");
+  } catch (e) {
+    console.log("Error in patching unit:", e);
+  }
+});
 
 router.delete("/:id", async (req, res) => {
   try {

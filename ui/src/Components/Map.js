@@ -11,6 +11,7 @@ import BlurCircularSharpIcon from "@mui/icons-material/BlurCircularSharp";
 import { Link } from "react-router-dom";
 import logo from "../img/logo.png";
 import PublicIcon from "@mui/icons-material/Public";
+import ZoomInMapIcon from "@mui/icons-material/ZoomInMap";
 
 function Map() {
   const [currentPlaceId, setCurrentPlaceId] = useState(null);
@@ -91,8 +92,8 @@ function Map() {
           ApprovalStatus: requestData[i].cmd_status,
           image: requestData[i].image_url,
           location: requestData[i].location,
-          long: 64.8963,
-          lat: 18.3358,
+          long: -64,
+          lat: 18.297878,
         });
       } else if (requestData[i].location === "Cancun") {
         pins.push({
@@ -118,6 +119,32 @@ function Map() {
           location: requestData[i].location,
           long: 3.7492,
           lat: 40.4637,
+        });
+      } else if (requestData[i].location === "Hawaii") {
+        pins.push({
+          _id: requestData[i].Request_ID,
+          Operation: requestData[i].mission_title,
+          Country: requestData[i].location,
+          SMECONC: requestData[i].sme_status,
+          User_first: requestData[i].User_first,
+          ApprovalStatus: requestData[i].cmd_status,
+          image: requestData[i].image_url,
+          location: requestData[i].location,
+          long: 95.7129,
+          lat: 37.0902,
+        });
+      } else if (requestData[i].location === "Greenland") {
+        pins.push({
+          _id: requestData[i].Request_ID,
+          Operation: requestData[i].mission_title,
+          Country: requestData[i].location,
+          SMECONC: requestData[i].sme_status,
+          User_first: requestData[i].User_first,
+          ApprovalStatus: requestData[i].cmd_status,
+          image: requestData[i].image_url,
+          location: requestData[i].location,
+          long: 42.6043,
+          lat: 71.7069,
         });
       }
     }
@@ -167,7 +194,7 @@ function Map() {
           mapStyle="mapbox://styles/rommatt4/clbqziswh000114oa65bu1hws"
         >
           <div className="sidebar">
-            {pins.map((p, i) => {
+            {pins.map((p) => {
               console.log("2", p);
               return (
                 <div key={p._id}>
@@ -175,7 +202,10 @@ function Map() {
                   {p.ApprovalStatus === "Approved" ? (
                     <div>
                       <div style={{ color: "green" }}>{p.Operation}</div>
-                      <BlurCircularSharpIcon
+                      <ZoomInMapIcon
+                        style={{
+                          cursor: "pointer",
+                        }}
                         onClick={() => {
                           handleCoordClick(p._id, p.lat, p.long);
                         }}
@@ -184,7 +214,10 @@ function Map() {
                   ) : p.ApprovalStatus === "Pending" ? (
                     <div>
                       <div style={{ color: "yellow" }}>{p.Operation}</div>
-                      <BlurCircularSharpIcon
+                      <ZoomInMapIcon
+                        style={{
+                          cursor: "pointer",
+                        }}
                         onClick={() => {
                           handleCoordClick(p._id, p.lat, p.long);
                         }}
@@ -193,7 +226,10 @@ function Map() {
                   ) : (
                     <div>
                       <div style={{ color: "red" }}>{p.Operation}</div>
-                      <BlurCircularSharpIcon
+                      <ZoomInMapIcon
+                        style={{
+                          cursor: "pointer",
+                        }}
                         onClick={() => {
                           handleCoordClick(p._id, p.lat, p.long);
                         }}
