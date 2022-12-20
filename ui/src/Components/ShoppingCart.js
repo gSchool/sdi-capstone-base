@@ -107,7 +107,7 @@ export default function ShoppingCart() {
         formData.append('asset_id', asset_id);
         formData.append('sme_id', sme_id);
         formData.append('user_id', user_id);
-        formData.append("cmd_id", cmd_id);
+        formData.append("cmd_id", cmd_id)
         formData.append('file', file);
 
         const res = await axios.post('http://localhost:8080/checkout', formData);
