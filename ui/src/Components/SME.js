@@ -229,7 +229,7 @@ function SME() {
                                     {show.includes(card.Request_ID) ? (
                                         <>
                                             <p>{card.justification}</p>
-                                            <a href={`http://localhost:8080/uploads/${card.file}`}>Supporting Docs</a>
+                                            {card.file === "No File Uploaded" ? "" : <a href={`http://localhost:8080/uploads/${card.file}`}>Supporting Docs</a>}
                                         </>
                                     ) : (
                                         ""

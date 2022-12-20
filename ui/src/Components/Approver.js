@@ -226,7 +226,12 @@ function Approver() {
                           >
                             Requested by: {card.User_first}
                           </Typography>
-                          <Typography>{card.justification}</Typography>{" "}
+                          <Typography>
+                            <>
+                              <p>{card.justification}</p>
+                              {card.file === "No File Uploaded" ? "" : <a href={`http://localhost:8080/uploads/${card.file}`}>Supporting Docs</a>}
+                            </>
+                          </Typography>{" "}
                         </div>
                       ) : (
                         ""
