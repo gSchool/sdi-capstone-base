@@ -2,4 +2,5 @@
 .assetCard:hover {
   box-shadow: 0 8px 20px rgb(0 0 0 / 1);
   transform: scale(1.02);
+  transition: all .3s ease-in-out;
 }

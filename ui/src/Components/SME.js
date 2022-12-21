@@ -3,7 +3,6 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "@fontsource/public-sans";
 import logo from "../img/logo.png";
-import Container from "@mui/material/Container";
 import Modal from "react-bootstrap/Modal";
 import { MdArrowCircleDown, MdArrowCircleUp } from "react-icons/md";
 import { useCookies } from "react-cookie";
@@ -102,8 +101,8 @@ function SME() {
                 }
                 setCountState(count.length);
                 setRequestData(thesePendings);
-                setRejected(theseRejected)
-                setApproved(theseApproved)
+                setRejected(theseRejected);
+                setApproved(theseApproved);
             });
     }, [confirmShow]);
 
