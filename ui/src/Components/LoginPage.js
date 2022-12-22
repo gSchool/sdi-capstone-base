@@ -242,7 +242,7 @@ function LoginPage() {
       <div className="loginoverall">
         <video autoPlay loop muted id="video">
           <source
-            src="https://download-video.akamaized.net/2/playback/f51547ca-5c63-4b2d-a972-210c3068f2ed/941c0fd4-fbce8f1a?__token__=st=1671549249~exp=1671563649~acl=%2F2%2Fplayback%2Ff51547ca-5c63-4b2d-a972-210c3068f2ed%2F941c0fd4-fbce8f1a%2A~hmac=5e8f906ab8adaf69c8f3cb24b9d06f6203a5db99cf1c53c0a53033bd68dae0a0&r=dXMtZWFzdDE%3D"
+            src="https://download-video.akamaized.net/2/playback/f51547ca-5c63-4b2d-a972-210c3068f2ed/941c0fd4-fbce8f1a?__token__=st=1671657558~exp=1671671958~acl=%2F2%2Fplayback%2Ff51547ca-5c63-4b2d-a972-210c3068f2ed%2F941c0fd4-fbce8f1a%2A~hmac=bbf3db05084d4f17eecf03d3a5a8e1cb27f18b8f57643804ce915990340ea7a8&r=dXMtZWFzdDE%3D"
             type="video/mp4"
           />
         </video>
@@ -254,11 +254,11 @@ function LoginPage() {
           <Row className="mb-3">
             <Form.Group as={Col} controlId="formGridInitialUser">
               <Form.Label>Username</Form.Label>
-              <Form.Control type="text" placeholder="JohnDoe123" />
+              <Form.Control type="text"  />
             </Form.Group>
             <Form.Group as={Col} controlId="formGridInitialPass">
               <Form.Label>Password</Form.Label>
-              <Form.Control type="password" placeholder="123456789" />
+              <Form.Control type="password" />
             </Form.Group>
           </Row>
           <Button

@@ -8,7 +8,7 @@
     width: 100%;
     background-color: #F2EFE9;
     text-align: center;
-    z-index: 2;
+    padding-left: 10%;
 }
 
 .mapheader img {
