@@ -13,7 +13,7 @@ services:
      - POSTGRES_USER=postgres
      - POSTGRES_PASSWORD=docker
      - POSTGRES_PORT=5432
-     - POSTGRES_DB=capstone
+     - POSTGRES_DB=fortis_bellator
     ports:
      - '5432:5432'
     healthcheck:
@@ -29,7 +29,7 @@ services:
     image: dpage/pgadmin4
     restart: always
     environment:
-      PGADMIN_DEFAULT_EMAIL: phillip.witkin@galvanize.com
+      PGADMIN_DEFAULT_EMAIL: mfouquier1@gmail.com
       PGADMIN_DEFAULT_PASSWORD: docker
       PGADMIN_LISTEN_PORT: 80
     ports:
@@ -53,7 +53,7 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=docker
       - POSTGRES_PORT=5432
-      - POSTGRES_DB=capstone
+      - POSTGRES_DB=fortis_bellator
     volumes:
       - type: bind
         source: ./api

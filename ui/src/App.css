@@ -1,0 +1,32 @@
+/* application wide */
+
+@font-face {
+    font-family: "expressway";
+    src: url(./fonts/expressway.ttf) format('truetype')
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.App {
+    background-size: cover;
+    min-height: 100vh;
+    width: 100%;
+    background-color: rgba(35, 55, 75, 0.9);
+    color: #252627;
+    font-family: expressway;
+    padding-top: 100px !important;
+    animation-name: fadeInOpacity;
+    animation-iteration-count: 1;
+    animation-timing-function: ease-in;
+    animation-duration: .2s;
+    position: relative;
+    padding-bottom: 100px;
+}
+
+
+
+
+

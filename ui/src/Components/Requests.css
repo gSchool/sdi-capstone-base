@@ -1,0 +1,24 @@
+
+.table-container {
+    position: relative;
+}
+
+.headcells{
+    background-color: rgba(35, 55, 75, 0.9);
+    color: aliceblue !important;
+}
+
+
+.request-title{
+    text-align: center;
+    font-size: larger;
+    font-family: monospace;
+}
+
+.finalrow{
+   background-color:  rgba(35, 55, 75, 0.9);
+   color:
+    aliceblue !important;
+}
+
+

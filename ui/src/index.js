@@ -1,13 +1,17 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React from "react";
+import ReactDOM from "react-dom";
+import App from "./App";
+import "bootstrap/dist/css/bootstrap.min.css";
+import { CookiesProvider } from "react-cookie";
+import reportWebVitals from "./reportWebVitals";
+import "mapbox-gl/dist/mapbox-gl.css";
 
 ReactDOM.render(
-  <React.StrictMode>
+  <CookiesProvider>
     <App />
-  </React.StrictMode>,
-  document.getElementById('root')
+  </CookiesProvider>,
+
+  document.getElementById("root")
 );
 
 // If you want to start measuring performance in your app, pass a function

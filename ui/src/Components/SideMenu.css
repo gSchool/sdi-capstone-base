@@ -1,0 +1,102 @@
+
+/* Link styling */
+
+.navBar a {
+    padding-left: 40px;
+    padding-right: 40px;
+    text-decoration: none;
+    font-size: 13px;
+    display: block;
+    transition: 0.3s;
+    color: #904E55
+  }
+  
+/* Acutal button */
+
+  .navBar button {
+    position: fixed;
+    z-index: 10;
+    cursor: pointer;
+    padding: 0;
+    border: none;
+    background: none;
+  }
+
+  /* Icon rotate animation */
+
+  .rotate {
+    -webkit-animation:spin .5s ease 1;
+    -moz-animation:spin .5s ease 1;
+    animation:spin .5s ease 1;
+  }
+
+  @-moz-keyframes spin { 
+    100% { -moz-transform: rotate(360deg); } 
+  }
+  @-webkit-keyframes spin { 
+    100% { -webkit-transform: rotate(360deg); } 
+  }
+  @keyframes spin { 
+    100% { 
+        -webkit-transform: rotate(360deg); 
+        transform:rotate(360deg); 
+    } 
+  }
+
+  /*Handles the menu styling*/
+  
+  .menuNav {
+    color:black;
+    list-style-type:none;
+    position: fixed;
+    background-color: #F2EFE9;
+    top:0;
+    left:0;
+    transform: translate3d(0, -300px, 0);
+    transition-duration: 1.2s;
+    width: 100%;
+    height: 170px;
+    z-index: 9;
+    overflow: hidden;
+    visibility: hidden; 
+  }
+  
+  .menuNav.showMenu {
+    position: fixed;
+    transform: translate3d(0, 0, 0);
+    transition-duration: 1.2s;
+    visibility: visible;
+  }
+
+  /*Handles styling the list items*/
+  
+  .menuNav li:first-child {
+    margin-top: 0rem;
+    overflow: hidden;
+  }
+
+  .menuOptions {
+    display:flex;
+    justify-content: center;
+    padding: 50px;
+    margin-top: 70px;
+    cursor: pointer
+  }
+
+  .menuOptions a:hover {
+    color: #904E55
+  }
+
+ .navBar li:not(:last-child) {
+    margin-bottom: 50px;
+}
+
+.navBar li {
+    cursor:pointer;
+    transition: all .2s ease-in-out; 
+}
+
+.navBar li:hover {
+  /* text-decoration: underline; */
+  transform: scale(1.3); 
+}

@@ -1,0 +1,125 @@
+.cartForm {
+    text-align: center;
+    display: grid;
+    grid-template-columns: 50% 50%;
+    margin-bottom: 10px;
+}
+
+.cartPage {
+    opacity: 1;
+    color: #F2EFE9;
+    animation-name: fadeInOpacity;
+    animation-iteration-count: 1;
+    animation-timing-function: ease-in;
+    animation-duration: 1s;
+}
+
+@keyframes fadeInOpacity {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+.cartSubmit textarea {
+    height: 100px !important
+}
+
+.cartImg {
+    margin: auto;
+    text-align: center;
+    padding-top: 10px;
+}
+
+.cartImg img {
+    box-shadow: 0 5px 14px rgb(0 0 0 / 1);
+    width: 500px;
+    height: 300px;
+
+}
+
+.cartFormLine {
+    height: 1px;
+    background-color: #252627;
+}
+
+.cartSubmit {
+    width: 600px;
+    padding-top: 10px;
+    padding: 10px;
+    margin: auto;
+}
+
+.deleteAlert {
+    padding-top: 20px !important;
+    text-align: center !important;
+}
+
+.deleteAlert button {
+    margin: 15px !important;
+    width: 100px !important
+}
+
+.cartInfo {
+    margin-top: 15px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    text-align: center;
+    cursor: default
+}
+
+.requests {
+    text-align: center;
+    margin-bottom: 15px;
+    text-decoration: underline;
+}
+
+.cartSubmitArea {
+    text-align: center;
+}
+
+.text-center {
+    margin-top: 20px !important;
+}
+
+.noCart {
+    margin-top: 50px;
+    text-align: center;
+}
+
+.requestTitle {
+    margin-top: 15px;
+}
+
+.requestTitle h2 {
+    font-size: 20px;
+    cursor: default;
+}
+
+.requestTitle button {
+    background-color: transparent;
+    border: none;
+}
+
+.cartIcon svg {
+    color: #BAAC9Dff
+}
+
+.cartIcon svg:hover {
+    color: #904E55;
+    transition: 200ms;
+    transition-timing-function: ease-in-out;
+    -webkit-transition: 200ms;
+    -webkit-transition-timing-function: ease-in-out;
+}
+
+.requests h2 {
+    color: #BAAC9Dff;
+    cursor: default
+}
+
+
+

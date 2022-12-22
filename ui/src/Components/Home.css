@@ -1,0 +1,67 @@
+.home {
+    position: relative;
+}
+
+.home a {
+    color: #252627
+}
+
+.home a:hover {
+    color: #252627
+}
+
+.leftText {
+    position: absolute;
+    top: 20%;
+    right: 100%;
+    font-size: 100px;
+    background-color: rgba(37, 38, 39, 0.6);
+    color: #F2EFE9;
+    border-radius: 12px;
+    padding-left: 30px;
+    padding-right: 30px;
+    height: 130px;
+}
+
+.rightText {
+    position: absolute;
+    top: 20%;
+    left: 100%;
+    font-size: 100px;
+    background-color: rgba(37, 38, 39, 0.6);
+    color: #F2EFE9;
+    border-radius: 12px;
+    padding-left: 30px;
+    padding-right: 30px;
+    height: 130px;
+}
+
+.scrollIcon {
+    display: none;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    padding: 80px;
+    vertical-align: middle;
+    border: none
+}
+
+.scrollIcon p {
+    font-size: 10px;
+    margin-top: -25px;
+}
+
+.scrollIcon button {
+    border: none;
+    background-color: transparent;
+}
+
+.ParallaxContent {
+    width: 100%;
+    height: 100vh;
+    object-fit: cover;
+}
+
+.react-parallax-content {
+    transform: scale(.3);
+}

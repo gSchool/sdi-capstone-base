@@ -1,0 +1,115 @@
+.ApproverPage {
+    margin-top: -100px;
+    color: #F2EFE9;
+    cursor: default;
+}
+
+.approverHeader {
+    height: 100px;
+    width: 100%;
+    background-color: #F2EFE9;
+    text-align: center;
+    padding-left: 10%;
+}
+
+.approverHeader img {
+    width: 750px;
+    height: auto;
+    padding-top: 10px;
+}
+
+.approverGrid {
+    padding: 20px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    background-color: rgba(186, 172, 157, 0.808);
+    margin-left: 100px;
+    margin-right: 100px;
+    margin-top: 30px;
+    border-radius: 10px;
+    color: #252627;
+    box-shadow: 0 3px 6px rgb(0 0 0 / 1);
+    transition: all .2s ease-in-out;
+}
+
+.approverGrid:hover {
+    box-shadow: 0 8px 20px rgb(0 0 0 / 1);
+    transform: scale(1.01);
+}
+
+.ApproverPage h1 {
+    text-align: center;
+    font-size: 25px;
+    margin-top: 20px;
+}
+
+.approverGridStart {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.approverGridMid {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.approverGridMid h2 {
+    padding-bottom: 10px;
+    text-decoration: underline;
+}
+
+.approverGridMid img {
+    box-shadow: 0 3px 6px rgb(0 0 0 / 1);
+}
+
+.approverGridEnd {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.approverJustification button{
+    background-color: transparent;
+    border: none; 
+}
+
+.approval button {
+    margin-top: 10px;
+    border: 1px solid black;
+    border-radius: 5px;
+    color: #F2EFE9;
+    cursor: default
+}
+
+.rejected {
+    background-color: #904E55;
+    margin-right: 10px;
+    width: 120px;
+    height: 30px;
+    cursor: default
+}
+
+.approved {
+    margin-right: 10px;
+    width: 120px;
+    height: 30px;
+    background-color: #5b904e;
+    cursor: default
+}
+
+
+
+
+
+
+
+
+
