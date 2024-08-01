@@ -35,3 +35,5 @@ to run against the running database (if 'docker-compose up' has been executed)
 
 Check Heroku Logs
 `heroku logs --tail -a bsdi-poc-api`
+
+code that I want to commit. 
